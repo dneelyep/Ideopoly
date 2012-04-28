@@ -567,7 +567,7 @@ public class IdeopolyGUI implements ActionListener {
 			    break;
 			case 4:   // "Get Out of Jail Free – this card may be kept until needed, or sold"
 			    // TODO: Repeated later as well.
-			    p.giveGetOutOfJailFree();
+			    p.giveGOOJF();
 			    break;
 			case 5:   // "Go to Jail – go directly to jail – Do not pass Go, do not collect $200"
 			    // TODO: This repeated later.
@@ -765,7 +765,7 @@ public class IdeopolyGUI implements ActionListener {
 			    p.setCash("fifties", 1);
 			    break;
 			case 7:  //"Get out of Jail Free – this card may be kept until needed, or traded/sold"
-			    p.giveGetOutOfJailFree();
+			    p.giveGOOJF();
 			    break;
 			case 8:  //"Go back 3 spaces"
 			    p.setPosition(p.getPosition() - 12);
@@ -1060,18 +1060,45 @@ public class IdeopolyGUI implements ActionListener {
 	}
 	// Use a card and take the main player out of jail.
 	else if ( eventSource.equals("Use get out of jail free card") ) {
+
+
+
+
 	    // TODO: Disable this when the player's not on a jail cell.
-	    if (players[0].getNumGOOJFCards() == 0) {
-		// TODO: Make an updateStatus() function that, given a string as an input,
-		//       updates the status text at bottom of screen.
-		// TODO: Show this in status area.
-		System.out.println("Can't get rid of a GOOJF card you don't have!");
-	    }
-	    else {
-		players[0].spendGetOutOfJailFree();
+	    // if (players[0].getNumGOOJFCards() == 0) {
+	    // 	// TODO: Make an updateStatus() function that, given a string as an input,
+	    // 	//       updates the status text at bottom of screen.
+	    // 	// TODO: Show this in status area.
+
+	    // 	System.out.println("Can't get rid of a GOOJF card you don't have!");
+	    // } 
+
+	    if (players[0].getNumGOOJFCards() > 0)
 		useGOOJFCard.setEnabled(false);
-		updateDisplay();
-	    }
+
+	    players[0].spendGOOJF();
+	    updateDisplay();
+
+
+    // /** Have this player spend one of their get out of jail free cards. */
+    // public void spendGOOJF() {
+    // 	if (GOOJFCards <= 0) {
+    // 	    System.out.println("Error! You can't spend a Get Out of Jail Free card if you have 0 or less.");
+    // 	}
+    // 	else {
+    // 	    //TODO: Don't allow this when the person's not in jail.
+    // 	    GOOJFCards--;
+    // 	    inJail = 0;
+    // 	}
+    // }
+
+
+
+
+
+
+
+
 	}
     }
 

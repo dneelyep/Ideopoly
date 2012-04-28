@@ -48,7 +48,7 @@ public class Player {
     private int totalHotelsOwned;
 
     /** Number of get out of jail free cards this player owns. */
-    private int getOutOfJailFree;
+    private int GOOJFCards;
 
     /** This player's current board position. Go=0, Boardwalk=whatever, etc. */
     private int currentPosition;
@@ -83,7 +83,7 @@ public class Player {
 	// TODO: Create an empty array? Or is it already created?
 	//	owned_outlets[] = ;
 
-	getOutOfJailFree = 0;
+	GOOJFCards = 0;
 
 	switch (player_number) {
 	    case 1: currentPosition = 3;
@@ -195,20 +195,25 @@ public class Player {
     }
 
     /** Give this player a get out of jail free card. */
-    public void giveGetOutOfJailFree() {
-	getOutOfJailFree++;
+    public void giveGOOJF() {
+	GOOJFCards++;
     }
 
     /** Have this player spend one of their get out of jail free cards. */
-    public void spendGetOutOfJailFree() {
-	// TODO: Don't allow this when the person's not in jail.
-	getOutOfJailFree--;
-	inJail = 0;
+    public void spendGOOJF() {
+	if (GOOJFCards <= 0) {
+	    System.out.println("Error! You can't spend a Get Out of Jail Free card if you have 0 or less.");
+	}
+	else {
+	    //TODO: Don't allow this when the person's not in jail.
+	    GOOJFCards--;
+	    inJail = 0;
+	}
     }
 
     /** Return the number of GOOJF cards this player owns. */
     public int getNumGOOJFCards() {
-	return getOutOfJailFree;
+	return GOOJFCards;
     }
 
     /** See what week of jail this person is in. */

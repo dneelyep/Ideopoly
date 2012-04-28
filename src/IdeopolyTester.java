@@ -2,12 +2,6 @@ import junit.framework.TestCase;
 import java.awt.*;
 import javax.swing.*;
 /**
- * A JUnit test case class.
- * Every method starting with the word "test" will be called when running
- * the test with JUnit.
- */
-
-/**
  * IdeopolyTester - various test cases to make sure the game works as intended.
  */
 public class IdeopolyTester extends TestCase {
@@ -273,14 +267,14 @@ public class IdeopolyTester extends TestCase {
 	assertEquals( (boolean) testPlayer.willBankrupt(0),    false);
 	assertEquals( (boolean) testPlayer.willBankrupt(-1),   false);
 
-	testPlayer.giveGetOutOfJailFree(); // TODO: Rename to GOOJF
+	testPlayer.giveGOOJF();
 	assertEquals(testPlayer.getNumGOOJFCards(), 1);
 
-	testPlayer.spendGetOutOfJailFree();
+	testPlayer.spendGOOJF();
 	assertEquals(testPlayer.getNumGOOJFCards(), 0);
 
-	testPlayer.spendGetOutOfJailFree();
-	//	assertEquals(testPlayer.getNumGOOJFCards(), 0);
+	testPlayer.spendGOOJF();
+	assertEquals(testPlayer.getNumGOOJFCards(), 0);
 
 
 	// //	totalPropertiesOwned = 0; // TODO: <-- Test that.
