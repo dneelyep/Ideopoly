@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Backup the files in the project to a separate directory.
+cp -r ~/Desktop/School_Files/CECS_220/Assignment_5/ ~/Desktop/School_Files/CECS_220/Assignment_5_backup/

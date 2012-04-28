@@ -1,0 +1,46 @@
+mediterraneanAv
+commChest1
+balticAv
+incomeTax
+readingRR
+orientalAv
+chance1
+vermontAv
+connecticutAv
+jail
+stCharles
+electricCompany
+statesAv
+virginiaAv
+pennsylvaniaRR
+stJames
+Advance to Go (Collect $200)
+go
+mediterraneanAv
+Bank error in your favor – collect $200
+commChest1
+balticAv
+incomeTax
+readingRR
+orientalAv
+Advance to St. Charles Place – if you pass Go, collect $200
+stCharles
+electricCompany
+statesAv
+virginiaAv
+pennsylvaniaRR
+stJames
+You are assessed for street repairs – $40 per house, $115 per hotel
+commChest2
+newYorkAv
+freeParking
+kentuckyAv
+chance2
+indianaAv
+illinoisAv
+bAndORR
+atlanticAv
+ventnorAv
+waterWorks
+marvinGardens
+

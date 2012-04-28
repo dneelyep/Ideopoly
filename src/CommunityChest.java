@@ -1,0 +1,76 @@
+import java.util.Random;
+
+/** Represents a card in the Community Chest stack. */
+// TODO: Just make Chance and CommChest two types of a single class? They're pretty much the same thing...
+public class CommunityChest {
+    /** Number representing the type of this card. This type is used to
+     *  determine the text on the card and the actions taken when this
+     *  card is drawn. */
+    private int cardType;
+
+    /** The text written on this card. Used for information for the player. */
+    private String text;
+    Random generator = new Random();
+
+    /** Create the card, setting its type and text field. */
+    public CommunityChest() {
+	// Randomly set this card's type.
+	cardType = generator.nextInt(17) + 1;
+
+	switch (cardType) {
+	case 1:  text = "Advance to Go (Collect $200)";
+	    break;
+	case 2:  text = "Bank error in your favor – collect $200";
+	    break;
+	case 3:  text = "Doctor's fees – Pay $50";
+	    break;
+	case 4:  text = "Get Out of Jail Free – this card may be kept until needed, or sold";
+	    break;
+	case 5:  text = "Go to Jail – go directly to jail – Do not pass Go, do not collect $200";
+	    break;
+	case 6:  text = "It is your birthday - Collect $10 from each player";
+	    break;
+	case 7:  text = "Grand Opera Night – collect $50 from every player for opening night seats";
+	    break;
+	case 8:  text = "Income Tax refund – collect $20";
+	    break;
+	case 9:  text = "Life Insurance Matures – collect $100";
+	    break;
+	case 10: text = "Pay Hospital Fees of $100";
+	    break;
+	case 11: text = "Pay School Fees of $50";
+	    break;
+	case 12: text = "Receive $25 Consultancy Fee";
+	    break;
+	case 13: text = "You are assessed for street repairs – $40 per house, $115 per hotel";
+	    break;
+	case 14: text = "You have won second prize in a beauty contest– collect $10";
+	    break;
+	case 15: text = "You inherit $100";
+	    break;
+	case 16: text = "From sale of stock you get $50";
+	    break;
+	case 17: text = "Holiday Fund matures - Receive $100";
+	    break;
+
+	default: text = "Incorrect card type!";
+	    break;
+	}
+
+    }
+
+    /** Get the text field associated with this card. */
+    public String getText() {
+	return text;
+    }
+
+    /** Get the type of this card. */
+    public int getType() {
+	return cardType;
+    }
+
+
+
+
+
+}

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Quick script so that I don't have to manually type out this
+# command each time I want to run the program.
+java -cp /home/daniel/Desktop/School_Files/CECS_220/Assignment_5/src/ Menu
