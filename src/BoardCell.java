@@ -70,6 +70,7 @@ public class BoardCell {
     }
 
     /** Get this cell's x position. */
+    // TODO: Rename these for consistency between these and the getXCoord() method elsewhere?
     public int getX() {
 	return cellX;
     }

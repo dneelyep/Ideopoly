@@ -10,6 +10,8 @@ import java.util.Stack;
 // TODO: Keep using M-a/M-e. Useful.
 // TODO: Make an updateStatus() function that, given a string as an input,
 //       updates the status text at bottom of screen.
+// TODO: Fix image file names to camelCase.
+// TODO: Remove unneeded image templates.
 
 /** Class to contain the GUI of the game board. A new instance of the class
  *  creates the GUI and sets up various things in it. The game takes place mostly

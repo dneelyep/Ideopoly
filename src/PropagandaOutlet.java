@@ -96,6 +96,7 @@ Which implies... TODO Implement an auction system where, for example auction() a
      *  will never have any houses or hotels. */ // TODO: Useless extra comment there?
     // TODO: Should we accept an array instead maybe?
     // TODO: Accept an array for rent values rather than separate variables?
+    // TODO: camelCase variable names here.
     public PropagandaOutlet(String new_name, Icon new_image, int new_cost, int new_initial_rent, int new_rent_1_house, int new_rent_2_house, int new_rent_3_house, int new_rent_4_house, int new_rent_1_hotel, int new_house_or_hotel_cost, int x_pos, int y_pos, String edge) {
 	// TODO: Better, less ambiguous variable names here.
 	super(new_name, new_image, x_pos, y_pos, edge); // Use the BoardCell class' constructor.
@@ -112,53 +113,32 @@ Which implies... TODO Implement an auction system where, for example auction() a
 	houseOrHotelCost    = new_house_or_hotel_cost;
     }
 
-    // TODO: This needed?
-    /** Print out a string representation of this object. */
-    public String toString() {
-	// TODO: Get name working if needed.
-	String return_string = "Name: "                 + this.getName() + "\n"
-                             + "# houses present: "     + numHouses + "\n"
-	                     + "# hotels present: "     + numHotels + "\n"
-	                     + "Cost: "                 + cost + "\n"
-	                     + "Beginning rent:"        + initialRent + "\n"
-	                     + "1 house: "              + rent1House + "\n"
-	                     + "2 house: "              + rent2House  + "\n"
-	                     + "3 house: "              + rent3House  + "\n"
-	                     + "4 house: "              + rent4House  + "\n"
-	                     + "Hotel: "                + rent1Hotel  + "\n"
-	                     + "Price to buy a house or hotel: " + houseOrHotelCost  + "\n"
-	                     + "Mortgage value: "       + mortgageValue + "\n";
-	return return_string;
-    }
-
     /** Return the amount of rent that a Player landing here has to pay. */
     public int getRent() {
 	// TODO: Make checks so ya can't buy a hotel without 4 houses.
 	// TODO: Also checks so ya can't buy more than 1 hotel.
 	// Unimproved property.
-	if (numHouses == 0) { // TODO: Not all props in group owned.
+	if (numHouses == 0) // TODO: Not all props in group owned.
 	    return initialRent;
-	}
-	// else if (are owned in a group, no houses) {}
-	else if (numHouses == 1) {
+
+	// TODO: else if (are owned in a group, no houses) {}
+	else if (numHouses == 1)
 	    return rent1House;
-	}
 
-	else if (numHouses == 2) {
+	else if (numHouses == 2)
 	    return rent2House;
-	}
 
-	else if (numHouses == 3) {
+	else if (numHouses == 3)
 	    return rent3House;
-	}
 
-	else if (numHouses == 4) {
+	else if (numHouses == 4)
 	    return rent4House;
-	}
 
-	else { // (numHotels == 1)
+	else if (numHotels == 1)
 	    return rent1Hotel;
-	}
+
+	else // Error state.
+	    return -1;
     }
 
     public int getCost() {

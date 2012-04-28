@@ -298,27 +298,27 @@ public class IdeopolyTester extends TestCase {
 
 
 
-	// //	totalPropertiesOwned = 0; // TODO: <-- Test that.
+	// totalPropertiesOwned = 0; // TODO: <-- Test that.
 
 	// image = new ImageIcon("images/p1_present.jpg"); // getImage()
 
-	//	public Player(int player_number)
-	    // public String getCash(String bill_type)
-	    // public void addProperty(BoardCell property)
-	    // public void removeProperty(BoardCell property)
-	    // public void roll()
-	    // public Icon getImage()
-	    // public int getPosition()
-	    // public void setPosition(int p)
-	    // public void setCash(String t, int a) //TODO: Also test for correct update of the total field her
-	    // public void giveGetOutOfJailFree()
-	    // /** Have this player spend one of their get out of jail free cards. */
-	    // //	    TODO: Test this when the person's not in jail.
-	    // public int getNumHouses()
-	    // public int getNumHotels()
-	    // public void spreadMoney(int numToSwitch)// TODO: LOTS OF TESTS FOR THIS FUNCTION
-	    // public void bankruptPlayer(IdeopolyGUI gui)
-	    // public String getName()
+	// public Player(int player_number)
+	// public String getCash(String bill_type)
+	// public void addProperty(BoardCell property)
+	// public void removeProperty(BoardCell property)
+	// public void roll()
+	// public Icon getImage()
+	// public int getPosition()
+	// public void setPosition(int p)
+	// public void setCash(String t, int a) //TODO: Also test for correct update of the total field her
+	// public void giveGetOutOfJailFree()
+	// /** Have this player spend one of their get out of jail free cards. */
+	// //	    TODO: Test this when the person's not in jail.
+	// public int getNumHouses()
+	// public int getNumHotels()
+	// public void spreadMoney(int numToSwitch)// TODO: LOTS OF TESTS FOR THIS FUNCTION
+	// public void bankruptPlayer(IdeopolyGUI gui)
+	// public String getName()
 
 	// TODO: ^-- test ALL these.
     }
@@ -326,14 +326,135 @@ public class IdeopolyTester extends TestCase {
     // ====================
     // CharacterSelect.java
     // ====================
+    // TODO: ^---This
 
     // =====================
     // PropagandaOutlet.java
     // =====================
+    /** Test all methods in the PropagandaOutlet class. */
+    @Test
+    public void testPropagandaOutlet() {
+	PropagandaOutlet testPropOutlet = new PropagandaOutlet("testPropOutlet", new ImageIcon("images/yellow_template.jpg"), 40, 10, 60, 180, 350, 630, 800, 100, 18, 18, "right");
+
+	assertEquals(testPropOutlet.getName(), "testPropOutlet");
+	//	    TODO: Test the image assigned during creation.
+	assertEquals(testPropOutlet.getX(), 18);
+	assertEquals(testPropOutlet.getY(), 18);
+	assertEquals(testPropOutlet.getOrientation(), "right");
+
+	// assertEquals(testPropOutlet.getNumHouses(), 0); TODO: Tests/methods for these?
+	// assertEquals(testPropOutlet.getNumHotels(), 0);
+	assertEquals(testPropOutlet.getCost(), 40);
+	// TODO: Test for mortgage value?
+	assertEquals(testPropOutlet.getRent(), 10);
+	// TODO: Add tests here for when I have 1/2/3/4 houses, and 1 hotel.
+    }
+
+// 	super(new_name, new_image, x_pos, y_pos, edge); // Use the BoardCell class' constructor.
+// 	numHouses	    = 0;
+// 	numHotels	    = 0;
+// 	cost                = new_cost;
+// 	mortgageValue	    = new_cost / 2; // Mortgage prices are always half the price to buy the property.
+// 	initialRent	    = new_initial_rent;
+// 	rent1House	    = new_rent_1_house;
+// 	rent2House	    = new_rent_2_house;
+// 	rent3House	    = new_rent_3_house;
+// 	rent4House	    = new_rent_4_house;
+// 	rent1Hotel	    = new_rent_1_hotel;
+// 	houseOrHotelCost    = new_house_or_hotel_cost;
+
+
+//     public PropagandaOutlet(String new_name, Icon new_image, int new_cost, int new_initial_rent, int new_rent_1_house, int new_rent_2_house, int new_rent_3_house, int new_rent_4_house, int new_rent_1_hotel, int new_house_or_hotel_cost, int x_pos, int y_pos, String edge) {
+// 	// TODO: Better, less ambiguous variable names here.
+// 	super(new_name, new_image, x_pos, y_pos, edge); // Use the BoardCell class' constructor.
+// 	numHouses	    = 0;
+// 	numHotels	    = 0;
+// 	cost                = new_cost;
+// 	mortgageValue	    = new_cost / 2; // Mortgage prices are always half the price to buy the property.
+// 	initialRent	    = new_initial_rent;
+// 	rent1House	    = new_rent_1_house;
+// 	rent2House	    = new_rent_2_house;
+// 	rent3House	    = new_rent_3_house;
+// 	rent4House	    = new_rent_4_house;
+// 	rent1Hotel	    = new_rent_1_hotel;
+// 	houseOrHotelCost    = new_house_or_hotel_cost;
+//     }
+
+//     public int getRent() {
+//     public int getCost() {
+
+
+//======
+// Methods inherited from BoardCell:
+//======
+
+    // public BoardCell(String new_name, Icon new_image, int x_pos, int y_pos, String edge) {
+    // 	name	    = new_name;
+    // 	ownedBy     = null;
+    // 	image	    = new_image;
+    // 	cellX	    = x_pos;
+    // 	cellY       = y_pos;
+    // 	orientation = edge;
+    // }
+
+    // /** Get the name of this property. */
+    // public String getName() {
+    // 	return name;
+    // }
+
+    // /** Get the owner of this property. */
+    // public Player getOwner() {
+    // 	return ownedBy;
+    // }
+
+    // /** Make player p the owner of this property. */
+    // public void setOwner(Player p) {
+    // 	ownedBy = p;
+    // 	// TODO: Have this function also set the relevant image for the property to indicate ownership.
+    // 	// Can use player.getImage()
+    // }
+
+    // /** Get the image associated with this property. */
+    // public Icon getImage() {
+    // 	return image;
+    // }
+
+    // public void setImage(Icon new_image) {
+    // 	image = new_image;
+    // }
+
+    // /** Get this cell's x position. */
+    // public int getX() {
+    // 	return cellX;
+    // }
+
+    // /** Get this cell's y position. */
+    // public int getY() {
+    // 	return cellY;
+    // }
+
+    // /** Get this cell's orientation on the board. */
+    // public String getOrientation() {
+    // 	return orientation;
+    // }
+
+    // /** Dummy method. Used so I can access getRent() from the derived class PropagandaOutlet. */
+    // public int getRent() {
+    // 	return 0;
+    // }
+
+    // public int getCost() {
+    // 	return 0;
+    // }
+
+
+
+
+
 
     // ===================
     // CommunityChest.java
-    // ===================
+    // ==================
 
     // ==============
     // Railroad.java
