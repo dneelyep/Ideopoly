@@ -3,7 +3,7 @@ import java.awt.*;
 import javax.swing.*;
 /**
  * A JUnit test case class.
- * Every method starting with the word "test" will be called when running
+g * Every method starting with the word "test" will be called when running
  * the test with JUnit.
  */
 
@@ -267,12 +267,27 @@ public class IdeopolyTester extends TestCase {
 
 	assertEquals(testPlayer.getName(), "Player 1 (H)");
 
+	assertEquals( (boolean) testPlayer.willBankrupt(1500), false);
+	assertEquals( (boolean) testPlayer.willBankrupt(1501), true);
+	assertEquals( (boolean) testPlayer.willBankrupt(1409), false);
+	assertEquals( (boolean) testPlayer.willBankrupt(0),    false);
+	assertEquals( (boolean) testPlayer.willBankrupt(-1),   false);
+
+	testPlayer.giveGetOutOfJailFree(); // TODO: Rename to GOOJF
+	assertEquals(testPlayer.getNumGOOJFCards(), 1);
+
+	testPlayer.spendGetOutOfJailFree();
+	assertEquals(testPlayer.getNumGOOJFCards(), 0);
+
+	testPlayer.spendGetOutOfJailFree();
+	//	assertEquals(testPlayer.getNumGOOJFCards(), 0);
+
 
 	// //	totalPropertiesOwned = 0; // TODO: <-- Test that.
 
 	// image = new ImageIcon("images/p1_present.jpg"); // getImage()
 
-		//	public Player(int player_number)
+	//	public Player(int player_number)
 	    // public String getCash(String bill_type)
 	    // public void addProperty(BoardCell property)
 	    // public void removeProperty(BoardCell property)
@@ -290,7 +305,6 @@ public class IdeopolyTester extends TestCase {
 	    // public int getJailStatus()
 	    // public int getNumHouses()
 	    // public int getNumHotels()
-	    // public Boolean willBankrupt(int amount)
 	    // public void spreadMoney(int numToSwitch)// TODO: LOTS OF TESTS FOR THIS FUNCTION
 	    // public void bankruptPlayer(IdeopolyGUI gui)
 	    // public String getName()
