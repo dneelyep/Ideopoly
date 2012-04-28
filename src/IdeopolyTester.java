@@ -3,7 +3,7 @@ import java.awt.*;
 import javax.swing.*;
 /**
  * A JUnit test case class.
-g * Every method starting with the word "test" will be called when running
+ * Every method starting with the word "test" will be called when running
  * the test with JUnit.
  */
 
