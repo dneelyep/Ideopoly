@@ -11,7 +11,8 @@ public class Player {
      *  0 = not in jail.
      *  1 = last week in jail.
      *  2 = second week in jail.
-     *  3 = first week in jail. */
+     *  3 = first week in jail.
+     *  Other values not allowed. */
     private int inJail; // TODO: This needed? Couldn't I just use board position?
 
     /** Amount of one dollar bills this player has. */
@@ -191,7 +192,10 @@ public class Player {
 
     /** Set the value of this Player's inJail property. */
     public void setInJail(int weeks) {
-	inJail = weeks;
+	if (weeks != 0 && weeks != 1 && weeks != 2 && weeks != 3)
+	    System.out.println("Invalid weeks value. Must be either 0, 1, 2, or 3.");
+	else
+	    inJail = weeks;
     }
 
     /** Give this player a get out of jail free card. */
@@ -202,6 +206,7 @@ public class Player {
     /** Have this player spend one of their get out of jail free cards. */
     public void spendGOOJF() {
 	if (GOOJFCards <= 0) {
+	    // TODO: Display this--v in status message area.
 	    System.out.println("Error! You can't spend a Get Out of Jail Free card if you have 0 or less.");
 	}
 	else {

@@ -8,6 +8,8 @@ import java.util.Stack;
 // TODO: Add in Chance and Comm. Chest cards.
 // TODO: Use the native look and feel for the program.
 // TODO: Keep using M-a/M-e. Useful.
+// TODO: Make an updateStatus() function that, given a string as an input,
+//       updates the status text at bottom of screen.
 
 /** Class to contain the GUI of the game board. A new instance of the class
  *  creates the GUI and sets up various things in it. The game takes place mostly
@@ -1060,45 +1062,12 @@ public class IdeopolyGUI implements ActionListener {
 	}
 	// Use a card and take the main player out of jail.
 	else if ( eventSource.equals("Use get out of jail free card") ) {
-
-
-
-
 	    // TODO: Disable this when the player's not on a jail cell.
-	    // if (players[0].getNumGOOJFCards() == 0) {
-	    // 	// TODO: Make an updateStatus() function that, given a string as an input,
-	    // 	//       updates the status text at bottom of screen.
-	    // 	// TODO: Show this in status area.
-
-	    // 	System.out.println("Can't get rid of a GOOJF card you don't have!");
-	    // } 
-
 	    if (players[0].getNumGOOJFCards() > 0)
 		useGOOJFCard.setEnabled(false);
 
 	    players[0].spendGOOJF();
 	    updateDisplay();
-
-
-    // /** Have this player spend one of their get out of jail free cards. */
-    // public void spendGOOJF() {
-    // 	if (GOOJFCards <= 0) {
-    // 	    System.out.println("Error! You can't spend a Get Out of Jail Free card if you have 0 or less.");
-    // 	}
-    // 	else {
-    // 	    //TODO: Don't allow this when the person's not in jail.
-    // 	    GOOJFCards--;
-    // 	    inJail = 0;
-    // 	}
-    // }
-
-
-
-
-
-
-
-
 	}
     }
 
@@ -1109,6 +1078,8 @@ public class IdeopolyGUI implements ActionListener {
 
     /** Put a given player in jail. */
     private void putInJail(Player p) {
+	// TODO: This should also move the player to the appropriate position. The code to do that is
+	// duplicated in a few places.
 	// Allow the main player to use their cards.
 	if (p == player1 && p.getNumGOOJFCards() > 0) {
 	    useGOOJFCard.setEnabled(true);
