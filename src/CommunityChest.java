@@ -1,7 +1,8 @@
 import java.util.Random;
 
 /** Represents a card in the Community Chest stack. */
-// TODO: Just make Chance and CommChest two types of a single class? They're pretty much the same thing...
+// TODO: Just make Chance and CommChest two types of a single class? They're the same thing with different 
+// text values...
 public class CommunityChest {
     /** Number representing the type of this card. This type is used to
      *  determine the text on the card and the actions taken when this

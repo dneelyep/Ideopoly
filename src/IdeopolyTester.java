@@ -7,26 +7,10 @@ import org.junit.*;
  */
 public class IdeopolyTester extends TestCase {
     // TODO: Add all test cases (and more!) from my notes.
-    //    System.out.println("Hello."); // TODO: This is just here to remove make docs warnings.
-
-
-    // LEFTOFFHERE: Before I go any further in the code, implementing tests for each function in the game.
-
     /** Test all methods in the BoardCell class. */
     @Test
     public void testBoardCell() {
 	// BoardCell.java
-
-	// /** Creates a BoardCell object, with the specified name, image, and coordinates.
-	//  *  Does not have an owner. There are no players standing on this object. */
-	// public BoardCell(String new_name, Icon new_image, int x_pos, int y_pos, String edge) {
-	//     name	    = new_name;
-	//     ownedBy     = null;
-	//     image	    = new_image;
-	//     cellX	    = x_pos;
-	//     cellY       = y_pos;
-	//     orientation = edge;
-	// }
 
 	BoardCell testCell = new BoardCell("name", new ImageIcon("images/red_template.jpg"), 4, 10, "left");
 	Player    aPlayer  = new Player(1);
@@ -51,7 +35,8 @@ public class IdeopolyTester extends TestCase {
 	// Icon getImage()
 	// void setImage(Icon new_image)
 
-	// TODO: Then more complicated, out of the ordinary situations.
+	// TODO: Then more complicated, out of the ordinary situations. For example, test for odd values to the
+	// constructor.
     }
 
 	// ================
@@ -150,13 +135,6 @@ public class IdeopolyTester extends TestCase {
     // 	}
     //     }
     // }
-
-    // ===========
-    // Chance.java
-    // ===========
-    // TODO: For this class, since the card's always selected randomly, it's impossible for me
-    // to test for valid values. Better would be to accept an argument to the function that 
-    // determines its text and such. Would make it testable. But would it improve the code?
 
     /** Test all methods in the Chance class. */
     @Test
@@ -328,9 +306,7 @@ public class IdeopolyTester extends TestCase {
     // ====================
     // TODO: ^---This
 
-    // =====================
-    // PropagandaOutlet.java
-    // =====================
+
     /** Test all methods in the PropagandaOutlet class. */
     @Test
     public void testPropagandaOutlet() {
@@ -338,6 +314,8 @@ public class IdeopolyTester extends TestCase {
 
 	assertEquals(testPropOutlet.getName(), "testPropOutlet");
 	//	    TODO: Test the image assigned during creation.
+	// public Icon getImage() {
+	// public void setImage(Icon new_image) {
 	assertEquals(testPropOutlet.getX(), 18);
 	assertEquals(testPropOutlet.getY(), 18);
 	assertEquals(testPropOutlet.getOrientation(), "right");
@@ -348,80 +326,18 @@ public class IdeopolyTester extends TestCase {
 	// TODO: Test for mortgage value?
 	assertEquals(testPropOutlet.getRent(), 10);
 	// TODO: Add tests here for when I have 1/2/3/4 houses, and 1 hotel.
-	// TODO: Other tests here.
+	// TODO: All derived methods are tested here in normal cases, except the commented out ones (image, etc.)
+	//       Need out of the ordinary cases, though.
+	assertEquals(testPropOutlet.getOwner(), null);
+
+	Player testPropOutletPlayer = new Player(2);
+	testPropOutlet.setOwner(testPropOutletPlayer);
+	assertEquals(testPropOutlet.getOwner(), testPropOutletPlayer);
     }
-
-//======
-// Methods inherited from BoardCell:
-//======
-    // public BoardCell(String new_name, Icon new_image, int x_pos, int y_pos, String edge) {
-    // 	name	    = new_name;
-    // 	ownedBy     = null;
-    // 	image	    = new_image;
-    // 	cellX	    = x_pos;
-    // 	cellY       = y_pos;
-    // 	orientation = edge;
-    // }
-
-    // /** Get the name of this property. */
-    // public String getName() {
-    // 	return name;
-    // }
-
-    // /** Get the owner of this property. */
-    // public Player getOwner() {
-    // 	return ownedBy;
-    // }
-
-    // /** Make player p the owner of this property. */
-    // public void setOwner(Player p) {
-    // 	ownedBy = p;
-    // 	// TODO: Have this function also set the relevant image for the property to indicate ownership.
-    // 	// Can use player.getImage()
-    // }
-
-    // /** Get the image associated with this property. */
-    // public Icon getImage() {
-    // 	return image;
-    // }
-
-    // public void setImage(Icon new_image) {
-    // 	image = new_image;
-    // }
-
-    // /** Get this cell's x position. */
-    // public int getX() {
-    // 	return cellX;
-    // }
-
-    // /** Get this cell's y position. */
-    // public int getY() {
-    // 	return cellY;
-    // }
-
-    // /** Get this cell's orientation on the board. */
-    // public String getOrientation() {
-    // 	return orientation;
-    // }
-
-    // /** Dummy method. Used so I can access getRent() from the derived class PropagandaOutlet. */
-    // public int getRent() {
-    // 	return 0;
-    // }
-
-    // public int getCost() {
-    // 	return 0;
-    // }
-
-    // ===================
-    // CommunityChest.java
-    // ==================
-    // TODO: ^--- This.
 
     /** Test all methods in the CommunityChest class. */
     @Test
     public void testCommunityChest() {
-	//1-16
 	CommunityChest testCommChestCard = new CommunityChest(1);
 	assertEquals(testCommChestCard.getType(), 1);
 	assertEquals(testCommChestCard.getText(), "Advance to Go (Collect $200)");
@@ -511,7 +427,7 @@ public class IdeopolyTester extends TestCase {
     // TODO: ^--- This.
 
 
-    /*
+/* Potential tests:
 Check that every single cell in the board is initialized, with the correct values etc. IE for a property, that all rent values are correct.
 
 Make sure that a person who passes go and lands on the community chest that then passes them back to go is payed twice accordingly.
