@@ -126,7 +126,7 @@ public class Player {
 		return Integer.toString(fifties);
 	    case "hundreds":
 		return Integer.toString(hundreds);
-	    case "five_hundreds": // TODO: Replace this with 'fiveHundreds'
+	    case "fiveHundreds": // TODO: Replace this with 'fiveHundreds'
 		return Integer.toString(fiveHundreds);
             case "total":
 		return Integer.toString(totalMoney);
@@ -165,7 +165,7 @@ public class Player {
     }
 
     /** Change this player's amount a of currency type t. */
-    public void setCash(String t, int a) {
+    public void addCash(String t, int a) {
 	// TODO: This results in the Player having negative cash values. That's kind 
 	// of impossible...
 	switch (t) {

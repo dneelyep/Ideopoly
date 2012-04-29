@@ -241,7 +241,7 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getCash("twenties"),      "6");
 	assertEquals(testPlayer.getCash("fifties"),       "2");
 	assertEquals(testPlayer.getCash("hundreds"),      "2");
-	assertEquals(testPlayer.getCash("five_hundreds"), "2");
+	assertEquals(testPlayer.getCash("fiveHundreds"), "2");
 	assertEquals(testPlayer.getCash("total"),      "1500");
 
 	assertEquals(testPlayer.getNumHouses(),          0);
@@ -290,26 +290,28 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getCash("twenties"),      "0");
 	assertEquals(testPlayer.getCash("fifties"),       "0");
 	assertEquals(testPlayer.getCash("hundreds"),      "0");
-	assertEquals(testPlayer.getCash("five_hundreds"), "0");
+	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
 	assertEquals(testPlayer.getCash("total"),         "0");
 	assertEquals(testPlayer.getImage(),              null);
 
-	testPlayer.setCash("ones", Integer.parseInt(testPlayer.getCash("ones")) + 20);
-	testPlayer.setCash("fives", 5);
-	testPlayer.setCash("tens", 10);
-	testPlayer.setCash("twenties", 15);
-	testPlayer.setCash("fifties", 80);
-	testPlayer.setCash("hundreds", -12);
-	testPlayer.setCash("five_hundreds", 10);
+	testPlayer.addCash("ones", Integer.parseInt(testPlayer.getCash("ones")) + 20);
+	testPlayer.addCash("fives", 5);
+	testPlayer.addCash("tens", 10);
+	testPlayer.addCash("twenties", 15);
+	testPlayer.addCash("fifties", 80);
+	testPlayer.addCash("hundreds", -12);
+	testPlayer.addCash("fiveHundreds", 10);
 
 	assertEquals(testPlayer.getCash("ones"),          "20");
-	assertEquals(testPlayer.getCash("fives"),         "5");
+	assertEquals(testPlayer.getCash("fives"),          "5");
 	assertEquals(testPlayer.getCash("tens"),          "10");
-	assertEquals(testPlayer.getCash("twenties"),      "-12");
+	assertEquals(testPlayer.getCash("twenties"),      "15");
 	assertEquals(testPlayer.getCash("fifties"),       "80");
-	assertEquals(testPlayer.getCash("hundreds"),      "0");
-	assertEquals(testPlayer.getCash("five_hundreds"), "10");
-	assertEquals(testPlayer.getCash("total"),         "9445");
+	assertEquals(testPlayer.getCash("hundreds"),     "-12");
+	assertEquals(testPlayer.getCash("fiveHundreds"), "10");
+	assertEquals(testPlayer.getCash("total"),         "8245");
+
+	// TODO: More tests for negative inputs?
 
 
 
@@ -323,7 +325,6 @@ public class IdeopolyTester extends TestCase {
 	// public Icon getImage()
 	// public int getPosition()
 	// public void setPosition(int p)
-	// public void setCash(String t, int a) //TODO: Also test for correct update of the total field her
 	// public void giveGetOutOfJailFree()
 	// /** Have this player spend one of their get out of jail free cards. */
 	// //	    TODO: Test this when the person's not in jail.

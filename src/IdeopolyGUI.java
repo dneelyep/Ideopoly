@@ -33,7 +33,7 @@ public class IdeopolyGUI implements ActionListener {
 
     private Player       players[]       = { player1, player2, player3, player4 };
     public  int          playersArrSize  = 3;
-    private String       cashValues[]	 = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "five_hundreds", "total"};
+    private String       cashValues[]	 = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
     private String       playerRows[]    = { "Player 1:", "Player 2:", "Player 3:", "Player 4:" };
     public  JLabel[]     playerRowLabels = new JLabel[4];
     private CashCell[][] cashLabels	 = new CashCell[4][10];
@@ -419,7 +419,7 @@ public class IdeopolyGUI implements ActionListener {
 		}
 		else {
 		    players[currentPlayer].spreadMoney(50);
-		    players[currentPlayer].setCash("fifties", -1);
+		    players[currentPlayer].addCash("fifties", -1);
 		    players[currentPlayer].spreadMoney(500);
 		    players[currentPlayer].setInJail(0);
 
@@ -527,7 +527,7 @@ public class IdeopolyGUI implements ActionListener {
 		    else if (p == player4)
 			p.setPosition( (finalProperty * 4) + 0 );
 
-		    p.setCash("hundreds", 2); // Give 200 bucks for passing Go.
+		    p.addCash("hundreds", 2); // Give 200 bucks for passing Go.
 		}
 
 		// Player lands on Go to Jail.
@@ -563,10 +563,10 @@ public class IdeopolyGUI implements ActionListener {
 			    else if (p == player4)
 				p.setPosition( 0 );
 
-			    p.setCash("hundreds", 2);
+			    p.addCash("hundreds", 2);
 			    break;
 			case 2:	// "Bank error in your favor – collect $200"
-			    p.setCash("hundreds", 2);
+			    p.addCash("hundreds", 2);
 			    break;
 			case 3:   // "Doctor's fees – Pay $50"
 			    if (p.willBankrupt(50)) {
@@ -575,7 +575,7 @@ public class IdeopolyGUI implements ActionListener {
 			    }
 			    else {
 				p.spreadMoney(50); // Shuffle money around to get 50s.
-				p.setCash("fifties", -1);
+				p.addCash("fifties", -1);
 				p.spreadMoney(500); // Then shuffle back to a more reasonable amount.
 			    }
 			    break;
@@ -603,18 +603,18 @@ public class IdeopolyGUI implements ActionListener {
 			    }
 			    else {
 				p2.spreadMoney(10);
-				p2.setCash("tens", -1);
+				p2.addCash("tens", -1);
 				p2.spreadMoney(500);
 
 				p3.spreadMoney(10);
-				p3.setCash("tens", -1);
+				p3.addCash("tens", -1);
 				p3.spreadMoney(500);
 
 				p4.spreadMoney(10);
-				p4.setCash("tens", -1);
+				p4.addCash("tens", -1);
 				p4.spreadMoney(500);
 
-				p.setCash("tens", 3);
+				p.addCash("tens", 3);
 			    }
 
 			    break;
@@ -626,25 +626,25 @@ public class IdeopolyGUI implements ActionListener {
 			    else {
 				// TODO: Could loop this.
 				p2.spreadMoney(50);
-				p2.setCash("fifties", -1);
+				p2.addCash("fifties", -1);
 				p2.spreadMoney(500);
 
 				p3.spreadMoney(50);
-				p3.setCash("fifties", -1);
+				p3.addCash("fifties", -1);
 				p3.spreadMoney(500);
 
 				p4.spreadMoney(50);
-				p4.setCash("fifties", -1);
+				p4.addCash("fifties", -1);
 				p4.spreadMoney(500);
 
-				p.setCash("tens", 3);
+				p.addCash("tens", 3);
 			    }
 			    break;
 			case 8:   // "Income Tax refund – collect $20"
-			    p.setCash("twenties", 1);
+			    p.addCash("twenties", 1);
 			    break;
 			case 9:   // "Life Insurance Matures – collect $100"
-			    p.setCash("hundreds", 1);
+			    p.addCash("hundreds", 1);
 			    break;
 			case 10:  // "Pay Hospital Fees of $100"
 
@@ -653,7 +653,7 @@ public class IdeopolyGUI implements ActionListener {
 			    }
 			    else {
 				p.spreadMoney(100);
-				p.setCash("hundreds", -1);
+				p.addCash("hundreds", -1);
 				p.spreadMoney(500);
 			    }
 			    break;
@@ -664,13 +664,13 @@ public class IdeopolyGUI implements ActionListener {
 			    }
 			    else {
 				p.spreadMoney(50);
-				p.setCash("fifties", -1);
+				p.addCash("fifties", -1);
 				p.spreadMoney(500);
 			    }
 			    break;
 			case 12:  // "Receive $25 Consultancy Fee"
-			    p.setCash("twenties", 1);
-			    p.setCash("fives", 1);
+			    p.addCash("twenties", 1);
+			    p.addCash("fives", 1);
 			    break;
 			case 13:  // "You are assessed for street repairs – $40 per house, $115 per hotel"
 			    if (p.willBankrupt( (p.getNumHouses() * 40) + (p.getNumHotels() * 115) )) {
@@ -682,16 +682,16 @@ public class IdeopolyGUI implements ActionListener {
 
 			    break;
 			case 14:  // "You have won second prize in a beauty contest– collect $10"
-			    p.setCash("tens", 1);
+			    p.addCash("tens", 1);
 			    break;
 			case 15:  // "You inherit $100"
-			    p.setCash("hundreds", 1);
+			    p.addCash("hundreds", 1);
 			    break;
 			case 16:  // "From sale of stock you get $50"
-			    p.setCash("fifties", 1);
+			    p.addCash("fifties", 1);
 			    break;
 			case 17:  // "Holiday Fund matures - Receive $100"
-			    p.setCash("hundreds", 1);
+			    p.addCash("hundreds", 1);
 			    break;
 		        default:
 			    System.out.println("Error! Wrong Community Chest value!");
@@ -731,7 +731,7 @@ public class IdeopolyGUI implements ActionListener {
 			    else if (p == player4)
 				p.setPosition( 0 );
 
-			    p.setCash("hundreds", 2);
+			    p.addCash("hundreds", 2);
 			    break;
 			case 2:  //"Advance to Illinois Ave - if you pass Go, collect $200"
 			    // TODO: There's a general pattern to these cards. It's if position is 
@@ -740,7 +740,7 @@ public class IdeopolyGUI implements ActionListener {
 
                             // If the player's at B & O RR or after, give money.
 			    if (p.getPosition() >= 100)
-				p.setCash("hundreds", 2);
+				p.addCash("hundreds", 2);
 
 			    if ( p == player1 )
 				p.setPosition( 99 );
@@ -762,7 +762,7 @@ public class IdeopolyGUI implements ActionListener {
 
 			    // If the player's position is on or after Electric Company, give em $200.
 			    if (p.getPosition() >= 48)
-				p.setCash("hundreds", 2);
+				p.addCash("hundreds", 2);
 
 			    if ( p == player1 )
 				p.setPosition( 47 );
@@ -776,7 +776,7 @@ public class IdeopolyGUI implements ActionListener {
 			    break;
 
 			case 6:  //"Bank pays you dividend of $50"
-			    p.setCash("fifties", 1);
+			    p.addCash("fifties", 1);
 			    break;
 			case 7:  //"Get out of Jail Free – this card may be kept until needed, or traded/sold"
 			    p.giveGOOJF();
@@ -819,9 +819,9 @@ public class IdeopolyGUI implements ActionListener {
 			    }
 			    else {
 				p.spreadMoney(10);
-				p.setCash("tens", -1);
+				p.addCash("tens", -1);
 				p.spreadMoney(5);
-				p.setCash("fives", -1);
+				p.addCash("fives", -1);
 				p.spreadMoney(500);
 			    }    
 			    break;
@@ -829,7 +829,7 @@ public class IdeopolyGUI implements ActionListener {
 			    // If the player's position is on or after Oriental avenue, give em $200.
 			    // TODO: Test this to make sure it works.
 			    if (p.getPosition() >= 24)
-				p.setCash("hundreds", 2);
+				p.addCash("hundreds", 2);
 
 			    if ( p == player1 )
 				p.setPosition( 23 );
@@ -856,25 +856,25 @@ public class IdeopolyGUI implements ActionListener {
 			    //TODO: And then call the onland function for boardwalk.
 			    break;
 			case 14: //"You have been elected chairman of the board – pay each player $50"
-			    // TODO: Make sure setCash handles negative values appropriately.
+			    // TODO: Make sure addCash handles negative values appropriately.
 			    if (p.willBankrupt(150)) {
 				p.bankruptPlayer();
 			    }
 			    else {
 				p.spreadMoney(50);
-				p.setCash("fifties", -3);
-				p2.setCash("fifties", 1);
-				p3.setCash("fifties", 1);
-				p4.setCash("fifties", 1);
+				p.addCash("fifties", -3);
+				p2.addCash("fifties", 1);
+				p3.addCash("fifties", 1);
+				p4.addCash("fifties", 1);
 				p.spreadMoney(500);
 			    }
 			    break;
 			case 15: //"Your building loan matures – collect $150"
-			    p.setCash("hundreds", 1);
-			    p.setCash("fifties", 1);
+			    p.addCash("hundreds", 1);
+			    p.addCash("fifties", 1);
 			    break;
 			case 16: //"You have won a crossword competition - collect $100 "
-			    p.setCash("hundreds", 1);
+			    p.addCash("hundreds", 1);
 			    break;
 
 			default: System.out.println("Wrong Chance value!");
@@ -937,25 +937,25 @@ public class IdeopolyGUI implements ActionListener {
 
 				    // Then, for each bill, transfer the correct amount from p1 to p2.
 				    players[currentPlayer].spreadMoney(1);
-				    players[currentPlayer].setCash("ones", - paymentAmounts[0]);
+				    players[currentPlayer].addCash("ones", - paymentAmounts[0]);
 
 				    players[currentPlayer].spreadMoney(5);
-				    players[currentPlayer].setCash("fives", - paymentAmounts[1]);
+				    players[currentPlayer].addCash("fives", - paymentAmounts[1]);
 
 				    players[currentPlayer].spreadMoney(10);
-				    players[currentPlayer].setCash("tens", - paymentAmounts[2]);
+				    players[currentPlayer].addCash("tens", - paymentAmounts[2]);
 
 				    players[currentPlayer].spreadMoney(20);
-				    players[currentPlayer].setCash("twenties", - paymentAmounts[3]);
+				    players[currentPlayer].addCash("twenties", - paymentAmounts[3]);
 
 				    players[currentPlayer].spreadMoney(50);
-				    players[currentPlayer].setCash("fifties", - paymentAmounts[4]);
+				    players[currentPlayer].addCash("fifties", - paymentAmounts[4]);
 
 				    players[currentPlayer].spreadMoney(100);
-				    players[currentPlayer].setCash("hundreds", - paymentAmounts[5]);
+				    players[currentPlayer].addCash("hundreds", - paymentAmounts[5]);
 
 				    players[currentPlayer].spreadMoney(500);
-				    players[currentPlayer].setCash("fiveHundreds", - paymentAmounts[6]);
+				    players[currentPlayer].addCash("fiveHundreds", - paymentAmounts[6]);
 
 
 				    // And set cash to sensible values.
@@ -1175,32 +1175,32 @@ public class IdeopolyGUI implements ActionListener {
 	// Then, for each bill, transfer the correct amount from p1 to p2.
 	// TODO: Loop this?
 	p1.spreadMoney(1);
-	p1.setCash("ones", - paymentAmounts[0]);
-	p2.setCash("ones", paymentAmounts[0]);
+	p1.addCash("ones", - paymentAmounts[0]);
+	p2.addCash("ones", paymentAmounts[0]);
 
 	p1.spreadMoney(5);
-	p1.setCash("fives", - paymentAmounts[1]);
-	p2.setCash("fives", paymentAmounts[1]);
+	p1.addCash("fives", - paymentAmounts[1]);
+	p2.addCash("fives", paymentAmounts[1]);
 
 	p1.spreadMoney(10);
-	p1.setCash("tens", - paymentAmounts[2]);
-	p2.setCash("tens", paymentAmounts[2]);
+	p1.addCash("tens", - paymentAmounts[2]);
+	p2.addCash("tens", paymentAmounts[2]);
 
 	p1.spreadMoney(20);
-	p1.setCash("twenties", - paymentAmounts[3]);
-	p2.setCash("twenties", paymentAmounts[3]);
+	p1.addCash("twenties", - paymentAmounts[3]);
+	p2.addCash("twenties", paymentAmounts[3]);
 
 	p1.spreadMoney(50);
-	p1.setCash("fifties", - paymentAmounts[4]);
-	p2.setCash("fifties", paymentAmounts[4]);
+	p1.addCash("fifties", - paymentAmounts[4]);
+	p2.addCash("fifties", paymentAmounts[4]);
 
 	p1.spreadMoney(100);
-	p1.setCash("hundreds", - paymentAmounts[5]);
-	p2.setCash("hundreds", paymentAmounts[5]);
+	p1.addCash("hundreds", - paymentAmounts[5]);
+	p2.addCash("hundreds", paymentAmounts[5]);
 
 	p1.spreadMoney(500);
- 	p1.setCash("fiveHundreds", - paymentAmounts[6]);
-	p2.setCash("fiveHundreds", paymentAmounts[6]);
+ 	p1.addCash("fiveHundreds", - paymentAmounts[6]);
+	p2.addCash("fiveHundreds", paymentAmounts[6]);
 
 	// And set cash to sensible values.
 	p2.spreadMoney(500);
