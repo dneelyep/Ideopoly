@@ -69,14 +69,15 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testCashCell.getXCoord(), 5);
 	assertEquals(testCashCell.getYCoord(), 10);
 
-	CashCell testCashCell2 = new CashCell(-1, -2, "testingtext");
-	assertEquals(testCashCell2.getXCoord(), null);
-	assertEquals(testCashCell2.getYCoord(), null);
-	assertEquals(testCashCell2.getText(),   null);
-	CashCell testCashCell3 = new CashCell(0, 0,   "testingtext");
-	assertEquals(testCashCell3.getXCoord(), 0);
-	assertEquals(testCashCell3.getYCoord(), 0);
-	assertEquals(testCashCell3.getText(),   "testingtext");
+	testCashCell = new CashCell(-1, -2, "testingtext");
+	assertEquals(testCashCell.getXCoord(), -1);
+	assertEquals(testCashCell.getYCoord(), -2);
+	assertEquals(testCashCell.getText(), "testingtext");
+
+	testCashCell = new CashCell(0, 0, "testingtext");
+	assertEquals(testCashCell.getXCoord(), 0);
+	assertEquals(testCashCell.getYCoord(), 0);
+	assertEquals(testCashCell.getText(), "testingtext");
     }
 
     // =========
@@ -279,7 +280,38 @@ public class IdeopolyTester extends TestCase {
 	testPlayer.setInJail('c');
 	assertEquals(testPlayer.getJailStatus(), 0);
 
-	// totalPropertiesOwned = 0; // TODO: <-- Test that.
+	// TODO: More tests for this method to test edge cases.
+	assertEquals(testPlayer.getNumOwnedProperties(), 0); 
+
+	testPlayer.bankruptPlayer();
+	assertEquals(testPlayer.getCash("ones"),          "0");
+	assertEquals(testPlayer.getCash("fives"),         "0");
+	assertEquals(testPlayer.getCash("tens"),          "0");
+	assertEquals(testPlayer.getCash("twenties"),      "0");
+	assertEquals(testPlayer.getCash("fifties"),       "0");
+	assertEquals(testPlayer.getCash("hundreds"),      "0");
+	assertEquals(testPlayer.getCash("five_hundreds"), "0");
+	assertEquals(testPlayer.getCash("total"),         "0");
+	assertEquals(testPlayer.getImage(),              null);
+
+	testPlayer.setCash("ones", Integer.parseInt(testPlayer.getCash("ones")) + 20);
+	testPlayer.setCash("fives", 5);
+	testPlayer.setCash("tens", 10);
+	testPlayer.setCash("twenties", 15);
+	testPlayer.setCash("fifties", 80);
+	testPlayer.setCash("hundreds", -12);
+	testPlayer.setCash("five_hundreds", 10);
+
+	assertEquals(testPlayer.getCash("ones"),          "20");
+	assertEquals(testPlayer.getCash("fives"),         "5");
+	assertEquals(testPlayer.getCash("tens"),          "10");
+	assertEquals(testPlayer.getCash("twenties"),      "-12");
+	assertEquals(testPlayer.getCash("fifties"),       "80");
+	assertEquals(testPlayer.getCash("hundreds"),      "0");
+	assertEquals(testPlayer.getCash("five_hundreds"), "10");
+	assertEquals(testPlayer.getCash("total"),         "9445");
+
+
 
 	// image = new ImageIcon("images/p1_present.jpg"); // getImage()
 
@@ -298,9 +330,6 @@ public class IdeopolyTester extends TestCase {
 	// public int getNumHouses()
 	// public int getNumHotels()
 	// public void spreadMoney(int numToSwitch)// TODO: LOTS OF TESTS FOR THIS FUNCTION
-	// public void bankruptPlayer(IdeopolyGUI gui)
-	// public String getName()
-
 	// TODO: ^-- test ALL these.
     }
 

@@ -166,6 +166,8 @@ public class Player {
 
     /** Change this player's amount a of currency type t. */
     public void setCash(String t, int a) {
+	// TODO: This results in the Player having negative cash values. That's kind 
+	// of impossible...
 	switch (t) {
 	case "ones":         ones += a;
 	    break;
@@ -433,9 +435,9 @@ public class Player {
 	}
     }
     /** Bankrupt this player. */
-    public void bankruptPlayer(IdeopolyGUI gui) {
-	// TODO: Do more than just set cash values. The player can still be considered alive,
-	// given money, etc. in this state.
+    public void bankruptPlayer() {
+	// TODO: Do more than just set cash values. The player can still 
+	// be considered alive, given money, etc. in this state.
 	// TODO: Set the player's text to red when this happens maybe also?
 	ones         = 0;	
 	fives	     = 0;
@@ -445,32 +447,16 @@ public class Player {
 	hundreds     = 0;
 	fiveHundreds = 0;
 	totalMoney   = 0;
-
-	//	gui.playersArrSize--;
-
-	// TODO: This to remove the player's position image from the board.
-	// 	gui.positions.get( this.getPosition() ).setImage(new ImageIcon("images/no_player_present.jpg"));
-
-	// if      (this == array[0]) {
-	//     array[0] = array[1];
-	//     array[1] = array[2];
-	//     array[2] = array[3];
-	//     //	    players[]       = { player1, player2, player3, player4 };
-	// }
-	// else if (this == gui.getPlayerArr()[1]) {
-	//     array[1] = array[2];
-	//     array[2] = array[3];
-	// }  
-	// else if (this == gui.getPlayerArr()[2]) {
-	//     array[2] = array[3];
-	// }
-	// else if (this == gui.getPlayerArr()[3]) {
-	//     array[2] = array[3];
-	// }
+	image = null;
     }
 
     /** Get the name of this Player. */
     public String getName() {
 	return name;
+    }
+
+    /** Get the number of properties this Player owns. */
+    public int getNumOwnedProperties() {
+	return totalPropertiesOwned;
     }
 }

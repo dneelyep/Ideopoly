@@ -364,10 +364,14 @@ public class IdeopolyGUI implements ActionListener {
 	positions.get( player3.getPosition() ).setImage(player3.getImage());
 	positions.get( player4.getPosition() ).setImage(player4.getImage());
 
+	player1.bankruptPlayer();
+
 	frame.pack();
 	frame.setVisible(true);
 
 	System.out.println("You picked " + player_character);
+
+
 
 	// System.out.println("500s: " + paymentAmounts[6]);
 	// System.out.println("100s: " + paymentAmounts[5]);
@@ -411,7 +415,7 @@ public class IdeopolyGUI implements ActionListener {
 	    // Last week in jail. Player gets charged $50, then moves forward.
 	    else if ( players[currentPlayer].getJailStatus() == 1 ) {
 		if (players[currentPlayer].willBankrupt(50)) {
-		    players[currentPlayer].bankruptPlayer(this);
+		    players[currentPlayer].bankruptPlayer();
 		}
 		else {
 		    players[currentPlayer].spreadMoney(50);
@@ -566,7 +570,7 @@ public class IdeopolyGUI implements ActionListener {
 			    break;
 			case 3:   // "Doctor's fees – Pay $50"
 			    if (p.willBankrupt(50)) {
-				p.bankruptPlayer(this); // TODO: Update this code to do more relevant stuff.
+				p.bankruptPlayer(); // TODO: Update this code to do more relevant stuff.
 				
 			    }
 			    else {
@@ -645,7 +649,7 @@ public class IdeopolyGUI implements ActionListener {
 			case 10:  // "Pay Hospital Fees of $100"
 
 			    if (p.willBankrupt(100)) {
-				p.bankruptPlayer(this);
+				p.bankruptPlayer();
 			    }
 			    else {
 				p.spreadMoney(100);
@@ -656,7 +660,7 @@ public class IdeopolyGUI implements ActionListener {
 			case 11:  // "Pay School Fees of $50"
 
 			    if (p.willBankrupt(50)) {
-				p.bankruptPlayer(this);
+				p.bankruptPlayer();
 			    }
 			    else {
 				p.spreadMoney(50);
@@ -670,7 +674,7 @@ public class IdeopolyGUI implements ActionListener {
 			    break;
 			case 13:  // "You are assessed for street repairs – $40 per house, $115 per hotel"
 			    if (p.willBankrupt( (p.getNumHouses() * 40) + (p.getNumHotels() * 115) )) {
-				p.bankruptPlayer(this);
+				p.bankruptPlayer();
 			    }
 			    else {
 				// TODO: Code here, this varies though. Difficult.
@@ -802,7 +806,7 @@ public class IdeopolyGUI implements ActionListener {
 			    // If the payment will bankrupt the Player, do x.
 			    // TODO: Haven't tested this yet, to make sure I get correct values out of parseInt().
 			    if ( p.willBankrupt( (p.getNumHouses() * 25) + (p.getNumHotels() * 100 ) ) ) {
-				p.bankruptPlayer(this);
+				p.bankruptPlayer();
 			    }
 			    else {
 				//TODO: Remove cash here.
@@ -811,7 +815,7 @@ public class IdeopolyGUI implements ActionListener {
 			case 11: //"Pay poor tax of $15"
 
 			    if (p.willBankrupt(15)) {
-				p.bankruptPlayer(this);
+				p.bankruptPlayer();
 			    }
 			    else {
 				p.spreadMoney(10);
@@ -854,7 +858,7 @@ public class IdeopolyGUI implements ActionListener {
 			case 14: //"You have been elected chairman of the board – pay each player $50"
 			    // TODO: Make sure setCash handles negative values appropriately.
 			    if (p.willBankrupt(150)) {
-				p.bankruptPlayer(this);
+				p.bankruptPlayer();
 			    }
 			    else {
 				p.spreadMoney(50);
@@ -972,7 +976,7 @@ public class IdeopolyGUI implements ActionListener {
 			    
 			    // Charge the player appropriately.
 			    if ( players[currentPlayer].willBankrupt( getCurrentLocation(players[currentPlayer]).getRent() ) ) {
-				players[currentPlayer].bankruptPlayer(this);
+				players[currentPlayer].bankruptPlayer();
 			    }
 			    else {
 				playerPayPlayer(getCurrentLocation(players[currentPlayer]).getRent(), 
