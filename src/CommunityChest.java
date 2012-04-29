@@ -51,7 +51,7 @@ public class CommunityChest {
 	case 17: text = "Holiday Fund matures - Receive $100";
 	    break;
 
-	default: System.out.println("Error: Tried to create a non-standard Community Chest card.");
+	default: System.out.println("Error! Tried to create a non-standard Community Chest card.");
 	    break;
 	}
     }

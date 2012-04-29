@@ -1146,7 +1146,7 @@ public class IdeopolyGUI implements ActionListener {
 
 	    if (total / 1 != 0) {
 		onesAmount = total / 1 ;
-		total -= (1 * onesAmount);
+		total -= (1 * onesAmount); // TODO: <-- That's not really needed.
 	    }
 
 	    //Then have the player pay each of the amounts
