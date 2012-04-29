@@ -1164,7 +1164,6 @@ public class IdeopolyGUI implements ActionListener {
 	// TODO: Before each call of this, make sure the player won't go bankrupt.
 	// TODO: Move that step of checking for bankruptcy status to the method rather than
 	// spreading it out everywhere across the file. Less duplication.
-	// TODO: Consider deleting/using run_tests
 	// First, get a distribution of what bills to pay.
 	getCashDistribution(a);
 
