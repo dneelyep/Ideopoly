@@ -16,9 +16,24 @@ public class CashCell extends JLabel {
 
     /** Create this object with the given x and y coordinates. */
     public CashCell(int newXPos, int newYPos, String text) {
-	xCoordPos = newXPos;
-	yCoordPos = newYPos;
-	this.setText(text);
+	// LEFTOFFHERE: Implementing these checks. Need to find a way to abort creation 
+	// of the object when these arguments are present.
+	if (newXPos < 0) {
+	    System.out.println("Invalid argument! Can't use a negative x-coordinate.");
+	}
+	else {
+	    xCoordPos = newXPos;
+	    this.setText(text);
+	}
+
+	if (newYPos < 0) {
+	    System.out.println("Invalid argument! Can't use a negative y-coordinate.");
+	}
+	else {
+	    yCoordPos = newYPos;
+	    this.setText(text);
+	}
+
     }
 
     /** Get this position's x coordinate. */

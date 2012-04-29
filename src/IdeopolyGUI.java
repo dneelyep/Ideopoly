@@ -1101,6 +1101,7 @@ public class IdeopolyGUI implements ActionListener {
 	// is not being overwritten by PropagandaOutlet's => since BoardCell always returns 0, I get this
 	// case where total = 0, which screws up gameplay.
 	if (total <= 0) {
+	    // TODO: Apparently this is screwed up somehow. I keep getting this case occurring.
 	    System.out.println("Can't break up 0 or negative dollars!");
 	}
 
@@ -1168,6 +1169,7 @@ public class IdeopolyGUI implements ActionListener {
 	getCashDistribution(a);
 
 	// Then, for each bill, transfer the correct amount from p1 to p2.
+	// TODO: Loop this?
 	p1.spreadMoney(1);
 	p1.setCash("ones", - paymentAmounts[0]);
 	p2.setCash("ones", paymentAmounts[0]);

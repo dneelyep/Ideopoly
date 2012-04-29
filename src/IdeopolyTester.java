@@ -2,16 +2,16 @@ import junit.framework.TestCase;
 import java.awt.*;
 import javax.swing.*;
 import org.junit.*;
+
+// TODO: Add all test cases from my notes.
 /**
  * IdeopolyTester - various test cases to make sure the game works as intended.
  */
 public class IdeopolyTester extends TestCase {
-    // TODO: Add all test cases (and more!) from my notes.
-    /** Test all methods in the BoardCell class. */
-    @Test
-    public void testBoardCell() {
-	// BoardCell.java
 
+    /** Test all methods in the BoardCell class. */ 
+   @Test
+    public void testBoardCell() {
 	BoardCell testCell = new BoardCell("name", new ImageIcon("images/red_template.jpg"), 4, 10, "left");
 	Player    aPlayer  = new Player(1);
 
@@ -29,7 +29,7 @@ public class IdeopolyTester extends TestCase {
 
 // TODO: What should these return? This screams for a better design, since I think they're just dummy methods.
 	//	assertEquals(testCell.getRent(), );
-	//	assertEquals(testCell.getCost(), );
+	//	assertEquals(testCell.getCost(), )
 
 
 	// Icon getImage()
@@ -59,10 +59,6 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testBoardPosition.getImage(), testImage);
     }
 
-    // ===================
-    // IdeopolyTester.java <-- TODO
-    // ===================
-
     // =============
     // CashCell.java
     // =============
@@ -72,6 +68,15 @@ public class IdeopolyTester extends TestCase {
 	CashCell testCashCell = new CashCell(5, 10, "testingtext");
 	assertEquals(testCashCell.getXCoord(), 5);
 	assertEquals(testCashCell.getYCoord(), 10);
+
+	CashCell testCashCell2 = new CashCell(-1, -2, "testingtext");
+	assertEquals(testCashCell2.getXCoord(), null);
+	assertEquals(testCashCell2.getYCoord(), null);
+	assertEquals(testCashCell2.getText(),   null);
+	CashCell testCashCell3 = new CashCell(0, 0,   "testingtext");
+	assertEquals(testCashCell3.getXCoord(), 0);
+	assertEquals(testCashCell3.getYCoord(), 0);
+	assertEquals(testCashCell3.getText(),   "testingtext");
     }
 
     // =========

@@ -8,7 +8,7 @@ Running the game:
 On Unix, navigate to the directory <root game folder>/src and execute
 the run_program script.
 
-Or, on Windows (with Dr. Java installed), just compile it with Dr. Java and run the Menu.java file.
+On Windows (with the Dr. Java IDE installed), just compile it with Dr. Java and run the Menu.java file.
 
 
 ============
@@ -22,4 +22,4 @@ whose name is highlighted in green will roll, move, and potentially buy properti
 the player makes these moves, you can go straight to the next turn (click "Continue" again) or buy the
 property you're currently standing on.
 
-Rinse and repeat.
+Rinse and repeat until all players are bankrupt.
