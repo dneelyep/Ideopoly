@@ -22,4 +22,4 @@ whose name is highlighted in green will roll, move, and potentially buy properti
 the player makes these moves, you can go straight to the next turn (click "Continue" again) or buy the
 property you're currently standing on.
 
-Rinse and repeat until all players are bankrupt.
+Rinse and repeat until all but one player is bankrupt.
