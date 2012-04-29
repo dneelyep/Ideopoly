@@ -9,14 +9,13 @@ public class Chance {
     /** The text written on this card. Used for information for the player. */
     private String text;
 
-    /** Create the card, setting its text field. */
-    public Chance() {
-	Random generator = new Random();
+    /** Create a card of type t, setting its text field. */
+    public Chance(int t) {
+	cardType = t;
 
-	// Randomly set this card's type.
-	cardType = generator.nextInt(16) + 1;
+	// TODO: Replace these messages with Ideology-themed ones.
 
-	switch (cardType) {
+	switch (t) {
 	case 1:  text = "Advance to Go (Collect $200)";
 	    break;
 	case 2:  text = "Advance to Illinois Ave - if you pass Go, collect $200";
@@ -47,10 +46,10 @@ public class Chance {
 	    break;
 	case 15: text = "Your building loan matures – collect $150";
 	    break;
-	case 16: text = "You have won a crossword competition - collect $100 ";
+	case 16: text = "You have won a crossword competition - collect $100.";
 	    break;
 
-	default: System.out.println("Error: Tried to create a non-standard Chance card.");
+	default: System.out.println("Error! Tried to create a non-standard Chance card.");
 	    break;
 	}
     }

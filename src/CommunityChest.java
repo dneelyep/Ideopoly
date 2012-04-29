@@ -10,14 +10,12 @@ public class CommunityChest {
 
     /** The text written on this card. Used for information for the player. */
     private String text;
-    Random generator = new Random();
 
-    /** Create the card, setting its type and text field. */
-    public CommunityChest() {
-	// Randomly set this card's type.
-	cardType = generator.nextInt(17) + 1;
+    /** Create the card, using its type t to set its text field. */
+    public CommunityChest(int t) {
+	cardType = t;
 
-	switch (cardType) {
+	switch (t) {
 	case 1:  text = "Advance to Go (Collect $200)";
 	    break;
 	case 2:  text = "Bank error in your favor – collect $200";
@@ -53,10 +51,9 @@ public class CommunityChest {
 	case 17: text = "Holiday Fund matures - Receive $100";
 	    break;
 
-	default: text = "Incorrect card type!";
+	default: System.out.println("Error: Tried to create a non-standard Community Chest card.");
 	    break;
 	}
-
     }
 
     /** Get the text field associated with this card. */
@@ -68,9 +65,4 @@ public class CommunityChest {
     public int getType() {
 	return cardType;
     }
-
-
-
-
-
 }

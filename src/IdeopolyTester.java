@@ -29,7 +29,7 @@ public class IdeopolyTester extends TestCase {
 	// }
 
 	BoardCell testCell = new BoardCell("name", new ImageIcon("images/red_template.jpg"), 4, 10, "left");
-	Player aPlayer  = new Player(1);
+	Player    aPlayer  = new Player(1);
 
 	// LEFTOFFHERE: Implmenting tests here. Make sure the order of arguments is correct on assertEquals.
 	// Test basic, not out-of-the-ordinary cases.
@@ -158,88 +158,88 @@ public class IdeopolyTester extends TestCase {
     // to test for valid values. Better would be to accept an argument to the function that 
     // determines its text and such. Would make it testable. But would it improve the code?
 
-    // /** Test all methods in the Chance class. */
-    // public void testChance() {
-    // }
+    /** Test all methods in the Chance class. */
+    @Test
+    public void testChance() {
+	//1-16
+	Chance testChanceCard = new Chance(1);
+	assertEquals(testChanceCard.getType(), 1);
+	assertEquals(testChanceCard.getText(), "Advance to Go (Collect $200)");
 
-//     public Chance() {
-//     public String getText() {
-//     public int getType() {
+	testChanceCard = new Chance(2);
+	assertEquals(testChanceCard.getType(), 2);
+	assertEquals(testChanceCard.getText(), "Advance to Illinois Ave - if you pass Go, collect $200");
 
+	testChanceCard = new Chance(3);
+	assertEquals(testChanceCard.getType(), 3);
+	assertEquals(testChanceCard.getText(), "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.");
 
+	testChanceCard = new Chance(4);
+	assertEquals(testChanceCard.getType(), 4);
+	assertEquals(testChanceCard.getText(), "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank. (There are two of these.)");
 
+	testChanceCard = new Chance(5);
+	assertEquals(testChanceCard.getType(), 5);
+	assertEquals(testChanceCard.getText(), "Advance to St. Charles Place – if you pass Go, collect $200");
 
-// public class Chance {
-//     /** Number representing the type of this card. This type is used to
-//      *  determine the text on the card and the actions taken when this
-//      *  card is drawn. */
-//     private int cardType;
+	testChanceCard = new Chance(6);
+	assertEquals(testChanceCard.getType(), 6);
+	assertEquals(testChanceCard.getText(), "Bank pays you dividend of $50");
 
-//     /** The text written on this card. Used for information for the player. */
-//     private String text;
+	testChanceCard = new Chance(7);
+	assertEquals(testChanceCard.getType(), 7);
+	assertEquals(testChanceCard.getText(), "Get out of Jail Free – this card may be kept until needed, or traded/sold");
 
-//     /** Create the card, setting its text field. */
-//     public Chance() {
-// 	Random generator = new Random();
+	testChanceCard = new Chance(8);
+	assertEquals(testChanceCard.getType(), 8);
+	assertEquals(testChanceCard.getText(), "Go back 3 spaces");
 
-// 	// Randomly set this card's type.
-// 	cardType = generator.nextInt(16) + 1;
+	testChanceCard = new Chance(9);
+	assertEquals(testChanceCard.getType(), 9);
+	assertEquals(testChanceCard.getText(), "Go directly to Jail – do not pass Go, do not collect $200");
 
-// 	switch (cardType) {
-// 	case 1:  text = "Advance to Go (Collect $200)";
-// 	    break;
-// 	case 2:  text = "Advance to Illinois Ave - if you pass Go, collect $200";
-// 	    break;
-// 	case 3:  text = "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.";
-// 	    break;
-// 	case 4:  text = "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank. (There are two of these.)";
-// 	    break;
-// 	case 5:  text = "Advance to St. Charles Place – if you pass Go, collect $200";
-// 	    break;
-// 	case 6:  text = "Bank pays you dividend of $50";
-// 	    break;
-// 	case 7:  text = "Get out of Jail Free – this card may be kept until needed, or traded/sold";
-// 	    break;
-// 	case 8:  text = "Go back 3 spaces";
-// 	    break;
-// 	case 9:  text = "Go directly to Jail – do not pass Go, do not collect $200";
-// 	    break;
-// 	case 10: text = "Make general repairs on all your property – for each house pay $25 – for each hotel $100";
-// 	    break;
-// 	case 11: text = "Pay poor tax of $15";
-// 	    break;
-// 	case 12: text = "Take a trip to Reading Railroad – if you pass Go, collect $200";
-// 	    break;
-// 	case 13: text = "Take a walk on the Boardwalk – advance token to Boardwalk";
-// 	    break;
-// 	case 14: text = "You have been elected chairman of the board – pay each player $50";
-// 	    break;
-// 	case 15: text = "Your building loan matures – collect $150";
-// 	    break;
-// 	case 16: text = "You have won a crossword competition - collect $100 ";
-// 	    break;
+	testChanceCard = new Chance(10);
+	assertEquals(testChanceCard.getType(), 10);
+	assertEquals(testChanceCard.getText(), "Make general repairs on all your property – for each house pay $25 – for each hotel $100");
 
-// 	default: System.out.println("Error: Tried to create a non-standard Chance card.");
-// 	    break;
-// 	}
-//     }
+	testChanceCard = new Chance(11);
+	assertEquals(testChanceCard.getType(), 11);
+	assertEquals(testChanceCard.getText(), "Pay poor tax of $15");
 
-//     /** Get the text field associated with this card. */
-//     public String getText() {
-// 	return text;
-//     }
+	testChanceCard = new Chance(12);
+	assertEquals(testChanceCard.getType(), 12);
+	assertEquals(testChanceCard.getText(), "Take a trip to Reading Railroad – if you pass Go, collect $200");
 
-//     /** Get the type of this card. */
-//     public int getType() {
-// 	return cardType;
-//     }
+	testChanceCard = new Chance(13);
+	assertEquals(testChanceCard.getType(), 13);
+	assertEquals(testChanceCard.getText(), "Take a walk on the Boardwalk – advance token to Boardwalk");
+
+	testChanceCard = new Chance(14);
+	assertEquals(testChanceCard.getType(), 14);
+	assertEquals(testChanceCard.getText(), "You have been elected chairman of the board – pay each player $50");
+
+	testChanceCard = new Chance(15);
+	assertEquals(testChanceCard.getType(), 15);
+	assertEquals(testChanceCard.getText(), "Your building loan matures – collect $150");
+
+	testChanceCard = new Chance(16);
+	assertEquals(testChanceCard.getType(), 16);
+	assertEquals(testChanceCard.getText(), "You have won a crossword competition - collect $100.");
 
 
+	// Make sure un-allowed card values don't affect text, etc.
+	testChanceCard = new Chance(17);
+	assertEquals(testChanceCard.getType(), 17);
+	assertEquals(testChanceCard.getText(), null);
 
+	testChanceCard = new Chance(-1);
+	assertEquals(testChanceCard.getType(), -1);
+	assertEquals(testChanceCard.getText(), null);
 
-
-
-
+	testChanceCard = new Chance(0);
+	assertEquals(testChanceCard.getType(), 0);
+	assertEquals(testChanceCard.getText(), null);
+    }
 
     // ===========
     // Player.java
@@ -348,46 +348,12 @@ public class IdeopolyTester extends TestCase {
 	// TODO: Test for mortgage value?
 	assertEquals(testPropOutlet.getRent(), 10);
 	// TODO: Add tests here for when I have 1/2/3/4 houses, and 1 hotel.
+	// TODO: Other tests here.
     }
-
-// 	super(new_name, new_image, x_pos, y_pos, edge); // Use the BoardCell class' constructor.
-// 	numHouses	    = 0;
-// 	numHotels	    = 0;
-// 	cost                = new_cost;
-// 	mortgageValue	    = new_cost / 2; // Mortgage prices are always half the price to buy the property.
-// 	initialRent	    = new_initial_rent;
-// 	rent1House	    = new_rent_1_house;
-// 	rent2House	    = new_rent_2_house;
-// 	rent3House	    = new_rent_3_house;
-// 	rent4House	    = new_rent_4_house;
-// 	rent1Hotel	    = new_rent_1_hotel;
-// 	houseOrHotelCost    = new_house_or_hotel_cost;
-
-
-//     public PropagandaOutlet(String new_name, Icon new_image, int new_cost, int new_initial_rent, int new_rent_1_house, int new_rent_2_house, int new_rent_3_house, int new_rent_4_house, int new_rent_1_hotel, int new_house_or_hotel_cost, int x_pos, int y_pos, String edge) {
-// 	// TODO: Better, less ambiguous variable names here.
-// 	super(new_name, new_image, x_pos, y_pos, edge); // Use the BoardCell class' constructor.
-// 	numHouses	    = 0;
-// 	numHotels	    = 0;
-// 	cost                = new_cost;
-// 	mortgageValue	    = new_cost / 2; // Mortgage prices are always half the price to buy the property.
-// 	initialRent	    = new_initial_rent;
-// 	rent1House	    = new_rent_1_house;
-// 	rent2House	    = new_rent_2_house;
-// 	rent3House	    = new_rent_3_house;
-// 	rent4House	    = new_rent_4_house;
-// 	rent1Hotel	    = new_rent_1_hotel;
-// 	houseOrHotelCost    = new_house_or_hotel_cost;
-//     }
-
-//     public int getRent() {
-//     public int getCost() {
-
 
 //======
 // Methods inherited from BoardCell:
 //======
-
     // public BoardCell(String new_name, Icon new_image, int x_pos, int y_pos, String edge) {
     // 	name	    = new_name;
     // 	ownedBy     = null;
@@ -447,21 +413,15 @@ public class IdeopolyTester extends TestCase {
     // 	return 0;
     // }
 
-
-
-
-
-
     // ===================
     // CommunityChest.java
     // ==================
+    // TODO: ^--- This.
 
     // ==============
     // Railroad.java
     // ==============
-
-
-
+    // TODO: ^--- This.
 }
 
 

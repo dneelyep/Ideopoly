@@ -347,10 +347,16 @@ public class IdeopolyGUI implements ActionListener {
 	//	frame.add(messages, c);
 
 
+	Random generator = new Random();
+	int cardType; // Controls the type of Chance/Community Chest card made.
+
 	// Make a large stack of cards to use for the game.
 	for (int i = 0; i < 200; i++) {
-	    chanceCards.push(new Chance());
-	    commChestCards.push(new CommunityChest());
+	    cardType = generator.nextInt(16) + 1;
+	    chanceCards.push(new Chance(cardType));
+
+	    cardType = generator.nextInt(17) + 1;
+	    commChestCards.push(new CommunityChest(cardType));
 	}
 
 	positions.get( player1.getPosition() ).setImage(player1.getImage());
