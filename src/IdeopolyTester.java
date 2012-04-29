@@ -246,6 +246,7 @@ public class IdeopolyTester extends TestCase {
 
 	assertEquals(testPlayer.getNumHouses(),          0);
 	assertEquals(testPlayer.getNumHotels(),          0);
+	// TODO: For both of these, add tests for adding/removing, negative #s, etc.
 	assertEquals(testPlayer.getNumGOOJFCards(),      0);
 
 	assertEquals(testPlayer.getName(), "Player 1 (H)");
@@ -313,6 +314,137 @@ public class IdeopolyTester extends TestCase {
 
 	// TODO: More tests for negative inputs?
 
+	// TODO: LOTS OF TESTS FOR THIS FUNCTION
+	// Test that correct values are set for different amounts when we spreadMoney().
+	testPlayer.spreadMoney(500);
+	assertEquals(testPlayer.getCash("fiveHundreds"), "16");
+	assertEquals(testPlayer.getCash("hundreds"),     "2");
+	assertEquals(testPlayer.getCash("fifties"),      "0");
+	assertEquals(testPlayer.getCash("twenties"),     "2");
+	assertEquals(testPlayer.getCash("tens"),         "0");
+	assertEquals(testPlayer.getCash("fives"),        "1");
+	assertEquals(testPlayer.getCash("ones"),         "0");
+
+	testPlayer.spreadMoney(100);
+	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
+	assertEquals(testPlayer.getCash("hundreds"),    "82");
+	assertEquals(testPlayer.getCash("fifties"),      "0");
+	assertEquals(testPlayer.getCash("twenties"),     "2");
+	assertEquals(testPlayer.getCash("tens"),         "0");
+	assertEquals(testPlayer.getCash("fives"),        "1");
+	assertEquals(testPlayer.getCash("ones"),         "0");
+
+	testPlayer.spreadMoney(50);
+	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
+	assertEquals(testPlayer.getCash("hundreds"),     "0");
+	assertEquals(testPlayer.getCash("fifties"),    "164");
+	assertEquals(testPlayer.getCash("twenties"),     "2");
+	assertEquals(testPlayer.getCash("tens"),         "0");
+	assertEquals(testPlayer.getCash("fives"),        "1");
+	assertEquals(testPlayer.getCash("ones"),         "0");
+
+	testPlayer.spreadMoney(20);
+	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
+	assertEquals(testPlayer.getCash("hundreds"),     "0");
+	assertEquals(testPlayer.getCash("fifties"),      "0");
+	assertEquals(testPlayer.getCash("twenties"),   "412");
+	assertEquals(testPlayer.getCash("tens"),         "0");
+	assertEquals(testPlayer.getCash("fives"),        "1");
+	assertEquals(testPlayer.getCash("ones"),         "0");
+
+	testPlayer.spreadMoney(10);
+	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
+	assertEquals(testPlayer.getCash("hundreds"),     "0");
+	assertEquals(testPlayer.getCash("fifties"),      "0");
+	assertEquals(testPlayer.getCash("twenties"),     "0");
+	assertEquals(testPlayer.getCash("tens"),       "824");
+	assertEquals(testPlayer.getCash("fives"),        "1");
+	assertEquals(testPlayer.getCash("ones"),         "0");
+
+	testPlayer.spreadMoney(5);
+	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
+	assertEquals(testPlayer.getCash("hundreds"),     "0");
+	assertEquals(testPlayer.getCash("fifties"),      "0");
+	assertEquals(testPlayer.getCash("twenties"),     "0");
+	assertEquals(testPlayer.getCash("tens"),         "0");
+	assertEquals(testPlayer.getCash("fives"),     "1649");
+	assertEquals(testPlayer.getCash("ones"),         "0");
+
+	testPlayer.spreadMoney(1);
+	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
+	assertEquals(testPlayer.getCash("hundreds"),     "0");
+	assertEquals(testPlayer.getCash("fifties"),      "0");
+	assertEquals(testPlayer.getCash("twenties"),     "0");
+	assertEquals(testPlayer.getCash("tens"),         "0");
+	assertEquals(testPlayer.getCash("fives"),        "0");
+	assertEquals(testPlayer.getCash("ones"),      "8245");
+
+
+	testPlayer.bankruptPlayer();
+	testPlayer.spreadMoney(500);
+	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
+	assertEquals(testPlayer.getCash("hundreds"),     "0");
+	assertEquals(testPlayer.getCash("fifties"),      "0");
+	assertEquals(testPlayer.getCash("twenties"),     "0");
+	assertEquals(testPlayer.getCash("tens"),         "0");
+	assertEquals(testPlayer.getCash("fives"),        "0");
+	assertEquals(testPlayer.getCash("ones"),         "0");
+
+	testPlayer.spreadMoney(100);
+	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
+	assertEquals(testPlayer.getCash("hundreds"),     "0");
+	assertEquals(testPlayer.getCash("fifties"),      "0");
+	assertEquals(testPlayer.getCash("twenties"),     "0");
+	assertEquals(testPlayer.getCash("tens"),         "0");
+	assertEquals(testPlayer.getCash("fives"),        "0");
+	assertEquals(testPlayer.getCash("ones"),         "0");
+
+	testPlayer.spreadMoney(50);
+	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
+	assertEquals(testPlayer.getCash("hundreds"),     "0");
+	assertEquals(testPlayer.getCash("fifties"),      "0");
+	assertEquals(testPlayer.getCash("twenties"),     "0");
+	assertEquals(testPlayer.getCash("tens"),         "0");
+	assertEquals(testPlayer.getCash("fives"),        "0");
+	assertEquals(testPlayer.getCash("ones"),         "0");
+
+	testPlayer.spreadMoney(20);
+	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
+	assertEquals(testPlayer.getCash("hundreds"),     "0");
+	assertEquals(testPlayer.getCash("fifties"),      "0");
+	assertEquals(testPlayer.getCash("twenties"),     "0");
+	assertEquals(testPlayer.getCash("tens"),         "0");
+	assertEquals(testPlayer.getCash("fives"),        "0");
+	assertEquals(testPlayer.getCash("ones"),         "0");
+
+	testPlayer.spreadMoney(10);
+	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
+	assertEquals(testPlayer.getCash("hundreds"),     "0");
+	assertEquals(testPlayer.getCash("fifties"),      "0");
+	assertEquals(testPlayer.getCash("twenties"),     "0");
+	assertEquals(testPlayer.getCash("tens"),         "0");
+	assertEquals(testPlayer.getCash("fives"),        "0");
+	assertEquals(testPlayer.getCash("ones"),         "0");
+
+	testPlayer.spreadMoney(5);
+	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
+	assertEquals(testPlayer.getCash("hundreds"),     "0");
+	assertEquals(testPlayer.getCash("fifties"),      "0");
+	assertEquals(testPlayer.getCash("twenties"),     "0");
+	assertEquals(testPlayer.getCash("tens"),         "0");
+	assertEquals(testPlayer.getCash("fives"),        "0");
+	assertEquals(testPlayer.getCash("ones"),         "0");
+
+	testPlayer.spreadMoney(1);
+	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
+	assertEquals(testPlayer.getCash("hundreds"),     "0");
+	assertEquals(testPlayer.getCash("fifties"),      "0");
+	assertEquals(testPlayer.getCash("twenties"),     "0");
+	assertEquals(testPlayer.getCash("tens"),         "0");
+	assertEquals(testPlayer.getCash("fives"),        "0");
+	assertEquals(testPlayer.getCash("ones"),         "0");
+
+
 
 
 	// image = new ImageIcon("images/p1_present.jpg"); // getImage()
@@ -325,11 +457,7 @@ public class IdeopolyTester extends TestCase {
 	// public Icon getImage()
 	// public int getPosition()
 	// public void setPosition(int p)
-	// public void giveGetOutOfJailFree()
-	// /** Have this player spend one of their get out of jail free cards. */
-	// //	    TODO: Test this when the person's not in jail.
-	// public int getNumHouses()
-	// public int getNumHotels()
+	// public void spendGOOJF() TODO: Test this when the person's not in jail.
 	// public void spreadMoney(int numToSwitch)// TODO: LOTS OF TESTS FOR THIS FUNCTION
 	// TODO: ^-- test ALL these.
     }
