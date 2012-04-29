@@ -35,8 +35,8 @@ public class IdeopolyTester extends TestCase {
 	// Icon getImage()
 	// void setImage(Icon new_image)
 
-	// TODO: Then more complicated, out of the ordinary situations. For example, test for odd values to the
-	// constructor.
+	// TODO: Then more complicated, out of the ordinary situations. For 
+	// example, test for odd values to the constructor.
     }
 
 	// ================
@@ -273,8 +273,6 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getJailStatus(), 0);
 	testPlayer.setInJail('c');
 	assertEquals(testPlayer.getJailStatus(), 0);
-
-
 
 	// totalPropertiesOwned = 0; // TODO: <-- Test that.
 

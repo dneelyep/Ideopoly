@@ -1162,6 +1162,9 @@ public class IdeopolyGUI implements ActionListener {
     /** Transfer money amount a from player p1 to player p2.*/
     public void playerPayPlayer(int a, Player p1, Player p2) {
 	// TODO: Before each call of this, make sure the player won't go bankrupt.
+	// TODO: Move that step of checking for bankruptcy status to the method rather than
+	// spreading it out everywhere across the file. Less duplication.
+	// TODO: Consider deleting/using run_tests
 	// First, get a distribution of what bills to pay.
 	getCashDistribution(a);
 
