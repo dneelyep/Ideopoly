@@ -29,7 +29,7 @@ public class Menu implements ActionListener {
 	// TODO: Try to loop this?
 	// TODO: Clean up the edges on the image, make it look a bit better.
 	// TODO: Consider making the background transparent also so it blends with the GUI.
-	JLabel logo = new JLabel(new ImageIcon("images/resized_logo.png"));//  icon);
+	JLabel logo = new JLabel(new ImageIcon("images/resizedLogo.png"));//  icon);
 	logo.setAlignmentX(Component.CENTER_ALIGNMENT);
 	box.add(logo);
 

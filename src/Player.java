@@ -89,19 +89,19 @@ public class Player {
 	switch (player_number) {
 	    case 1: currentPosition = 3;
 		name = "Player 1 (H)";
-		image = new ImageIcon("images/p1_present.jpg");
+		image = new ImageIcon("images/p1Present.jpg");
 		break;
 	    case 2: currentPosition = 2;
 		name = "Player 2 (C)";
-		image = new ImageIcon("images/p2_present.jpg");
+		image = new ImageIcon("images/p2Present.jpg");
 		break;
 	    case 3: currentPosition = 1;
 		name = "Player 3 (C)";
-		image = new ImageIcon("images/p3_present.jpg");
+		image = new ImageIcon("images/p3Present.jpg");
 		break;
 	    case 4: currentPosition = 0;
 		name = "Player 4 (c)";
-		image = new ImageIcon("images/p4_present.jpg");
+		image = new ImageIcon("images/p4Present.jpg");
 		break;
 
 	    default: System.out.println("Error: tried to create a non-standard player.");

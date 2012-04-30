@@ -5,12 +5,11 @@ import java.awt.event.*;
 import java.util.Stack;
 
 // TODO: Declare a no player present icon up top? Could help readability later in this file.
-// TODO: Add in Chance and Comm. Chest cards.
+// TODO: Add in Chance and Comm. Chest images.
 // TODO: Use the native look and feel for the program.
 // TODO: Keep using M-a/M-e. Useful.
 // TODO: Make an updateStatus() function that, given a string as an input,
 //       updates the status text at bottom of screen.
-// TODO: Fix image file names to camelCase.
 // TODO: Remove unneeded image templates.
 // TODO: Get rid of the spacing between cells.
 // TODO: Make text on cells readable.
@@ -21,26 +20,28 @@ import java.util.Stack;
  *  can play the game. */
 
 public class IdeopolyGUI implements ActionListener {
-    // TODO: Set access specifiers for each cell, etc. as needed.
+    // TODO: Make some of these arrays, etc., final/static when they're constant. Also see
+    // if it's possible to get rid of some of them.
     /** Number to represent if the game has been won. Once the game's won, this switches to another value. */
     private int gameWon = 0;
 
     /** Linked list that represents the 160 positions players can stand on. */
     public LinkedList<BoardPosition> positions = new LinkedList<BoardPosition>();
 
-    private Player player1 = new Player(1);
-    private Player player2 = new Player(2);
-    private Player player3 = new Player(3);
-    private Player player4 = new Player(4);
+    private Player   player1 = new Player(1);
+    private Player   player2 = new Player(2);
+    private Player   player3 = new Player(3);
+    private Player   player4 = new Player(4);
 
-    private Player       players[]       = { player1, player2, player3, player4 };
-    private int          playersArrSize  = 3;
-    private String       cashValues[]	 = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
-    private String titles[] = { "Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail" };
-    private JLabel[]     playerRowLabels = { new JLabel("Player 1"), 
-					     new JLabel("Player 2"), 
-					     new JLabel("Player 3"), 
-					     new JLabel("Player 4") };
+    private Player   players[]       = { player1, player2, player3, player4 };
+    private int      playersArrSize  = 3;
+    private String   cashValues[]	 = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
+    private String   titles[] = { "Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail" };
+    private JLabel[] playerRowLabels = { new JLabel("Player 1"), 
+					 new JLabel("Player 2"), 
+					 new JLabel("Player 3"), 
+					 new JLabel("Player 4") };
+
     /* TODO: Consider making these values constant, since they won't change.
        IE: static final int ROWS = 4
        static final int COLS = 7
@@ -66,12 +67,12 @@ public class IdeopolyGUI implements ActionListener {
     private int currentPlayer = 0;
 
     // Create the game board.
-    private Icon             darkBlue        = new ImageIcon       ("images/dark_blue_template.jpg");
-    private Icon             green           = new ImageIcon       ("images/green_template.jpg");
-    private Icon             lightBlue       = new ImageIcon       ("images/light_blue_template.jpg");
-    private Icon             orange          = new ImageIcon       ("images/orange_template.jpg");
-    private Icon             pink            = new ImageIcon       ("images/pink_template.jpg");
-    private Icon             purple          = new ImageIcon       ("images/purple_template.jpg");
+    private Icon             darkBlue        = new ImageIcon       ("images/darkBlueTemplate.jpg");
+    private Icon             green           = new ImageIcon       ("images/greenTemplate.jpg");
+    private Icon             lightBlue       = new ImageIcon       ("images/lightBlueTemplate.jpg");
+    private Icon             orange          = new ImageIcon       ("images/orangeTemplate.jpg");
+    private Icon             pink            = new ImageIcon       ("images/pinkTemplate.jpg");
+    private Icon             purple          = new ImageIcon       ("images/purpleTemplate.jpg");
 
     private Icon             luxTax          = new ImageIcon       ("images/luxuryTax.jpg");
     // TODO: Redo this image. Just re-download the version from email and add border. Had resized it incorrectly.
@@ -80,47 +81,47 @@ public class IdeopolyGUI implements ActionListener {
     // TODO: Is it possible to do this without the lengthily declaring variables for each?
     // TODO: Possible to get rid of the images prefix?
 
-    private BoardCell	     go              = new BoardCell       ("go", new ImageIcon("images/go.jpg"), 41, 41);
-    private PropagandaOutlet mediterraneanAv = new PropagandaOutlet("mediterraneanAv", purple, 60, 2, 10, 30, 90, 160, 250, 50, 37, 41);
-    private BoardCell        commChest1      = new BoardCell       ("commChest1", new ImageIcon("images/bottCommChest.jpg"), 33, 41);
-    private PropagandaOutlet balticAv        = new PropagandaOutlet("balticAv", purple, 60, 4, 20, 60, 180, 320, 450, 50, 29, 41);
-    private BoardCell	     incomeTax       = new BoardCell       ("incomeTax", incTax, 25, 41);
+    private BoardCell	     go              = new BoardCell       ("Go", new ImageIcon("images/go.jpg"), 41, 41);
+    private PropagandaOutlet mediterraneanAv = new PropagandaOutlet("Mediterranean Av.", purple, 60, 2, 10, 30, 90, 160, 250, 50, 37, 41);
+    private BoardCell        commChest1      = new BoardCell       ("Community Chest", new ImageIcon("images/bottCommChest.jpg"), 33, 41);
+    private PropagandaOutlet balticAv        = new PropagandaOutlet("Baltic Av.", purple, 60, 4, 20, 60, 180, 320, 450, 50, 29, 41);
+    private BoardCell	     incomeTax       = new BoardCell       ("Income Tax", incTax, 25, 41);
     // TODO: Bigger font size (~80) for the text on railroads - hard to read currently.
-    private Railroad	     readingRR       = new Railroad        ("readingRR", new ImageIcon("images/readingRR.jpg"), 21, 41);
-    private PropagandaOutlet orientalAv      = new PropagandaOutlet("orientalAv", lightBlue, 100, 6, 30, 90, 270, 400, 550, 50, 17, 41);
-    private BoardCell	     chance1	     = new BoardCell       ("chance1", new ImageIcon("images/botChance.jpg"), 13, 41);
-    private PropagandaOutlet vermontAv       = new PropagandaOutlet("vermontAv", lightBlue, 100, 6, 30, 90, 270, 400, 550, 50, 9, 41);
-    private PropagandaOutlet connecticutAv   = new PropagandaOutlet("connecticutAv", lightBlue, 120, 8, 40, 100, 300, 450, 600, 50, 5, 41);
-    private BoardCell	     jail	     = new BoardCell       ("jail", new ImageIcon("images/jail.jpg"), 1, 41);
-    private PropagandaOutlet stCharles       = new PropagandaOutlet("stCharles", pink, 140, 10, 50, 150, 450, 625, 750, 100, 1, 37);
-    private BoardCell	     electricCompany = new BoardCell       ("electricCompany", new ImageIcon("images/electricCo.jpg"), 1, 33);
-    private PropagandaOutlet statesAv	     = new PropagandaOutlet("statesAv", pink, 140, 10, 50, 150, 450, 625, 750, 100, 1, 29);
-    private PropagandaOutlet virginiaAv      = new PropagandaOutlet("virginiaAv", pink, 160, 12, 60, 180, 500, 700, 900, 100, 1, 25);
-    private Railroad	     pennsylvaniaRR  = new Railroad        ("pennsylvaniaRR", new ImageIcon("images/pennsylvaniaRR.jpg"), 1, 21);
-    private PropagandaOutlet stJames         = new PropagandaOutlet("stJames", orange, 180, 14, 70, 200, 550, 750, 950, 100, 1, 17);
-    private BoardCell	     commChest2      = new BoardCell       ("commChest2", new ImageIcon("images/leftCommChest.jpg"), 1, 13);
-    private PropagandaOutlet tennesseeAv     = new PropagandaOutlet("tennesseeAv", orange, 180, 14, 70, 200, 550, 750, 950, 100, 1, 9);
-    private PropagandaOutlet newYorkAv       = new PropagandaOutlet("newYorkAv", orange, 200, 16, 80, 220, 600, 800, 1000, 100, 1, 5);
-    private BoardCell	     freeParking     = new BoardCell       ("freeParking", new ImageIcon("images/freeParking.jpg"), 1, 1);
-    private PropagandaOutlet kentuckyAv      = new PropagandaOutlet("kentuckyAv", new ImageIcon("images/properties/kentuckyAv.jpg"), 220, 18, 90, 250, 700, 875, 1050, 150, 5, 1);
-    private BoardCell	     chance2         = new BoardCell       ("chance2", new ImageIcon("images/topChance.jpg"), 9, 1);
-    private PropagandaOutlet indianaAv	     = new PropagandaOutlet("indianaAv", new ImageIcon("images/properties/indianaAv.jpg"), 220, 18, 90, 250, 700, 875, 1050, 150, 13, 1);
-    private PropagandaOutlet illinoisAv      = new PropagandaOutlet("illinoisAv", new ImageIcon("images/properties/illinoisAv.jpg"), 240, 20, 100, 300, 750, 925, 1100, 150, 17, 1);
-    private Railroad	     bAndORR	     = new Railroad        ("bAndORR", new ImageIcon("images/bAndORR.jpg"), 21, 1);
-    private PropagandaOutlet atlanticAv      = new PropagandaOutlet("atlanticAv", new ImageIcon("images/properties/atlanticAv.jpg"), 260, 22, 110, 330, 800, 975, 1150, 1, 25, 1);
-    private PropagandaOutlet ventnorAv	     = new PropagandaOutlet("ventnorAv", new ImageIcon("images/properties/ventnorAv.jpg"), 260, 22, 110, 330, 800, 975, 1150, 150, 29, 1);
-    private BoardCell	     waterWorks      = new BoardCell       ("waterWorks", new ImageIcon("images/waterWorks.jpg"), 33, 1);
-    private PropagandaOutlet marvinGardens   = new PropagandaOutlet("marvinGardens", new ImageIcon("images/properties/marvinGardens.jpg"), 280, 24, 120, 360, 850, 1025, 1200, 150, 37, 1);
-    private BoardCell	     goToJail        = new BoardCell       ("goToJail", new ImageIcon("images/goToJail.jpg"), 41, 1);
-    private PropagandaOutlet pacificAv	     = new PropagandaOutlet("pacificAv", green, 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 5);
+    private Railroad	     readingRR       = new Railroad        ("Reading RR", new ImageIcon("images/readingRR.jpg"), 21, 41);
+    private PropagandaOutlet orientalAv      = new PropagandaOutlet("Oriental Av.", lightBlue, 100, 6, 30, 90, 270, 400, 550, 50, 17, 41);
+    private BoardCell	     chance1	     = new BoardCell       ("Chance", new ImageIcon("images/botChance.jpg"), 13, 41);
+    private PropagandaOutlet vermontAv       = new PropagandaOutlet("Vermont Av.", lightBlue, 100, 6, 30, 90, 270, 400, 550, 50, 9, 41);
+    private PropagandaOutlet connecticutAv   = new PropagandaOutlet("Connecticut Av.", lightBlue, 120, 8, 40, 100, 300, 450, 600, 50, 5, 41);
+    private BoardCell	     jail	     = new BoardCell       ("Jail", new ImageIcon("images/jail.jpg"), 1, 41);
+    private PropagandaOutlet stCharles       = new PropagandaOutlet("St. Charles Place", pink, 140, 10, 50, 150, 450, 625, 750, 100, 1, 37);
+    private BoardCell	     electricCompany = new BoardCell       ("Electric Co.", new ImageIcon("images/electricCo.jpg"), 1, 33);
+    private PropagandaOutlet statesAv	     = new PropagandaOutlet("States Av.", pink, 140, 10, 50, 150, 450, 625, 750, 100, 1, 29);
+    private PropagandaOutlet virginiaAv      = new PropagandaOutlet("Virginia Av.", pink, 160, 12, 60, 180, 500, 700, 900, 100, 1, 25);
+    private Railroad	     pennsylvaniaRR  = new Railroad        ("Pennsylvania RR", new ImageIcon("images/pennsylvaniaRR.jpg"), 1, 21);
+    private PropagandaOutlet stJames         = new PropagandaOutlet("St. James", orange, 180, 14, 70, 200, 550, 750, 950, 100, 1, 17);
+    private BoardCell	     commChest2      = new BoardCell       ("Community Chest", new ImageIcon("images/leftCommChest.jpg"), 1, 13);
+    private PropagandaOutlet tennesseeAv     = new PropagandaOutlet("Tennessee Av.", orange, 180, 14, 70, 200, 550, 750, 950, 100, 1, 9);
+    private PropagandaOutlet newYorkAv       = new PropagandaOutlet("New York Av.", orange, 200, 16, 80, 220, 600, 800, 1000, 100, 1, 5);
+    private BoardCell	     freeParking     = new BoardCell       ("Free Parking", new ImageIcon("images/freeParking.jpg"), 1, 1);
+    private PropagandaOutlet kentuckyAv      = new PropagandaOutlet("Kentucky Av.", new ImageIcon("images/properties/kentuckyAv.jpg"), 220, 18, 90, 250, 700, 875, 1050, 150, 5, 1);
+    private BoardCell	     chance2         = new BoardCell       ("Chance", new ImageIcon("images/topChance.jpg"), 9, 1);
+    private PropagandaOutlet indianaAv	     = new PropagandaOutlet("Indiana Av.", new ImageIcon("images/properties/indianaAv.jpg"), 220, 18, 90, 250, 700, 875, 1050, 150, 13, 1);
+    private PropagandaOutlet illinoisAv      = new PropagandaOutlet("Illinois Av.", new ImageIcon("images/properties/illinoisAv.jpg"), 240, 20, 100, 300, 750, 925, 1100, 150, 17, 1);
+    private Railroad	     bAndORR	     = new Railroad        ("B & O RR", new ImageIcon("images/bAndORR.jpg"), 21, 1);
+    private PropagandaOutlet atlanticAv      = new PropagandaOutlet("Atlantic Av.", new ImageIcon("images/properties/atlanticAv.jpg"), 260, 22, 110, 330, 800, 975, 1150, 1, 25, 1);
+    private PropagandaOutlet ventnorAv	     = new PropagandaOutlet("Ventnor Av.", new ImageIcon("images/properties/ventnorAv.jpg"), 260, 22, 110, 330, 800, 975, 1150, 150, 29, 1);
+    private BoardCell	     waterWorks      = new BoardCell       ("Water Works", new ImageIcon("images/waterWorks.jpg"), 33, 1);
+    private PropagandaOutlet marvinGardens   = new PropagandaOutlet("Marvin Gardens", new ImageIcon("images/properties/marvinGardens.jpg"), 280, 24, 120, 360, 850, 1025, 1200, 150, 37, 1);
+    private BoardCell	     goToJail        = new BoardCell       ("Go to Jail", new ImageIcon("images/goToJail.jpg"), 41, 1);
+    private PropagandaOutlet pacificAv	     = new PropagandaOutlet("Pacific Av.", green, 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 5);
     private PropagandaOutlet nCarolinaAv     = new PropagandaOutlet("nCarolinaAv", green, 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 9);
-    private BoardCell	     commChest3      = new BoardCell       ("commChest3", new ImageIcon("images/rightCommChest.jpg"), 41, 13);
-    private PropagandaOutlet pennsylvaniaAv  = new PropagandaOutlet("pennsylvaniaAv", green, 320, 28, 150, 450, 1000, 1200, 1400, 200, 41, 17);
-    private Railroad         shortLineRR     = new Railroad        ("shortLineRR", new ImageIcon("images/shortLineRR.jpg"), 41, 21);
-    private BoardCell        chance3	     = new BoardCell       ("chance3", new ImageIcon("images/rightChance.jpg"), 41, 25);
-    private PropagandaOutlet parkPlace       = new PropagandaOutlet("parkPlace", darkBlue, 350, 35, 175, 500, 1100, 1300, 1500, 200, 41, 29);
-    private BoardCell	     luxuryTax       = new BoardCell       ("luxuryTax", luxTax, 41, 33);
-    private PropagandaOutlet boardwalk       = new PropagandaOutlet("boardwalk", darkBlue, 400, 50, 200, 600, 1400, 1700, 2000, 200, 41, 37);
+    private BoardCell	     commChest3      = new BoardCell       ("Community Chest", new ImageIcon("images/rightCommChest.jpg"), 41, 13);
+    private PropagandaOutlet pennsylvaniaAv  = new PropagandaOutlet("Pennsylvania Av.", green, 320, 28, 150, 450, 1000, 1200, 1400, 200, 41, 17);
+    private Railroad         shortLineRR     = new Railroad        ("Short Line RR", new ImageIcon("images/shortLineRR.jpg"), 41, 21);
+    private BoardCell        chance3	     = new BoardCell       ("Chance", new ImageIcon("images/rightChance.jpg"), 41, 25);
+    private PropagandaOutlet parkPlace       = new PropagandaOutlet("Park Place", darkBlue, 350, 35, 175, 500, 1100, 1300, 1500, 200, 41, 29);
+    private BoardCell	     luxuryTax       = new BoardCell       ("Luxury Tax", luxTax, 41, 33);
+    private PropagandaOutlet boardwalk       = new PropagandaOutlet("Boardwalk", darkBlue, 400, 50, 200, 600, 1400, 1700, 2000, 200, 41, 37);
 
     // TODO: Make this a vector, or similar, so I can insert multiple types of objects. 
     // This will solve the later problem of not being able to use getCashDistribution. 
@@ -128,6 +129,7 @@ public class IdeopolyGUI implements ActionListener {
     // Prop Outlets into BoardCells. => if I solve this problem, that one should disappear. And
     // hundreds more should surface.
     // TODO: Get actionlisteners implemented for the properties, so that I can mouseover them and have a picture of the property card pop up in the middle of the board.
+
     final BoardCell boardProperties[] = { go, mediterraneanAv, commChest1, balticAv, incomeTax, readingRR, orientalAv, chance1, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChest2, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chance2, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChest3, pennsylvaniaAv, shortLineRR, chance3, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
 
     /** The stack of Chance cards. */
@@ -454,7 +456,7 @@ public class IdeopolyGUI implements ActionListener {
 
 		// Get the label at the player's current position,
 		// set it to no player present (since we're moving the player).
-		positions.get( p.getPosition() ).setImage(new ImageIcon("images/no_player_present.jpg"));
+		positions.get( p.getPosition() ).setImage(new ImageIcon("images/noPlayerPresent.jpg"));
 
 		// The player is on one of the last 6 spaces and will overshoot Go.
 		if ( p.getPosition() >= 135 && p.getPosition() <= 159 && (landingSpot > 159) ) {
@@ -862,6 +864,7 @@ public class IdeopolyGUI implements ActionListener {
 			    // Allow player to buy the property.
 			    if (players[currentPlayer] == player1) {
 				buyProperty.setEnabled(true);
+				buyProperty.setText("Buy property (" + getCurrentLocation(players[currentPlayer]).getName() + ")");
 			    }
 
 			    // AI code here.

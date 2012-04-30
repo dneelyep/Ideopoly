@@ -19,7 +19,7 @@ public class BoardPosition extends JLabel {
     public BoardPosition(int newXPos, int newYPos) {
 	xCoordPos = newXPos;
 	yCoordPos = newYPos;
-	image     = new ImageIcon("images/no_player_present.jpg");
+	image     = new ImageIcon("images/noPlayerPresent.jpg");
 	this.setIcon(image);
     }
 

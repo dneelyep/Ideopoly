@@ -26,7 +26,6 @@ public class IdeopolyTester extends TestCase {
 
 	assertEquals(testCell.getX(), 4);
 	assertEquals(testCell.getY(), 10);
-	//	assertEquals(testCell.getOrientation(), "left");
 
 // TODO: What should these return? This screams for a better design, since I think they're just dummy methods.
 	//	assertEquals(testCell.getRent(), );
@@ -482,7 +481,6 @@ public class IdeopolyTester extends TestCase {
 	// public void setImage(Icon new_image) {
 	assertEquals(testPropOutlet.getX(), 18);
 	assertEquals(testPropOutlet.getY(), 18);
-	//	assertEquals(testPropOutlet.getOrientation(), "right");
 
 	// assertEquals(testPropOutlet.getNumHouses(), 0); TODO: Tests/methods for these?
 	// assertEquals(testPropOutlet.getNumHotels(), 0);
