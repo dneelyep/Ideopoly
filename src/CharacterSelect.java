@@ -8,7 +8,7 @@ public class CharacterSelect implements ActionListener {
 
     /** This string represents the character the player currently has selected.
      *  It's used to set the player's token in the main game. */
-    private String selected_player = "null";
+    private String selectedPlayer = "null";
 
     /** Buttons to represent the various characters players can pick. */
     // TODO: Make these buttons pictures instead, that highlight when selected.
@@ -54,7 +54,7 @@ public class CharacterSelect implements ActionListener {
 	// TODO: Loop this.
 	c.fill = GridBagConstraints.HORIZONTAL;
 
-	JLabel choose_character = new JLabel("Choose your character below:"); // TODO: Center this text across the row
+	JLabel chooseCharacter = new JLabel("Choose your character below:"); // TODO: Center this text across the row
 	// TODO: Also, make it sexy artwork rather than bland text.
 
 	// =======================================================
@@ -64,7 +64,7 @@ public class CharacterSelect implements ActionListener {
 	c.gridx = 0;
 	c.gridy = 0;
 	c.gridwidth = 3;
-	pane.add(choose_character, c);
+	pane.add(chooseCharacter, c);
 	c.gridwidth = 1;
 
 	c.gridx = 0;
@@ -100,19 +100,19 @@ public class CharacterSelect implements ActionListener {
      *  If they click Continue, start a new game. If they
      *  click Back, head back to the main menu. */
     public void actionPerformed(ActionEvent e) {
-	String action_source = e.getActionCommand();
+	String actionSource = e.getActionCommand();
 	continueButton.setEnabled(true);
 
-	if (action_source == "Continue") {
-	    IdeopolyGUI main_game = new IdeopolyGUI(selected_player);
+	if (actionSource == "Continue") {
+	    IdeopolyGUI mainGame = new IdeopolyGUI(selectedPlayer);
 	    frame.dispose();
 	}
-	else if (action_source == "Back") {
+	else if (actionSource == "Back") {
 	    Menu game = new Menu();
 	    frame.dispose();
 	}
 	else {
-	    selected_player = action_source;
+	    selectedPlayer = actionSource;
 	}
     }
 }

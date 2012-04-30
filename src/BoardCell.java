@@ -36,12 +36,12 @@ public class BoardCell {
 
     /** Creates a BoardCell object, with the specified name, image, and coordinates.
      *  Does not have an owner. There are no players standing on this object. */
-    public BoardCell(String new_name, Icon new_image, int x_pos, int y_pos) {
-	name	    = new_name;
+    public BoardCell(String newName, Icon newImage, int xPos, int yPos) {
+	name	    = newName;
 	ownedBy     = null;
-	image	    = new_image;
-	cellX	    = x_pos;
-	cellY       = y_pos;
+	image	    = newImage;
+	cellX	    = xPos;
+	cellY       = yPos;
     }
 
     /** Get the name of this property. */
@@ -66,8 +66,8 @@ public class BoardCell {
 	return image;
     }
 
-    public void setImage(Icon new_image) {
-	image = new_image;
+    public void setImage(Icon newImage) {
+	image = newImage;
     }
 
     /** Get this cell's x position. */

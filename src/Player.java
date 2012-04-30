@@ -57,12 +57,12 @@ public class Player {
     /** Image associated with this player. Used as an icon to indicate board position. */
     private Icon image;
 
-    // TODO: Make add/remove functions for owned_outlets. Use something other than an array for ease?
+    // TODO: Make add/remove functions for ownedOutlets. Use something other than an array for ease?
 
     /** Actions to take when a player object is initially created. Players
      *  are only created at the start of the game. Different players start
      *  at different positions on the board (Same cell, different walking space.) */
-    public Player(int player_number) {
+    public Player(int playerNumber) {
 
 	inJail = 0; // TODO: This needed? Couldn't I just use board position?
 
@@ -82,11 +82,11 @@ public class Player {
 	totalHotelsOwned     = 0;
 
 	// TODO: Create an empty array? Or is it already created?
-	//	owned_outlets[] = ;
+	//	ownedOutlets[] = ;
 
 	GOOJFCards = 0;
 
-	switch (player_number) {
+	switch (playerNumber) {
 	    case 1: currentPosition = 3;
 		name = "Player 1 (H)";
 		image = new ImageIcon("images/p1Present.jpg");
@@ -111,7 +111,7 @@ public class Player {
     /** Get the amount of bills of the given type for this player. */
     // TODO: Make this return an int instead? Would make much more sense.
     public String getCash(String billType) {
-	// TODO: Have the string parameter refer to the actual value. So i could just say "return bill_type" 
+	// TODO: Have the string parameter refer to the actual value. So i could just say "return billType" 
 	// rather than switch
 
 	switch (billType) {

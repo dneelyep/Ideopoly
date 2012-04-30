@@ -139,9 +139,9 @@ public class IdeopolyGUI implements ActionListener {
     private Stack<CommunityChest> commChestCards = new Stack<CommunityChest>();
 
 
-    /** Constructor creates the GUI, sets up parts of it, etc. 
-     *  // TODO: Or does initializeGame do that? */
-    public IdeopolyGUI(String player_character) {
+    /** Constructor creates the GUI, sets up parts of it, etc. */
+    // TODO: Split up the functions logically.
+    public IdeopolyGUI(String playerCharacter) {
 	// Create the gui.
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -334,7 +334,7 @@ public class IdeopolyGUI implements ActionListener {
 	frame.pack();
 	frame.setVisible(true);
 
-	System.out.println("You picked " + player_character);
+	System.out.println("You picked " + playerCharacter);
     }
 
     /** Do a turn's worth of gameplay. First the player rolls/moves. 
@@ -863,8 +863,9 @@ public class IdeopolyGUI implements ActionListener {
 
 			    // Allow player to buy the property.
 			    if (players[currentPlayer] == player1) {
+				// TODO: This is nice to have, but it screws up my later switch statement.
+				// buyProperty.setText("Buy property (" + getCurrentLocation(players[currentPlayer]).getName() + ")");
 				buyProperty.setEnabled(true);
-				buyProperty.setText("Buy property (" + getCurrentLocation(players[currentPlayer]).getName() + ")");
 			    }
 
 			    // AI code here.
@@ -1013,6 +1014,7 @@ public class IdeopolyGUI implements ActionListener {
     }
 
     /** Given a Player p and that player's location, return the cell the player is standing on. */
+    // TODO: This sounds like a method that should belong to the Player class.
     private BoardCell getCurrentLocation(Player p) {
 	return boardProperties[p.getPosition() / 4];
     }
