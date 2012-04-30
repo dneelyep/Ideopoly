@@ -251,11 +251,11 @@ public class Player {
 	}
     }
 
-    /** Convert this Player's money into bill type numToSwitch.
+    /** Convert this Player's cash into bill type numToSwitch.
      *  For example, if a Player needs more 5s, this will convert all the Player's
      *  cash to 5s. By default (with an invalid argument), converts to 500s. */
     // TODO: Test this function more, make sure it works correctly in all cases.
-    public void spreadMoney(int numToSwitch) {
+    public void spreadCash(int numToSwitch) {
 
 	// The amount still left to be spread out.
 	int amountNotSpread = totalMoney;

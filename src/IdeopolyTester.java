@@ -318,7 +318,7 @@ public class IdeopolyTester extends TestCase {
 	// TODO: More tests for negative inputs?
 
 	// Test that correct values are set for the spreadMoney() method.
-	testPlayer.spreadMoney(500);
+	testPlayer.spreadCash(500);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "16");
 	assertEquals(testPlayer.getCash("hundreds"),     "2");
 	assertEquals(testPlayer.getCash("fifties"),      "0");
@@ -327,7 +327,7 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getCash("fives"),        "1");
 	assertEquals(testPlayer.getCash("ones"),         "0");
 
-	testPlayer.spreadMoney(100);
+	testPlayer.spreadCash(100);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
 	assertEquals(testPlayer.getCash("hundreds"),    "82");
 	assertEquals(testPlayer.getCash("fifties"),      "0");
@@ -336,7 +336,7 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getCash("fives"),        "1");
 	assertEquals(testPlayer.getCash("ones"),         "0");
 
-	testPlayer.spreadMoney(50);
+	testPlayer.spreadCash(50);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
 	assertEquals(testPlayer.getCash("hundreds"),     "0");
 	assertEquals(testPlayer.getCash("fifties"),    "164");
@@ -345,7 +345,7 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getCash("fives"),        "1");
 	assertEquals(testPlayer.getCash("ones"),         "0");
 
-	testPlayer.spreadMoney(20);
+	testPlayer.spreadCash(20);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
 	assertEquals(testPlayer.getCash("hundreds"),     "0");
 	assertEquals(testPlayer.getCash("fifties"),      "0");
@@ -354,7 +354,7 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getCash("fives"),        "1");
 	assertEquals(testPlayer.getCash("ones"),         "0");
 
-	testPlayer.spreadMoney(10);
+	testPlayer.spreadCash(10);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
 	assertEquals(testPlayer.getCash("hundreds"),     "0");
 	assertEquals(testPlayer.getCash("fifties"),      "0");
@@ -363,7 +363,7 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getCash("fives"),        "1");
 	assertEquals(testPlayer.getCash("ones"),         "0");
 
-	testPlayer.spreadMoney(5);
+	testPlayer.spreadCash(5);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
 	assertEquals(testPlayer.getCash("hundreds"),     "0");
 	assertEquals(testPlayer.getCash("fifties"),      "0");
@@ -372,7 +372,7 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getCash("fives"),     "1649");
 	assertEquals(testPlayer.getCash("ones"),         "0");
 
-	testPlayer.spreadMoney(1);
+	testPlayer.spreadCash(1);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
 	assertEquals(testPlayer.getCash("hundreds"),     "0");
 	assertEquals(testPlayer.getCash("fifties"),      "0");
@@ -383,7 +383,7 @@ public class IdeopolyTester extends TestCase {
 
 
 	testPlayer.bankruptPlayer();
-	testPlayer.spreadMoney(500);
+	testPlayer.spreadCash(500);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
 	assertEquals(testPlayer.getCash("hundreds"),     "0");
 	assertEquals(testPlayer.getCash("fifties"),      "0");
@@ -392,7 +392,7 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getCash("fives"),        "0");
 	assertEquals(testPlayer.getCash("ones"),         "0");
 
-	testPlayer.spreadMoney(100);
+	testPlayer.spreadCash(100);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
 	assertEquals(testPlayer.getCash("hundreds"),     "0");
 	assertEquals(testPlayer.getCash("fifties"),      "0");
@@ -401,7 +401,7 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getCash("fives"),        "0");
 	assertEquals(testPlayer.getCash("ones"),         "0");
 
-	testPlayer.spreadMoney(50);
+	testPlayer.spreadCash(50);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
 	assertEquals(testPlayer.getCash("hundreds"),     "0");
 	assertEquals(testPlayer.getCash("fifties"),      "0");
@@ -410,7 +410,7 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getCash("fives"),        "0");
 	assertEquals(testPlayer.getCash("ones"),         "0");
 
-	testPlayer.spreadMoney(20);
+	testPlayer.spreadCash(20);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
 	assertEquals(testPlayer.getCash("hundreds"),     "0");
 	assertEquals(testPlayer.getCash("fifties"),      "0");
@@ -419,7 +419,7 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getCash("fives"),        "0");
 	assertEquals(testPlayer.getCash("ones"),         "0");
 
-	testPlayer.spreadMoney(10);
+	testPlayer.spreadCash(10);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
 	assertEquals(testPlayer.getCash("hundreds"),     "0");
 	assertEquals(testPlayer.getCash("fifties"),      "0");
@@ -428,7 +428,7 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getCash("fives"),        "0");
 	assertEquals(testPlayer.getCash("ones"),         "0");
 
-	testPlayer.spreadMoney(5);
+	testPlayer.spreadCash(5);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
 	assertEquals(testPlayer.getCash("hundreds"),     "0");
 	assertEquals(testPlayer.getCash("fifties"),      "0");
@@ -437,7 +437,7 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getCash("fives"),        "0");
 	assertEquals(testPlayer.getCash("ones"),         "0");
 
-	testPlayer.spreadMoney(1);
+	testPlayer.spreadCash(1);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "0");
 	assertEquals(testPlayer.getCash("hundreds"),     "0");
 	assertEquals(testPlayer.getCash("fifties"),      "0");

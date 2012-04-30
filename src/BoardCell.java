@@ -5,6 +5,10 @@ import javax.swing.*;
  *  of cells running along the outside of the board, we use inheritance
  *  to create classes derived from BoardCells. */ // TODO: Improve that crap comment.
 
+// TODO: BIG CHANCE FOR IMPROVEMENT: Rather than keeping the GUI representation separate from the
+// BoardCell object, store for example the JLabels inside this class with appropriate coordinates.
+// Should make things much clearer and clean up a lot of unneeded code.
+
 // TODO: Review all methods, implement camelcase variable names and such for consistency.
 // TODO: Make BoardCell implement ActionListener, like Menu.java, so I can get mouseover events on cells.
 // TODO: Also, just have the subclasses implement the listener, since not all subclasses need to be listened to? IE: Go to jail.
