@@ -12,6 +12,8 @@ import java.util.Stack;
 //       updates the status text at bottom of screen.
 // TODO: Fix image file names to camelCase.
 // TODO: Remove unneeded image templates.
+// TODO: Get rid of the spacing between cells.
+// TODO: Make text on cells readable.
 
 /** Class to contain the GUI of the game board. A new instance of the class
  *  creates the GUI and sets up various things in it. The game takes place mostly
@@ -71,71 +73,51 @@ public class IdeopolyGUI implements ActionListener {
     private Icon             pink            = new ImageIcon       ("images/pink_template.jpg");
     private Icon             purple          = new ImageIcon       ("images/purple_template.jpg");
 
-    private Icon             botChance       = new ImageIcon       ("images/botChance.jpg");
-    private Icon             topChance       = new ImageIcon       ("images/topChance.jpg");
-    private Icon             rightChance     = new ImageIcon       ("images/rightChance.jpg");
-
-    private Icon             bottCommChest   = new ImageIcon       ("images/bottCommChest.jpg");
-    private Icon             leftCommChest   = new ImageIcon       ("images/leftCommChest.jpg");
-    private Icon             rightCommChest  = new ImageIcon       ("images/rightCommChest.jpg");
-
     private Icon             luxTax          = new ImageIcon       ("images/luxuryTax.jpg");
     // TODO: Redo this image. Just re-download the version from email and add border. Had resized it incorrectly.
     private Icon             incTax          = new ImageIcon       ("images/incomeTax.jpg");
 
-    private Icon             reading         = new ImageIcon       ("images/readingRR.jpg");
-    private Icon             pennsylvania    = new ImageIcon       ("images/pennsylvaniaRR.jpg");
-    private Icon             shortLine       = new ImageIcon       ("images/shortLineRR.jpg");
-    private Icon             bAndO           = new ImageIcon       ("images/bAndORR.jpg");
-
-    private Icon             goImg           = new ImageIcon       ("images/go.jpg");
-    private Icon             freeParkingImg  = new ImageIcon       ("images/freeParking.jpg");
-    private Icon             goToJailImg     = new ImageIcon       ("images/goToJail.jpg");
-
-    private Icon             electricCoImg   = new ImageIcon       ("images/electricCo.jpg");
-    private Icon             waterWorksImg   = new ImageIcon       ("images/waterWorks.jpg");
-
     // TODO: Is it possible to do this without the lengthily declaring variables for each?
     // TODO: Possible to get rid of the images prefix?
 
-    private BoardCell	     go              = new BoardCell       ("go", goImg, 41, 41);
+    private BoardCell	     go              = new BoardCell       ("go", new ImageIcon("images/go.jpg"), 41, 41);
     private PropagandaOutlet mediterraneanAv = new PropagandaOutlet("mediterraneanAv", purple, 60, 2, 10, 30, 90, 160, 250, 50, 37, 41);
-    private BoardCell        commChest1      = new BoardCell       ("commChest1", bottCommChest, 33, 41);
+    private BoardCell        commChest1      = new BoardCell       ("commChest1", new ImageIcon("images/bottCommChest.jpg"), 33, 41);
     private PropagandaOutlet balticAv        = new PropagandaOutlet("balticAv", purple, 60, 4, 20, 60, 180, 320, 450, 50, 29, 41);
     private BoardCell	     incomeTax       = new BoardCell       ("incomeTax", incTax, 25, 41);
     // TODO: Bigger font size (~80) for the text on railroads - hard to read currently.
-    private Railroad	     readingRR       = new Railroad        ("readingRR", reading, 21, 41);
+    private Railroad	     readingRR       = new Railroad        ("readingRR", new ImageIcon("images/readingRR.jpg"), 21, 41);
     private PropagandaOutlet orientalAv      = new PropagandaOutlet("orientalAv", lightBlue, 100, 6, 30, 90, 270, 400, 550, 50, 17, 41);
-    private BoardCell	     chance1	     = new BoardCell       ("chance1", botChance, 13, 41);
+    private BoardCell	     chance1	     = new BoardCell       ("chance1", new ImageIcon("images/botChance.jpg"), 13, 41);
     private PropagandaOutlet vermontAv       = new PropagandaOutlet("vermontAv", lightBlue, 100, 6, 30, 90, 270, 400, 550, 50, 9, 41);
     private PropagandaOutlet connecticutAv   = new PropagandaOutlet("connecticutAv", lightBlue, 120, 8, 40, 100, 300, 450, 600, 50, 5, 41);
     private BoardCell	     jail	     = new BoardCell       ("jail", new ImageIcon("images/jail.jpg"), 1, 41);
     private PropagandaOutlet stCharles       = new PropagandaOutlet("stCharles", pink, 140, 10, 50, 150, 450, 625, 750, 100, 1, 37);
-    private BoardCell	     electricCompany = new BoardCell       ("electricCompany", electricCoImg, 1, 33);
+    private BoardCell	     electricCompany = new BoardCell       ("electricCompany", new ImageIcon("images/electricCo.jpg"), 1, 33);
     private PropagandaOutlet statesAv	     = new PropagandaOutlet("statesAv", pink, 140, 10, 50, 150, 450, 625, 750, 100, 1, 29);
     private PropagandaOutlet virginiaAv      = new PropagandaOutlet("virginiaAv", pink, 160, 12, 60, 180, 500, 700, 900, 100, 1, 25);
-    private Railroad	     pennsylvaniaRR  = new Railroad        ("pennsylvaniaRR", pennsylvania, 1, 21);
+    private Railroad	     pennsylvaniaRR  = new Railroad        ("pennsylvaniaRR", new ImageIcon("images/pennsylvaniaRR.jpg"), 1, 21);
     private PropagandaOutlet stJames         = new PropagandaOutlet("stJames", orange, 180, 14, 70, 200, 550, 750, 950, 100, 1, 17);
-    private BoardCell	     commChest2      = new BoardCell       ("commChest2", leftCommChest, 1, 13);
+    private BoardCell	     commChest2      = new BoardCell       ("commChest2", new ImageIcon("images/leftCommChest.jpg"), 1, 13);
     private PropagandaOutlet tennesseeAv     = new PropagandaOutlet("tennesseeAv", orange, 180, 14, 70, 200, 550, 750, 950, 100, 1, 9);
     private PropagandaOutlet newYorkAv       = new PropagandaOutlet("newYorkAv", orange, 200, 16, 80, 220, 600, 800, 1000, 100, 1, 5);
-    private BoardCell	     freeParking     = new BoardCell       ("freeParking", freeParkingImg, 1, 1);
+    private BoardCell	     freeParking     = new BoardCell       ("freeParking", new ImageIcon("images/freeParking.jpg"), 1, 1);
     private PropagandaOutlet kentuckyAv      = new PropagandaOutlet("kentuckyAv", new ImageIcon("images/properties/kentuckyAv.jpg"), 220, 18, 90, 250, 700, 875, 1050, 150, 5, 1);
-    private BoardCell	     chance2         = new BoardCell       ("chance2", topChance, 9, 1);
+    private BoardCell	     chance2         = new BoardCell       ("chance2", new ImageIcon("images/topChance.jpg"), 9, 1);
     private PropagandaOutlet indianaAv	     = new PropagandaOutlet("indianaAv", new ImageIcon("images/properties/indianaAv.jpg"), 220, 18, 90, 250, 700, 875, 1050, 150, 13, 1);
     private PropagandaOutlet illinoisAv      = new PropagandaOutlet("illinoisAv", new ImageIcon("images/properties/illinoisAv.jpg"), 240, 20, 100, 300, 750, 925, 1100, 150, 17, 1);
-    private Railroad	     bAndORR	     = new Railroad        ("bAndORR", bAndO, 21, 1);
+    private Railroad	     bAndORR	     = new Railroad        ("bAndORR", new ImageIcon("images/bAndORR.jpg"), 21, 1);
     private PropagandaOutlet atlanticAv      = new PropagandaOutlet("atlanticAv", new ImageIcon("images/properties/atlanticAv.jpg"), 260, 22, 110, 330, 800, 975, 1150, 1, 25, 1);
     private PropagandaOutlet ventnorAv	     = new PropagandaOutlet("ventnorAv", new ImageIcon("images/properties/ventnorAv.jpg"), 260, 22, 110, 330, 800, 975, 1150, 150, 29, 1);
-    private BoardCell	     waterWorks      = new BoardCell       ("waterWorks", waterWorksImg, 33, 1);
+    private BoardCell	     waterWorks      = new BoardCell       ("waterWorks", new ImageIcon("images/waterWorks.jpg"), 33, 1);
     private PropagandaOutlet marvinGardens   = new PropagandaOutlet("marvinGardens", new ImageIcon("images/properties/marvinGardens.jpg"), 280, 24, 120, 360, 850, 1025, 1200, 150, 37, 1);
-    private BoardCell	     goToJail        = new BoardCell       ("goToJail", goToJailImg, 41, 1);
+    private BoardCell	     goToJail        = new BoardCell       ("goToJail", new ImageIcon("images/goToJail.jpg"), 41, 1);
     private PropagandaOutlet pacificAv	     = new PropagandaOutlet("pacificAv", green, 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 5);
     private PropagandaOutlet nCarolinaAv     = new PropagandaOutlet("nCarolinaAv", green, 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 9);
-    private BoardCell	     commChest3      = new BoardCell       ("commChest3", rightCommChest, 41, 13);
+    private BoardCell	     commChest3      = new BoardCell       ("commChest3", new ImageIcon("images/rightCommChest.jpg"), 41, 13);
     private PropagandaOutlet pennsylvaniaAv  = new PropagandaOutlet("pennsylvaniaAv", green, 320, 28, 150, 450, 1000, 1200, 1400, 200, 41, 17);
-    private Railroad         shortLineRR     = new Railroad        ("shortLineRR", shortLine, 41, 21);
-    private BoardCell        chance3	     = new BoardCell       ("chance3", rightChance, 41, 25);
+    private Railroad         shortLineRR     = new Railroad        ("shortLineRR", new ImageIcon("images/shortLineRR.jpg"), 41, 21);
+    private BoardCell        chance3	     = new BoardCell       ("chance3", new ImageIcon("images/rightChance.jpg"), 41, 25);
     private PropagandaOutlet parkPlace       = new PropagandaOutlet("parkPlace", darkBlue, 350, 35, 175, 500, 1100, 1300, 1500, 200, 41, 29);
     private BoardCell	     luxuryTax       = new BoardCell       ("luxuryTax", luxTax, 41, 33);
     private PropagandaOutlet boardwalk       = new PropagandaOutlet("boardwalk", darkBlue, 400, 50, 200, 600, 1400, 1700, 2000, 200, 41, 37);
@@ -221,16 +203,13 @@ public class IdeopolyGUI implements ActionListener {
 	// TODO: Seems kind of weird to have all this initialization stuff in a constructor.
 
 	// === Create labels to display each player's cash. ===
-	JLabel label;
 	c.gridx = 49;
 	c.gridy = 0;
 
 	// Display the column titles.
-	// TODO: Make this a field?
-	for (int i = 0; i <= 10; i++) {
+	for (String s : titles) {
 	    c.gridx++;
-	    label = new JLabel(titles[i]);
-	    frame.add(label, c);
+	    frame.add(new JLabel(s), c);
 	}
 
 	// Display Player 1/2/3/4: to the left of the rows.
@@ -242,7 +221,7 @@ public class IdeopolyGUI implements ActionListener {
 	}
 
 	// Initialize the array of labels.
-	// TODO: Replace this with a foreach loop.
+	// TODO: Replace this with a foreach loop. Possible with the players[i] part?
 	for (int i = 0; i <= 3; i++) { // Iterate through each row.
 	    for (int j = 0; j <= 9; j++) { // And through each column.
 		// Add get out of jail free cards, rather than cash, in the 8th column.
@@ -257,12 +236,11 @@ public class IdeopolyGUI implements ActionListener {
 	}
 
 	// Then add all the labels to the board.
-	// TODO: Replace this with a foreach loop.
-	for (int i = 0; i <= 3; i++) { // Iterate through each row.
-	    for (int j = 0; j <= 9; j++) { // And through each column.
-		c.gridx = cashLabels[i][j].getXCoord();
-		c.gridy = cashLabels[i][j].getYCoord();
-		frame.add(cashLabels[i][j], c);
+	for (CashCell[] outer : cashLabels) {
+	    for (CashCell cc : outer) {
+		c.gridx = cc.getXCoord();
+		c.gridy = cc.getYCoord();
+		frame.add(cc, c);
 	    }
 	}
 
@@ -271,10 +249,9 @@ public class IdeopolyGUI implements ActionListener {
 	c.gridheight = 2;
 	c.gridx      = 22;
 	c.gridy      = 22;
-	continueButton.addActionListener(this);
 	frame.add(continueButton, c);
 
-	// Finally add all the other buttons to the right side of the board.
+	// Add all other buttons to the right side of the board.
 	c.fill = GridBagConstraints.HORIZONTAL;
 
 	// Disable currently unusable buttons.
@@ -286,6 +263,7 @@ public class IdeopolyGUI implements ActionListener {
 	useGOOJFCard.setEnabled(false);
 
 	// Add action listeners.
+	continueButton.addActionListener(this);
 	buyProperty.addActionListener(this);
 	buyHouse.addActionListener(this);
 	buyHotel.addActionListener(this);
@@ -293,6 +271,7 @@ public class IdeopolyGUI implements ActionListener {
 	mortgageProperty.addActionListener(this);
 	useGOOJFCard.addActionListener(this);
 
+	// Left column.
 	c.gridx     = 50;
 	c.gridy     = 6;
 	c.gridwidth = 9;
@@ -305,6 +284,7 @@ public class IdeopolyGUI implements ActionListener {
 	c.gridy = 9;
 	frame.add(buyHotel, c);
 
+	// Right column.
 	c.gridwidth = 4;
 	c.gridy	    = 8;
 	c.gridx     = 55;
@@ -313,11 +293,13 @@ public class IdeopolyGUI implements ActionListener {
 	c.gridy = 9;
 	frame.add(mortgageProperty, c);
 
+
 	c.gridx     = 50;
 	c.gridy     = 11;
 	c.gridwidth = 9;
 	frame.add(useGOOJFCard, c);
 
+	// Status bar.
 	c.gridx       = 50;
 	c.gridy       = 43;
 	c.gridwidth   = 1;
@@ -531,7 +513,6 @@ public class IdeopolyGUI implements ActionListener {
 			case 3:   // "Doctor's fees – Pay $50"
 			    if (p.willBankrupt(50)) {
 				p.bankruptPlayer(); // TODO: Update this code to do more relevant stuff.
-				
 			    }
 			    else {
 				p.spreadCash(50); // Shuffle money around to get 50s.
@@ -669,8 +650,8 @@ public class IdeopolyGUI implements ActionListener {
 			// ...do action...
 			Chance card = chanceCards.pop();
 			// TODO: Review all of these, make sure the correct code's called when a person 
-			// lands on a cell. Right now, movement's looking ok, but I also need to handle charging rent,
-			// buying properties, etc.
+			// lands on a cell. Right now, movement's looking ok, but I also need to 
+			// handle charging rent, buying properties, etc.
 
 			switch ( card.getType() ) {
 
@@ -943,9 +924,8 @@ public class IdeopolyGUI implements ActionListener {
 		    }
 		    // Player lands on a non-ownable property.
 		    else {
-			if (players[currentPlayer] == player1) {
+			if (players[currentPlayer] == player1)
 			    buyProperty.setEnabled(false);
-			}
 		    }
 
 		    // TODO: Make BoardCells and such clickable. That way, I can easily implement
@@ -957,9 +937,11 @@ public class IdeopolyGUI implements ActionListener {
 	}
     }
 
-    /** Update the GUI elements that display relevant stats and such. */
+    /** Update the GUI elements that display player cash values
+     *  and the text indicating the current player. */
     public void updateDisplay() {
 	// TODO: Replace with foreach?
+	// TODO: This same code's used earlier.
 	for (int i = 0; i <= 3; i++) {
 	    for (int j = 0; j <= 9; j++) {
 		if (j == 9) {
@@ -1021,6 +1003,9 @@ public class IdeopolyGUI implements ActionListener {
 		players[0].spendGOOJF();
 		updateDisplay();
 		break;
+
+	    default:
+		System.out.println("Received an action from an unknown source.");
 	}
     }
 
