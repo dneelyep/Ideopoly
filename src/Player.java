@@ -110,11 +110,11 @@ public class Player {
 
     /** Get the amount of bills of the given type for this player. */
     // TODO: Make this return an int instead? Woud make much more sense.
-    public String getCash(String bill_type) {
+    public String getCash(String billType) {
 	// TODO: Have the string parameter refer to the actual value. So i could just say "return bill_type" 
 	// rather than switch
 
-	switch (bill_type) {
+	switch (billType) {
 	    case "ones":
 		return Integer.toString(ones);
 	    case "fives":

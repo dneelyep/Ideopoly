@@ -4,6 +4,7 @@ import javax.swing.*;
 import org.junit.*;
 
 // TODO: Add all test cases from my notes.
+// TODO: Split this into multiple files?
 /**
  * IdeopolyTester - various test cases to make sure the game works as intended.
  */
@@ -174,7 +175,7 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testChanceCard.getType(), 7);
 	assertEquals(testChanceCard.getText(), "Get out of Jail Free – this card may be kept until needed, or traded/sold");
 
-	testChanceCard = new Chance(8);
+	testChanceCard = new Chance(8); 
 	assertEquals(testChanceCard.getType(), 8);
 	assertEquals(testChanceCard.getText(), "Go back 3 spaces");
 
@@ -262,6 +263,8 @@ public class IdeopolyTester extends TestCase {
 	testPlayer.spendGOOJF();
 	assertEquals(testPlayer.getNumGOOJFCards(), 0);
 	testPlayer.spendGOOJF(); // Make sure we can't get a negative # of cards.
+	// TODO: Test this when the person's not in jail. Ideally the button AND the
+	// functionality should be disabled when we're not currently in jail.
 	assertEquals(testPlayer.getNumGOOJFCards(), 0);
 
 	testPlayer.setInJail(3);
@@ -314,8 +317,7 @@ public class IdeopolyTester extends TestCase {
 
 	// TODO: More tests for negative inputs?
 
-	// TODO: LOTS OF TESTS FOR THIS FUNCTION
-	// Test that correct values are set for different amounts when we spreadMoney().
+	// Test that correct values are set for the spreadMoney() method.
 	testPlayer.spreadMoney(500);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "16");
 	assertEquals(testPlayer.getCash("hundreds"),     "2");
@@ -444,21 +446,22 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testPlayer.getCash("fives"),        "0");
 	assertEquals(testPlayer.getCash("ones"),         "0");
 
-
+	// Try some invalid arguments to getCash().
+	assertEquals(testPlayer.getCash("one"),  "Error! Incorrect argument.");
+	assertEquals(testPlayer.getCash("1"),    "Error! Incorrect argument.");
+	assertEquals(testPlayer.getCash("500"),  "Error! Incorrect argument.");
+	assertEquals(testPlayer.getCash("500s"), "Error! Incorrect argument.");
 
 
 	// image = new ImageIcon("images/p1_present.jpg"); // getImage()
 
 	// public Player(int player_number)
-	// public String getCash(String bill_type)
 	// public void addProperty(BoardCell property)
 	// public void removeProperty(BoardCell property)
 	// public void roll()
 	// public Icon getImage()
-	// public int getPosition()
+	// public int  getPosition()
 	// public void setPosition(int p)
-	// public void spendGOOJF() TODO: Test this when the person's not in jail.
-	// public void spreadMoney(int numToSwitch)// TODO: LOTS OF TESTS FOR THIS FUNCTION
 	// TODO: ^-- test ALL these.
     }
 

@@ -34,8 +34,10 @@ public class IdeopolyGUI implements ActionListener {
     private Player       players[]       = { player1, player2, player3, player4 };
     public  int          playersArrSize  = 3;
     private String       cashValues[]	 = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
-    private String       playerRows[]    = { "Player 1:", "Player 2:", "Player 3:", "Player 4:" };
-    public  JLabel[]     playerRowLabels = new JLabel[4];
+    private JLabel[]     playerRowLabels = { new JLabel("Player 1"), 
+						 new JLabel("Player 2"), 
+						 new JLabel("Player 3"), 
+						 new JLabel("Player 4") };
     private CashCell[][] cashLabels	 = new CashCell[4][10];
 
     /** Array used to store the values of each type of bill a Player should pay after requiring a payment. */
@@ -135,10 +137,12 @@ public class IdeopolyGUI implements ActionListener {
     private BoardCell	     luxuryTax       = new BoardCell       ("luxuryTax", luxTax, 41, 33, "right");
     private PropagandaOutlet boardwalk       = new PropagandaOutlet("boardwalk", darkBlue, 400, 50, 200, 600, 1400, 1700, 2000, 200, 41, 37, "right");
 
-    // TODO: Make this a vector, or similar, so I can insert multiple types of objects. This will solve the later problem
-    // of not being able to use getCashDistribution. That method can only be called on PropagandaOutlets, but this
-    // situation turns all Prop Outlets into BoardCells. => if I solve this problem, that one should disappear. And
+    // TODO: Make this a vector, or similar, so I can insert multiple types of objects. 
+    // This will solve the later problem of not being able to use getCashDistribution. 
+    // That method can only be called on PropagandaOutlets, but this situation turns all
+    // Prop Outlets into BoardCells. => if I solve this problem, that one should disappear. And
     // hundreds more should surface.
+    // TODO: Get actionlisteners implemented for the properties, so that I can mouseover them and have a picture of the property card pop up in the middle of the board.
     final BoardCell boardProperties[] = { go, mediterraneanAv, commChest1, balticAv, incomeTax, readingRR, orientalAv, chance1, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChest2, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chance2, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChest3, pennsylvaniaAv, shortLineRR, chance3, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
 
     /** The stack of Chance cards. */
@@ -154,14 +158,7 @@ public class IdeopolyGUI implements ActionListener {
 	// Create the gui.
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	// TODO: Consider making this a vector or similar. That way, rather than
-	// relying on inheritance to maintain the same parent class, I could just
-	// use completely different classes.
-	// Make the cells final, since we will never add extra cells to the board.
-
-	// TODO: Get actionlisteners implemented for the properties, so that I can mouseover them and have a picture of the property card pop up in the middle of the board.
-
-	// TODO: Use multiple instances of GridBagConstraints
+	// TODO: Use multiple instances of GridBagConstraints?
 	frame.setLayout(new GridBagLayout());
 	GridBagConstraints c = new GridBagConstraints();
 	// Align all components in the "top-right" of its display area.
@@ -213,7 +210,6 @@ public class IdeopolyGUI implements ActionListener {
 	    frame.add(item, c);
 	}
 
-
 	// TODO: Rename this propaganda outlets rather than properties? Confusing?
 	// TODO: Can I fix the icons to remove duplicate code?
 	// TODO: Declare i above so I don't have to keep: for (int i = x)
@@ -221,13 +217,10 @@ public class IdeopolyGUI implements ActionListener {
 	// TODO: Swap this section with inserting currency images and such.
 	// TODO: Seems kind of weird to have all this initialization stuff in a constructor.
 
-	// TODO: Make this into a function that updates label contents
-	// TODO: So I could make a 2D array that represents all values, then update items in the array.
 	// === Create labels to display each player's cash. ===
-	JLabel label = new JLabel();
+	JLabel label = new JLabel("Cash");
 	c.gridx = 50;
 	c.gridy = 0;
-	label = new JLabel("Cash");
 	frame.add(label, c);
 
 	// Display the column titles.
@@ -238,23 +231,17 @@ public class IdeopolyGUI implements ActionListener {
 	    frame.add(label, c);
 	}
 
-
 	// TODO: Consider making these values constant, since they won't change.
 	// IE: static final int ROWS = 4
 	//     static final int COLS = 7
 	//     JLabel[][] cashLabels = new JLabel[ROWS][COLS];
 
-	// 4 rows (player 1-4), 7 columns (cash ones-fiveHundreds)
-
-	// Display Player x: to the left of the rows.
+	// Display Player 1/2/3/4: to the left of the rows.
 	c.gridx = 50;
-	int t = 0;
 
-	for (String s : playerRows) {
+	for (JLabel j : playerRowLabels) {
 	    c.gridy++;
-	    playerRowLabels[t] = new JLabel(s);
-	    frame.add(playerRowLabels[t], c);
-	    t++;
+	    frame.add(j, c);
 	}
 
 	// Initialize the array of labels.
@@ -363,8 +350,6 @@ public class IdeopolyGUI implements ActionListener {
 	positions.get( player2.getPosition() ).setImage(player2.getImage());
 	positions.get( player3.getPosition() ).setImage(player3.getImage());
 	positions.get( player4.getPosition() ).setImage(player4.getImage());
-
-	player1.bankruptPlayer();
 
 	frame.pack();
 	frame.setVisible(true);
@@ -1037,49 +1022,34 @@ public class IdeopolyGUI implements ActionListener {
 
     /** Perform actions depending on GUI events. */
     public void actionPerformed(ActionEvent e) {
-	// LEFTOFFHERE: Things to do
-	// Now I can get actions out of clicking the relevant buttons. Need to
-	// link these events to relevant actions.
-
-	// Still need to fix several Chance/Comm chest cards. That can wait for later though.
-
-	// Stuff still to do:
-	// Add game player AI.
-
 	String eventSource = e.getActionCommand();
 
-	// TODO: Have the text of this button change from roll to pass depending on game state.
-	if ( eventSource.equals("Continue") ) {
-	    doTurn(frame);
-	    //	    System.out.println("Testing continue.");
-	}
+	switch (eventSource) {
+	    case "Continue": doTurn(frame);
+		break;
 
-	// The human player's the only one who will click the button - don't need to consider robots.
-	else if ( eventSource.equals("Buy property") ) {
-	    // TODO: Make the player pay to buy it, add bankruptcy check.
-	    getCurrentLocation(players[0]).setOwner( players[0] );
-	    buyProperty.setEnabled(false); // Disable button after property's bought.
-	}
-	else if ( eventSource.equals("Buy house") ) {
-	    System.out.println("Testing buy house.");
-	}
-	else if ( eventSource.equals("Buy hotel") ) {
-	    System.out.println("Testing buy hotel.");
-	}
-	else if ( eventSource.equals("Sell property") ) {
-	    System.out.println("Testing sell property.");
-	}
-	else if ( eventSource.equals("Mortgage property") ) {
-	    System.out.println("Testing mortgage property.");
-	}
-	// Use a card and take the main player out of jail.
-	else if ( eventSource.equals("Use get out of jail free card") ) {
+		// TODO: Make the player pay to buy it, add bankruptcy check.
+	    case "Buy property": getCurrentLocation(players[0]).setOwner( players[0] );
+		buyProperty.setEnabled(false); // Disable button after property's bought.
+		break;
+	    case "Buy house": System.out.println("Testing buy house.");
+		break;
+	    case "Buy hotel": System.out.println("Testing buy hotel.");
+		break;
+	    case "Sell property": System.out.println("Testing sell property.");
+		break;
+	    case "Mortgage property": System.out.println("Testing mortgage property.");
+		break;
+
+            // Use a card and take the main player out of jail.
 	    // TODO: Disable this when the player's not on a jail cell.
-	    if (players[0].getNumGOOJFCards() > 0)
-		useGOOJFCard.setEnabled(false);
+	    case "Use get out of jail free card":
+		if (players[0].getNumGOOJFCards() > 0)
+		    useGOOJFCard.setEnabled(false);
 
-	    players[0].spendGOOJF();
-	    updateDisplay();
+		players[0].spendGOOJF();
+		updateDisplay();
+		break;
 	}
     }
 
