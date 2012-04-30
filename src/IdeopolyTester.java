@@ -43,6 +43,571 @@ public class IdeopolyTester extends TestCase {
 	// ================
 	// TODO: IdeopolyGUI.java
 	// ================
+    /** Test all methods in the IdeopolyGUI class. */
+    public void testIdeopolyGUI() {
+
+	// =====================
+	// Community Chest tests
+	// Test all possible 
+	// values of CC cards for
+	// correct output.
+	// =====================
+	Player testCCPlayer1  = new Player(1);
+	Player testCCPlayer2  = new Player(2);
+	Player testCCPlayer3  = new Player(3);
+	Player testCCPlayer4  = new Player(4);
+	CommunityChest testCommChest = new CommunityChest(1);
+	assertEquals(testCCPlayer1.getPosition(), 3);
+	assertEquals(testCCPlayer2.getPosition(), 2);
+	assertEquals(testCCPlayer3.getPosition(), 1);
+	assertEquals(testCCPlayer4.getPosition(), 0);
+	// TODO: Here, test the given player's cash amount, to make sure it's amount += 200.
+	// This can't CURRENTLY (but SOON CAN BE) be done because my Comm Chest/Chance handling 
+	// code is tied into my movePlayer() function. That's another TODO - separate the things.
+	// For example, make a drawCommunityChest() function. And for Chance.
+
+	testCommChest = new CommunityChest(2);
+
+	testCommChest = new CommunityChest(3);
+
+	testCommChest = new CommunityChest(4);
+
+	testCommChest = new CommunityChest(5);
+
+	testCommChest = new CommunityChest(6);
+
+	testCommChest = new CommunityChest(7);
+
+	testCommChest = new CommunityChest(8);
+
+	testCommChest = new CommunityChest(9);
+
+	testCommChest = new CommunityChest(10);
+
+	testCommChest = new CommunityChest(11);
+
+	testCommChest = new CommunityChest(12);
+
+	testCommChest = new CommunityChest(13);
+
+	testCommChest = new CommunityChest(14);
+
+	testCommChest = new CommunityChest(15);
+
+	testCommChest = new CommunityChest(16);
+
+	testCommChest = new CommunityChest(17);
+
+
+// case 2:	// "Bank error in your favor – collect $200"
+//     p.addCash("hundreds", 2);
+//     break;
+// case 3:   // "Doctor's fees – Pay $50"
+//     if (p.willBankrupt(50)) {
+// 	p.bankruptPlayer(); // TODO: Update this code to do more relevant stuff.
+//     }
+//     else {
+// 	p.spreadCash(50); // Shuffle money around to get 50s.
+
+// 	p.addCash("fifties", -1);
+// 	p.spreadCash(500); // Then shuffle back to a more reasonable amount.
+//     }
+//     break;
+// case 4:   // "Get Out of Jail Free – this card may be kept until needed, or sold"
+//     // TODO: Repeated later as well.
+//     p.giveGOOJF();
+//     break;
+// case 5:   // "Go to Jail – go directly to jail – Do not pass Go, do not collect $200"
+//     // TODO: This repeated later.
+//     if ( p == player1 )
+// 	p.setPosition( 43 );
+//     else if (p == player2)
+// 	p.setPosition( 42 );
+//     else if (p == player3)
+// 	p.setPosition( 41 );
+//     else if (p == player4)
+// 	p.setPosition( 40 );
+
+//     putInJail(p);
+//     break;
+// case 6:   // "It is your birthday - Collect $10 from each player"
+//     // TODO: Repeated also.
+//     if (p2.willBankrupt(10) || p3.willBankrupt(10) || p4.willBankrupt(10)) {
+// 	// TODO: ...bankruptcy code...
+//     }
+//     else {
+// 	p2.spreadCash(10);
+// 	p2.addCash("tens", -1);
+// 	p2.spreadCash(500);
+
+// 	p3.spreadCash(10);
+// 	p3.addCash("tens", -1);
+// 	p3.spreadCash(500);
+
+// 	p4.spreadCash(10);
+// 	p4.addCash("tens", -1);
+// 	p4.spreadCash(500);
+
+// 	p.addCash("tens", 3);
+//     }
+
+//     break;
+// case 7:   // "Grand Opera Night – collect $50 from every player for opening night seats"
+
+//     if (p2.willBankrupt(50) || p3.willBankrupt(50) || p4.willBankrupt(50)) {
+// 	// TODO: ...bankruptcy code...
+//     }
+//     else {
+// 	// TODO: Could loop this.
+// 	p2.spreadCash(50);
+// 	p2.addCash("fifties", -1);
+// 	p2.spreadCash(500);
+
+// 	p3.spreadCash(50);
+// 	p3.addCash("fifties", -1);
+// 	p3.spreadCash(500);
+
+// 	p4.spreadCash(50);
+// 	p4.addCash("fifties", -1);
+// 	p4.spreadCash(500);
+
+// 	p.addCash("tens", 3);
+//     }
+//     break;
+// case 8:   // "Income Tax refund – collect $20"
+//     p.addCash("twenties", 1);
+//     break;
+// case 9:   // "Life Insurance Matures – collect $100"
+//     p.addCash("hundreds", 1);
+//     break;
+// case 10:  // "Pay Hospital Fees of $100"
+
+//     if (p.willBankrupt(100)) {
+// 	p.bankruptPlayer();
+//     }
+//     else {
+// 	p.spreadCash(100);
+// 	p.addCash("hundreds", -1);
+// 	p.spreadCash(500);
+//     }
+//     break;
+// case 11:  // "Pay School Fees of $50"
+
+//     if (p.willBankrupt(50)) {
+// 	p.bankruptPlayer();
+//     }
+//     else {
+// 	p.spreadCash(50);
+// 	p.addCash("fifties", -1);
+// 	p.spreadCash(500);
+//     }
+//     break;
+// case 12:  // "Receive $25 Consultancy Fee"
+//     p.addCash("twenties", 1);
+//     p.addCash("fives", 1);
+//     break;
+// case 13:  // "You are assessed for street repairs – $40 per house, $115 per hotel"
+//     if (p.willBankrupt( (p.getNumHouses() * 40) + (p.getNumHotels() * 115) )) {
+// 	p.bankruptPlayer();
+//     }
+//     else {
+// 	// TODO: Code here, this varies though. Difficult.
+//     }
+
+//     break;
+// case 14:  // "You have won second prize in a beauty contest– collect $10"
+//     p.addCash("tens", 1);
+//     break;
+// case 15:  // "You inherit $100"
+//     p.addCash("hundreds", 1);
+//     break;
+// case 16:  // "From sale of stock you get $50"
+//     p.addCash("fifties", 1);
+//     break;
+// case 17:  // "Holiday Fund matures - Receive $100"
+//     p.addCash("hundreds", 1);
+//     break;
+// default:
+//     System.out.println("Error! Wrong Community Chest value!");
+//     break;
+// }
+
+
+
+
+
+
+
+
+	// ============
+	// Chance tests
+	// ============
+
+
+
+
+
+    }
+
+// =======================================================================
+// case 1: // "Advance to Go (Collect $200)"
+//     // TODO: This is repeated in the Chance deck.
+//     if (p == player1)
+// 	p.setPosition( 3 );
+//     else if (p == player2)
+// 	p.setPosition( 2 );
+//     else if (p == player3)
+// 	p.setPosition( 1 );
+//     else if (p == player4)
+// 	p.setPosition( 0 );
+
+//     p.addCash("hundreds", 2);
+//     break;
+// case 2:	// "Bank error in your favor – collect $200"
+//     p.addCash("hundreds", 2);
+//     break;
+// case 3:   // "Doctor's fees – Pay $50"
+//     if (p.willBankrupt(50)) {
+// 	p.bankruptPlayer(); // TODO: Update this code to do more relevant stuff.
+//     }
+//     else {
+// 	p.spreadCash(50); // Shuffle money around to get 50s.
+// 	p.addCash("fifties", -1);
+// 	p.spreadCash(500); // Then shuffle back to a more reasonable amount.
+//     }
+//     break;
+// case 4:   // "Get Out of Jail Free – this card may be kept until needed, or sold"
+//     // TODO: Repeated later as well.
+//     p.giveGOOJF();
+//     break;
+// case 5:   // "Go to Jail – go directly to jail – Do not pass Go, do not collect $200"
+//     // TODO: This repeated later.
+//     if ( p == player1 )
+// 	p.setPosition( 43 );
+//     else if (p == player2)
+// 	p.setPosition( 42 );
+//     else if (p == player3)
+// 	p.setPosition( 41 );
+//     else if (p == player4)
+// 	p.setPosition( 40 );
+
+//     putInJail(p);
+//     break;
+// case 6:   // "It is your birthday - Collect $10 from each player"
+//     // TODO: Repeated also.
+//     if (p2.willBankrupt(10) || p3.willBankrupt(10) || p4.willBankrupt(10)) {
+// 	// TODO: ...bankruptcy code...
+//     }
+//     else {
+// 	p2.spreadCash(10);
+// 	p2.addCash("tens", -1);
+// 	p2.spreadCash(500);
+
+// 	p3.spreadCash(10);
+// 	p3.addCash("tens", -1);
+// 	p3.spreadCash(500);
+
+// 	p4.spreadCash(10);
+// 	p4.addCash("tens", -1);
+// 	p4.spreadCash(500);
+
+// 	p.addCash("tens", 3);
+//     }
+
+//     break;
+// case 7:   // "Grand Opera Night – collect $50 from every player for opening night seats"
+
+//     if (p2.willBankrupt(50) || p3.willBankrupt(50) || p4.willBankrupt(50)) {
+// 	// TODO: ...bankruptcy code...
+//     }
+//     else {
+// 	// TODO: Could loop this.
+// 	p2.spreadCash(50);
+// 	p2.addCash("fifties", -1);
+// 	p2.spreadCash(500);
+
+// 	p3.spreadCash(50);
+// 	p3.addCash("fifties", -1);
+// 	p3.spreadCash(500);
+
+// 	p4.spreadCash(50);
+// 	p4.addCash("fifties", -1);
+// 	p4.spreadCash(500);
+
+// 	p.addCash("tens", 3);
+//     }
+//     break;
+// case 8:   // "Income Tax refund – collect $20"
+//     p.addCash("twenties", 1);
+//     break;
+// case 9:   // "Life Insurance Matures – collect $100"
+//     p.addCash("hundreds", 1);
+//     break;
+// case 10:  // "Pay Hospital Fees of $100"
+
+//     if (p.willBankrupt(100)) {
+// 	p.bankruptPlayer();
+//     }
+//     else {
+// 	p.spreadCash(100);
+// 	p.addCash("hundreds", -1);
+// 	p.spreadCash(500);
+//     }
+//     break;
+// case 11:  // "Pay School Fees of $50"
+
+//     if (p.willBankrupt(50)) {
+// 	p.bankruptPlayer();
+//     }
+//     else {
+// 	p.spreadCash(50);
+// 	p.addCash("fifties", -1);
+// 	p.spreadCash(500);
+//     }
+//     break;
+// case 12:  // "Receive $25 Consultancy Fee"
+//     p.addCash("twenties", 1);
+//     p.addCash("fives", 1);
+//     break;
+// case 13:  // "You are assessed for street repairs – $40 per house, $115 per hotel"
+//     if (p.willBankrupt( (p.getNumHouses() * 40) + (p.getNumHotels() * 115) )) {
+// 	p.bankruptPlayer();
+//     }
+//     else {
+// 	// TODO: Code here, this varies though. Difficult.
+//     }
+
+//     break;
+// case 14:  // "You have won second prize in a beauty contest– collect $10"
+//     p.addCash("tens", 1);
+//     break;
+// case 15:  // "You inherit $100"
+//     p.addCash("hundreds", 1);
+//     break;
+// case 16:  // "From sale of stock you get $50"
+//     p.addCash("fifties", 1);
+//     break;
+// case 17:  // "Holiday Fund matures - Receive $100"
+//     p.addCash("hundreds", 1);
+//     break;
+// default:
+//     System.out.println("Error! Wrong Community Chest value!");
+//     break;
+// }
+
+// // TODO: Redirect these out to a GUI status element thing.
+// System.out.println(card.getText());
+// }
+	    
+// // Player lands on a Chance card.
+// 		    else if (    (landingSpot >= 28  && landingSpot <= 31 ) 
+// 				 || (landingSpot >= 88  && landingSpot <= 91 )
+// 				 || (landingSpot >= 144 && landingSpot <= 147)) {
+// 			// ...do action...
+// 			Chance card = chanceCards.pop();
+// 			// TODO: Review all of these, make sure the correct code's called when a person 
+// 			// lands on a cell. Right now, movement's looking ok, but I also need to 
+// 			// handle charging rent, buying properties, etc.
+
+// 			switch ( card.getType() ) {
+
+// 			case 1:  //"Advance to Go (Collect $200)"
+// 			    // TODO: Maybe make a move number offset for each player. Idea would be I could
+// 			    // do, for each player p.setPosition(cell I want + move offset), rather than
+// 			    // hard-coding every value individually.
+
+// 			    if (p == player1)
+// 				p.setPosition( 3 );
+// 			    else if (p == player2)
+// 				p.setPosition( 2 );
+// 			    else if (p == player3)
+// 				p.setPosition( 1 );
+// 			    else if (p == player4)
+// 				p.setPosition( 0 );
+
+// 			    p.addCash("hundreds", 2);
+// 			    break;
+// 			case 2:  //"Advance to Illinois Ave - if you pass Go, collect $200"
+// 			    // TODO: There's a general pattern to these cards. It's if position is 
+// 			    // >= some value, give $200 dollars. And then, depending on player, set position.
+// 			    // Make this type of card into a function.
+// 			    // TODO: Duplicate type of function. p1 starts at highest #, others are -1.
+
+//                             // If the player's at B & O RR or after, give money.
+// 			    if (p.getPosition() >= 100)
+// 				p.addCash("hundreds", 2);
+
+// 			    if ( p == player1 )
+// 				p.setPosition( 99 );
+// 			    else if (p == player2)
+// 				p.setPosition( 98 );
+// 			    else if (p == player3)
+// 				p.setPosition( 97 );
+// 			    else if (p == player4)
+// 				p.setPosition( 96 );
+// 			    break;
+// 			case 3:  //"Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
+
+
+// 			    break;
+// 			case 4:  //"Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank. (There are two of these.)"
+// 			    // TODO: Account for the two of these, or just ignore it.
+// 			    break;
+// 			case 5:  //"Advance to St. Charles Place – if you pass Go, collect $200"
+
+// 			    // If the player's position is on or after Electric Company, give em $200.
+// 			    if (p.getPosition() >= 48)
+// 				p.addCash("hundreds", 2);
+
+// 			    if ( p == player1 )
+// 				p.setPosition( 47 );
+// 			    else if (p == player2)
+// 				p.setPosition( 46 );
+// 			    else if (p == player3)
+// 				p.setPosition( 45 );
+// 			    else if (p == player4)
+// 				p.setPosition( 44 );
+
+// 			    break;
+
+// 			case 6:  //"Bank pays you dividend of $50"
+// 			    p.addCash("fifties", 1);
+// 			    break;
+// 			case 7:  //"Get out of Jail Free – this card may be kept until needed, or traded/sold"
+// 			    p.giveGOOJF();
+// 			    break;
+// 			case 8:  //"Go back 3 spaces"
+// 			    p.setPosition(p.getPosition() - 12);
+// 			    // TODO: Then call onland function.
+// 			    break;
+// 			case 9:  //"Go directly to Jail – do not pass Go, do not collect $200"
+// 			    // TODO: Here's another reason to make put in jail a player method.
+// 			    // It's an action that's performed several times.
+
+// 			    if ( p == player1 )
+// 				p.setPosition( 43 );
+// 			    else if (p == player2)
+// 				p.setPosition( 42 );
+// 			    else if (p == player3)
+// 				p.setPosition( 41 );
+// 			    else if (p == player4)
+// 				p.setPosition( 40 );
+
+// 			    putInJail(p);
+
+// 			    break;
+// 			case 10: //"Make general repairs on all your property – for each house pay $25 – 
+// 			         //for each hotel $100"
+// 			    // If the payment will bankrupt the Player, do x.
+// 			    // TODO: Haven't tested this yet, to make sure I get correct values out of parseInt().
+// 			    if ( p.willBankrupt( (p.getNumHouses() * 25) + (p.getNumHotels() * 100 ) ) ) {
+// 				p.bankruptPlayer();
+// 			    }
+// 			    else {
+// 				//TODO: Remove cash here.
+// 			    }
+// 			    break;
+// 			case 11: //"Pay poor tax of $15"
+
+// 			    if (p.willBankrupt(15)) {
+// 				p.bankruptPlayer();
+// 			    }
+// 			    else {
+// 				p.spreadCash(10);
+// 				p.addCash("tens", -1);
+// 				p.spreadCash(5);
+// 				p.addCash("fives", -1);
+// 				p.spreadCash(500);
+// 			    }    
+// 			    break;
+// 			case 12: //"Take a trip to Reading Railroad – if you pass Go, collect $200"
+// 			    // If the player's position is on or after Oriental avenue, give em $200.
+// 			    // TODO: Test this to make sure it works.
+// 			    if (p.getPosition() >= 24)
+// 				p.addCash("hundreds", 2);
+
+// 			    if ( p == player1 )
+// 				p.setPosition( 23 );
+// 			    else if (p == player2)
+// 				p.setPosition( 22 );
+// 			    else if (p == player3)
+// 				p.setPosition( 21 );
+// 			    else if (p == player4)
+// 				p.setPosition( 20 );
+
+// 			    // TODO: And then onland function.
+// 			    break;
+
+// 			case 13: //"Take a walk on the Boardwalk – advance token to Boardwalk"
+// 			    if ( p == player1 )
+// 				p.setPosition( 159 );
+// 			    else if (p == player2)
+// 				p.setPosition( 158 );
+// 			    else if (p == player3)
+// 				p.setPosition( 157 );
+// 			    else if (p == player4)
+// 				p.setPosition( 156 );
+
+// 			    //TODO: And then call the onland function for boardwalk.
+// 			    break;
+// 			case 14: //"You have been elected chairman of the board – pay each player $50"
+// 			    // TODO: Make sure addCash handles negative values appropriately.
+// 			    if (p.willBankrupt(150)) {
+// 				p.bankruptPlayer();
+// 			    }
+// 			    else {
+// 				p.spreadCash(50);
+// 				p.addCash("fifties", -3);
+// 				p2.addCash("fifties", 1);
+// 				p3.addCash("fifties", 1);
+// 				p4.addCash("fifties", 1);
+// 				p.spreadCash(500);
+// 			    }
+// 			    break;
+// 			case 15: //"Your building loan matures – collect $150"
+// 			    p.addCash("hundreds", 1);
+// 			    p.addCash("fifties", 1);
+// 			    break;
+// 			case 16: //"You have won a crossword competition - collect $100 "
+// 			    p.addCash("hundreds", 1);
+// 			    break;
+
+// =======================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	// ==================
 	// BoardPosition.java

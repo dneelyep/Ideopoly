@@ -51,7 +51,7 @@ public class Player {
     /** Number of get out of jail free cards this player owns. */
     private int GOOJFCards;
 
-    /** This player's current board position. Go=0, Boardwalk=whatever, etc. */
+    /** This player's current board position, from 0-159. */
     private int currentPosition;
 
     /** Image associated with this player. Used as an icon to indicate board position. */
