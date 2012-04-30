@@ -13,7 +13,7 @@ public class IdeopolyTester extends TestCase {
     /** Test all methods in the BoardCell class. */ 
    @Test
     public void testBoardCell() {
-	BoardCell testCell = new BoardCell("name", new ImageIcon("images/red_template.jpg"), 4, 10, "left");
+	BoardCell testCell = new BoardCell("name", new ImageIcon("images/red_template.jpg"), 4, 10);
 	Player    aPlayer  = new Player(1);
 
 	// LEFTOFFHERE: Implmenting tests here. Make sure the order of arguments is correct on assertEquals.
@@ -26,7 +26,7 @@ public class IdeopolyTester extends TestCase {
 
 	assertEquals(testCell.getX(), 4);
 	assertEquals(testCell.getY(), 10);
-	assertEquals(testCell.getOrientation(), "left");
+	//	assertEquals(testCell.getOrientation(), "left");
 
 // TODO: What should these return? This screams for a better design, since I think they're just dummy methods.
 	//	assertEquals(testCell.getRent(), );
@@ -474,7 +474,7 @@ public class IdeopolyTester extends TestCase {
     /** Test all methods in the PropagandaOutlet class. */
     @Test
     public void testPropagandaOutlet() {
-	PropagandaOutlet testPropOutlet = new PropagandaOutlet("testPropOutlet", new ImageIcon("images/yellow_template.jpg"), 40, 10, 60, 180, 350, 630, 800, 100, 18, 18, "right");
+	PropagandaOutlet testPropOutlet = new PropagandaOutlet("testPropOutlet", new ImageIcon("images/yellow_template.jpg"), 40, 10, 60, 180, 350, 630, 800, 100, 18, 18);
 
 	assertEquals(testPropOutlet.getName(), "testPropOutlet");
 	//	    TODO: Test the image assigned during creation.
@@ -482,7 +482,7 @@ public class IdeopolyTester extends TestCase {
 	// public void setImage(Icon new_image) {
 	assertEquals(testPropOutlet.getX(), 18);
 	assertEquals(testPropOutlet.getY(), 18);
-	assertEquals(testPropOutlet.getOrientation(), "right");
+	//	assertEquals(testPropOutlet.getOrientation(), "right");
 
 	// assertEquals(testPropOutlet.getNumHouses(), 0); TODO: Tests/methods for these?
 	// assertEquals(testPropOutlet.getNumHotels(), 0);

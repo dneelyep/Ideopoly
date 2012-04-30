@@ -33,18 +33,15 @@ public class BoardCell {
     /** The y-coordinate where this cell should be placed. Used to calculate board positions. */
     private int cellY; // TODO: Add these to constructor.
 
-    /** Which edge of the board this cell's located on. */
-    private String orientation;
 
     /** Creates a BoardCell object, with the specified name, image, and coordinates.
      *  Does not have an owner. There are no players standing on this object. */
-    public BoardCell(String new_name, Icon new_image, int x_pos, int y_pos, String edge) {
+    public BoardCell(String new_name, Icon new_image, int x_pos, int y_pos) {
 	name	    = new_name;
 	ownedBy     = null;
 	image	    = new_image;
 	cellX	    = x_pos;
 	cellY       = y_pos;
-	orientation = edge;
     }
 
     /** Get the name of this property. */
@@ -82,11 +79,6 @@ public class BoardCell {
     /** Get this cell's y position. */
     public int getY() {
 	return cellY;
-    }
-
-    /** Get this cell's orientation on the board. */
-    public String getOrientation() {
-	return orientation;
     }
 
     /** Dummy method. Used so I can access getRent() from the derived class PropagandaOutlet. */
