@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
-import java.util.Stack;
+import java.util.Stack; // TODO: Remove this if it ends up not being needed.
 
 // TODO: Declare a no player present icon up top? Could help readability later in this file.
 // TODO: Add in Chance and Comm. Chest images.
@@ -813,22 +813,14 @@ public class IdeopolyGUI implements ActionListener {
     }
 
     /** Have Player p draw a Community Chest card. */
+    // TODO: Should these methods be tied to the GUI class?
     public void drawCommunityChest(Player p) {
 	CommunityChest card = commChestCards.pop();
 
 	switch ( card.getType() ) {
 
 	case 1: // "Advance to Go (Collect $200)"
-	    // TODO: This is repeated in the Chance deck.
-	    if      (p == player1)
-		p.setPosition( 3 );
-	    else if (p == player2)
-		p.setPosition( 2 );
-	    else if (p == player3)
-		p.setPosition( 1 );
-	    else if (p == player4)
-		p.setPosition( 0 );
-
+	    changePosition(p, 3);
 	    p.addCash("hundreds", 2);
 	    break;
 	case 2:	// "Bank error in your favor – collect $200"
@@ -849,16 +841,7 @@ public class IdeopolyGUI implements ActionListener {
 	    p.giveGOOJF();
 	    break;
 	case 5:   // "Go to Jail – go directly to jail – Do not pass Go, do not collect $200"
-	    // TODO: This pattern of function's repeated many times later.
-	    if      ( p == player1 )
-		p.setPosition( 43 );
-	    else if (p == player2)
-		p.setPosition( 42 );
-	    else if (p == player3)
-		p.setPosition( 41 );
-	    else if (p == player4)
-		p.setPosition( 40 );
-
+	    changePosition(p, 43);
 	    putInJail(p);
 	    break;
 	case 6:   // "It is your birthday - Collect $10 from each player"
@@ -1100,19 +1083,7 @@ public class IdeopolyGUI implements ActionListener {
 	switch ( card.getType() ) {
 
 	case 1:  //"Advance to Go (Collect $200)"
-	    // TODO: Maybe make a move number offset for each player. Idea would be I could
-	    // do, for each player p.setPosition(cell I want + move offset), rather than
-	    // hard-coding every value individually.
-
-	    if (p == player1)
-		p.setPosition( 3 );
-	    else if (p == player2)
-		p.setPosition( 2 );
-	    else if (p == player3)
-		p.setPosition( 1 );
-	    else if (p == player4)
-		p.setPosition( 0 );
-
+	    changePosition(p, 3);
 	    p.addCash("hundreds", 2);
 	    break;
 	case 2:  //"Advance to Illinois Ave - if you pass Go, collect $200"
@@ -1125,14 +1096,7 @@ public class IdeopolyGUI implements ActionListener {
 	    if (p.getPosition() >= 100)
 		p.addCash("hundreds", 2);
 
-	    if ( p == player1 )
-		p.setPosition( 99 );
-	    else if (p == player2)
-		p.setPosition( 98 );
-	    else if (p == player3)
-		p.setPosition( 97 );
-	    else if (p == player4)
-		p.setPosition( 96 );
+	    changePosition(p, 99);
 	    break;
 	case 3:  //"Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
 	    // TODO: Implement this.
@@ -1146,15 +1110,7 @@ public class IdeopolyGUI implements ActionListener {
 	    if (p.getPosition() >= 48)
 		p.addCash("hundreds", 2);
 
-	    if ( p == player1 )
-		p.setPosition( 47 );
-	    else if (p == player2)
-		p.setPosition( 46 );
-	    else if (p == player3)
-		p.setPosition( 45 );
-	    else if (p == player4)
-		p.setPosition( 44 );
-
+	    changePosition(p, 47);
 	    break;
 
 	case 6:  //"Bank pays you dividend of $50"
@@ -1171,16 +1127,7 @@ public class IdeopolyGUI implements ActionListener {
 	case 9:  //"Go directly to Jail – do not pass Go, do not collect $200"
 	    // TODO: Here's another reason to make put in jail a player method.
 	    // It's an action that's performed several times.
-
-	    if ( p == player1 )
-		p.setPosition( 43 );
-	    else if (p == player2)
-		p.setPosition( 42 );
-	    else if (p == player3)
-		p.setPosition( 41 );
-	    else if (p == player4)
-		p.setPosition( 40 );
-
+	    changePosition(p, 43);
 	    putInJail(p);
 
 	    break;
@@ -1214,28 +1161,12 @@ public class IdeopolyGUI implements ActionListener {
 	    if (p.getPosition() >= 24)
 		p.addCash("hundreds", 2);
 
-	    if ( p == player1 )
-		p.setPosition( 23 );
-	    else if (p == player2)
-		p.setPosition( 22 );
-	    else if (p == player3)
-		p.setPosition( 21 );
-	    else if (p == player4)
-		p.setPosition( 20 );
-
+	    changePosition(p, 23);
 	    // TODO: And then onland function.
 	    break;
 
 	case 13: //"Take a walk on the Boardwalk – advance token to Boardwalk"
-	    if ( p == player1 )
-		p.setPosition( 159 );
-	    else if (p == player2)
-		p.setPosition( 158 );
-	    else if (p == player3)
-		p.setPosition( 157 );
-	    else if (p == player4)
-		p.setPosition( 156 );
-
+	    changePosition(p, 159);
 	    //TODO: And then call the onland function for boardwalk.
 	    break;
 	case 14: //"You have been elected chairman of the board – pay each player $50"
@@ -1287,5 +1218,18 @@ public class IdeopolyGUI implements ActionListener {
     }
 
     // LEFTOFFHERE: Made the drawCommunityChest/Chance methods. Now
-    // to add tests for them and make sure everything's working A-OK.
+    // to add lots of tests for them and make sure everything's working A-OK.
+
+    /** Move the player p to a given position q. Use different positions 
+     *  depending on which player p is. */
+    public void changePosition(Player p, int q) { // TODO: Better function name.
+	    if      (p == player1)
+		p.setPosition(q);
+	    else if (p == player2)
+		p.setPosition(q - 1);
+	    else if (p == player3)
+		p.setPosition(q - 2);
+	    else if (p == player4)
+		p.setPosition(q - 3);
+    }
 }
