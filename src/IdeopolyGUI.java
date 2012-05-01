@@ -4,7 +4,6 @@ import java.util.*;
 import java.awt.event.*;
 import java.util.Stack; // TODO: Remove this if it ends up not being needed.
 
-// TODO: Declare a no player present icon up top? Could help readability later in this file.
 // TODO: Add in Chance and Comm. Chest images.
 // TODO: Use the native look and feel for the program.
 // TODO: Keep using M-a/M-e. Useful.
@@ -33,6 +32,7 @@ public class IdeopolyGUI implements ActionListener {
     private Player   player3 = new Player(3);
     private Player   player4 = new Player(4);
 
+    // TODO: Try to reduce usage of this players array. Is useless and confusing except when looping.
     private Player   players[]       = { player1, player2, player3, player4 };
     private int      playersArrSize  = 3;
     private String   cashValues[]	 = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
@@ -137,7 +137,6 @@ public class IdeopolyGUI implements ActionListener {
 
     /** The stack of Community Chest cards. */
     private Stack<CommunityChest> commChestCards = new Stack<CommunityChest>();
-
 
     /** Constructor creates the GUI, sets up parts of it, etc. */
     // TODO: Split up the functions logically.
@@ -305,9 +304,8 @@ public class IdeopolyGUI implements ActionListener {
 
 	// c.gridx      = 51;
 	// c.gridheight = 4;
-	//	JTextArea messages =  new JTextArea("Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.", 5, 5);
+	// JTextArea messages =  new JTextArea("Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.", 5, 5);
 	//	messages.setLineWrap(true);
-
 	//	frame.add(messages, c);
 
 	Random generator = new Random();
@@ -372,33 +370,34 @@ public class IdeopolyGUI implements ActionListener {
 		    players[currentPlayer].setInJail(0);
 
 		    if (currentPlayer == 0) {
-			movePlayer(players[0], players[1], players[2], players[3], roll);
+			movePlayer(player1, player2, player3, player4, roll);
 		    }
 		    else if (currentPlayer == 1) {
-			movePlayer(players[1], players[0], players[2], players[3], roll);
+			movePlayer(player2, player1, player3, player4, roll);
 		    }
 		    else if (currentPlayer == 2) {
-			movePlayer(players[2], players[1], players[0], players[3], roll);
+			movePlayer(player3, player2, player1, player4, roll);
 		    }
 		    else if (currentPlayer == 3) {
-			movePlayer(players[3], players[1], players[2], players[0], roll);
+			movePlayer(player4, player2, player3, player1, roll);
 		    }
 		}
 	    }
 
 	    // Not in jail, so move the player as normal.
 	    else {
+		// TODO: This is repeated right above.
 		if (currentPlayer == 0) {
-		    movePlayer(players[0], players[1], players[2], players[3], roll);
+		    movePlayer(player1, player2, player3, player4, roll);
 		}
 		else if (currentPlayer == 1) {
-		    movePlayer(players[1], players[0], players[2], players[3], roll);
+		    movePlayer(player2, player1, player3, player4, roll);
 		}
 		else if (currentPlayer == 2) {
-		    movePlayer(players[2], players[1], players[0], players[3], roll);
+		    movePlayer(player3, player2, player1, player4, roll);
 		}
 		else if (currentPlayer == 3) {
-		    movePlayer(players[3], players[1], players[2], players[0], roll);
+		    movePlayer(player4, player2, player3, player1, roll);
 		}
 	    }
 
@@ -414,15 +413,14 @@ public class IdeopolyGUI implements ActionListener {
 		currentPlayer++;
 
 	    updateDisplay();
-	    // * Player and computer tokens should be sent from the character select section to this part.
     }
-
 
     /** Move the given Player p forward numCells (where numCells is # of 
      *  board cells, not # of positions) on the list positions ON THE GUI.
      *  Also include players p2/3/4, because it's possible to affect them
      *  by moving a player. */
-    // TODO: Do I need the extra arguments here?
+    // TODO: Do I need the extra arguments here? Should be able to just provide p1 
+    // and derive the rest later
     public void movePlayer(Player p, Player p2, Player p3, Player p4, int numCells) {
 	int landingSpot = p.getPosition() + (numCells * 4);
 
@@ -456,31 +454,19 @@ public class IdeopolyGUI implements ActionListener {
 
 		// The player is on one of the last 6 spaces and will overshoot Go.
 		if ( p.getPosition() >= 135 && p.getPosition() <= 159 && (landingSpot > 159) ) {
+		    // TODO: Try to clarify what's happening here. Could probably simplify it.
 		    int finalProperty = ( landingSpot - 160 ) / 4;
-		
-		    if ( p == player1 )
-			p.setPosition( (finalProperty * 4) + 3 );
-		    else if (p == player2)
-			p.setPosition( (finalProperty * 4) + 2 );
-		    else if (p == player3)
-			p.setPosition( (finalProperty * 4) + 1 );
-		    else if (p == player4)
-			p.setPosition( (finalProperty * 4) + 0 );
-
+		    changePosition(p, (finalProperty * 4) + 3);
 		    p.addCash("hundreds", 2); // Give 200 bucks for passing Go.
 		}
 
 		// Player lands on Go to Jail.
 		else if ( landingSpot >= 120 && landingSpot <= 123) {
-		    // TODO: Just hard code in the values here? Is more clear than this subtraction.
-		    p.setPosition(landingSpot - 80);
 		    putInJail(p);
-		    // TODO: Make a visual indicator when a person's in jail. IE: put a little colored square on their portrait that indicates the week they're in.
-		    // TODO: Then make a thing that checks if a person's currently in jail or not.
 		}
 
-
-		// Regular move - not overshooting Go or landing on Go to Jail. Just move forward 4 spaces.
+		// Regular move - not overshooting Go or landing on Go to Jail. 
+		// Just move forward 4 spaces.
 		else {
 		    p.setPosition( landingSpot );
 
@@ -500,7 +486,7 @@ public class IdeopolyGUI implements ActionListener {
 
 		    // TODO: Make a separate method to handle this?
 		    // TODO: Instead, just check for class. If is PropOutlet/RR/Utility, do x.
-		    // TODO: Should this just be landing Spot == x/y/z?
+		    // And if that doesn't work, could have a field that indicates type of property.
 		    else if (    getCurrentLocation(players[currentPlayer]) == mediterraneanAv
 			      || getCurrentLocation(players[currentPlayer]) == balticAv
 			      || getCurrentLocation(players[currentPlayer]) == orientalAv
@@ -542,8 +528,7 @@ public class IdeopolyGUI implements ActionListener {
 				buyProperty.setEnabled(true);
 			    }
 
-			    // AI code here.
-			    // Basically, just buy the property if the AI has more than $800.
+			    // Have the AI buy the property if it has more than $500.
 			    else {
 				if (Integer.parseInt(players[currentPlayer].getCash("total")) >= 500) {
 				    getCurrentLocation(players[currentPlayer]).setOwner(players[currentPlayer]);
@@ -660,7 +645,7 @@ public class IdeopolyGUI implements ActionListener {
 	    case "Continue": doTurn(frame);
 		break;
 		// TODO: Make the player pay to buy it, add bankruptcy check.
-	    case "Buy property": getCurrentLocation(players[0]).setOwner( players[0] );
+	    case "Buy property": getCurrentLocation(player1).setOwner( player1 );
 		buyProperty.setEnabled(false); // Disable button after property's bought.
 		break;
 	    case "Buy house": System.out.println("Testing buy house.");
@@ -675,10 +660,11 @@ public class IdeopolyGUI implements ActionListener {
             // Use a card and take the main player out of jail.
 	    // TODO: Disable this when the player's not on a jail cell.
 	    case "Use get out of jail free card":
-		if (players[0].getNumGOOJFCards() > 0)
+		// TODO: This conditional's confusing. What's it getting at?
+		if (player1.getNumGOOJFCards() > 0)
 		    useGOOJFCard.setEnabled(false);
 
-		players[0].spendGOOJF();
+		player1.spendGOOJF();
 		updateDisplay();
 		break;
 
@@ -695,22 +681,24 @@ public class IdeopolyGUI implements ActionListener {
 
     /** Put a given player in jail. */
     private void putInJail(Player p) {
-	// TODO: This should also move the player to the appropriate position. The code to do that is
-	// duplicated in a few places.
+	// TODO: Make a visual indicator for when a person's in jail. 
+	// IE: put a little colored square on their portrait that indicates the week they're in.
+	// Or change the color of the text by their name.
+
 	// Allow the main player to use their cards.
 	if (p == player1 && p.getNumGOOJFCards() > 0) {
 	    useGOOJFCard.setEnabled(true);
 	}
+	changePosition(p, 43);
 	p.setInJail(3);
     }
 
     /** Given an integer i, break it up into the smallest possible amount of bills. */
     private void getCashDistribution(int total) {
-	// LEFTOFFHERE: TODO: This is almost working I think, but I think BoardCell's getCost() function
-	// is not being overwritten by PropagandaOutlet's => since BoardCell always returns 0, I get this
-	// case where total = 0, which screws up gameplay.
+	// LEFTOFFHERE: TODO: This is almost working, but I think BoardCell's getCost() function
+	// is not being overwritten by PropagandaOutlet's => since BoardCell always returns 
+	// 0, I get this case where total = 0, which screws up gameplay.
 	if (total <= 0) {
-	    // TODO: Apparently this is screwed up somehow. I keep getting this case occurring.
 	    System.out.println("Can't break up 0 or negative dollars!");
 	}
 
@@ -841,21 +829,13 @@ public class IdeopolyGUI implements ActionListener {
 	    p.giveGOOJF();
 	    break;
 	case 5:   // "Go to Jail – go directly to jail – Do not pass Go, do not collect $200"
-	    changePosition(p, 43);
 	    putInJail(p);
 	    break;
 	case 6:   // "It is your birthday - Collect $10 from each player"
 	    // TODO: Repeated also.
-	    // TODO: Refactor this. Needs it desperately.
-	    //	    Player[] otherPlayers; // Array that holds the players to be collected from.
-	    // TODO: Can also use the otherPlayers array for bankruptcy checking.
-	    // TODO: Should also be able to just put the cash removal from individual players
-	    // at the end, rather than repeating in each if.
-	    // TODO: Should be able to refactor even more. Currently, I do the same thing but just switch the
-	    // player order around a bit.
 	    // TODO: Subtle bug(?) in these. If a player bankrupts, the main player still gets their money.
 	    // Should this be allowed? Add relevant tests.
-	    Player[] otherPlayers;
+	    Player[] otherPlayers; // Array that holds the players to be collected from.
 
 	    if      (p == player1) {
 		otherPlayers = new Player[] { player2, player3, player4 };
@@ -886,7 +866,6 @@ public class IdeopolyGUI implements ActionListener {
 	    p.addCash("tens", 3);
 	    break;
 	case 7:   // "Grand Opera Night – collect $50 from every player for opening night seats"
-	    // TODO: Desperate need of refactoring as well here. Can use the same kind of steps I think.
 	    Player[] extraPlayers;
 	    if      ( p == player1 ) {
 		// TODO: Better variable name, or a better way of doing this.
@@ -912,6 +891,7 @@ public class IdeopolyGUI implements ActionListener {
 		    iterPlayer.spreadCash(500);
 		}
 	    }
+
 	    p.addCash("fifties", 3);
 	    break;
 	case 8:   // "Income Tax refund – collect $20"
@@ -993,7 +973,6 @@ public class IdeopolyGUI implements ActionListener {
 	    // TODO: There's a general pattern to these cards. It's if position is 
 	    // >= some value, give $200 dollars. And then, depending on player, set position.
 	    // Make this type of card into a function.
-	    // TODO: Duplicate type of function. p1 starts at highest #, others are -1.
 
 	    // If the player's at B & O RR or after, give money.
 	    if (p.getPosition() >= 100)
@@ -1028,17 +1007,15 @@ public class IdeopolyGUI implements ActionListener {
 	    // TODO: Or just call movePlayer() ?
 	    break;
 	case 9:  //"Go directly to Jail – do not pass Go, do not collect $200"
-	    // TODO: Here's another reason to make put in jail a player method.
-	    // It's an action that's performed several times.
-	    changePosition(p, 43);
 	    putInJail(p);
-
 	    break;
 	case 10: //"Make general repairs on all your property – for each house pay $25 – 
-	    //for each hotel $100"
+                 // for each hotel $100"
 	    // If the payment will bankrupt the Player, do x.
 	    // TODO: Haven't tested this yet, to make sure I get correct values out of parseInt().
-	    if ( p.willBankrupt( (p.getNumHouses() * 25) + (p.getNumHotels() * 100 ) ) ) {
+	    int payment = (p.getNumHouses() * 25) + (p.getNumHotels() * 100);
+
+	    if ( p.willBankrupt(payment) ) {
 		p.bankruptPlayer();
 	    }
 	    else {
@@ -1074,33 +1051,29 @@ public class IdeopolyGUI implements ActionListener {
 	    break;
 	case 14: //"You have been elected chairman of the board – pay each player $50"
 	    // TODO: Make sure addCash handles negative values appropriately.
+	    Player[] morePlayers; // TODO: Again, better variable name. Or use the same name for all three cases.
+
 	    if (p.willBankrupt(150)) {
 		p.bankruptPlayer();
+		// TODO: Should this still give the other players 50 bucks each?
 	    }
 	    else {
 		p.spreadCash(50);
 		p.addCash("fifties", -3);
 
-		if (p == player1) {
-		    player2.addCash("fifties", 1);
-		    player3.addCash("fifties", 1);
-		    player4.addCash("fifties", 1);
+		if (p == player1)
+		    morePlayers = new Player[] {player2, player3, player4};
+		else if (p == player2)
+		    morePlayers = new Player[] {player1, player3, player4};
+		else if (p == player3)
+		    morePlayers = new Player[] {player1, player2, player4};
+		else // if (p == player4) TODO: Shouldn't do this for all cases.
+		    morePlayers = new Player[] {player1, player2, player3};
+
+		for (Player iterPlayer : morePlayers) {
+		    iterPlayer.addCash("fifties", 1);
 		}
-		else if (p == player2) {
-		    player1.addCash("fifties", 1);
-		    player3.addCash("fifties", 1);
-		    player4.addCash("fifties", 1);
-		}
-		else if (p == player3) {
-		    player1.addCash("fifties", 1);
-		    player2.addCash("fifties", 1);
-		    player4.addCash("fifties", 1);
-		}
-		else if (p == player4) {
-		    player1.addCash("fifties", 1);
-		    player2.addCash("fifties", 1);
-		    player3.addCash("fifties", 1);
-		}
+
 		p.spreadCash(500);
 	    }
 	    break;
