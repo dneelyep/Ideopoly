@@ -851,153 +851,68 @@ public class IdeopolyGUI implements ActionListener {
 	    // TODO: Can also use the otherPlayers array for bankruptcy checking.
 	    // TODO: Should also be able to just put the cash removal from individual players
 	    // at the end, rather than repeating in each if.
+	    // TODO: Should be able to refactor even more. Currently, I do the same thing but just switch the
+	    // player order around a bit.
+	    // TODO: Subtle bug(?) in these. If a player bankrupts, the main player still gets their money.
+	    // Should this be allowed? Add relevant tests.
+	    Player[] otherPlayers;
 
-	    // LEFTOFFHERE: Refactoring this case. I can also refactor the next case quit a bit when done.
-
-	    if      ( p == player1 ) {
-		Player[] otherPlayers = { player2, player3, player4 };
-
-		if (player2.willBankrupt(10) || player3.willBankrupt(10) || player4.willBankrupt(10)) {
-		    // TODO: ...bankruptcy code...
-		}
-		else {
-		    for (Player iterPlayer : otherPlayers) {
-			p.spreadCash(10);
-			p.addCash("tens", -1);
-			p.spreadCash(500);
-		    }
-
-		    player1.addCash("tens", 3);
-		}
+	    if      (p == player1) {
+		otherPlayers = new Player[] { player2, player3, player4 };
 	    }
 	    else if (p == player2) {
-		Player[] otherPlayers = { player1, player3, player4};
-		if (player1.willBankrupt(10) || player3.willBankrupt(10) || player4.willBankrupt(10)) {
-		    // TODO: ...bankruptcy code...
-		}
-		else {
-		    for (Player iterPlayer : otherPlayers) {
-			iterPlayer.spreadCash(10);
-			iterPlayer.addCash("tens", -1);
-			iterPlayer.spreadCash(500);
-		    }
-
-		    player2.addCash("tens", 3);
-		}
+		otherPlayers = new Player[] { player1, player3, player4};
 	    }
 	    else if (p == player3) {
-		Player[] otherPlayers = { player1, player2, player4 };
-		if (player2.willBankrupt(10) || player1.willBankrupt(10) || player4.willBankrupt(10)) {
-		    // TODO: ...bankruptcy code...
+		otherPlayers = new Player[] { player1, player2, player4 };
+	    } 
+	    else { // p == player4, or some random other value.
+		// TODO: Shouldn't allow this for all other cases.
+		otherPlayers = new Player[] { player1, player2, player3 };
+	    }
+
+	    for (Player iterPlayer : otherPlayers) {
+		if (iterPlayer.willBankrupt(10)) {
+		    // TODO: More code needed to handle this? And the identical below cases?
+		    iterPlayer.bankruptPlayer();
 		}
 		else {
-		    for (Player iterPlayer : otherPlayers) {
-			iterPlayer.spreadCash(10);
-			iterPlayer.addCash("tens", -1);
-			iterPlayer.spreadCash(500);
-		    }
-
-		    player3.addCash("tens", 3);
-		}
-	   } 
-	    else if (p == player4) {
-		Player[] otherPlayers = { player1, player2, player3 };
-		if (player2.willBankrupt(10) || player3.willBankrupt(10) || player1.willBankrupt(10)) {
-		    // TOpDO: ...bankruptcy code...
-		}
-		else {
-		    for (Player iterPlayer : otherPlayers) {
-			iterPlayer.spreadCash(10);
-			iterPlayer.addCash("tens", -1);
-			iterPlayer.spreadCash(500);
-		    }
-
-		    player4.addCash("tens", 3);
+		    iterPlayer.spreadCash(10);
+		    iterPlayer.addCash("tens", -1);
+		    iterPlayer.spreadCash(500);
 		}
 	    }
+
+	    p.addCash("tens", 3);
 	    break;
 	case 7:   // "Grand Opera Night – collect $50 from every player for opening night seats"
 	    // TODO: Desperate need of refactoring as well here. Can use the same kind of steps I think.
+	    Player[] extraPlayers;
 	    if      ( p == player1 ) {
-		if (player2.willBankrupt(50) || player3.willBankrupt(50) || player4.willBankrupt(50)) {
-		    // TODO: ...bankruptcy code...
-		}
-		else {
-		    player2.spreadCash(50);
-		    player2.addCash("fifties", -1);
-		    player2.spreadCash(500);
-
-		    player3.spreadCash(50);
-		    player3.addCash("fifties", -1);
-		    player3.spreadCash(500);
-
-		    player4.spreadCash(50);
-		    player4.addCash("fifties", -1);
-		    player4.spreadCash(500);
-
-		    player1.addCash("fifties", 3);
-		}
+		// TODO: Better variable name, or a better way of doing this.
+		extraPlayers = new Player[] { player2, player3, player4 };
 	    }
 	    else if (p == player2) {
-		if (player1.willBankrupt(50) || player3.willBankrupt(50) || player4.willBankrupt(50)) {
-		    // TODO: ...bankruptcy code...
-		}
-		else {
-		    player1.spreadCash(50);
-		    player1.addCash("fifties", -1);
-		    player1.spreadCash(500);
-
-		    player3.spreadCash(50);
-		    player3.addCash("fifties", -1);
-		    player3.spreadCash(500);
-
-		    player4.spreadCash(50);
-		    player4.addCash("fifties", -1);
-		    player4.spreadCash(500);
-
-		    player2.addCash("fifties", 3);
-		}
+		extraPlayers = new Player[] { player1, player3, player4 };
 	    }
 	    else if (p == player3) {
-		if (player2.willBankrupt(50) || player1.willBankrupt(50) || player4.willBankrupt(50)) {
-		    // TODO: ...bankruptcy code...
+		extraPlayers = new Player[] { player1, player2, player4 };
+	    }
+	    else { // (p == player4) and all other cases. TODO: Shouldn't allow all cases for this.
+		extraPlayers = new Player[] { player1, player2, player3 };
+	    }
+
+	    for (Player iterPlayer : extraPlayers) {
+		if (iterPlayer.willBankrupt(50)) {
+		    iterPlayer.bankruptPlayer();
 		}
 		else {
-		    player2.spreadCash(50);
-		    player2.addCash("fifties", -1);
-		    player2.spreadCash(500);
-
-		    player1.spreadCash(50);
-		    player1.addCash("fifties", -1);
-		    player1.spreadCash(500);
-
-		    player4.spreadCash(50);
-		    player4.addCash("fifties", -1);
-		    player4.spreadCash(500);
-
-		    player3.addCash("fifties", 3);
+		    iterPlayer.spreadCash(50);
+		    iterPlayer.addCash("fifties", -1);
+		    iterPlayer.spreadCash(500);
 		}
 	    }
-	    else if (p == player4) {
-		if (player2.willBankrupt(50) || player3.willBankrupt(50) || player1.willBankrupt(50)) {
-		    // TODO: ...bankruptcy code...
-		}
-		else {
-		    player2.spreadCash(50);
-		    player2.addCash("fifties", -1);
-		    player2.spreadCash(500);
-
-		    player3.spreadCash(50);
-		    player3.addCash("fifties", -1);
-		    player3.spreadCash(500);
-
-		    player1.spreadCash(50);
-		    player1.addCash("fifties", -1);
-		    player1.spreadCash(500);
-
-		    player4.addCash("fifties", 3);
-		}
-	    }
+	    p.addCash("fifties", 3);
 	    break;
 	case 8:   // "Income Tax refund – collect $20"
 	    p.addCash("twenties", 1);
