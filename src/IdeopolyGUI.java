@@ -847,89 +847,77 @@ public class IdeopolyGUI implements ActionListener {
 	case 6:   // "It is your birthday - Collect $10 from each player"
 	    // TODO: Repeated also.
 	    // TODO: Refactor this. Needs it desperately.
+	    //	    Player[] otherPlayers; // Array that holds the players to be collected from.
+	    // TODO: Can also use the otherPlayers array for bankruptcy checking.
+	    // TODO: Should also be able to just put the cash removal from individual players
+	    // at the end, rather than repeating in each if.
+
+	    // LEFTOFFHERE: Refactoring this case. I can also refactor the next case quit a bit when done.
+
 	    if      ( p == player1 ) {
+		Player[] otherPlayers = { player2, player3, player4 };
+
 		if (player2.willBankrupt(10) || player3.willBankrupt(10) || player4.willBankrupt(10)) {
 		    // TODO: ...bankruptcy code...
 		}
 		else {
-		    player2.spreadCash(10);
-		    player2.addCash("tens", -1);
-		    player2.spreadCash(500);
-
-		    player3.spreadCash(10);
-		    player3.addCash("tens", -1);
-		    player3.spreadCash(500);
-
-		    player4.spreadCash(10);
-		    player4.addCash("tens", -1);
-		    player4.spreadCash(500);
+		    for (Player iterPlayer : otherPlayers) {
+			p.spreadCash(10);
+			p.addCash("tens", -1);
+			p.spreadCash(500);
+		    }
 
 		    player1.addCash("tens", 3);
 		}
 	    }
 	    else if (p == player2) {
+		Player[] otherPlayers = { player1, player3, player4};
 		if (player1.willBankrupt(10) || player3.willBankrupt(10) || player4.willBankrupt(10)) {
 		    // TODO: ...bankruptcy code...
 		}
 		else {
-		    player1.spreadCash(10);
-		    player1.addCash("tens", -1);
-		    player1.spreadCash(500);
-
-		    player3.spreadCash(10);
-		    player3.addCash("tens", -1);
-		    player3.spreadCash(500);
-
-		    player4.spreadCash(10);
-		    player4.addCash("tens", -1);
-		    player4.spreadCash(500);
+		    for (Player iterPlayer : otherPlayers) {
+			iterPlayer.spreadCash(10);
+			iterPlayer.addCash("tens", -1);
+			iterPlayer.spreadCash(500);
+		    }
 
 		    player2.addCash("tens", 3);
 		}
 	    }
 	    else if (p == player3) {
+		Player[] otherPlayers = { player1, player2, player4 };
 		if (player2.willBankrupt(10) || player1.willBankrupt(10) || player4.willBankrupt(10)) {
 		    // TODO: ...bankruptcy code...
 		}
 		else {
-		    player2.spreadCash(10);
-		    player2.addCash("tens", -1);
-		    player2.spreadCash(500);
-
-		    player1.spreadCash(10);
-		    player1.addCash("tens", -1);
-		    player1.spreadCash(500);
-
-		    player4.spreadCash(10);
-		    player4.addCash("tens", -1);
-		    player4.spreadCash(500);
+		    for (Player iterPlayer : otherPlayers) {
+			iterPlayer.spreadCash(10);
+			iterPlayer.addCash("tens", -1);
+			iterPlayer.spreadCash(500);
+		    }
 
 		    player3.addCash("tens", 3);
 		}
-	    }
+	   } 
 	    else if (p == player4) {
+		Player[] otherPlayers = { player1, player2, player3 };
 		if (player2.willBankrupt(10) || player3.willBankrupt(10) || player1.willBankrupt(10)) {
-		    // TODO: ...bankruptcy code...
+		    // TOpDO: ...bankruptcy code...
 		}
 		else {
-		    player2.spreadCash(10);
-		    player2.addCash("tens", -1);
-		    player2.spreadCash(500);
-
-		    player3.spreadCash(10);
-		    player3.addCash("tens", -1);
-		    player3.spreadCash(500);
-
-		    player1.spreadCash(10);
-		    player1.addCash("tens", -1);
-		    player1.spreadCash(500);
+		    for (Player iterPlayer : otherPlayers) {
+			iterPlayer.spreadCash(10);
+			iterPlayer.addCash("tens", -1);
+			iterPlayer.spreadCash(500);
+		    }
 
 		    player4.addCash("tens", 3);
 		}
 	    }
 	    break;
 	case 7:   // "Grand Opera Night – collect $50 from every player for opening night seats"
-	    // TODO: Desperate need of refactoring as well here.
+	    // TODO: Desperate need of refactoring as well here. Can use the same kind of steps I think.
 	    if      ( p == player1 ) {
 		if (player2.willBankrupt(50) || player3.willBankrupt(50) || player4.willBankrupt(50)) {
 		    // TODO: ...bankruptcy code...
