@@ -109,6 +109,21 @@ public class ChanceTester extends TestCase {
 	assertEquals(chanceCard.getType(), 6);
 	assertEquals(chanceCard.getText(), "Bank pays you dividend of $50");
 
+	int p1Money = Integer.parseInt(gui.player1.getCash("total"));
+	int p2Money = Integer.parseInt(gui.player2.getCash("total"));
+	int p3Money = Integer.parseInt(gui.player3.getCash("total"));
+	int p4Money = Integer.parseInt(gui.player4.getCash("total"));
+
+	chanceCard.doActions(gui.player1, gui);
+	chanceCard.doActions(gui.player2, gui);
+	chanceCard.doActions(gui.player3, gui);
+	chanceCard.doActions(gui.player4, gui);
+
+	assertEquals(Integer.parseInt(gui.player1.getCash("total")), p1Money + 50);
+	assertEquals(Integer.parseInt(gui.player2.getCash("total")), p2Money + 50);
+	assertEquals(Integer.parseInt(gui.player3.getCash("total")), p3Money + 50);
+	assertEquals(Integer.parseInt(gui.player4.getCash("total")), p4Money + 50);
+
 	chanceCard = new Chance(7);
 	assertEquals(chanceCard.getType(), 7);
 	assertEquals(chanceCard.getText(), "Get out of Jail Free – this card may be kept until needed, or traded/sold");

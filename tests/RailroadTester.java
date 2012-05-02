@@ -5,7 +5,10 @@ import org.junit.*;
  *
  *  @author Daniel Neel */
 public class RailroadTester extends TestCase {
-    // 
-    //  ...TODO: Make tests here...
-    //
+    @Test
+    public void testRailroad() {
+	// 
+	//  ...TODO: Make tests here...
+	//
+    }
 }

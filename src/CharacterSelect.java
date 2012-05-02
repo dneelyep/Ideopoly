@@ -56,7 +56,8 @@ public class CharacterSelect implements ActionListener {
 	// TODO: Loop this.
 	c.fill = GridBagConstraints.HORIZONTAL;
 
-	JLabel chooseCharacter = new JLabel("Choose your character below:"); // TODO: Center this text across the row
+	JLabel chooseCharacter = new JLabel("Choose your character below:");
+	// TODO: Center this text across the row
 	// TODO: Also, make it sexy artwork rather than bland text.
 
 	// =======================================================
