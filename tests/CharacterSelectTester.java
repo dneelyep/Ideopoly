@@ -6,6 +6,6 @@ import org.junit.*;
  *  @author Daniel Neel */
 public class CharacterSelectTester extends TestCase {
     // 
-    //  ...methods here...
+    //  ...TODO: Add tests here...
     //
 }
