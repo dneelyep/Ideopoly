@@ -7,6 +7,8 @@ import org.junit.*;
 // TODO: Split this into multiple files?
 // TODO: Make more separate tests, rather than large tests that test 1800 things at once?
 // This would make things easier when tests fail, since I get the name of the test in output text.
+// TODO: Refactor this file a bit. There are a lot of cases where I'm repeating the same code for
+// ie all four players in a row. Could easily be looped in those cases.
 /**
  * IdeopolyTester - various test cases to make sure the game works as intended.
  */
@@ -48,13 +50,6 @@ public class IdeopolyTester extends TestCase {
     /** Test all methods in the IdeopolyGUI class. */
     public void testIdeopolyGUI() {
 	// TODO: Test, after creation of the GUI, the isEnabled() statuses for all the buttons.
-
-	// =====================
-	// Community Chest tests
-	// Test all possible 
-	// values of CC cards for
-	// correct output.
-	// =====================
 	Player testCCPlayer1  = new Player(1);
 	Player testCCPlayer2  = new Player(2);
 	Player testCCPlayer3  = new Player(3);
@@ -63,347 +58,6 @@ public class IdeopolyTester extends TestCase {
 	assertEquals(testCCPlayer2.getPosition(), 2);
 	assertEquals(testCCPlayer3.getPosition(), 1);
 	assertEquals(testCCPlayer4.getPosition(), 0);
-
-	CommunityChest testCommChest = new CommunityChest(1);
-	//	drawCommunityChest(testCCPlayer1);
-	// TODO: Here, test the given player's cash amount, to make sure it's amount += 200.
-	// This can't CURRENTLY (but SOON CAN BE) be done because my Comm Chest/Chance handling 
-	// code is tied into my movePlayer() function. That's another TODO - separate the things.
-	// For example, make a drawCommunityChest() function. And for Chance.
-
-	testCommChest = new CommunityChest(2);
-
-	testCommChest = new CommunityChest(3);
-
-	testCommChest = new CommunityChest(4);
-
-	testCommChest = new CommunityChest(5);
-
-	testCommChest = new CommunityChest(6);
-
-	testCommChest = new CommunityChest(7);
-
-	testCommChest = new CommunityChest(8);
-
-	testCommChest = new CommunityChest(9);
-
-	testCommChest = new CommunityChest(10);
-
-	testCommChest = new CommunityChest(11);
-
-	testCommChest = new CommunityChest(12);
-
-	testCommChest = new CommunityChest(13);
-
-	testCommChest = new CommunityChest(14);
-
-	testCommChest = new CommunityChest(15);
-
-	testCommChest = new CommunityChest(16);
-
-	testCommChest = new CommunityChest(17);
-
-
-// case 2:	// "Bank error in your favor – collect $200"
-//     p.addCash("hundreds", 2);
-//     break;
-// case 3:   // "Doctor's fees – Pay $50"
-//     if (p.willBankrupt(50)) {
-// 	p.bankruptPlayer(); // TODO: Update this code to do more relevant stuff.
-//     }
-//     else {
-// 	p.spreadCash(50); // Shuffle money around to get 50s.
-
-// 	p.addCash("fifties", -1);
-// 	p.spreadCash(500); // Then shuffle back to a more reasonable amount.
-//     }
-//     break;
-// case 4:   // "Get Out of Jail Free – this card may be kept until needed, or sold"
-//     // TODO: Repeated later as well.
-//     p.giveGOOJF();
-//     break;
-// case 5:   // "Go to Jail – go directly to jail – Do not pass Go, do not collect $200"
-//     // TODO: This repeated later.
-//     if ( p == player1 )
-// 	p.setPosition( 43 );
-//     else if (p == player2)
-// 	p.setPosition( 42 );
-//     else if (p == player3)
-// 	p.setPosition( 41 );
-//     else if (p == player4)
-// 	p.setPosition( 40 );
-
-//     putInJail(p);
-//     break;
-// case 6:   // "It is your birthday - Collect $10 from each player"
-//     // TODO: Repeated also.
-//     if (p2.willBankrupt(10) || p3.willBankrupt(10) || p4.willBankrupt(10)) {
-// 	// TODO: ...bankruptcy code...
-//     }
-//     else {
-// 	p2.spreadCash(10);
-// 	p2.addCash("tens", -1);
-// 	p2.spreadCash(500);
-
-// 	p3.spreadCash(10);
-// 	p3.addCash("tens", -1);
-// 	p3.spreadCash(500);
-
-// 	p4.spreadCash(10);
-// 	p4.addCash("tens", -1);
-// 	p4.spreadCash(500);
-
-// 	p.addCash("tens", 3);
-//     }
-
-//     break;
-// case 7:   // "Grand Opera Night – collect $50 from every player for opening night seats"
-
-//     if (p2.willBankrupt(50) || p3.willBankrupt(50) || p4.willBankrupt(50)) {
-// 	// TODO: ...bankruptcy code...
-//     }
-//     else {
-// 	// TODO: Could loop this.
-// 	p2.spreadCash(50);
-// 	p2.addCash("fifties", -1);
-// 	p2.spreadCash(500);
-
-// 	p3.spreadCash(50);
-// 	p3.addCash("fifties", -1);
-// 	p3.spreadCash(500);
-
-// 	p4.spreadCash(50);
-// 	p4.addCash("fifties", -1);
-// 	p4.spreadCash(500);
-
-// 	p.addCash("tens", 3);
-//     }
-//     break;
-// case 8:   // "Income Tax refund – collect $20"
-//     p.addCash("twenties", 1);
-//     break;
-// case 9:   // "Life Insurance Matures – collect $100"
-//     p.addCash("hundreds", 1);
-//     break;
-// case 10:  // "Pay Hospital Fees of $100"
-
-//     if (p.willBankrupt(100)) {
-// 	p.bankruptPlayer();
-//     }
-//     else {
-// 	p.spreadCash(100);
-// 	p.addCash("hundreds", -1);
-// 	p.spreadCash(500);
-//     }
-//     break;
-// case 11:  // "Pay School Fees of $50"
-
-//     if (p.willBankrupt(50)) {
-// 	p.bankruptPlayer();
-//     }
-//     else {
-// 	p.spreadCash(50);
-// 	p.addCash("fifties", -1);
-// 	p.spreadCash(500);
-//     }
-//     break;
-// case 12:  // "Receive $25 Consultancy Fee"
-//     p.addCash("twenties", 1);
-//     p.addCash("fives", 1);
-//     break;
-// case 13:  // "You are assessed for street repairs – $40 per house, $115 per hotel"
-//     if (p.willBankrupt( (p.getNumHouses() * 40) + (p.getNumHotels() * 115) )) {
-// 	p.bankruptPlayer();
-//     }
-//     else {
-// 	// TODO: Code here, this varies though. Difficult.
-//     }
-
-//     break;
-// case 14:  // "You have won second prize in a beauty contest– collect $10"
-//     p.addCash("tens", 1);
-//     break;
-// case 15:  // "You inherit $100"
-//     p.addCash("hundreds", 1);
-//     break;
-// case 16:  // "From sale of stock you get $50"
-//     p.addCash("fifties", 1);
-//     break;
-// case 17:  // "Holiday Fund matures - Receive $100"
-//     p.addCash("hundreds", 1);
-//     break;
-// default:
-//     System.out.println("Error! Wrong Community Chest value!");
-//     break;
-// }
-
-
-
-
-
-
-
-
-	// ============
-	// Chance tests
-	// ============
-	// TODO: I added the carryOutActions() method to the Chance class. Make sure to have tests
-	// for this.
-
-
-// =======================================================================
-// case 1: // "Advance to Go (Collect $200)"
-//     // TODO: This is repeated in the Chance deck.
-//     if (p == player1)
-// 	p.setPosition( 3 );
-//     else if (p == player2)
-// 	p.setPosition( 2 );
-//     else if (p == player3)
-// 	p.setPosition( 1 );
-//     else if (p == player4)
-// 	p.setPosition( 0 );
-
-//     p.addCash("hundreds", 2);
-//     break;
-// case 2:	// "Bank error in your favor – collect $200"
-//     p.addCash("hundreds", 2);
-//     break;
-// case 3:   // "Doctor's fees – Pay $50"
-//     if (p.willBankrupt(50)) {
-// 	p.bankruptPlayer(); // TODO: Update this code to do more relevant stuff.
-//     }
-//     else {
-// 	p.spreadCash(50); // Shuffle money around to get 50s.
-// 	p.addCash("fifties", -1);
-// 	p.spreadCash(500); // Then shuffle back to a more reasonable amount.
-//     }
-//     break;
-// case 4:   // "Get Out of Jail Free – this card may be kept until needed, or sold"
-//     // TODO: Repeated later as well.
-//     p.giveGOOJF();
-//     break;
-// case 5:   // "Go to Jail – go directly to jail – Do not pass Go, do not collect $200"
-//     // TODO: This repeated later.
-//     if ( p == player1 )
-// 	p.setPosition( 43 );
-//     else if (p == player2)
-// 	p.setPosition( 42 );
-//     else if (p == player3)
-// 	p.setPosition( 41 );
-//     else if (p == player4)
-// 	p.setPosition( 40 );
-
-//     putInJail(p);
-//     break;
-// case 6:   // "It is your birthday - Collect $10 from each player"
-//     // TODO: Repeated also.
-//     if (p2.willBankrupt(10) || p3.willBankrupt(10) || p4.willBankrupt(10)) {
-// 	// TODO: ...bankruptcy code...
-//     }
-//     else {
-// 	p2.spreadCash(10);
-// 	p2.addCash("tens", -1);
-// 	p2.spreadCash(500);
-
-// 	p3.spreadCash(10);
-// 	p3.addCash("tens", -1);
-// 	p3.spreadCash(500);
-
-// 	p4.spreadCash(10);
-// 	p4.addCash("tens", -1);
-// 	p4.spreadCash(500);
-
-// 	p.addCash("tens", 3);
-//     }
-
-//     break;
-// case 7:   // "Grand Opera Night – collect $50 from every player for opening night seats"
-
-//     if (p2.willBankrupt(50) || p3.willBankrupt(50) || p4.willBankrupt(50)) {
-// 	// TODO: ...bankruptcy code...
-//     }
-//     else {
-// 	// TODO: Could loop this.
-// 	p2.spreadCash(50);
-// 	p2.addCash("fifties", -1);
-// 	p2.spreadCash(500);
-
-// 	p3.spreadCash(50);
-// 	p3.addCash("fifties", -1);
-// 	p3.spreadCash(500);
-
-// 	p4.spreadCash(50);
-// 	p4.addCash("fifties", -1);
-// 	p4.spreadCash(500);
-
-// 	p.addCash("tens", 3);
-//     }
-//     break;
-// case 8:   // "Income Tax refund – collect $20"
-//     p.addCash("twenties", 1);
-//     break;
-// case 9:   // "Life Insurance Matures – collect $100"
-//     p.addCash("hundreds", 1);
-//     break;
-// case 10:  // "Pay Hospital Fees of $100"
-
-//     if (p.willBankrupt(100)) {
-// 	p.bankruptPlayer();
-//     }
-//     else {
-// 	p.spreadCash(100);
-// 	p.addCash("hundreds", -1);
-// 	p.spreadCash(500);
-//     }
-//     break;
-// case 11:  // "Pay School Fees of $50"
-
-//     if (p.willBankrupt(50)) {
-// 	p.bankruptPlayer();
-//     }
-//     else {
-// 	p.spreadCash(50);
-// 	p.addCash("fifties", -1);
-// 	p.spreadCash(500);
-//     }
-//     break;
-// case 12:  // "Receive $25 Consultancy Fee"
-//     p.addCash("twenties", 1);
-//     p.addCash("fives", 1);
-//     break;
-// case 13:  // "You are assessed for street repairs – $40 per house, $115 per hotel"
-//     if (p.willBankrupt( (p.getNumHouses() * 40) + (p.getNumHotels() * 115) )) {
-// 	p.bankruptPlayer();
-//     }
-//     else {
-// 	// TODO: Code here, this varies though. Difficult.
-//     }
-
-//     break;
-// case 14:  // "You have won second prize in a beauty contest– collect $10"
-//     p.addCash("tens", 1);
-//     break;
-// case 15:  // "You inherit $100"
-//     p.addCash("hundreds", 1);
-//     break;
-// case 16:  // "From sale of stock you get $50"
-//     p.addCash("fifties", 1);
-//     break;
-// case 17:  // "Holiday Fund matures - Receive $100"
-//     p.addCash("hundreds", 1);
-//     break;
-// default:
-//     System.out.println("Error! Wrong Community Chest value!");
-//     break;
-// }
-
-// // TODO: Redirect these out to a GUI status element thing.
-// System.out.println(card.getText());
-// }
-
-// =======================================================================
-
-
     }
 
 
@@ -508,87 +162,163 @@ public class IdeopolyTester extends TestCase {
     //     }
     // }
 
+    // ============
+    // Chance tests
+    // ============
+    // TODO: I added the carryOutActions() method to the Chance class. Make sure to have tests
+    // for this.
     /** Test all methods in the Chance class. */
     @Test
     public void testChance() {
-	//1-16
-	Chance testChanceCard = new Chance(1);
-	assertEquals(testChanceCard.getType(), 1);
-	assertEquals(testChanceCard.getText(), "Advance to Go (Collect $200)");
+	// TODO: Later, is it possible for this method to go wrong? If so, test for those ways.
+	IdeopolyGUI gui       = new IdeopolyGUI("Ayn Rand");
 
-	testChanceCard = new Chance(2);
-	assertEquals(testChanceCard.getType(), 2);
-	assertEquals(testChanceCard.getText(), "Advance to Illinois Ave - if you pass Go, collect $200");
+	Chance chanceCard = new Chance(1);
+	assertEquals(chanceCard.getType(), 1);
+	assertEquals(chanceCard.getText(), "Advance to Go (Collect $200)");
 
-	testChanceCard = new Chance(3);
-	assertEquals(testChanceCard.getType(), 3);
-	assertEquals(testChanceCard.getText(), "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.");
+	chanceCard.doActions(gui.player1, gui);
+	chanceCard.doActions(gui.player2, gui);
+	chanceCard.doActions(gui.player3, gui);
+	chanceCard.doActions(gui.player4, gui);
 
-	testChanceCard = new Chance(4);
-	assertEquals(testChanceCard.getType(), 4);
-	assertEquals(testChanceCard.getText(), "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank. (There are two of these.)");
+	// TODO: Could refactor this. p1's always getPosition(num), p2 getPosition(num - 1), etc.
+	assertEquals(gui.player1.getPosition(), 3);
+	assertEquals(gui.player2.getPosition(), 2);
+	assertEquals(gui.player3.getPosition(), 1);
+	assertEquals(gui.player4.getPosition(), 0);
+	assertEquals(gui.player1.getCash("total"), "1700");
+	assertEquals(gui.player2.getCash("total"), "1700");
+	assertEquals(gui.player3.getCash("total"), "1700");
+	assertEquals(gui.player4.getCash("total"), "1700");
 
-	testChanceCard = new Chance(5);
-	assertEquals(testChanceCard.getType(), 5);
-	assertEquals(testChanceCard.getText(), "Advance to St. Charles Place – if you pass Go, collect $200");
+	chanceCard = new Chance(2);
+	assertEquals(chanceCard.getType(), 2);
+	assertEquals(chanceCard.getText(), "Advance to Illinois Ave - if you pass Go, collect $200");
 
-	testChanceCard = new Chance(6);
-	assertEquals(testChanceCard.getType(), 6);
-	assertEquals(testChanceCard.getText(), "Bank pays you dividend of $50");
+	// TODO: This block of stuff is a great chance for refactoring.
+	chanceCard.doActions(gui.player1, gui);
+	chanceCard.doActions(gui.player2, gui);
+	chanceCard.doActions(gui.player3, gui);
+	chanceCard.doActions(gui.player4, gui);
 
-	testChanceCard = new Chance(7);
-	assertEquals(testChanceCard.getType(), 7);
-	assertEquals(testChanceCard.getText(), "Get out of Jail Free – this card may be kept until needed, or traded/sold");
+	// First check with players standing at Go. Then with them on Illinois. Then with 
+	// them 1 past Illinois.
+	assertEquals(gui.player1.getPosition(), 99);
+	assertEquals(gui.player2.getPosition(), 98);
+	assertEquals(gui.player3.getPosition(), 97);
+	assertEquals(gui.player4.getPosition(), 96);
+	assertEquals(gui.player1.getCash("total"), "1700");
+	assertEquals(gui.player2.getCash("total"), "1700");
+	assertEquals(gui.player3.getCash("total"), "1700");
+	assertEquals(gui.player4.getCash("total"), "1700");
 
-	testChanceCard = new Chance(8); 
-	assertEquals(testChanceCard.getType(), 8);
-	assertEquals(testChanceCard.getText(), "Go back 3 spaces");
+	// Now they're starting on Illinois.
+	chanceCard.doActions(gui.player1, gui);
+	chanceCard.doActions(gui.player2, gui);
+	chanceCard.doActions(gui.player3, gui);
+	chanceCard.doActions(gui.player4, gui);
 
-	testChanceCard = new Chance(9);
-	assertEquals(testChanceCard.getType(), 9);
-	assertEquals(testChanceCard.getText(), "Go directly to Jail – do not pass Go, do not collect $200");
+	assertEquals(gui.player1.getPosition(), 99);
+	assertEquals(gui.player2.getPosition(), 98);
+	assertEquals(gui.player3.getPosition(), 97);
+	assertEquals(gui.player4.getPosition(), 96);
+	assertEquals(gui.player1.getCash("total"), "1900");
+	assertEquals(gui.player2.getCash("total"), "1900");
+	assertEquals(gui.player3.getCash("total"), "1900");
+	assertEquals(gui.player4.getCash("total"), "1900");
 
-	testChanceCard = new Chance(10);
-	assertEquals(testChanceCard.getType(), 10);
-	assertEquals(testChanceCard.getText(), "Make general repairs on all your property – for each house pay $25 – for each hotel $100");
+	// And now start them at 1 cell after Illinois and test.
+	gui.player1.changePosition(103);
+	gui.player2.changePosition(103);
+	gui.player3.changePosition(103);
+	gui.player4.changePosition(103);
 
-	testChanceCard = new Chance(11);
-	assertEquals(testChanceCard.getType(), 11);
-	assertEquals(testChanceCard.getText(), "Pay poor tax of $15");
+	chanceCard.doActions(gui.player1, gui);
+	chanceCard.doActions(gui.player2, gui);
+	chanceCard.doActions(gui.player3, gui);
+	chanceCard.doActions(gui.player4, gui);
 
-	testChanceCard = new Chance(12);
-	assertEquals(testChanceCard.getType(), 12);
-	assertEquals(testChanceCard.getText(), "Take a trip to Reading Railroad – if you pass Go, collect $200");
+	assertEquals(gui.player1.getPosition(), 99);
+	assertEquals(gui.player2.getPosition(), 98);
+	assertEquals(gui.player3.getPosition(), 97);
+	assertEquals(gui.player4.getPosition(), 96);
+	assertEquals(gui.player1.getCash("total"), "2100");
+	assertEquals(gui.player2.getCash("total"), "2100");
+	assertEquals(gui.player3.getCash("total"), "2100");
+	assertEquals(gui.player4.getCash("total"), "2100");
 
-	testChanceCard = new Chance(13);
-	assertEquals(testChanceCard.getType(), 13);
-	assertEquals(testChanceCard.getText(), "Take a walk on the Boardwalk – advance token to Boardwalk");
 
-	testChanceCard = new Chance(14);
-	assertEquals(testChanceCard.getType(), 14);
-	assertEquals(testChanceCard.getText(), "You have been elected chairman of the board – pay each player $50");
 
-	testChanceCard = new Chance(15);
-	assertEquals(testChanceCard.getType(), 15);
-	assertEquals(testChanceCard.getText(), "Your building loan matures – collect $150");
+	chanceCard = new Chance(3);
+	assertEquals(chanceCard.getType(), 3);
+	assertEquals(chanceCard.getText(), "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.");
 
-	testChanceCard = new Chance(16);
-	assertEquals(testChanceCard.getType(), 16);
-	assertEquals(testChanceCard.getText(), "You have won a crossword competition - collect $100.");
+	chanceCard = new Chance(4);
+	assertEquals(chanceCard.getType(), 4);
+	assertEquals(chanceCard.getText(), "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank. (There are two of these.)");
+
+	chanceCard = new Chance(5);
+	assertEquals(chanceCard.getType(), 5);
+	assertEquals(chanceCard.getText(), "Advance to St. Charles Place – if you pass Go, collect $200");
+
+	chanceCard = new Chance(6);
+	assertEquals(chanceCard.getType(), 6);
+	assertEquals(chanceCard.getText(), "Bank pays you dividend of $50");
+
+	chanceCard = new Chance(7);
+	assertEquals(chanceCard.getType(), 7);
+	assertEquals(chanceCard.getText(), "Get out of Jail Free – this card may be kept until needed, or traded/sold");
+
+	chanceCard = new Chance(8); 
+	assertEquals(chanceCard.getType(), 8);
+	assertEquals(chanceCard.getText(), "Go back 3 spaces");
+
+	chanceCard = new Chance(9);
+	assertEquals(chanceCard.getType(), 9);
+	assertEquals(chanceCard.getText(), "Go directly to Jail – do not pass Go, do not collect $200");
+
+	chanceCard = new Chance(10);
+	assertEquals(chanceCard.getType(), 10);
+	assertEquals(chanceCard.getText(), "Make general repairs on all your property – for each house pay $25 – for each hotel $100");
+
+	chanceCard = new Chance(11);
+	assertEquals(chanceCard.getType(), 11);
+	assertEquals(chanceCard.getText(), "Pay poor tax of $15");
+
+	chanceCard = new Chance(12);
+	assertEquals(chanceCard.getType(), 12);
+	assertEquals(chanceCard.getText(), "Take a trip to Reading Railroad – if you pass Go, collect $200");
+
+	chanceCard = new Chance(13);
+	assertEquals(chanceCard.getType(), 13);
+	assertEquals(chanceCard.getText(), "Take a walk on the Boardwalk – advance token to Boardwalk");
+
+	chanceCard = new Chance(14);
+	assertEquals(chanceCard.getType(), 14);
+	assertEquals(chanceCard.getText(), "You have been elected chairman of the board – pay each player $50");
+
+	chanceCard = new Chance(15);
+	assertEquals(chanceCard.getType(), 15);
+	assertEquals(chanceCard.getText(), "Your building loan matures – collect $150");
+
+	chanceCard = new Chance(16);
+	assertEquals(chanceCard.getType(), 16);
+	assertEquals(chanceCard.getText(), "You have won a crossword competition - collect $100.");
 
 
 	// Make sure un-allowed card values don't affect text, etc.
-	testChanceCard = new Chance(17);
-	assertEquals(testChanceCard.getType(), 17);
-	assertEquals(testChanceCard.getText(), null);
+	chanceCard = new Chance(17);
+	assertEquals(chanceCard.getType(), 17);
+	assertEquals(chanceCard.getText(), null);
 
-	testChanceCard = new Chance(-1);
-	assertEquals(testChanceCard.getType(), -1);
-	assertEquals(testChanceCard.getText(), null);
+	chanceCard = new Chance(-1);
+	assertEquals(chanceCard.getType(), -1);
+	assertEquals(chanceCard.getText(), null);
 
-	testChanceCard = new Chance(0);
-	assertEquals(testChanceCard.getType(), 0);
-	assertEquals(testChanceCard.getText(), null);
+	chanceCard = new Chance(0);
+	assertEquals(chanceCard.getType(), 0);
+	assertEquals(chanceCard.getText(), null);
     }
 
     // ===========

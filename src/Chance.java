@@ -64,9 +64,9 @@ public class Chance {
 	return cardType;
     }
 
-    /** Have the Player p carry out actions associated with a Chance card of this type, using
-     *  the players from the IdeopolyGUI gui. */
-    public void carryOutActions(Player p, IdeopolyGUI gui) {
+    /** Have the Player p carry out actions associated with a Chance card of this 
+     * type, also using the players from the IdeopolyGUI gui when necessary. */
+    public void doActions(Player p, IdeopolyGUI gui) {
     	switch (cardType) {
     	case 1:  // "Advance to Go (Collect $200)"
     	    p.changePosition(3);
@@ -77,8 +77,8 @@ public class Chance {
     	    // >= some value, give $200 dollars. And then, depending on player, set position.
     	    // Make this type of card into a function.
 
-    	    // If the player's at B & O RR or after, give money.
-    	    if (p.getPosition() >= 100)
+    	    // If the player's on Illinois RR or after, give money.
+    	    if (p.getPosition() >= 96)
     		p.addCash("hundreds", 2);
 
     	    p.changePosition(99);
