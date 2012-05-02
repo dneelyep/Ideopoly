@@ -1,5 +1,8 @@
 import java.util.Random;
 
+/** Class to represent a Chance card.
+ *
+ *  @author Daniel Neel */
 public class Chance {
     /** Number representing the type of this card. This type is used to
      *  determine the text on the card and the actions taken when this

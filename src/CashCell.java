@@ -1,6 +1,8 @@
 import javax.swing.*;
 
-/** Class to represent a player's cash in the GUI. */
+/** Class to represent a player's cash in the GUI.
+ *
+ *  @author Daniel Neel */
 public class CashCell extends JLabel {
     // v--- This gets rid of some compiler errors.
     private static final long serialVersionUID = 42L;

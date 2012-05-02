@@ -5,7 +5,9 @@ import java.awt.event.*;
 // TODO: Rename images according to camelcase convention.
 
 /** Represents the main menu for the game. From here, we can do
-    things such as quit, start a new game, etc. */
+ *  things such as quit, start a new game, etc.
+ *
+ *  @author Daniel Neel */
 public class Menu implements ActionListener {
 
     /** Create an instance of this menu to start the game */

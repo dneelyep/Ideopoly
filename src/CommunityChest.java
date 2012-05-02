@@ -1,6 +1,8 @@
 import java.util.Random;
 
-/** Represents a card in the Community Chest stack. */
+/** Represents a card in the Community Chest stack.
+ *
+ *  @author Daniel Neel */
 // TODO: Just make Chance and CommChest two types of a single class? They're the same 
 // thing with different text values (and hence somewhat different behaviors)..
 // They would each derive from a CommChestorChanceCard class, and have individual specific

@@ -2,7 +2,9 @@ import javax.swing.*;
 
 /** Class to represent a given propaganda outlet.
  *  Extends a generic BoardCell to also include properties 
- *  such as number of houses/hotels present, cost of rent, etc. */
+ *  such as number of houses/hotels present, cost of rent, etc.
+ *
+ *  @author Daniel Neel */
 public class PropagandaOutlet extends BoardCell {
     // TODO: Should these be more than just numbers, so that we can specify who owns each? Maybe number of player 1/2/3/4 houses/hotels? Nevermind, since ya have to own all the color group, and since ownedBy determines who owns the property, we can use those to detrmine who owns the houses.
 

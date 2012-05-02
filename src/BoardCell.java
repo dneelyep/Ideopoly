@@ -3,7 +3,9 @@ import javax.swing.*;
 /** A BoardCell represents any of the cells running along the 
  *  outside edge of the game board. Since there are different types
  *  of cells running along the outside of the board, we use inheritance
- *  to create classes derived from BoardCells. */ // TODO: Improve that crap comment.
+ *  to create classes derived from BoardCells.
+ *
+ *  @author Daniel Neel */ // TODO: Improve that crap comment.
 
 // TODO: BIG CHANCE FOR IMPROVEMENT: Rather than keeping the GUI representation separate from the
 // BoardCell object, store for example the JLabels inside this class with appropriate coordinates.
@@ -81,6 +83,8 @@ public class BoardCell {
 	return cellY;
     }
 
+    // TODO: Look into abstract methods and classes for this part. It looks like those techniques
+    // might help me solve this problem.
     /** Dummy method. Used so I can access getRent() from the derived class PropagandaOutlet. */
     public int getRent() {
 	return 0;

@@ -16,7 +16,9 @@ import java.util.Stack; // TODO: Remove this if it ends up not being needed.
 /** Class to contain the GUI of the game board. A new instance of the class
  *  creates the GUI and sets up various things in it. The game takes place mostly
  *  inside this GUI - the others are just there to get ya to the point where you
- *  can play the game. */
+ *  can play the game.
+ *
+ *  @author Daniel Neel */
 
 public class IdeopolyGUI implements ActionListener {
     // TODO: Make some of these arrays, etc., final/static when they're constant. Also see

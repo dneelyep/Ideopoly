@@ -9,9 +9,9 @@ import org.junit.*;
 // This would make things easier when tests fail, since I get the name of the test in output text.
 // TODO: Refactor this file a bit. There are a lot of cases where I'm repeating the same code for
 // ie all four players in a row. Could easily be looped in those cases.
-/**
- * IdeopolyTester - various test cases to make sure the game works as intended.
- */
+
+/** IdeopolyTester - various test cases to make sure the game works as intended.
+ *  @author Daniel Neel */
 public class IdeopolyTester extends TestCase {
 
     /** Test all methods in the BoardCell class. */ 

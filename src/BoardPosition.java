@@ -3,7 +3,9 @@ import javax.swing.*;
  *  These are used as indicators of where players are currently
  *  standing on the board. This class mainly exists so I can
  *  group coordinates and an image with a JLabel. So I can make
- *  a collection of these and say collection[x].changeimage(), etc. */
+ *  a collection of these and say collection[x].changeimage(), etc.
+ *
+ *  @author Daniel Neel */
 public class BoardPosition extends JLabel {
     // v--- This gets rid of some compiler errors.
     private static final long serialVersionUID = 42L;

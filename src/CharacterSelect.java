@@ -3,7 +3,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 /** Class to represent the character select screen, after the user has decided
- *  to start a game. */
+ *  to start a game.
+ *
+ *  @author Daniel Neel */
 public class CharacterSelect implements ActionListener {
 
     /** This string represents the character the player currently has selected.

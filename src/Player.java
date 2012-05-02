@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
-/** Class that represents a player. Can be a computer or human-controlled character. */
+/** Class that represents a player. Can be a computer or human-controlled character.
+ * 
+ *  @author Daniel Neel */
 public class Player {
 
     /** Name of this player. */
