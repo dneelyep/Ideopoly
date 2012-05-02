@@ -27,10 +27,10 @@ public class IdeopolyGUI implements ActionListener {
     /** Linked list that represents the 160 positions players can stand on. */
     public LinkedList<BoardPosition> positions = new LinkedList<BoardPosition>();
 
-    private Player   player1 = new Player(1);
-    private Player   player2 = new Player(2);
-    private Player   player3 = new Player(3);
-    private Player   player4 = new Player(4);
+    public  Player   player1 = new Player(1);
+    public  Player   player2 = new Player(2);
+    public  Player   player3 = new Player(3);
+    public  Player   player4 = new Player(4);
 
     // TODO: Try to reduce usage of this players array. Is useless and confusing except when looping.
     private Player   players[]       = { player1, player2, player3, player4 };
@@ -60,7 +60,9 @@ public class IdeopolyGUI implements ActionListener {
     private JButton	buyHotel		= new JButton("Buy hotel");
     private JButton	sellProperty		= new JButton("Sell property");
     private JButton	mortgageProperty	= new JButton("Mortgage property");
-    private JButton	useGOOJFCard		= new JButton("Use get out of jail free card");
+    // TODO: Should I make this private, and include a function to set its enable-ability? The Player
+    // class is currently the only outside class that changes its state.
+    public  JButton	useGOOJFCard		= new JButton("Use get out of jail free card");
     private JLabel      status                  = new JLabel ("Status:");
 
     /** Represents the player whose turn it currently is to roll. 0-3. */
@@ -456,7 +458,7 @@ public class IdeopolyGUI implements ActionListener {
 		if ( p.getPosition() >= 135 && p.getPosition() <= 159 && (landingSpot > 159) ) {
 		    // TODO: Try to clarify what's happening here. Could probably simplify it.
 		    int finalProperty = ( landingSpot - 160 ) / 4;
-		    changePosition(p, (finalProperty * 4) + 3);
+		    p.changePosition((finalProperty * 4) + 3);
 		    p.addCash("hundreds", 2); // Give 200 bucks for passing Go.
 		}
 
@@ -689,7 +691,7 @@ public class IdeopolyGUI implements ActionListener {
 	if (p == player1 && p.getNumGOOJFCards() > 0) {
 	    useGOOJFCard.setEnabled(true);
 	}
-	changePosition(p, 43);
+	p.changePosition(43);
 	p.setInJail(3);
     }
 
@@ -808,7 +810,7 @@ public class IdeopolyGUI implements ActionListener {
 	switch ( card.getType() ) {
 
 	case 1: // "Advance to Go (Collect $200)"
-	    changePosition(p, 3);
+	    p.changePosition(3);
 	    p.addCash("hundreds", 2);
 	    break;
 	case 2:	// "Bank error in your favor – collect $200"
@@ -958,6 +960,11 @@ public class IdeopolyGUI implements ActionListener {
 
     /** Have Player p draw a Chance card. */
     public void drawChance(Player p) {
+	// LEFTOFFHERE: Did more refactoring. Should I have this behavior associated with the card
+	// objects rather than the GUI? Would make sense. The cards have a type with associated text,
+	// and they should cause certain behaviors when drawn. Plus it should clean up this file a
+	// bit, make things a bit more logical.
+
 	Chance card = chanceCards.pop();
 	// TODO: Review all of these, make sure the correct code's called when a person 
 	// lands on a cell. Right now, movement's looking ok, but I also need to 
@@ -965,8 +972,8 @@ public class IdeopolyGUI implements ActionListener {
 
 	switch ( card.getType() ) {
 
-	case 1:  //"Advance to Go (Collect $200)"
-	    changePosition(p, 3);
+	case 1:  // "Advance to Go (Collect $200)"
+	    p.changePosition(3);
 	    p.addCash("hundreds", 2);
 	    break;
 	case 2:  //"Advance to Illinois Ave - if you pass Go, collect $200"
@@ -978,7 +985,7 @@ public class IdeopolyGUI implements ActionListener {
 	    if (p.getPosition() >= 100)
 		p.addCash("hundreds", 2);
 
-	    changePosition(p, 99);
+	    p.changePosition(99);
 	    break;
 	case 3:  //"Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
 	    // TODO: Implement this.
@@ -992,7 +999,7 @@ public class IdeopolyGUI implements ActionListener {
 	    if (p.getPosition() >= 48)
 		p.addCash("hundreds", 2);
 
-	    changePosition(p, 47);
+	    p.changePosition(47);
 	    break;
 
 	case 6:  //"Bank pays you dividend of $50"
@@ -1041,12 +1048,12 @@ public class IdeopolyGUI implements ActionListener {
 	    if (p.getPosition() >= 24)
 		p.addCash("hundreds", 2);
 
-	    changePosition(p, 23);
+	    p.changePosition(23);
 	    // TODO: And then onland function.
 	    break;
 
 	case 13: //"Take a walk on the Boardwalk – advance token to Boardwalk"
-	    changePosition(p, 159);
+	    p.changePosition(159);
 	    //TODO: And then call the onland function for boardwalk.
 	    break;
 	case 14: //"You have been elected chairman of the board – pay each player $50"
@@ -1091,21 +1098,5 @@ public class IdeopolyGUI implements ActionListener {
 
 	// TODO: Remove this eventually.
 	System.out.println(card.getText());
-    }
-
-    // LEFTOFFHERE: Made the drawCommunityChest/Chance methods. Now
-    // to add lots of tests for them and make sure everything's working A-OK.
-
-    /** Move the player p to a given position q. Use different positions 
-     *  depending on which player p is. */
-    public void changePosition(Player p, int q) { // TODO: Better function name.
-	    if      (p == player1)
-		p.setPosition(q);
-	    else if (p == player2)
-		p.setPosition(q - 1);
-	    else if (p == player3)
-		p.setPosition(q - 2);
-	    else if (p == player4)
-		p.setPosition(q - 3);
     }
 }

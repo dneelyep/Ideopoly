@@ -100,7 +100,7 @@ public class Player {
 		image = new ImageIcon("images/p3Present.jpg");
 		break;
 	    case 4: currentPosition = 0;
-		name = "Player 4 (c)";
+		name = "Player 4 (C)";
 		image = new ImageIcon("images/p4Present.jpg");
 		break;
 
@@ -163,6 +163,20 @@ public class Player {
     /** Set this player's current position to p. */
     public void setPosition(int p) {
 	currentPosition = p;
+    }
+
+    /** Move this player to a given position q. Use different positions 
+     *  depending on which player p is. */
+    // TODO: Is this kind of redundant with the setPosition function above?
+    public void changePosition(int q) { // TODO: Better function name.
+	if      (name == "Player 1 (H)")
+		setPosition(q);
+	else if (name == "Player 2 (C)")
+		setPosition(q - 1);
+	else if (name == "Player 3 (C)")
+		setPosition(q - 2);
+	else if (name == "Player 4 (C)")
+		setPosition(q - 3);
     }
 
     /** Change this player's amount a of currency type t. */
@@ -459,5 +473,20 @@ public class Player {
     /** Get the number of properties this Player owns. */
     public int getNumOwnedProperties() {
 	return totalPropertiesOwned;
+    }
+
+    /** Put the given Player p in jail, and enable the "Use get 
+     *  out of jail free card" button if the Player is the human player. */
+    public void putInJail(IdeopolyGUI gui) {
+	// TODO: Make a visual indicator for when a person's in jail. 
+	// IE: put a little colored square on their portrait that indicates the week they're in.
+	// Or change the color of the text by their name.
+
+	// Allow the main player to use their cards.
+	if (name == "Player 1 (H)" && GOOJFCards > 0) {
+	    gui.useGOOJFCard.setEnabled(true);
+	}
+	changePosition(43);
+	setInJail(3);
     }
 }

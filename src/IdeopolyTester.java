@@ -56,12 +56,13 @@ public class IdeopolyTester extends TestCase {
 	Player testCCPlayer2  = new Player(2);
 	Player testCCPlayer3  = new Player(3);
 	Player testCCPlayer4  = new Player(4);
-	CommunityChest testCommChest = new CommunityChest(1);
-	//	drawCommunityChest(testCCPlayer1);
 	assertEquals(testCCPlayer1.getPosition(), 3);
 	assertEquals(testCCPlayer2.getPosition(), 2);
 	assertEquals(testCCPlayer3.getPosition(), 1);
 	assertEquals(testCCPlayer4.getPosition(), 0);
+
+	CommunityChest testCommChest = new CommunityChest(1);
+	//	drawCommunityChest(testCCPlayer1);
 	// TODO: Here, test the given player's cash amount, to make sure it's amount += 200.
 	// This can't CURRENTLY (but SOON CAN BE) be done because my Comm Chest/Chance handling 
 	// code is tied into my movePlayer() function. That's another TODO - separate the things.
