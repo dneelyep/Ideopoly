@@ -9,6 +9,7 @@ import org.junit.*;
 // This would make things easier when tests fail, since I get the name of the test in output text.
 // TODO: Refactor this file a bit. There are a lot of cases where I'm repeating the same code for
 // ie all four players in a row. Could easily be looped in those cases.
+// TODO: Make sure order of arguments is correct on assertEquals().
 
 /** IdeopolyTester - various test cases to make sure the game works as intended.
  *  @author Daniel Neel */
@@ -21,7 +22,6 @@ public class IdeopolyTester extends TestCase {
 	BoardCell testCell = new BoardCell("name", new ImageIcon("images/red_template.jpg"), 4, 10);
 	Player    aPlayer  = new Player(1);
 
-	// LEFTOFFHERE: Implmenting tests here. Make sure the order of arguments is correct on assertEquals.
 	// Test basic, not out-of-the-ordinary cases.
 	assertEquals(testCell.getName(), "name");
 	assertEquals(testCell.getOwner(), null);
