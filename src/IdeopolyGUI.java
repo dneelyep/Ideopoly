@@ -141,8 +141,7 @@ public class IdeopolyGUI implements ActionListener {
     private Stack<CommunityChest> commChestCards = new Stack<CommunityChest>();
 
     /** Constructor creates the GUI, sets up parts of it, etc. */
-    // TODO: Split up the functions logically.
-    public IdeopolyGUI(String playerCharacter) {
+    public IdeopolyGUI(String playerCharacter) { // TODO: Split up the functions logically.
 	// Create the gui.
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

@@ -165,18 +165,38 @@ public class Player {
 	currentPosition = p;
     }
 
-    /** Move this player to a given position q. Use different positions 
-     *  depending on which player p is. */
+    /** Move this player to a given position q. q refers to the last of a set of 4
+     *  BoardPositions. For example, changePosition(3) will move player1 to the 4th
+     *  BoardPosition on the board. player2 will be moved to the 3rd position, and so on. */
     // TODO: Is this kind of redundant with the setPosition function above?
     public void changePosition(int q) { // TODO: Better function name.
-	if      (name == "Player 1 (H)")
+	/* The only valid positions are position 3, 7, 11, 15, ... 159.
+	   The pattern is: position = 3 + (n * 4), where 0 <= n <= 39
+	   At n = 0,  position = 3.
+	   At n = 39, position = 159. Etc.
+	   So we loop through all possible valid n, and if the requested position q
+	   is valid, we allow the player to move. Else, tell them they can't. */
+
+	int validPosition = 0;
+
+	for (int n = 0; n <= 39; n++) {
+	    if ( q == ( 3 + (4 * n) ))
+		validPosition = 1;
+	}
+
+	if (validPosition == 0) {
+	    System.out.println("Can't move to that position. Doing so would mess up player positions.");
+	}
+	else {
+	    if      (name == "Player 1 (H)")
 		setPosition(q);
-	else if (name == "Player 2 (C)")
+	    else if (name == "Player 2 (C)")
 		setPosition(q - 1);
-	else if (name == "Player 3 (C)")
+	    else if (name == "Player 3 (C)")
 		setPosition(q - 2);
-	else if (name == "Player 4 (C)")
+	    else if (name == "Player 4 (C)")
 		setPosition(q - 3);
+	}
     }
 
     /** Change this player's amount a of currency type t. */
@@ -487,6 +507,7 @@ public class Player {
 	    gui.useGOOJFCard.setEnabled(true);
 	}
 	changePosition(43);
+	// TODO: Seems kind of pointless to have two separate methods for this...
 	setInJail(3);
     }
 }

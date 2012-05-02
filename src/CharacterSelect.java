@@ -14,9 +14,9 @@ public class CharacterSelect implements ActionListener {
     // TODO: Make these buttons pictures instead, that highlight when selected.
     private JButton     stallmanButton = new JButton("Richard Stallman");
     private JButton	thatcherButton = new JButton("Margaret Thatcher");
-    private JButton	randButton	= new JButton("Ayn Rand");
-    private JButton	gandhiButton	= new JButton("Mahatma Gandhi");
-    private JButton	hitlerButton	= new JButton("Adolf Hitler");
+    private JButton	randButton     = new JButton("Ayn Rand");
+    private JButton	gandhiButton   = new JButton("Mahatma Gandhi");
+    private JButton	hitlerButton   = new JButton("Adolf Hitler");
     private JButton	bismarckButton = new JButton("Otto von Bismarck");
 
     /** Button to continue to the actual game. */
