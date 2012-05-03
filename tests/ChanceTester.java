@@ -5,11 +5,9 @@ import org.junit.*;
  *
  *  @author Daniel Neel */
 public class ChanceTester extends TestCase {
-    // ============
-    // Chance tests
-    // ============
     // TODO: I added the carryOutActions() method to the Chance class. Make sure to have tests
     // for this.
+    // TODO: Split this up into 16 different methods, one for each type of card?
     /** Test all methods in the Chance class. */
     @Test
 	public void testChance() {
@@ -124,9 +122,26 @@ public class ChanceTester extends TestCase {
 	assertEquals(Integer.parseInt(gui.player3.getCash("total")), p3Money + 50);
 	assertEquals(Integer.parseInt(gui.player4.getCash("total")), p4Money + 50);
 
+
+	assertEquals(gui.player1.getNumGOOJFCards(), 0);
+	assertEquals(gui.player2.getNumGOOJFCards(), 0);
+	assertEquals(gui.player3.getNumGOOJFCards(), 0);
+	assertEquals(gui.player4.getNumGOOJFCards(), 0);
 	chanceCard = new Chance(7);
 	assertEquals(chanceCard.getType(), 7);
 	assertEquals(chanceCard.getText(), "Get out of Jail Free – this card may be kept until needed, or traded/sold");
+
+	chanceCard.doActions(gui.player1, gui);
+	chanceCard.doActions(gui.player2, gui);
+	chanceCard.doActions(gui.player3, gui);
+	chanceCard.doActions(gui.player4, gui);
+
+	assertEquals(gui.player1.getNumGOOJFCards(), 1);
+	assertEquals(gui.player2.getNumGOOJFCards(), 1);
+	assertEquals(gui.player3.getNumGOOJFCards(), 1);
+	assertEquals(gui.player4.getNumGOOJFCards(), 1);
+
+
 
 	chanceCard = new Chance(8); 
 	assertEquals(chanceCard.getType(), 8);
