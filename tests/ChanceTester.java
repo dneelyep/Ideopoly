@@ -298,6 +298,8 @@ public class ChanceTester extends TestCase {
 	gui.player4 = new Player(4);
 
 	// TODO: Test this when the main Player is going to go bankrupt.
+	//       Also test when 1/2/n other players are bankrupt. Make sure they're not given money.
+	//       Or is that a general thing that should be tested elsewhere?
 
 
 
