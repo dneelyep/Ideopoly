@@ -7,6 +7,8 @@ import javax.swing.*;
  *
  *  @author Daniel Neel */ // TODO: Improve that crap comment.
 
+// TODO: Need to implement the whole idea of an onLand() method. Should simplify
+// things considerably.
 // TODO: BIG CHANCE FOR IMPROVEMENT: Rather than keeping the GUI representation separate from the
 // BoardCell object, store for example the JLabels inside this class with appropriate coordinates.
 // Should make things much clearer and clean up a lot of unneeded code.
@@ -85,6 +87,7 @@ public class BoardCell {
 
     // TODO: Look into abstract methods and classes for this part. It looks like those techniques
     // might help me solve this problem.
+    // See this: http://www.cafeaulait.org/javafaq.html#xtocid2672631t
     /** Dummy method. Used so I can access getRent() from the derived class PropagandaOutlet. */
     public int getRent() {
 	return 0;
