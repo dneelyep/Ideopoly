@@ -206,15 +206,15 @@ public class Player {
 	// TODO: This results in the Player having negative cash values. That's kind 
 	// of impossible...
 	switch (t) {
-	case "ones":         ones += a;
+	case "ones":         ones  += a;
 	    break;
 	case "fives":        fives += a;
 	    break;
-	case "tens":         tens += a;
+	case "tens":         tens  += a;
 	    break;
 	case "twenties":     twenties += a;
 	    break;
-	case "fifties":      fifties += a;
+	case "fifties":      fifties  += a;
 	    break;
 	case "hundreds":     hundreds += a;
 	    break;
@@ -476,6 +476,7 @@ public class Player {
 	// TODO: Do more than just set cash values. The player can still 
 	// be considered alive, given money, etc. in this state.
 	// TODO: Set the player's text to red when this happens maybe also?
+	// TODO: Maybe give the player an isBankrupt field, that can be used elsewhere.
 	ones         = 0;	
 	fives	     = 0;
 	tens	     = 0;

@@ -300,16 +300,41 @@ public class ChanceTester extends TestCase {
 	// TODO: Test this when the main Player is going to go bankrupt.
 	//       Also test when 1/2/n other players are bankrupt. Make sure they're not given money.
 	//       Or is that a general thing that should be tested elsewhere?
-
+	// TODO: Implement this test.
 
 
 	chanceCard = new Chance(15);
 	assertEquals(chanceCard.getType(), 15);
 	assertEquals(chanceCard.getText(), "Your building loan matures – collect $150");
+	// Make some new Players.
+	gui.player1 = new Player(1);
+	gui.player2 = new Player(2);
+	gui.player3 = new Player(3);
+	gui.player4 = new Player(4);
+
+	doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
+	assertEquals(gui.player1.getCash("total"), "1650");
+	assertEquals(gui.player2.getCash("total"), "1650");
+	assertEquals(gui.player3.getCash("total"), "1650");
+	assertEquals(gui.player4.getCash("total"), "1650");
+	// TODO: Tests for when n number of players are bankrupt and they somehow draw this card.
+
 
 	chanceCard = new Chance(16);
 	assertEquals(chanceCard.getType(), 16);
 	assertEquals(chanceCard.getText(), "You have won a crossword competition - collect $100.");
+	// Make some new Players.
+	gui.player1 = new Player(1);
+	gui.player2 = new Player(2);
+	gui.player3 = new Player(3);
+	gui.player4 = new Player(4);
+
+	doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
+	assertEquals(gui.player1.getCash("total"), "1600");
+	assertEquals(gui.player2.getCash("total"), "1600");
+	assertEquals(gui.player3.getCash("total"), "1600");
+	assertEquals(gui.player4.getCash("total"), "1600");
+	// TODO: Tests for when n number of players are bankrupt and they somehow draw this card.
 
 
 	// Make sure un-allowed card values don't affect text, etc.
@@ -346,8 +371,9 @@ public class ChanceTester extends TestCase {
 }
 
 // Test coverage status:
-// (Note that this means tests are in place for all relevant methods/conditions. It does NOT mean
-//  that all tests pass.)
+// (Note that this means basic tests are in place for all relevant methods/conditions. 
+//  It does NOT mean that all tests pass, or that every single possible case is tested.
+//  Just testing that the basic, expected cases work correctly.)
 // DONE: Chance(1)
 // DONE: Chance(2)
 // TODO: Chance(3)
@@ -362,7 +388,7 @@ public class ChanceTester extends TestCase {
 // TODO: Chance(12)
 // TODO: Chance(13)
 // TODO: Chance(14)
-// TODO: Chance(15)
-// TODO: Chance(16)
+// DONE: Chance(15)
+// DONE: Chance(16)
 
 // TODO: After these are in place, split them into separate methods

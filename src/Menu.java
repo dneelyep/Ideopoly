@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-// TODO: Rename images according to camelcase convention.
-
 /** Represents the main menu for the game. From here, we can do
  *  things such as quit, start a new game, etc.
  *

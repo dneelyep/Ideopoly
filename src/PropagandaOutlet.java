@@ -61,7 +61,7 @@ public class PropagandaOutlet extends BoardCell {
 	numHouses	    = 0;
 	numHotels	    = 0;
 	cost                = newCost;
-	mortgageValue	    = newCost / 2; // Mortgage prices are always half the price to buy the property.
+	mortgageValue	    = newCost / 2; // Mortgage prices are half the price to buy the property.
 	initialRent	    = newInitialRent;
 	rent1House	    = newRent1House;
 	rent2House	    = newRent2House;
