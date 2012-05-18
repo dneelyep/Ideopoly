@@ -1,5 +1,3 @@
-import java.util.Random;
-
 /** Class to represent a Chance card.
  *
  *  @author Daniel Neel */
@@ -87,7 +85,24 @@ public class Chance {
     	    p.changePosition(99);
     	    break;
     	case 3:  //"Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
-    	    // TODO: Implement this.
+	    // TODO: Should be between positions
+	    if (p.getPosition() >= 28 && p.getPosition() <= 31) { // Bottom Chance
+		p.changePosition(23); // move to Reading RR.
+	    }
+	    else if (p.getPosition() >= 88 && p.getPosition() <= 91) { // Top Chance
+		p.changePosition(103); // move to B & O RR.
+	    }
+	    else if (p.getPosition() >= 144 && p.getPosition() <= 147) { // Right Chance
+		p.changePosition(143); // move to Short Line RR.
+	    }
+	    else {
+		System.out.println("Error! Apparently you tried to do the actions on a Chance card 3, but you weren't standing on a Chance space to begin with.");
+	    }
+
+	    // TODO: This still gets called if I get the above error message. Is not correct.
+	    if (gui.boardProperties[p.getPosition() / 4].getOwner() != null ) {
+		// TODO: Charge the player 10x normal rent here.
+	    }
     	    break;
     	case 4:  //"Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank. (There are two of these.)"
     	    // TODO: Implement this.

@@ -170,7 +170,7 @@ public class Player {
     /** Move this player to a given position q. q refers to the last of a set of 4
      *  BoardPositions. For example, changePosition(3) will move player1 to the 4th
      *  BoardPosition on the board. player2 will be moved to the 3rd position, and so on. */
-    // TODO: Is this kind of redundant with the setPosition function above?
+    // TODO: Is this kind of redundant with the setPosition function above? Merge them?
     public void changePosition(int q) { // TODO: Better function name.
 	/* The only valid positions are position 3, 7, 11, 15, ... 159.
 	   The pattern is: position = 3 + (n * 4), where 0 <= n <= 39

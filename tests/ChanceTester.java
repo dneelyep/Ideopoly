@@ -1,5 +1,6 @@
 import junit.framework.TestCase;
 import org.junit.*;
+import java.util.Random;
 
 /** Class to test all methods inside the Chance class.
  *
@@ -12,7 +13,7 @@ public class ChanceTester extends TestCase {
     @Test
 	public void testChance() {
 	// TODO: Later, is it possible for this method to go wrong? If so, test for those ways.
-	IdeopolyGUI gui       = new IdeopolyGUI("Ayn Rand");
+	IdeopolyGUI gui = new IdeopolyGUI("Ayn Rand");
 
 	Chance chanceCard = new Chance(1);
 	assertEquals(chanceCard.getType(), 1);
@@ -74,10 +75,112 @@ public class ChanceTester extends TestCase {
 	assertEquals(gui.player4.getCash("total"), "2100");
 
 
-
+	// TODO: Refactor/loop this section. Lots of duplicate code.
 	chanceCard = new Chance(3);
 	assertEquals(chanceCard.getType(), 3);
 	assertEquals(chanceCard.getText(), "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.");
+	// TODO: Test the 10x amount thrown part. And the may buy it part.
+	// This function's tested for all 4 players, where they land on all 3 possible Chance locations.
+	gui.player1.setPosition(31);
+	gui.player2.setPosition(31);
+	gui.player3.setPosition(31);
+	gui.player4.setPosition(31);
+	doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
+	assertEquals(gui.player1.getPosition(), 23);
+        assertEquals(gui.player2.getPosition(), 22);
+	assertEquals(gui.player3.getPosition(), 21);
+	assertEquals(gui.player4.getPosition(), 20);
+
+	gui.player1.setPosition(91);
+	gui.player2.setPosition(91);
+	gui.player3.setPosition(91);
+	gui.player4.setPosition(91);
+	doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
+	assertEquals(gui.player1.getPosition(), 103);
+        assertEquals(gui.player2.getPosition(), 102);
+	assertEquals(gui.player3.getPosition(), 101);
+	assertEquals(gui.player4.getPosition(), 100);
+
+	gui.player1.setPosition(147);
+	gui.player2.setPosition(147);
+	gui.player3.setPosition(147);
+	gui.player4.setPosition(147);
+	doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
+        assertEquals(gui.player1.getPosition(), 143);
+	assertEquals(gui.player2.getPosition(), 142);
+	assertEquals(gui.player3.getPosition(), 141);
+	assertEquals(gui.player4.getPosition(), 140);
+
+	// Now make sure that, when a player owns the property, players are charged proper rent.
+	// Going into this case, each player had 2100 bucks total.
+	gui.boardProperties[5].setOwner(gui.player1); // Reading RR
+	gui.boardProperties[25].setOwner(gui.player1); // B & O RR
+	gui.boardProperties[35].setOwner(gui.player2); // Short Line RR
+
+	// "If owned, throw dice and pay owner a total ten times the amount thrown."
+	Random rollGenerator = new Random();
+	int roll = 0;
+	int expectedCash = 0;
+
+	gui.player1.setPosition(31);
+	gui.player2.setPosition(31);
+	gui.player3.setPosition(31);
+	gui.player4.setPosition(31);
+	doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
+
+	// TODO: Loop this/etc.
+	// TODO: Little problem here. I need to know ahead of time what random value will be 
+	// generated to test it. So I need to get that information from Chance.java
+	roll = rollGenerator.nextInt(6) + 1;
+	expectedCash = Integer.parseInt(gui.player1.getCash("total")) - (roll * 10);
+	assertEquals(gui.player1.getCash("total"), expectedCash);
+
+	roll = rollGenerator.nextInt(6) + 1;
+	expectedCash = Integer.parseInt(gui.player2.getCash("total")) - (roll * 10);
+        assertEquals(gui.player2.getCash("total"), expectedCash);
+
+	roll = rollGenerator.nextInt(6) + 1;
+	expectedCash = Integer.parseInt(gui.player3.getCash("total")) - (roll * 10);
+	assertEquals(gui.player3.getCash("total"), expectedCash);
+
+	roll = rollGenerator.nextInt(6) + 1;
+	expectedCash = Integer.parseInt(gui.player4.getCash("total")) - (roll * 10);
+	assertEquals(gui.player4.getCash("total"), expectedCash);
+
+	gui.player1.setPosition(91);
+	gui.player2.setPosition(91);
+	gui.player3.setPosition(91);
+	gui.player4.setPosition(91);
+	doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
+	// assertEquals(gui.player1.getCash("total"), 103);
+        // assertEquals(gui.player2.getCash("total"), 102);
+	// assertEquals(gui.player3.getCash("total"), 101);
+	// assertEquals(gui.player4.getCash("total"), 100);
+
+	gui.player1.setPosition(147);
+	gui.player2.setPosition(147);
+	gui.player3.setPosition(147);
+	gui.player4.setPosition(147);
+	doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
+        // assertEquals(gui.player1.getCash("total"), 143);
+	// assertEquals(gui.player2.getCash("total"), 142);
+	// assertEquals(gui.player3.getCash("total"), 141);
+	// assertEquals(gui.player4.getCash("total"), 140);
+
+	// doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
+	// Chance locations: 1 by Reading, 1 by B. &. O., 1 by Short Line
+	// If Go is cell 1,  ^--8-6        ^---23-26      ^---37()-36()
+	// Pattern is ^--chancecell-rrcell
+
+
+
+    // /** Move this player to a given position q. q refers to the last of a set of 4
+    //  *  BoardPositions. For example, changePosition(3) will move player1 to the 4th
+    //  *  BoardPosition on the board. player2 will be moved to the 3rd position, and so on. */
+    // // TODO: Is this kind of redundant with the setPosition function above? Merge them?
+    // public void changePosition(int q) { // TODO: Better function name.
+
+
 
 	chanceCard = new Chance(4);
 	assertEquals(chanceCard.getType(), 4);
@@ -355,6 +458,9 @@ public class ChanceTester extends TestCase {
     // Helper methods.
     // ===============
 
+    // TODO: Javadocs for these methods
+    // TODO: Reduce the excessive amount of arguments here. For example, just require 'gui',
+    // then use gui.player1/2/3/4, etc.
     public void doActionsAllPlayers(Player p1, Player p2, Player p3, Player p4, Chance card, IdeopolyGUI gui) {
 	card.doActions(p1, gui);
 	card.doActions(p2, gui);

@@ -1,5 +1,4 @@
 import junit.framework.TestCase;
-//import java.awt.*;
 import javax.swing.*;
 import org.junit.*;
 

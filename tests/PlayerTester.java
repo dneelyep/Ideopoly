@@ -243,6 +243,7 @@ public class PlayerTester extends TestCase {
 	// TODO: ^-- test ALL these.
 
 	// === Test changePosition() ===
+	// TODO: Make sure to thoroughly test this function.
 	// Make sure a few normal cases work fine.
 	testPlayer.changePosition(3);
 	testPlayer2.changePosition(3);

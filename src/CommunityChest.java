@@ -1,5 +1,3 @@
-import java.util.Random;
-
 /** Represents a card in the Community Chest stack.
  *
  *  @author Daniel Neel */

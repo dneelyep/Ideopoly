@@ -50,61 +50,33 @@ public class CharacterSelect implements ActionListener {
 	    button.addActionListener(this);
 	}
 
-
-	// LEFTOFFHERE: Just working on this little refactoring. Now to make sure it works and add
-	// to the actual program.
-	// c.gridx = 0;
-	// c.gridy = 1;
-
-
-	// for (JButton button : tokenButtons) {
-	//     pane.add(button, c);
-	//     if (button == randButton) {
-	// 	c.gridx = 0;
-	// 	c.gridy++;
-	//     }
-	//     else {
-	// 	c.gridx++;
-	//     }
-	// }
-
 	continueButton.addActionListener(this);
 	backButton.addActionListener(this);
 
-	// TODO: Loop this.
 	c.fill = GridBagConstraints.HORIZONTAL;
 
+	// TODO: Center this text across the row. And make it sexy artwork rather than bland text.
 	JLabel chooseCharacter = new JLabel("Choose your character below:");
-	// TODO: Center this text across the row
-	// TODO: Also, make it sexy artwork rather than bland text.
 
-	// =======================================================
-	// === Add all buttons to the character select screen. ===
-	// =======================================================
-	// TODO: Put buttons in an array and loop through
+	// Add all buttons to the character select screen.
 	c.gridx = 0;
 	c.gridy = 0;
 	c.gridwidth = 3;
 	pane.add(chooseCharacter, c);
 	c.gridwidth = 1;
 
-	c.gridx = 0;
 	c.gridy = 1;
 
-	pane.add(stallmanButton, c);
-	c.gridx++;
-	pane.add(thatcherButton, c);
-	c.gridx++;
-	pane.add(randButton, c);
-
-	c.gridx = 0;
-	c.gridy++;
-
-	pane.add(gandhiButton, c);
-	c.gridx++;
-	pane.add(hitlerButton, c);
-	c.gridx++;
-	pane.add(bismarckButton, c);
+	for (JButton button : tokenButtons) {
+	    pane.add(button, c);
+	    if (button == randButton) {
+		c.gridx = 0;
+		c.gridy++;
+	    }
+	    else {
+		c.gridx++;
+	    }
+	}
 
 	c.gridx = 1;
 	c.gridy = 3;
