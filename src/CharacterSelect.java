@@ -8,18 +8,22 @@ import java.awt.event.*;
  *  @author Daniel Neel */
 public class CharacterSelect implements ActionListener {
 
-    /** This string represents the character the player currently has selected.
+    /** This string represents the character currently selected.
      *  It's used to set the player's token in the main game. */
     private String selectedPlayer = "null";
 
     /** Buttons to represent the various characters players can pick. */
-    // TODO: Make these buttons pictures instead, that highlight when selected.
-    private JButton     stallmanButton = new JButton("Richard Stallman");
-    private JButton	thatcherButton = new JButton("Margaret Thatcher");
-    private JButton	randButton     = new JButton("Ayn Rand");
-    private JButton	gandhiButton   = new JButton("Mahatma Gandhi");
-    private JButton	hitlerButton   = new JButton("Adolf Hitler");
-    private JButton	bismarckButton = new JButton("Otto von Bismarck");
+    // TODO: Represent these buttons as sexy pictures that highlight when selected.
+    private JButton stallmanButton = new JButton("Richard Stallman");
+    private JButton thatcherButton = new JButton("Margaret Thatcher");
+    private JButton randButton     = new JButton("Ayn Rand");
+    private JButton gandhiButton   = new JButton("Mahatma Gandhi");
+    private JButton hitlerButton   = new JButton("Adolf Hitler");
+    private JButton bismarckButton = new JButton("Otto von Bismarck");
+
+    /** An array full of the token buttons. */
+    // TODO: Move this to the constructor?
+    private JButton[] tokenButtons = {stallmanButton, thatcherButton, randButton, gandhiButton, hitlerButton, bismarckButton};
 
     /** Button to continue to the actual game. */
     private JButton continueButton = new JButton("Continue");
@@ -32,23 +36,37 @@ public class CharacterSelect implements ActionListener {
 
     // TODO: Review other constructors - should their stuff be fields?
     public CharacterSelect() {
+	// TODO: Should this be set above? Outside the constructor that is.
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	Container pane = frame.getContentPane();
+	Container pane       = frame.getContentPane();
 	pane.setLayout(new GridBagLayout());
 	GridBagConstraints c = new GridBagConstraints();
 
-	// Add items to the frame and set everything up.
+	continueButton.setEnabled(false); // Disable at first, since a character hasn't been picked.
 
-	continueButton.setEnabled(false); // Disable the button at first, since the user hasn't yet picked a character.
+	// Make all character token buttons listen for actions.
+	for (JButton button : tokenButtons) {
+	    button.addActionListener(this);
+	}
 
-	// Make all the buttons listen for actions.
-	stallmanButton.addActionListener(this);
-	thatcherButton.addActionListener(this);
-	randButton.addActionListener(this);
-	gandhiButton.addActionListener(this);
-	hitlerButton.addActionListener(this);
-	bismarckButton.addActionListener(this);
+
+	// LEFTOFFHERE: Just working on this little refactoring. Now to make sure it works and add
+	// to the actual program.
+	// c.gridx = 0;
+	// c.gridy = 1;
+
+
+	// for (JButton button : tokenButtons) {
+	//     pane.add(button, c);
+	//     if (button == randButton) {
+	// 	c.gridx = 0;
+	// 	c.gridy++;
+	//     }
+	//     else {
+	// 	c.gridx++;
+	//     }
+	// }
 
 	continueButton.addActionListener(this);
 	backButton.addActionListener(this);

@@ -26,10 +26,10 @@ public class Menu implements ActionListener {
 	Box box = Box.createVerticalBox();
  	mainMenu.getContentPane().add(box);
 
-	// TODO: Try to loop this?
+	// TODO: Try to loop this? [Very small gains WRT less LOC.]
 	// TODO: Clean up the edges on the image, make it look a bit better.
 	// TODO: Consider making the background transparent also so it blends with the GUI.
-	JLabel logo = new JLabel(new ImageIcon("images/resizedLogo.png"));//  icon);
+	JLabel logo = new JLabel(new ImageIcon("images/logo.png"));
 	logo.setAlignmentX(Component.CENTER_ALIGNMENT);
 	box.add(logo);
 
@@ -38,7 +38,7 @@ public class Menu implements ActionListener {
 	startButton.addActionListener(this);
 	box.add(startButton);
 
- 	JButton quitButton = new JButton("Quit"); // TODO: Better names for these
+ 	JButton quitButton = new JButton("Quit");
 	quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 	quitButton.addActionListener(this);
 	box.add(quitButton);
@@ -48,11 +48,10 @@ public class Menu implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-	// Launch the game
 	String eventSource = e.getActionCommand();
 
-	if (eventSource == "Start") {
-	    mainMenu.dispose(); // Close out the menu since we don't need it anymore.
+	if (eventSource == "Start") { // Launch the game
+	    mainMenu.dispose(); // Get rid of the menu since we don't need it anymore.
 	    CharacterSelect charSelectScreen = new CharacterSelect();
 	}
 	else if (eventSource == "Quit") {
