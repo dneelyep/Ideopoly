@@ -117,51 +117,57 @@ public class ChanceTester extends TestCase {
 	gui.boardProperties[25].setOwner(gui.player1); // B & O RR
 	gui.boardProperties[35].setOwner(gui.player2); // Short Line RR
 
-	// "If owned, throw dice and pay owner a total ten times the amount thrown."
-	Random rollGenerator = new Random();
-	int roll = 0;
-	int expectedCash = 0;
 
-	gui.player1.setPosition(31);
-	gui.player2.setPosition(31);
-	gui.player3.setPosition(31);
-	gui.player4.setPosition(31);
-	doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
+
+	// TODO: The below tests should work, I just need to solve the problem of knowing
+	// the value of the rollGenerator so I can assertEquals() cash values.
+
+
+	// "If owned, throw dice and pay owner a total ten times the amount thrown."
+	// Random rollGenerator = new Random();
+	// int roll = 0;
+	// int expectedCash = 0;
+
+	// gui.player1.setPosition(31);
+	// gui.player2.setPosition(31);
+	// gui.player3.setPosition(31);
+	// gui.player4.setPosition(31);
+	// doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
 
 	// TODO: Loop this/etc.
 	// TODO: Little problem here. I need to know ahead of time what random value will be 
 	// generated to test it. So I need to get that information from Chance.java
-	roll = rollGenerator.nextInt(6) + 1;
-	expectedCash = Integer.parseInt(gui.player1.getCash("total")) - (roll * 10);
-	assertEquals(gui.player1.getCash("total"), expectedCash);
+	// roll = rollGenerator.nextInt(6) + 1;
+	// expectedCash = Integer.parseInt(gui.player1.getCash("total")) - (roll * 10);
+	// assertEquals(gui.player1.getCash("total"), expectedCash);
 
-	roll = rollGenerator.nextInt(6) + 1;
-	expectedCash = Integer.parseInt(gui.player2.getCash("total")) - (roll * 10);
-        assertEquals(gui.player2.getCash("total"), expectedCash);
+	// roll = rollGenerator.nextInt(6) + 1;
+	// expectedCash = Integer.parseInt(gui.player2.getCash("total")) - (roll * 10);
+        // assertEquals(gui.player2.getCash("total"), expectedCash);
 
-	roll = rollGenerator.nextInt(6) + 1;
-	expectedCash = Integer.parseInt(gui.player3.getCash("total")) - (roll * 10);
-	assertEquals(gui.player3.getCash("total"), expectedCash);
+	// roll = rollGenerator.nextInt(6) + 1;
+	// expectedCash = Integer.parseInt(gui.player3.getCash("total")) - (roll * 10);
+	// assertEquals(gui.player3.getCash("total"), expectedCash);
 
-	roll = rollGenerator.nextInt(6) + 1;
-	expectedCash = Integer.parseInt(gui.player4.getCash("total")) - (roll * 10);
-	assertEquals(gui.player4.getCash("total"), expectedCash);
+	// roll = rollGenerator.nextInt(6) + 1;
+	// expectedCash = Integer.parseInt(gui.player4.getCash("total")) - (roll * 10);
+	// assertEquals(gui.player4.getCash("total"), expectedCash);
 
-	gui.player1.setPosition(91);
-	gui.player2.setPosition(91);
-	gui.player3.setPosition(91);
-	gui.player4.setPosition(91);
-	doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
+	// gui.player1.setPosition(91);
+	// gui.player2.setPosition(91);
+	// gui.player3.setPosition(91);
+	// gui.player4.setPosition(91);
+	// doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
 	// assertEquals(gui.player1.getCash("total"), 103);
         // assertEquals(gui.player2.getCash("total"), 102);
 	// assertEquals(gui.player3.getCash("total"), 101);
 	// assertEquals(gui.player4.getCash("total"), 100);
 
-	gui.player1.setPosition(147);
-	gui.player2.setPosition(147);
-	gui.player3.setPosition(147);
-	gui.player4.setPosition(147);
-	doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
+	// gui.player1.setPosition(147);
+	// gui.player2.setPosition(147);
+	// gui.player3.setPosition(147);
+	// gui.player4.setPosition(147);
+	// doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
         // assertEquals(gui.player1.getCash("total"), 143);
 	// assertEquals(gui.player2.getCash("total"), 142);
 	// assertEquals(gui.player3.getCash("total"), 141);
@@ -387,9 +393,38 @@ public class ChanceTester extends TestCase {
 	assertEquals(chanceCard.getType(), 12);
 	assertEquals(chanceCard.getText(), "Take a trip to Reading Railroad – if you pass Go, collect $200");
 
+	gui.player1.setPosition(3);  // Test when we start on Go.
+	chanceCard.doActions(gui.player1, gui);
+	assertEquals(gui.player1.getPosition(), 23);
+	assertEquals(gui.player1.getCash("total"), "1485");
+
+	gui.player1.setPosition(15); // Test when we start before Reading RR (Baltic Av. here).
+	chanceCard.doActions(gui.player1, gui);
+	assertEquals(gui.player1.getPosition(), 23);
+	assertEquals(gui.player1.getCash("total"), "1485");
+
+	gui.player1.setPosition(23); // Test when we start on Reading RR.
+	chanceCard.doActions(gui.player1, gui);
+	assertEquals(gui.player1.getPosition(), 23);
+	assertEquals(gui.player1.getCash("total"), "1485"); // TODO: Should this count as passing
+	// Go? Even though doing this is impossible by the game's rules...
+
+	gui.player1.setPosition(27); // Test when we start after Reading RR.
+	chanceCard.doActions(gui.player1, gui);
+	assertEquals(gui.player1.getPosition(), 23);
+	assertEquals(gui.player1.getCash("total"), "1685");
+
+
 	chanceCard = new Chance(13);
 	assertEquals(chanceCard.getType(), 13);
 	assertEquals(chanceCard.getText(), "Take a walk on the Boardwalk – advance token to Boardwalk");
+	// TODO: Also test this when the property is owned and the player's charged rent.
+	doActionsAllPlayers(gui.player1, gui.player2, gui.player3, gui.player4, chanceCard, gui);
+	assertEquals(gui.player1.getPosition(), 159);
+	assertEquals(gui.player2.getPosition(), 158);
+	assertEquals(gui.player3.getPosition(), 157);
+	assertEquals(gui.player4.getPosition(), 156);
+
 
 	chanceCard = new Chance(14);
 	assertEquals(chanceCard.getType(), 14);
@@ -401,7 +436,7 @@ public class ChanceTester extends TestCase {
 	gui.player4 = new Player(4);
 
 	// TODO: Test this when the main Player is going to go bankrupt.
-	//       Also test when 1/2/n other players are bankrupt. Make sure they're not given money.
+	// Also test when 1/2/n other players are bankrupt. Make sure they're not given money.
 	//       Or is that a general thing that should be tested elsewhere?
 	// TODO: Implement this test.
 
@@ -491,10 +526,10 @@ public class ChanceTester extends TestCase {
 // DONE: Chance(9)
 // TODO: Chance(10)
 // DONE: Chance(11)
-// TODO: Chance(12)
-// TODO: Chance(13)
+// DONE: Chance(12)
+// DONE: Chance(13)
 // TODO: Chance(14)
 // DONE: Chance(15)
 // DONE: Chance(16)
 
-// TODO: After these are in place, split them into separate methods
+// TODO: After these are in place, split them into separate methods for each card type.

@@ -85,7 +85,6 @@ public class Chance {
     	    p.changePosition(99);
     	    break;
     	case 3:  //"Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
-	    // TODO: Should be between positions
 	    if (p.getPosition() >= 28 && p.getPosition() <= 31) { // Bottom Chance
 		p.changePosition(23); // move to Reading RR.
 	    }
