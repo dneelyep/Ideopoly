@@ -35,7 +35,11 @@ public class BoardCell {
     private int cellX;
 
     /** The y-coordinate where this cell should be placed. Used to calculate board positions. */
-    private int cellY; // TODO: Add these to constructor.
+    private int cellY;
+
+
+
+
 
 
     /** Creates a BoardCell object, with the specified name, image, and coordinates.

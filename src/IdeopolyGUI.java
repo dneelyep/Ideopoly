@@ -27,6 +27,8 @@ public class IdeopolyGUI implements ActionListener {
     private int gameWon = 0;
 
     /** Linked list that represents the 160 positions players can stand on. */
+    // TODO: Here's the culprit. This linked list should not be present - positions should be associated
+    // with BoardCells.
     public LinkedList<BoardPosition> positions = new LinkedList<BoardPosition>();
 
     public  Player   player1 = new Player(1);
@@ -490,39 +492,39 @@ public class IdeopolyGUI implements ActionListener {
 		    // TODO: Make a separate method to handle this?
 		    // TODO: Instead, just check for class. If is PropOutlet/RR/Utility, do x.
 		    // And if that doesn't work, could have a field that indicates type of property.
-		    else if (    getCurrentLocation(players[currentPlayer]) == mediterraneanAv
-			      || getCurrentLocation(players[currentPlayer]) == balticAv
-			      || getCurrentLocation(players[currentPlayer]) == orientalAv
-			      || getCurrentLocation(players[currentPlayer]) == vermontAv
-			      || getCurrentLocation(players[currentPlayer]) == connecticutAv
-			      || getCurrentLocation(players[currentPlayer]) == stCharles
-			      || getCurrentLocation(players[currentPlayer]) == statesAv
-			      || getCurrentLocation(players[currentPlayer]) == virginiaAv
-			      || getCurrentLocation(players[currentPlayer]) == stJames
-			      || getCurrentLocation(players[currentPlayer]) == tennesseeAv
-			      || getCurrentLocation(players[currentPlayer]) == newYorkAv
-			      || getCurrentLocation(players[currentPlayer]) == kentuckyAv
-			      || getCurrentLocation(players[currentPlayer]) == indianaAv
-			      || getCurrentLocation(players[currentPlayer]) == illinoisAv
-			      || getCurrentLocation(players[currentPlayer]) == atlanticAv
-			      || getCurrentLocation(players[currentPlayer]) == ventnorAv
-			      || getCurrentLocation(players[currentPlayer]) == marvinGardens
-			      || getCurrentLocation(players[currentPlayer]) == pacificAv
-			      || getCurrentLocation(players[currentPlayer]) == nCarolinaAv
-			      || getCurrentLocation(players[currentPlayer]) == pennsylvaniaAv
-			      || getCurrentLocation(players[currentPlayer]) == parkPlace
-			      || getCurrentLocation(players[currentPlayer]) == boardwalk
+		    else if (    getLocation(players[currentPlayer]) == mediterraneanAv
+			      || getLocation(players[currentPlayer]) == balticAv
+			      || getLocation(players[currentPlayer]) == orientalAv
+			      || getLocation(players[currentPlayer]) == vermontAv
+			      || getLocation(players[currentPlayer]) == connecticutAv
+			      || getLocation(players[currentPlayer]) == stCharles
+			      || getLocation(players[currentPlayer]) == statesAv
+			      || getLocation(players[currentPlayer]) == virginiaAv
+			      || getLocation(players[currentPlayer]) == stJames
+			      || getLocation(players[currentPlayer]) == tennesseeAv
+			      || getLocation(players[currentPlayer]) == newYorkAv
+			      || getLocation(players[currentPlayer]) == kentuckyAv
+			      || getLocation(players[currentPlayer]) == indianaAv
+			      || getLocation(players[currentPlayer]) == illinoisAv
+			      || getLocation(players[currentPlayer]) == atlanticAv
+			      || getLocation(players[currentPlayer]) == ventnorAv
+			      || getLocation(players[currentPlayer]) == marvinGardens
+			      || getLocation(players[currentPlayer]) == pacificAv
+			      || getLocation(players[currentPlayer]) == nCarolinaAv
+			      || getLocation(players[currentPlayer]) == pennsylvaniaAv
+			      || getLocation(players[currentPlayer]) == parkPlace
+			      || getLocation(players[currentPlayer]) == boardwalk
 
-			      || getCurrentLocation(players[currentPlayer]) == readingRR
-			      || getCurrentLocation(players[currentPlayer]) == pennsylvaniaRR
-			      || getCurrentLocation(players[currentPlayer]) == bAndORR
-			      || getCurrentLocation(players[currentPlayer]) == shortLineRR
+			      || getLocation(players[currentPlayer]) == readingRR
+			      || getLocation(players[currentPlayer]) == pennsylvaniaRR
+			      || getLocation(players[currentPlayer]) == bAndORR
+			      || getLocation(players[currentPlayer]) == shortLineRR
 
-			      || getCurrentLocation(players[currentPlayer]) == waterWorks
-			      || getCurrentLocation(players[currentPlayer]) == electricCompany) {
+			      || getLocation(players[currentPlayer]) == waterWorks
+			      || getLocation(players[currentPlayer]) == electricCompany) {
 
 			// No player currently owns the property.			
-			if ( getCurrentLocation(players[currentPlayer]).getOwner() == null ) {
+			if ( getLocation(players[currentPlayer]).getOwner() == null ) {
 
 			    // Allow player to buy the property.
 			    if (players[currentPlayer] == player1) {
@@ -534,10 +536,10 @@ public class IdeopolyGUI implements ActionListener {
 			    // Have the AI buy the property if it has more than $500.
 			    else {
 				if (Integer.parseInt(players[currentPlayer].getCash("total")) >= 500) {
-				    getCurrentLocation(players[currentPlayer]).setOwner(players[currentPlayer]);
+				    getLocation(players[currentPlayer]).setOwner(players[currentPlayer]);
 
-				    getCashDistribution( getCurrentLocation( players[currentPlayer]).getCost() );
-				    System.out.println(getCurrentLocation( players[currentPlayer]).getCost() );
+				    getCashDistribution(getLocation( players[currentPlayer]).getCost());
+				    System.out.println(getLocation( players[currentPlayer]).getCost() );
 
 				    // Then, for each bill, transfer the correct amount from p1 to p2.
 				    players[currentPlayer].spreadCash(1);
@@ -571,7 +573,7 @@ public class IdeopolyGUI implements ActionListener {
 			// A player owns the property.
 			else {
 			    // TODO: Add this message to status buffer?
-			    System.out.println( players[currentPlayer].getName() + " pays " + getCurrentLocation(players[currentPlayer]).getOwner().getName() + "$" + Integer.toString( getCurrentLocation(players[currentPlayer]).getRent()) );
+			    System.out.println( players[currentPlayer].getName() + " pays " + getLocation(players[currentPlayer]).getOwner().getName() + "$" + Integer.toString( getLocation(players[currentPlayer]).getRent()) );
 
 			    // Disable button when the human player lands on an owned property.
 			    if (players[currentPlayer] == player1) {
@@ -579,12 +581,12 @@ public class IdeopolyGUI implements ActionListener {
 			    }
 			    
 			    // Charge the player appropriately.
-			    if ( players[currentPlayer].willBankrupt( getCurrentLocation(players[currentPlayer]).getRent() ) ) {
+			    if ( players[currentPlayer].willBankrupt( getLocation(players[currentPlayer]).getRent() ) ) {
 				players[currentPlayer].bankruptPlayer();
 			    }
 			    else {
-				playerPayPlayer(getCurrentLocation(players[currentPlayer]).getRent(), 
-				    players[currentPlayer], getCurrentLocation(players[currentPlayer]).getOwner());
+				playerPayPlayer(getLocation(players[currentPlayer]).getRent(), 
+				    players[currentPlayer], getLocation(players[currentPlayer]).getOwner());
 			    }
 			}
 		    }
@@ -648,7 +650,7 @@ public class IdeopolyGUI implements ActionListener {
 	    case "Continue": doTurn(frame);
 		break;
 		// TODO: Make the player pay to buy it, add bankruptcy check.
-	    case "Buy property": getCurrentLocation(player1).setOwner( player1 );
+	    case "Buy property": getLocation(player1).setOwner( player1 );
 		buyProperty.setEnabled(false); // Disable button after property's bought.
 		break;
 	    case "Buy house": System.out.println("Testing buy house.");
@@ -678,7 +680,7 @@ public class IdeopolyGUI implements ActionListener {
 
     /** Given a Player p and that player's location, return the cell the player is standing on. */
     // TODO: This sounds like a method that should belong to the Player class.
-    private BoardCell getCurrentLocation(Player p) {
+    private BoardCell getLocation(Player p) {
 	return boardProperties[p.getPosition() / 4];
     }
 
