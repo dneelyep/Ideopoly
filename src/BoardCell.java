@@ -37,19 +37,45 @@ public class BoardCell {
     /** The y-coordinate where this cell should be placed. Used to calculate board positions. */
     private int cellY;
 
+    /** A set of four positions that players stand on, that refer to this BoardCell. */
+    private BoardPosition p1Pos;
+    private BoardPosition p2Pos;
+    private BoardPosition p3Pos;
+    private BoardPosition p4Pos;
 
-
-
-
-
-    /** Creates a BoardCell object, with the specified name, image, and coordinates.
-     *  Does not have an owner. There are no players standing on this object. */
+    /** Creates a BoardCell object, with the specified name, image, coordinates, and player standing 
+     *  positions. Does not have an owner. There are no players standing on this object. */
     public BoardCell(String newName, Icon newImage, int xPos, int yPos) {
 	name	    = newName;
 	ownedBy     = null;
 	image	    = newImage;
 	cellX	    = xPos;
 	cellY       = yPos;
+
+	if (xPos >= 1 && xPos <= 41 && yPos == 1) {      // Top row.
+	    p1Pos = new BoardPosition(cellX + 3, 0);
+	    p2Pos = new BoardPosition(cellX + 2, 0);
+	    p3Pos = new BoardPosition(cellX + 1, 0);
+	    p4Pos = new BoardPosition(cellX,     0);
+	}
+	else if (xPos >= 1 && xPos <= 41 && yPos == 41) { // Bottom row.
+	    p1Pos = new BoardPosition(cellX,     42);
+            p2Pos = new BoardPosition(cellX + 1, 42);
+	    p3Pos = new BoardPosition(cellX + 2, 42);
+	    p4Pos = new BoardPosition(cellX + 3, 42);
+	}
+	else if (yPos >= 2 && yPos <= 40 && xPos == 1) {  // Left column  (excluding top/bottom cells).
+	    p1Pos = new BoardPosition(1, cellY);
+	    p2Pos = new BoardPosition(1, cellY + 1);
+	    p3Pos = new BoardPosition(1, cellY + 2);
+	    p4Pos = new BoardPosition(1, cellY + 3);
+	}
+	else if (yPos >= 2 && yPos <= 40 && xPos == 41) { // Right column (excluding top/bottom cells).
+	    p1Pos = new BoardPosition(40, cellY + 3);
+	    p2Pos = new BoardPosition(40, cellY + 2);
+	    p3Pos = new BoardPosition(40, cellY + 1);
+	    p4Pos = new BoardPosition(40, cellY);
+	}
     }
 
     /** Get the name of this property. */
