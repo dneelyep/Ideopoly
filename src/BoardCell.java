@@ -45,6 +45,14 @@ public class BoardCell {
 
     /** Creates a BoardCell object, with the specified name, image, coordinates, and player standing 
      *  positions. Does not have an owner. There are no players standing on this object. */
+    // LEFTOFFHERE: Added this initial code for associating BoardPositions with BoardCells.
+    // Need to test it to make sure we get out correct x and y values (should be doable visually).
+    // Now that each BoardCell will have four BoardPositions associated with it, I need to review
+    // IdeopolyGUI and similar places to replace the old implementation (a meaningless linked list)
+    // with this new one.
+    // This should allow me to say "Is there a player standing on Boardwalk?" and "Move player one forward
+    // five spaces", rather than "Is there a player on BoardPositions 156-159?" and "Add 20 to the player's
+    // current position." Better abstraction! Yay!
     public BoardCell(String newName, Icon newImage, int xPos, int yPos) {
 	name	    = newName;
 	ownedBy     = null;
