@@ -32,14 +32,7 @@ public class IdeopolyGUI implements ActionListener {
     // HERE:
     public LinkedList<BoardPosition> positions = new LinkedList<BoardPosition>();
 
-    public  Player   player1 = new Player(1, this);
-    public  Player   player2 = new Player(2, this);
-    public  Player   player3 = new Player(3, this);
-    public  Player   player4 = new Player(4, this);
-
     // TODO: Try to reduce usage of this players array. Is useless and confusing except when looping.
-    private Player   players[]       = { player1, player2, player3, player4 };
-    private int      playersArrSize  = 3;
     private String   cashValues[]	 = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
     private String   titles[] = { "Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail" };
     private JLabel[] playerRowLabels = { new JLabel("Player 1"), 
@@ -139,7 +132,12 @@ public class IdeopolyGUI implements ActionListener {
 
     final BoardCell boardProperties[] = { go, mediterraneanAv, commChest1, balticAv, incomeTax, readingRR, orientalAv, chance1, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChest2, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chance2, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChest3, pennsylvaniaAv, shortLineRR, chance3, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
 
-    // The player is on one of the last 6 spaces and will overshoot Go.
+    public  Player   player1 = new Player(1, this);
+    public  Player   player2 = new Player(2, this);
+    public  Player   player3 = new Player(3, this);
+    public  Player   player4 = new Player(4, this);
+    private Player   players[]       = { player1, player2, player3, player4 };
+    private int      playersArrSize  = 3;
 
     /** The stack of Chance cards. */
     private Stack<Chance>         chanceCards    = new Stack<Chance>();
