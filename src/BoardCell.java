@@ -51,10 +51,13 @@ public class BoardCell {
     // Now that each BoardCell will have four BoardPositions associated with it, I need to review
     // IdeopolyGUI and similar places to replace the old implementation (a meaningless linked list)
     // with this new one.
-    // This should allow me to say "Is there a player standing on Boardwalk?" and "Move 
-    // player one forward  five spaces", rather than "Is there a player on BoardPositions 
-    // 156-159?" and "Add 20 to the player's current position." Better abstraction! Yay!
     // TODO: Update unit tests to account for this stuff.
+    //     ... 
+    // OK, so now the code compiles. Before I go ahead with doing the above stuff, it's time to scour
+    // the code for the duplicate stuff I can get rid of. There are several chunks that have been 
+    // commented out. See git commits for ideas. Then proceed with fixing bugs, fixing tests, etc.
+    // See Player.java's changeCell() for a quick fix.
+
     public BoardCell(String newName, Icon newImage, int xPos, int yPos) {
 	name	    = newName;
 	ownedBy     = null;

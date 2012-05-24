@@ -509,7 +509,7 @@ public class IdeopolyGUI implements ActionListener {
 		// Regular move - not overshooting Go or landing on Go to Jail. 
 		// Just move forward 4 spaces.
 		else {
-		    p.setCell( boardProperties[landingSpot], landingSpot );
+		    p.changeCell( boardProperties[landingSpot], landingSpot );
 
 		    // Player lands on a Community Chest card.
 		    if (    ( landingSpot >= 8   && landingSpot <= 11 )
@@ -1064,7 +1064,7 @@ public class IdeopolyGUI implements ActionListener {
 	    p.giveGOOJF();
 	    break;
 	case 8:  //"Go back 3 spaces"
-	    p.setCell(boardProperties[p.getIndex() - 3], (p.getIndex() - 3) );
+	    p.changeCell(boardProperties[p.getIndex() - 3], (p.getIndex() - 3) );
 	    // TODO: Then call onland function.
 	    // TODO: Or just call movePlayer() ?
 	    break;

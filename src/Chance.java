@@ -122,7 +122,7 @@ public class Chance {
     	    p.giveGOOJF();
     	    break;
     	case 8:  //"Go back 3 spaces"
-    	    p.setCell(gui.boardProperties[p.getIndex() - 3], (p.getIndex() - 3));
+    	    p.changeCell(gui.boardProperties[p.getIndex() - 3], (p.getIndex() - 3));
     	    // TODO: Then call onland function.
     	    // TODO: Or just call movePlayer() ?
 	    // TODO: Should I use changePosition() instead for some reason?

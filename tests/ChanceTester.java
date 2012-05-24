@@ -295,23 +295,23 @@ public class ChanceTester extends TestCase {
 	assertEquals(chanceCard.getType(), 12);
 	assertEquals(chanceCard.getText(), "Take a trip to Reading Railroad – if you pass Go, collect $200");
 
-	player1.setCell(gui.boardProperties[0], 0);  // Test when we start on Go.
+	player1.changeCell(gui.boardProperties[0], 0);  // Test when we start on Go.
 	chanceCard.doActions(player1, gui);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), "1485");
 
-	player1.setCell(gui.boardProperties[3], 3); // Test when we start before Reading RR (Baltic Av. here).
+	player1.changeCell(gui.boardProperties[3], 3); // Test when we start before Reading RR (Baltic Av. here).
 	chanceCard.doActions(player1, gui);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), "1485");
 
-	player1.setCell(gui.boardProperties[5], 5); // Test when we start on Reading RR.
+	player1.changeCell(gui.boardProperties[5], 5); // Test when we start on Reading RR.
 	chanceCard.doActions(player1, gui);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), "1485"); // TODO: Should this count as passing
 	// Go? Even though doing this is impossible by the game's rules...
 
-	player1.setCell(gui.boardProperties[6], 6); // Test when we start after Reading RR.
+	player1.changeCell(gui.boardProperties[6], 6); // Test when we start after Reading RR.
 	chanceCard.doActions(player1, gui);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), "1685");

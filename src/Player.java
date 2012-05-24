@@ -163,48 +163,13 @@ public class Player {
 	return currentCell;
     }
 
-    /** Set this player's current cell to c. */
-    public void setCell(BoardCell c, int index) {
-	currentCell = c;
-	cellIndex = 0;
-    }
-
     /** Move this player to a given position q. q refers to the cell the Player wants 
      *  to move to. For example, changePosition(3) will move any player to the 4th
      *  BoardCell on the board. */
-    // TODO: Is this kind of redundant with the setPosition function above? Merge them?
     // TODO: Just pass in a single value, and have that be boardProperties[q] and index = q.
     public void changeCell(BoardCell q, int index) { // TODO: Better function name.
-	/* The only valid positions are position 3, 7, 11, 15, ... 159.
-	   The pattern is: position = 3 + (n * 4), where 0 <= n <= 39
-	   At n = 0,  position = 3.
-	   At n = 39, position = 159. Etc.
-	   So we loop through all possible valid n, and if the requested position q
-	   is valid, we allow the player to move. Else, tell them they can't. */
-
-	// TODO: Old code, can delete this most likely. Obsolete with BoardPosition changes.
-	// int validPosition = 0;
-
-	// for (int n = 0; n <= 39; n++) {
-	//     if ( q == ( 3 + (4 * n) ))
-	// 	validPosition = 1;
-	// }
-
-	// if (validPosition == 0) {
-	//     System.out.println("Can't move to that position. Doing so would mess up player positions.");
-	// }
-	// else {
-	// TODO: Remove redundant functions and code here.
-	setCell(q, index);
-	// if      (name == "Player 1 (H)")
-	//     setCell(q);
-	// else if (name == "Player 2 (C)")
-	//     setCell(q - 1);
-	// else if (name == "Player 3 (C)")
-	//     setCell(q - 2);
-	// else if (name == "Player 4 (C)")
-	//     setCell(q - 3);
-	// }
+	currentCell = q;
+	cellIndex = index;
     }
 
     /** Change this player's amount a of currency type t. */
