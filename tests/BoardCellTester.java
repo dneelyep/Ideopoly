@@ -10,9 +10,11 @@ public class BoardCellTester extends TestCase {
     /** Test all methods in the BoardCell class. */ 
     @Test
     public void testBoardCell() {
+	IdeopolyGUI gui = new IdeopolyGUI("TestGUI");
+
 	// TODO: Should have deleted this file.
 	BoardCell testCell = new BoardCell("name", new ImageIcon("images/orangeTemplate.jpg"), 4, 10);
-	Player    aPlayer  = new Player(1);
+	Player    aPlayer  = new Player(1, gui);
 
 	// Test basic, not out-of-the-ordinary cases.
 	assertEquals(testCell.getName(), "name");

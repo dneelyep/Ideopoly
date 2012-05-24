@@ -168,7 +168,7 @@ public class Player {
      *  to move to. For example, changePosition(3) will move any player to the 4th
      *  BoardCell on the board. */
     // TODO: Is this kind of redundant with the setPosition function above? Merge them?
-    public void changeCell(int q) { // TODO: Better function name.
+    public void changeCell(BoardCell q) { // TODO: Better function name.
 	/* The only valid positions are position 3, 7, 11, 15, ... 159.
 	   The pattern is: position = 3 + (n * 4), where 0 <= n <= 39
 	   At n = 0,  position = 3.
@@ -188,14 +188,16 @@ public class Player {
 	//     System.out.println("Can't move to that position. Doing so would mess up player positions.");
 	// }
 	// else {
-	if      (name == "Player 1 (H)")
-	    setCell(q);
-	else if (name == "Player 2 (C)")
-	    setCell(q - 1);
-	else if (name == "Player 3 (C)")
-	    setCell(q - 2);
-	else if (name == "Player 4 (C)")
-	    setCell(q - 3);
+	// TODO: Remove redundant functions and code here.
+	setCell(q);
+	// if      (name == "Player 1 (H)")
+	//     setCell(q);
+	// else if (name == "Player 2 (C)")
+	//     setCell(q - 1);
+	// else if (name == "Player 3 (C)")
+	//     setCell(q - 2);
+	// else if (name == "Player 4 (C)")
+	//     setCell(q - 3);
 	// }
     }
 
@@ -509,7 +511,7 @@ public class Player {
 	if (name == "Player 1 (H)" && GOOJFCards > 0) {
 	    gui.useGOOJFCard.setEnabled(true);
 	}
-	changeCell(10);
+	changeCell(gui.boardProperties[10]);
 	// TODO: Seems kind of pointless to have two separate methods for this...
 	setInJail(3);
     }

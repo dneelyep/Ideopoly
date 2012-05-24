@@ -70,7 +70,7 @@ public class Chance {
     public void doActions(Player p, IdeopolyGUI gui) {
     	switch (cardType) {
     	case 1:  // "Advance to Go (Collect $200)"
-    	    p.changePosition(3);
+    	    p.changeCell(gui.boardProperties[0]);
     	    p.addCash("hundreds", 2);
     	    break;
     	case 2:  //"Advance to Illinois Ave - if you pass Go, collect $200"
@@ -82,17 +82,17 @@ public class Chance {
     	    if (p.getPosition() >= 96)
     		p.addCash("hundreds", 2);
 
-    	    p.changePosition(99);
+    	    p.changeCell(gui.boardProperties[24]);
     	    break;
     	case 3:  //"Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
 	    if (p.getPosition() >= 28 && p.getPosition() <= 31) { // Bottom Chance
-		p.changePosition(23); // move to Reading RR.
+		p.changeCell(gui.boardProperties[5]); // move to Reading RR.
 	    }
 	    else if (p.getPosition() >= 88 && p.getPosition() <= 91) { // Top Chance
-		p.changePosition(103); // move to B & O RR.
+		p.changeCell(gui.boardProperties[25]); // move to B & O RR.
 	    }
 	    else if (p.getPosition() >= 144 && p.getPosition() <= 147) { // Right Chance
-		p.changePosition(143); // move to Short Line RR.
+		p.changeCell(gui.boardProperties[35]); // move to Short Line RR.
 	    }
 	    else {
 		System.out.println("Error! Apparently you tried to do the actions on a Chance card 3, but you weren't standing on a Chance space to begin with.");
@@ -112,7 +112,7 @@ public class Chance {
     	    if (p.getPosition() >= 48)
     		p.addCash("hundreds", 2);
 
-    	    p.changePosition(47);
+    	    p.changeCell(gui.boardProperties[11]);
     	    break;
 
     	case 6:  //"Bank pays you dividend of $50"
@@ -162,12 +162,12 @@ public class Chance {
     	    if (p.getPosition() >= 24)
     		p.addCash("hundreds", 2);
 
-    	    p.changePosition(23);
+    	    p.changeCell(gui.boardProperties[5]);
     	    // TODO: And then onland function.
     	    break;
 
     	case 13: //"Take a walk on the Boardwalk – advance token to Boardwalk"
-    	    p.changePosition(159);
+    	    p.changeCell(39);
     	    //TODO: And then call the onland function for boardwalk.
     	    break;
     	case 14: //"You have been elected chairman of the board – pay each player $50"

@@ -32,10 +32,10 @@ public class IdeopolyGUI implements ActionListener {
     // HERE:
     public LinkedList<BoardPosition> positions = new LinkedList<BoardPosition>();
 
-    public  Player   player1 = new Player(1);
-    public  Player   player2 = new Player(2);
-    public  Player   player3 = new Player(3);
-    public  Player   player4 = new Player(4);
+    public  Player   player1 = new Player(1, this);
+    public  Player   player2 = new Player(2, this);
+    public  Player   player3 = new Player(3, this);
+    public  Player   player4 = new Player(4, this);
 
     // TODO: Try to reduce usage of this players array. Is useless and confusing except when looping.
     private Player   players[]       = { player1, player2, player3, player4 };
@@ -495,8 +495,10 @@ public class IdeopolyGUI implements ActionListener {
 
 		// The player is on one of the last 6 spaces and will overshoot Go.
 		// TODO: Test to ensure that this is the correct cell. I think it's right but not positive.
-		if ( p.getCell() >= 34 && (landingSpot > 159) ) {
+		// TODO: Could I just remove p.getCell() >= 34 and have the same thing?
+		if ( p.getCell() >= 34 && (p.getCell() + numCells >= 40) ) {
 		    // TODO: Try to clarify what's happening here. Could probably simplify it.
+		    // TODO: If circular linked list works, this conditional should be unneeded.
 		    int finalProperty = ( landingSpot - 160 ) / 4;
 		    p.changePosition((finalProperty * 4) + 3);
 		    p.addCash("hundreds", 2); // Give 200 bucks for passing Go.
@@ -561,7 +563,7 @@ public class IdeopolyGUI implements ActionListener {
      			      || players[currentPlayer].getCell() == electricCompany) {
 
 			// No player currently owns the property.			
-			if ( getLocation(players[currentPlayer]).getOwner() == null ) {
+			if ( players[currentPlayer].getCell().getOwner() == null ) {
 
 			    // Allow player to buy the property.
 			    if (players[currentPlayer] == player1) {
@@ -573,10 +575,10 @@ public class IdeopolyGUI implements ActionListener {
 			    // Have the AI buy the property if it has more than $500.
 			    else {
 				if (Integer.parseInt(players[currentPlayer].getCash("total")) >= 500) {
-				    getLocation(players[currentPlayer]).setOwner(players[currentPlayer]);
+				    players[currentPlayer].getCell().setOwner(players[currentPlayer]);
 
-				    getCashDistribution(getLocation( players[currentPlayer]).getCost());
-				    System.out.println(getLocation( players[currentPlayer]).getCost() );
+				    getCashDistribution(players[currentPlayer].getCell().getCost());
+				    System.out.println(players[currentPlayer].getCell().getCost() );
 
 				    // Then, for each bill, transfer the correct amount from p1 to p2.
 				    players[currentPlayer].spreadCash(1);
@@ -610,7 +612,7 @@ public class IdeopolyGUI implements ActionListener {
 			// A player owns the property.
 			else {
 			    // TODO: Add this message to status buffer?
-			    System.out.println( players[currentPlayer].getName() + " pays " + getLocation(players[currentPlayer]).getOwner().getName() + "$" + Integer.toString( getLocation(players[currentPlayer]).getRent()) );
+			    System.out.println( players[currentPlayer].getName() + " pays " + players[currentPlayer].getCell().getOwner().getName() + "$" + Integer.toString(players[currentPlayer].getCell().getRent()));
 
 			    // Disable button when the human player lands on an owned property.
 			    if (players[currentPlayer] == player1) {
@@ -618,12 +620,13 @@ public class IdeopolyGUI implements ActionListener {
 			    }
 			    
 			    // Charge the player appropriately.
-			    if ( players[currentPlayer].willBankrupt( getLocation(players[currentPlayer]).getRent() ) ) {
+			    if ( players[currentPlayer].willBankrupt( players[currentPlayer].getCell().getRent() ) ) {
 				players[currentPlayer].bankruptPlayer();
 			    }
 			    else {
-				playerPayPlayer(getLocation(players[currentPlayer]).getRent(), 
-				    players[currentPlayer], getLocation(players[currentPlayer]).getOwner());
+				playerPayPlayer(players[currentPlayer].getCell().getRent(), 
+						players[currentPlayer], 
+						players[currentPlayer].getCell().getOwner());
 			    }
 			}
 		    }
@@ -700,7 +703,7 @@ public class IdeopolyGUI implements ActionListener {
 	    case "Continue": doTurn(frame);
 		break;
 		// TODO: Make the player pay to buy it, add bankruptcy check.
-	    case "Buy property": getLocation(player1).setOwner( player1 );
+	    case "Buy property": player1.getCell().setOwner( player1 );
 		buyProperty.setEnabled(false); // Disable button after property's bought.
 		break;
 	    case "Buy house": System.out.println("Testing buy house.");
@@ -745,7 +748,7 @@ public class IdeopolyGUI implements ActionListener {
 	if (p == player1 && p.getNumGOOJFCards() > 0) {
 	    useGOOJFCard.setEnabled(true);
 	}
-	p.changePosition(43);
+	p.changeCell(boardProperties[10]);
 	p.setInJail(3);
     }
 
@@ -864,7 +867,7 @@ public class IdeopolyGUI implements ActionListener {
 	switch ( card.getType() ) {
 
 	case 1: // "Advance to Go (Collect $200)"
-	    p.changePosition(3);
+	    p.changeCell(boardProperties[0]);
 	    p.addCash("hundreds", 2);
 	    break;
 	case 2:	// "Bank error in your favor – collect $200"

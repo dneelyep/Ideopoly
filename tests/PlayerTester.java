@@ -8,11 +8,13 @@ public class PlayerTester extends TestCase {
     /** Test all methods in the Player class. */
     @Test
     public void testPlayer() {
+	IdeopolyGUI gui = new IdeopolyGUI("Richard Stallman");
+
 	// TODO: Test with a non-standard player number.
-	Player testPlayer  = new Player(1);
-	Player testPlayer2 = new Player(2);
-	Player testPlayer3 = new Player(3);
-	Player testPlayer4 = new Player(4);
+	Player testPlayer  = new Player(1, gui);
+	Player testPlayer2 = new Player(2, gui);
+	Player testPlayer3 = new Player(3, gui);
+	Player testPlayer4 = new Player(4, gui);
 	assertEquals(testPlayer.getJailStatus(),            0);
 	assertEquals(testPlayer.getCash("ones"),          "5");
 	assertEquals(testPlayer.getCash("fives"),         "5");
@@ -322,8 +324,6 @@ public class PlayerTester extends TestCase {
 	// assertEquals(testPlayer4.getPosition(), 16);
 
 	// === Test putInJail() ===
-	IdeopolyGUI gui = new IdeopolyGUI("Richard Stallman");
-
 	testPlayer.putInJail(gui);
 	// TODO: Need a way to test the below. The problem (I think) is that the code executes and
 	// the GUI's destroyed before the statement runs. 
