@@ -70,7 +70,7 @@ public class Chance {
     public void doActions(Player p, IdeopolyGUI gui) {
     	switch (cardType) {
     	case 1:  // "Advance to Go (Collect $200)"
-    	    p.changeCell(gui.boardProperties[0]);
+    	    p.changeCell(gui.boardProperties[0], 0);
     	    p.addCash("hundreds", 2);
     	    break;
     	case 2:  //"Advance to Illinois Ave - if you pass Go, collect $200"
@@ -78,28 +78,28 @@ public class Chance {
     	    // >= some value, give $200 dollars. And then, depending on player, set position.
     	    // Make this type of card into a function.
 
-    	    // If the player's on Illinois RR or after, give money.
-    	    if (p.getPosition() >= 96)
+    	    // If the player's on B & O RR or after, give money.
+    	    if (p.getIndex() >= 25)
     		p.addCash("hundreds", 2);
 
-    	    p.changeCell(gui.boardProperties[24]);
+    	    p.changeCell(gui.boardProperties[24], 24);
     	    break;
     	case 3:  //"Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
-	    if (p.getPosition() >= 28 && p.getPosition() <= 31) { // Bottom Chance
-		p.changeCell(gui.boardProperties[5]); // move to Reading RR.
+	    if (p.getCell() == gui.boardProperties[7]) { // Bottom Chance
+		p.changeCell(gui.boardProperties[5], 5); // move to Reading RR.
 	    }
-	    else if (p.getPosition() >= 88 && p.getPosition() <= 91) { // Top Chance
-		p.changeCell(gui.boardProperties[25]); // move to B & O RR.
+	    else if (p.getCell() == gui.boardProperties[22]) { // Top Chance
+		p.changeCell(gui.boardProperties[25], 25); // move to B & O RR.
 	    }
-	    else if (p.getPosition() >= 144 && p.getPosition() <= 147) { // Right Chance
-		p.changeCell(gui.boardProperties[35]); // move to Short Line RR.
+	    else if (p.getCell() == gui.boardProperties[36]) { // Right Chance
+		p.changeCell(gui.boardProperties[35], 35); // move to Short Line RR.
 	    }
 	    else {
 		System.out.println("Error! Apparently you tried to do the actions on a Chance card 3, but you weren't standing on a Chance space to begin with.");
 	    }
 
 	    // TODO: This still gets called if I get the above error message. Is not correct.
-	    if (gui.boardProperties[p.getPosition() / 4].getOwner() != null ) {
+	    if (p.getCell().getOwner() != null) {
 		// TODO: Charge the player 10x normal rent here.
 	    }
     	    break;
@@ -109,10 +109,10 @@ public class Chance {
     	case 5:  //"Advance to St. Charles Place – if you pass Go, collect $200"
 
     	    // If the player's position is on or after Electric Company, give em $200.
-    	    if (p.getPosition() >= 48)
+    	    if (p.getIndex() >= 12)
     		p.addCash("hundreds", 2);
 
-    	    p.changeCell(gui.boardProperties[11]);
+    	    p.changeCell(gui.boardProperties[11], 11);
     	    break;
 
     	case 6:  //"Bank pays you dividend of $50"
@@ -122,7 +122,7 @@ public class Chance {
     	    p.giveGOOJF();
     	    break;
     	case 8:  //"Go back 3 spaces"
-    	    p.setPosition(p.getPosition() - 12);
+    	    p.setCell(gui.boardProperties[p.getIndex() - 3], (p.getIndex() - 3));
     	    // TODO: Then call onland function.
     	    // TODO: Or just call movePlayer() ?
 	    // TODO: Should I use changePosition() instead for some reason?
@@ -159,15 +159,15 @@ public class Chance {
     	case 12: //"Take a trip to Reading Railroad – if you pass Go, collect $200"
     	    // If the player's position is on or after Oriental avenue, give em $200.
     	    // TODO: Test this to make sure it works.
-    	    if (p.getPosition() >= 24)
+    	    if (p.getIndex() >= 6)
     		p.addCash("hundreds", 2);
 
-    	    p.changeCell(gui.boardProperties[5]);
+    	    p.changeCell(gui.boardProperties[5], 5);
     	    // TODO: And then onland function.
     	    break;
 
     	case 13: //"Take a walk on the Boardwalk – advance token to Boardwalk"
-    	    p.changeCell(39);
+    	    p.changeCell(gui.boardProperties[39], 5);
     	    //TODO: And then call the onland function for boardwalk.
     	    break;
     	case 14: //"You have been elected chairman of the board – pay each player $50"

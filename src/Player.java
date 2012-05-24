@@ -59,6 +59,9 @@ public class Player {
     /** Image associated with this player. Used as an icon to indicate board position. */
     private Icon image;
 
+    /** An index that represents which element of BoardProperties[] this Player is standing on. */
+    private int cellIndex;
+
     // TODO: Make add/remove functions for ownedOutlets. Use something other than an array for ease?
 
     /** Actions to take when a player object is initially created. Players
@@ -89,6 +92,7 @@ public class Player {
 	GOOJFCards = 0;
 
 	currentCell = gui.boardProperties[0];
+	cellIndex   = 0;
 	switch (playerNumber) {
 	    case 1: name = "Player 1 (H)";
 		image = new ImageIcon("images/p1Present.jpg");
@@ -160,15 +164,17 @@ public class Player {
     }
 
     /** Set this player's current cell to c. */
-    public void setCell(BoardCell c) {
+    public void setCell(BoardCell c, int index) {
 	currentCell = c;
+	cellIndex = 0;
     }
 
     /** Move this player to a given position q. q refers to the cell the Player wants 
      *  to move to. For example, changePosition(3) will move any player to the 4th
      *  BoardCell on the board. */
     // TODO: Is this kind of redundant with the setPosition function above? Merge them?
-    public void changeCell(BoardCell q) { // TODO: Better function name.
+    // TODO: Just pass in a single value, and have that be boardProperties[q] and index = q.
+    public void changeCell(BoardCell q, int index) { // TODO: Better function name.
 	/* The only valid positions are position 3, 7, 11, 15, ... 159.
 	   The pattern is: position = 3 + (n * 4), where 0 <= n <= 39
 	   At n = 0,  position = 3.
@@ -189,7 +195,7 @@ public class Player {
 	// }
 	// else {
 	// TODO: Remove redundant functions and code here.
-	setCell(q);
+	setCell(q, index);
 	// if      (name == "Player 1 (H)")
 	//     setCell(q);
 	// else if (name == "Player 2 (C)")
@@ -500,6 +506,12 @@ public class Player {
 	return totalPropertiesOwned;
     }
 
+    /** Get the index of the BoardCell in boardProperties[] this Player 
+     *  is standing on. */
+    public int getIndex() {
+	return cellIndex;
+    }
+
     /** Put the given Player p in jail, and enable the "Use get 
      *  out of jail free card" button if the Player is the human player. */
     public void putInJail(IdeopolyGUI gui) {
@@ -511,7 +523,7 @@ public class Player {
 	if (name == "Player 1 (H)" && GOOJFCards > 0) {
 	    gui.useGOOJFCard.setEnabled(true);
 	}
-	changeCell(gui.boardProperties[10]);
+	changeCell(gui.boardProperties[10], 10);
 	// TODO: Seems kind of pointless to have two separate methods for this...
 	setInJail(3);
     }
