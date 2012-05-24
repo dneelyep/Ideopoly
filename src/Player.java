@@ -53,8 +53,8 @@ public class Player {
     /** Number of get out of jail free cards this player owns. */
     private int GOOJFCards;
 
-    /** This player's current board position, from 0-159. */
-    private int currentPosition;
+    /** This player's current Board Cell, from 0-39. */
+    private BoardCell currentCell;
 
     /** Image associated with this player. Used as an icon to indicate board position. */
     private Icon image;
@@ -64,7 +64,7 @@ public class Player {
     /** Actions to take when a player object is initially created. Players
      *  are only created at the start of the game. Different players start
      *  at different positions on the board (Same cell, different walking space.) */
-    public Player(int playerNumber) {
+    public Player(int playerNumber, IdeopolyGUI gui) {
 
 	inJail = 0; // TODO: This needed? Couldn't I just use board position?
 
@@ -88,21 +88,18 @@ public class Player {
 
 	GOOJFCards = 0;
 
+	currentCell = gui.boardProperties[0];
 	switch (playerNumber) {
-	    case 1: currentPosition = 3;
-		name = "Player 1 (H)";
+	    case 1: name = "Player 1 (H)";
 		image = new ImageIcon("images/p1Present.jpg");
 		break;
-	    case 2: currentPosition = 2;
-		name = "Player 2 (C)";
+	    case 2: name = "Player 2 (C)";
 		image = new ImageIcon("images/p2Present.jpg");
 		break;
-	    case 3: currentPosition = 1;
-		name = "Player 3 (C)";
+	    case 3: name = "Player 3 (C)";
 		image = new ImageIcon("images/p3Present.jpg");
 		break;
-	    case 4: currentPosition = 0;
-		name = "Player 4 (C)";
+	    case 4: name = "Player 4 (C)";
 		image = new ImageIcon("images/p4Present.jpg");
 		break;
 
@@ -158,20 +155,20 @@ public class Player {
     }
 
     /** Get this player's current position. */
-    public int getPosition() {
-	return currentPosition;
+    public BoardCell getCell() {
+	return currentCell;
     }
 
-    /** Set this player's current position to p. */
-    public void setPosition(int p) {
-	currentPosition = p;
+    /** Set this player's current cell to c. */
+    public void setCell(BoardCell c) {
+	currentCell = c;
     }
 
-    /** Move this player to a given position q. q refers to the last of a set of 4
-     *  BoardPositions. For example, changePosition(3) will move player1 to the 4th
-     *  BoardPosition on the board. player2 will be moved to the 3rd position, and so on. */
+    /** Move this player to a given position q. q refers to the cell the Player wants 
+     *  to move to. For example, changePosition(3) will move any player to the 4th
+     *  BoardCell on the board. */
     // TODO: Is this kind of redundant with the setPosition function above? Merge them?
-    public void changePosition(int q) { // TODO: Better function name.
+    public void changeCell(int q) { // TODO: Better function name.
 	/* The only valid positions are position 3, 7, 11, 15, ... 159.
 	   The pattern is: position = 3 + (n * 4), where 0 <= n <= 39
 	   At n = 0,  position = 3.
@@ -179,26 +176,27 @@ public class Player {
 	   So we loop through all possible valid n, and if the requested position q
 	   is valid, we allow the player to move. Else, tell them they can't. */
 
-	int validPosition = 0;
+	// TODO: Old code, can delete this most likely. Obsolete with BoardPosition changes.
+	// int validPosition = 0;
 
-	for (int n = 0; n <= 39; n++) {
-	    if ( q == ( 3 + (4 * n) ))
-		validPosition = 1;
-	}
+	// for (int n = 0; n <= 39; n++) {
+	//     if ( q == ( 3 + (4 * n) ))
+	// 	validPosition = 1;
+	// }
 
-	if (validPosition == 0) {
-	    System.out.println("Can't move to that position. Doing so would mess up player positions.");
-	}
-	else {
-	    if      (name == "Player 1 (H)")
-		setPosition(q);
-	    else if (name == "Player 2 (C)")
-		setPosition(q - 1);
-	    else if (name == "Player 3 (C)")
-		setPosition(q - 2);
-	    else if (name == "Player 4 (C)")
-		setPosition(q - 3);
-	}
+	// if (validPosition == 0) {
+	//     System.out.println("Can't move to that position. Doing so would mess up player positions.");
+	// }
+	// else {
+	if      (name == "Player 1 (H)")
+	    setCell(q);
+	else if (name == "Player 2 (C)")
+	    setCell(q - 1);
+	else if (name == "Player 3 (C)")
+	    setCell(q - 2);
+	else if (name == "Player 4 (C)")
+	    setCell(q - 3);
+	// }
     }
 
     /** Change this player's amount a of currency type t. */
@@ -511,7 +509,7 @@ public class Player {
 	if (name == "Player 1 (H)" && GOOJFCards > 0) {
 	    gui.useGOOJFCard.setEnabled(true);
 	}
-	changePosition(43);
+	changeCell(10);
 	// TODO: Seems kind of pointless to have two separate methods for this...
 	setInJail(3);
     }

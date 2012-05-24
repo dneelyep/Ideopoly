@@ -29,6 +29,7 @@ public class IdeopolyGUI implements ActionListener {
     /** Linked list that represents the 160 positions players can stand on. */
     // TODO: Here's the culprit. This linked list should not be present - positions should be associated
     // with BoardCells.
+    // HERE:
     public LinkedList<BoardPosition> positions = new LinkedList<BoardPosition>();
 
     public  Player   player1 = new Player(1);
@@ -138,6 +139,8 @@ public class IdeopolyGUI implements ActionListener {
 
     final BoardCell boardProperties[] = { go, mediterraneanAv, commChest1, balticAv, incomeTax, readingRR, orientalAv, chance1, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChest2, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chance2, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChest3, pennsylvaniaAv, shortLineRR, chance3, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
 
+    // The player is on one of the last 6 spaces and will overshoot Go.
+
     /** The stack of Chance cards. */
     private Stack<Chance>         chanceCards    = new Stack<Chance>();
 
@@ -194,11 +197,29 @@ public class IdeopolyGUI implements ActionListener {
 	for (int i = 5; i <= 40; i++) {
 	    positions.add(new BoardPosition(45, i));
 	}
+    // Old code:
+	// for (BoardPosition item : positions) {
+	//     c.gridx = item.getXCoord();
+	//     c.gridy = item.getYCoord();
+	//     frame.add(item, c);
+	// }
 
-	for (BoardPosition item : positions) {
-	    c.gridx = item.getXCoord();
-	    c.gridy = item.getYCoord();
-	    frame.add(item, c);
+	for (BoardCell property : boardProperties) {
+	    c.gridx = property.p1Pos.getXCoord();
+	    c.gridy = property.p1Pos.getYCoord();
+	    frame.add(property.p1Pos, c);
+
+	    c.gridx = property.p2Pos.getXCoord();
+	    c.gridy = property.p2Pos.getYCoord();
+	    frame.add(property.p2Pos, c);
+
+	    c.gridx = property.p3Pos.getXCoord();
+	    c.gridy = property.p3Pos.getYCoord();
+	    frame.add(property.p3Pos, c);
+
+	    c.gridx = property.p4Pos.getXCoord();
+	    c.gridy = property.p4Pos.getYCoord();
+	    frame.add(property.p4Pos, c);
 	}
 
 	// TODO: Rename this propaganda outlets rather than properties? Confusing?
@@ -324,11 +345,13 @@ public class IdeopolyGUI implements ActionListener {
 	    cardType = generator.nextInt(17) + 1;
 	    commChestCards.push(new CommunityChest(cardType));
 	}
+	// TODO: This should happen automatically - I shouldn't need to set images manually.
+	// HERE:
 
-	positions.get( 3 ).setImage(player1.getImage());
-	positions.get( 2 ).setImage(player2.getImage());
-	positions.get( 1 ).setImage(player3.getImage());
-	positions.get( 0 ).setImage(player4.getImage());
+	boardProperties[0].p1Pos.setImage(player1.getImage());
+	boardProperties[0].p2Pos.setImage(player2.getImage());
+	boardProperties[0].p3Pos.setImage(player3.getImage());
+	boardProperties[0].p4Pos.setImage(player4.getImage());
 
 	frame.pack();
 	frame.setVisible(true);
@@ -455,10 +478,24 @@ public class IdeopolyGUI implements ActionListener {
 
 		// Get the label at the player's current position,
 		// set it to no player present (since we're moving the player).
-		positions.get( p.getPosition() ).setImage(new ImageIcon("images/noPlayerPresent.jpg"));
+		// TODO: Shouldn't need this big conditional statement to do this.
+		// HERE:
+		if (p == player1) {
+		    p.getCell().p1Pos.setImage(new ImageIcon("images/noPlayerPresent.jpg"));
+		}
+		else if (p == player2) {
+		    p.getCell().p2Pos.setImage(new ImageIcon("images/noPlayerPresent.jpg"));
+		}
+		else if (p == player3) {
+		    p.getCell().p3Pos.setImage(new ImageIcon("images/noPlayerPresent.jpg"));
+		}
+		else if (p == player4) {
+		    p.getCell().p4Pos.setImage(new ImageIcon("images/noPlayerPresent.jpg"));
+		}
 
 		// The player is on one of the last 6 spaces and will overshoot Go.
-		if ( p.getPosition() >= 135 && p.getPosition() <= 159 && (landingSpot > 159) ) {
+		// TODO: Test to ensure that this is the correct cell. I think it's right but not positive.
+		if ( p.getCell() >= 34 && (landingSpot > 159) ) {
 		    // TODO: Try to clarify what's happening here. Could probably simplify it.
 		    int finalProperty = ( landingSpot - 160 ) / 4;
 		    p.changePosition((finalProperty * 4) + 3);
@@ -492,36 +529,36 @@ public class IdeopolyGUI implements ActionListener {
 		    // TODO: Make a separate method to handle this?
 		    // TODO: Instead, just check for class. If is PropOutlet/RR/Utility, do x.
 		    // And if that doesn't work, could have a field that indicates type of property.
-		    else if (    getLocation(players[currentPlayer]) == mediterraneanAv
-			      || getLocation(players[currentPlayer]) == balticAv
-			      || getLocation(players[currentPlayer]) == orientalAv
-			      || getLocation(players[currentPlayer]) == vermontAv
-			      || getLocation(players[currentPlayer]) == connecticutAv
-			      || getLocation(players[currentPlayer]) == stCharles
-			      || getLocation(players[currentPlayer]) == statesAv
-			      || getLocation(players[currentPlayer]) == virginiaAv
-			      || getLocation(players[currentPlayer]) == stJames
-			      || getLocation(players[currentPlayer]) == tennesseeAv
-			      || getLocation(players[currentPlayer]) == newYorkAv
-			      || getLocation(players[currentPlayer]) == kentuckyAv
-			      || getLocation(players[currentPlayer]) == indianaAv
-			      || getLocation(players[currentPlayer]) == illinoisAv
-			      || getLocation(players[currentPlayer]) == atlanticAv
-			      || getLocation(players[currentPlayer]) == ventnorAv
-			      || getLocation(players[currentPlayer]) == marvinGardens
-			      || getLocation(players[currentPlayer]) == pacificAv
-			      || getLocation(players[currentPlayer]) == nCarolinaAv
-			      || getLocation(players[currentPlayer]) == pennsylvaniaAv
-			      || getLocation(players[currentPlayer]) == parkPlace
-			      || getLocation(players[currentPlayer]) == boardwalk
+		    else if (    players[currentPlayer].getCell() == mediterraneanAv
+                              || players[currentPlayer].getCell() == balticAv
+			      || players[currentPlayer].getCell() == orientalAv
+			      || players[currentPlayer].getCell() == vermontAv
+			      || players[currentPlayer].getCell() == connecticutAv
+			      || players[currentPlayer].getCell() == stCharles
+			      || players[currentPlayer].getCell() == statesAv
+			      || players[currentPlayer].getCell() == virginiaAv
+			      || players[currentPlayer].getCell() == stJames
+			      || players[currentPlayer].getCell() == tennesseeAv
+			      || players[currentPlayer].getCell() == newYorkAv
+			      || players[currentPlayer].getCell() == kentuckyAv
+			      || players[currentPlayer].getCell() == indianaAv
+			      || players[currentPlayer].getCell() == illinoisAv
+			      || players[currentPlayer].getCell() == atlanticAv
+			      || players[currentPlayer].getCell() == ventnorAv
+			      || players[currentPlayer].getCell() == marvinGardens
+			      || players[currentPlayer].getCell() == pacificAv
+			      || players[currentPlayer].getCell() == nCarolinaAv
+			      || players[currentPlayer].getCell() == pennsylvaniaAv
+			      || players[currentPlayer].getCell() == parkPlace
+			      || players[currentPlayer].getCell() == boardwalk
 
-			      || getLocation(players[currentPlayer]) == readingRR
-			      || getLocation(players[currentPlayer]) == pennsylvaniaRR
-			      || getLocation(players[currentPlayer]) == bAndORR
-			      || getLocation(players[currentPlayer]) == shortLineRR
+			      || players[currentPlayer].getCell() == readingRR
+			      || players[currentPlayer].getCell() == pennsylvaniaRR
+			      || players[currentPlayer].getCell() == bAndORR
+			      || players[currentPlayer].getCell() == shortLineRR
 
-			      || getLocation(players[currentPlayer]) == waterWorks
-			      || getLocation(players[currentPlayer]) == electricCompany) {
+                              || players[currentPlayer].getCell() == waterWorks
+     			      || players[currentPlayer].getCell() == electricCompany) {
 
 			// No player currently owns the property.			
 			if ( getLocation(players[currentPlayer]).getOwner() == null ) {
@@ -601,7 +638,20 @@ public class IdeopolyGUI implements ActionListener {
 		}
 	    }
 
-	    positions.get( p.getPosition() ).setImage(p.getImage());
+	    // TODO: Again, shouldn't need this huge conditional.
+	    // HERE:
+	    if (p == player1) {
+		p.getCell().p1Pos.setImage(p.getImage());
+	    }
+	    else if (p == player2) {
+		p.getCell().p2Pos.setImage(p.getImage());
+	    }
+	    else if (p == player3) {
+		p.getCell().p3Pos.setImage(p.getImage());
+	    }
+	    else if (p == player4) {
+		p.getCell().p4Pos.setImage(p.getImage());
+	    }
 	}
     }
 
@@ -678,11 +728,12 @@ public class IdeopolyGUI implements ActionListener {
 	}
     }
 
-    /** Given a Player p and that player's location, return the cell the player is standing on. */
-    // TODO: This sounds like a method that should belong to the Player class.
-    private BoardCell getLocation(Player p) {
-	return boardProperties[p.getPosition() / 4];
-    }
+    // TODO: Old code, should be able to remove. Useless now.
+    // /** Given a Player p and that player's location, return the cell the player is standing on. */
+    // // TODO: This sounds like a method that should belong to the Player class.
+    // private BoardCell getLocation(Player p) {
+    // 	return boardProperties[p.getPosition() / 4];
+    // }
 
     /** Put a given player in jail. */
     private void putInJail(Player p) {

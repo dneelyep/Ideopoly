@@ -38,10 +38,11 @@ public class BoardCell {
     private int cellY;
 
     /** A set of four positions that players stand on, that refer to this BoardCell. */
-    private BoardPosition p1Pos;
-    private BoardPosition p2Pos;
-    private BoardPosition p3Pos;
-    private BoardPosition p4Pos;
+    // TODO: Should I have these be private and get them through accessors?
+    public BoardPosition p1Pos;
+    public BoardPosition p2Pos;
+    public BoardPosition p3Pos;
+    public BoardPosition p4Pos;
 
     /** Creates a BoardCell object, with the specified name, image, coordinates, and player standing 
      *  positions. Does not have an owner. There are no players standing on this object. */
@@ -50,9 +51,10 @@ public class BoardCell {
     // Now that each BoardCell will have four BoardPositions associated with it, I need to review
     // IdeopolyGUI and similar places to replace the old implementation (a meaningless linked list)
     // with this new one.
-    // This should allow me to say "Is there a player standing on Boardwalk?" and "Move player one forward
-    // five spaces", rather than "Is there a player on BoardPositions 156-159?" and "Add 20 to the player's
-    // current position." Better abstraction! Yay!
+    // This should allow me to say "Is there a player standing on Boardwalk?" and "Move 
+    // player one forward  five spaces", rather than "Is there a player on BoardPositions 
+    // 156-159?" and "Add 20 to the player's current position." Better abstraction! Yay!
+    // TODO: Update unit tests to account for this stuff.
     public BoardCell(String newName, Icon newImage, int xPos, int yPos) {
 	name	    = newName;
 	ownedBy     = null;
@@ -67,22 +69,22 @@ public class BoardCell {
 	    p4Pos = new BoardPosition(cellX,     0);
 	}
 	else if (xPos >= 1 && xPos <= 41 && yPos == 41) { // Bottom row.
-	    p1Pos = new BoardPosition(cellX,     42);
-            p2Pos = new BoardPosition(cellX + 1, 42);
-	    p3Pos = new BoardPosition(cellX + 2, 42);
-	    p4Pos = new BoardPosition(cellX + 3, 42);
+	    p1Pos = new BoardPosition(cellX,     45);
+            p2Pos = new BoardPosition(cellX + 1, 45);
+	    p3Pos = new BoardPosition(cellX + 2, 45);
+	    p4Pos = new BoardPosition(cellX + 3, 45);
 	}
 	else if (yPos >= 2 && yPos <= 40 && xPos == 1) {  // Left column  (excluding top/bottom cells).
-	    p1Pos = new BoardPosition(1, cellY);
-	    p2Pos = new BoardPosition(1, cellY + 1);
-	    p3Pos = new BoardPosition(1, cellY + 2);
-	    p4Pos = new BoardPosition(1, cellY + 3);
+	    p1Pos = new BoardPosition(0, cellY);
+	    p2Pos = new BoardPosition(0, cellY + 1);
+	    p3Pos = new BoardPosition(0, cellY + 2);
+	    p4Pos = new BoardPosition(0, cellY + 3);
 	}
 	else if (yPos >= 2 && yPos <= 40 && xPos == 41) { // Right column (excluding top/bottom cells).
-	    p1Pos = new BoardPosition(40, cellY + 3);
-	    p2Pos = new BoardPosition(40, cellY + 2);
-	    p3Pos = new BoardPosition(40, cellY + 1);
-	    p4Pos = new BoardPosition(40, cellY);
+	    p1Pos = new BoardPosition(45, cellY + 3);
+	    p2Pos = new BoardPosition(45, cellY + 2);
+	    p3Pos = new BoardPosition(45, cellY + 1);
+	    p4Pos = new BoardPosition(45, cellY);
 	}
     }
 
