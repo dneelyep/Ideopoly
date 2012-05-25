@@ -26,12 +26,6 @@ public class IdeopolyGUI implements ActionListener {
     /** Number to represent if the game has been won. Once the game's won, this switches to another value. */
     private int gameWon = 0;
 
-    /** Linked list that represents the 160 positions players can stand on. */
-    // TODO: Here's the culprit. This linked list should not be present - positions should be associated
-    // with BoardCells.
-    // HERE:
-    public LinkedList<BoardPosition> positions = new LinkedList<BoardPosition>();
-
     // TODO: Try to reduce usage of this players array. Is useless and confusing except when looping.
     private String   cashValues[]	 = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
     private String   titles[] = { "Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail" };
@@ -175,33 +169,6 @@ public class IdeopolyGUI implements ActionListener {
 	// ================================================================
 	// === Add the standing positions around the edge of the board. ===
 	// ================================================================
-	// TODO: Refactorable?
-	// Bottom positions
-	for (int i = 44; i >= 1; i--) {
-	    positions.add(new BoardPosition(i, 45));
-	}
-
-	// Left positions
-	for (int i = 40; i >= 5; i--) {
-	    positions.add(new BoardPosition(0, i));
-	}
-
-	// Top positions
-	for (int i = 1; i <= 44; i++) {
-	    positions.add(new BoardPosition(i, 0));
-	}
-
-	// Right positions
-	for (int i = 5; i <= 40; i++) {
-	    positions.add(new BoardPosition(45, i));
-	}
-    // Old code:
-	// for (BoardPosition item : positions) {
-	//     c.gridx = item.getXCoord();
-	//     c.gridy = item.getYCoord();
-	//     frame.add(item, c);
-	// }
-
 	for (BoardCell property : boardProperties) {
 	    c.gridx = property.p1Pos.getXCoord();
 	    c.gridy = property.p1Pos.getYCoord();
