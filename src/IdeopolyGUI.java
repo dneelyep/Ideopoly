@@ -456,10 +456,10 @@ public class IdeopolyGUI implements ActionListener {
 		else if (p == player4)
 		    p.getCell().p4Pos.setImage(new ImageIcon("images/noPlayerPresent.jpg"));
 
-		// The player is on one of the last 6 spaces and will overshoot Go.
+		// The player is about to overshoot Go.
 		// TODO: Test to ensure that this is the correct cell. I think it's right but not positive.
-		// TODO: Could I just remove p.getCell() >= 34 and have the same thing?
-		if ( p.getIndex() >= 34 && (p.getIndex() + numCells >= 40) ) {
+		// TODO: Could I just remove p.getIndex() >= 34 and have the same thing?
+		if (landingSpot > 39) {
 		    // TODO: Try to clarify what's happening here. Could probably simplify it.
 		    // TODO: If circular linked list works, this conditional should be unneeded.
 		    p.changeCell((landingSpot - 40), this);
@@ -467,59 +467,63 @@ public class IdeopolyGUI implements ActionListener {
 		}
 
 		// Player lands on Go to Jail.
-		else if ( landingSpot >= 120 && landingSpot <= 123) {
+		else if (landingSpot == 30) {
 		    putInJail(p);
 		}
 
-		// Regular move - not overshooting Go or landing on Go to Jail. 
-		// Just move forward 4 spaces.
-		else {
-		    p.changeCell( landingSpot, this );
-
-		    // Player lands on a Community Chest card.
-		    if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33) {
-			drawCommunityChest(p);
-		    }
+		// Player lands on a Community Chest card.
+		else if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33) {
+		    drawCommunityChest(p);
+		}
 	    
-		    // Player lands on a Chance card.
-		    else if (landingSpot == 7 || landingSpot == 22 || landingSpot == 36) {
-			Chance card = chanceCards.pop();
-			card.doActions(p, this);
-		    }
+		// Player lands on a Chance card.
+		else if (landingSpot == 7 || landingSpot == 22 || landingSpot == 36) {
+		    Chance card = chanceCards.pop();
+		    card.doActions(p, this);
+		}
+
+		// Regular move - not overshooting Go, landing on Go to Jail, or
+		// a Community Chest/Chance card. 
+
+		// TODO: Make this so that the above checks to see if I land on a non-ownable property.
+		// So if I land on an ownable property, there shouldn't be a need for the following big
+		// conditional and such.
+		else {
+		    p.changeCell(landingSpot, this);
 
 		    // TODO: Make a separate method to handle this?
 		    // TODO: Instead, just check for class. If is PropOutlet/RR/Utility, do x.
 		    // And if that doesn't work, could have a field that indicates type of property.
-		    else if (    players[currentPlayer].getCell() == mediterraneanAv
-                              || players[currentPlayer].getCell() == balticAv
-			      || players[currentPlayer].getCell() == orientalAv
-			      || players[currentPlayer].getCell() == vermontAv
-			      || players[currentPlayer].getCell() == connecticutAv
-			      || players[currentPlayer].getCell() == stCharles
-			      || players[currentPlayer].getCell() == statesAv
-			      || players[currentPlayer].getCell() == virginiaAv
-			      || players[currentPlayer].getCell() == stJames
-			      || players[currentPlayer].getCell() == tennesseeAv
-			      || players[currentPlayer].getCell() == newYorkAv
-			      || players[currentPlayer].getCell() == kentuckyAv
-			      || players[currentPlayer].getCell() == indianaAv
-			      || players[currentPlayer].getCell() == illinoisAv
-			      || players[currentPlayer].getCell() == atlanticAv
-			      || players[currentPlayer].getCell() == ventnorAv
-			      || players[currentPlayer].getCell() == marvinGardens
-			      || players[currentPlayer].getCell() == pacificAv
-			      || players[currentPlayer].getCell() == nCarolinaAv
-			      || players[currentPlayer].getCell() == pennsylvaniaAv
-			      || players[currentPlayer].getCell() == parkPlace
-			      || players[currentPlayer].getCell() == boardwalk
+		    if (   players[currentPlayer].getCell() == mediterraneanAv
+                        || players[currentPlayer].getCell() == balticAv
+                        || players[currentPlayer].getCell() == orientalAv
+			|| players[currentPlayer].getCell() == vermontAv
+			|| players[currentPlayer].getCell() == connecticutAv
+			|| players[currentPlayer].getCell() == stCharles
+			|| players[currentPlayer].getCell() == statesAv
+			|| players[currentPlayer].getCell() == virginiaAv
+			|| players[currentPlayer].getCell() == stJames
+			|| players[currentPlayer].getCell() == tennesseeAv
+			|| players[currentPlayer].getCell() == newYorkAv
+			|| players[currentPlayer].getCell() == kentuckyAv
+			|| players[currentPlayer].getCell() == indianaAv
+			|| players[currentPlayer].getCell() == illinoisAv
+			|| players[currentPlayer].getCell() == atlanticAv
+			|| players[currentPlayer].getCell() == ventnorAv
+			|| players[currentPlayer].getCell() == marvinGardens
+			|| players[currentPlayer].getCell() == pacificAv
+			|| players[currentPlayer].getCell() == nCarolinaAv
+			|| players[currentPlayer].getCell() == pennsylvaniaAv
+			|| players[currentPlayer].getCell() == parkPlace
+			|| players[currentPlayer].getCell() == boardwalk
 
-			      || players[currentPlayer].getCell() == readingRR
-			      || players[currentPlayer].getCell() == pennsylvaniaRR
-			      || players[currentPlayer].getCell() == bAndORR
-			      || players[currentPlayer].getCell() == shortLineRR
+			|| players[currentPlayer].getCell() == readingRR
+			|| players[currentPlayer].getCell() == pennsylvaniaRR
+			|| players[currentPlayer].getCell() == bAndORR
+			|| players[currentPlayer].getCell() == shortLineRR
 
-                              || players[currentPlayer].getCell() == waterWorks
-     			      || players[currentPlayer].getCell() == electricCompany) {
+                        || players[currentPlayer].getCell() == waterWorks
+     			|| players[currentPlayer].getCell() == electricCompany) {
 
 			// No player currently owns the property.			
 			if ( players[currentPlayer].getCell().getOwner() == null ) {
