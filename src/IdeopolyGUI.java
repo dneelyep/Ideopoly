@@ -77,13 +77,13 @@ public class IdeopolyGUI implements ActionListener {
 
     private BoardCell	     go              = new BoardCell       ("Go", new ImageIcon("images/go.jpg"), 41, 41);
     private PropagandaOutlet mediterraneanAv = new PropagandaOutlet("Mediterranean Av.", purple, 60, 2, 10, 30, 90, 160, 250, 50, 37, 41);
-    private BoardCell        commChest1      = new BoardCell       ("Community Chest", new ImageIcon("images/bottCommChest.jpg"), 33, 41);
+    private BoardCell        commChestBottom = new BoardCell       ("Community Chest", new ImageIcon("images/bottCommChest.jpg"), 33, 41);
     private PropagandaOutlet balticAv        = new PropagandaOutlet("Baltic Av.", purple, 60, 4, 20, 60, 180, 320, 450, 50, 29, 41);
     private BoardCell	     incomeTax       = new BoardCell       ("Income Tax", incTax, 25, 41);
     // TODO: Bigger font size (~80) for the text on railroads - hard to read currently.
     private Railroad	     readingRR       = new Railroad        ("Reading RR", new ImageIcon("images/readingRR.jpg"), 21, 41);
     private PropagandaOutlet orientalAv      = new PropagandaOutlet("Oriental Av.", lightBlue, 100, 6, 30, 90, 270, 400, 550, 50, 17, 41);
-    private BoardCell	     chance1	     = new BoardCell       ("Chance", new ImageIcon("images/botChance.jpg"), 13, 41);
+    private BoardCell	     chanceBottom    = new BoardCell       ("Chance", new ImageIcon("images/botChance.jpg"), 13, 41);
     private PropagandaOutlet vermontAv       = new PropagandaOutlet("Vermont Av.", lightBlue, 100, 6, 30, 90, 270, 400, 550, 50, 9, 41);
     private PropagandaOutlet connecticutAv   = new PropagandaOutlet("Connecticut Av.", lightBlue, 120, 8, 40, 100, 300, 450, 600, 50, 5, 41);
     private BoardCell	     jail	     = new BoardCell       ("Jail", new ImageIcon("images/jail.jpg"), 1, 41);
@@ -93,12 +93,12 @@ public class IdeopolyGUI implements ActionListener {
     private PropagandaOutlet virginiaAv      = new PropagandaOutlet("Virginia Av.", pink, 160, 12, 60, 180, 500, 700, 900, 100, 1, 25);
     private Railroad	     pennsylvaniaRR  = new Railroad        ("Pennsylvania RR", new ImageIcon("images/pennsylvaniaRR.jpg"), 1, 21);
     private PropagandaOutlet stJames         = new PropagandaOutlet("St. James", orange, 180, 14, 70, 200, 550, 750, 950, 100, 1, 17);
-    private BoardCell	     commChest2      = new BoardCell       ("Community Chest", new ImageIcon("images/leftCommChest.jpg"), 1, 13);
+    private BoardCell	     commChestLeft   = new BoardCell       ("Community Chest", new ImageIcon("images/leftCommChest.jpg"), 1, 13);
     private PropagandaOutlet tennesseeAv     = new PropagandaOutlet("Tennessee Av.", orange, 180, 14, 70, 200, 550, 750, 950, 100, 1, 9);
     private PropagandaOutlet newYorkAv       = new PropagandaOutlet("New York Av.", orange, 200, 16, 80, 220, 600, 800, 1000, 100, 1, 5);
     private BoardCell	     freeParking     = new BoardCell       ("Free Parking", new ImageIcon("images/freeParking.jpg"), 1, 1);
     private PropagandaOutlet kentuckyAv      = new PropagandaOutlet("Kentucky Av.", new ImageIcon("images/properties/kentuckyAv.jpg"), 220, 18, 90, 250, 700, 875, 1050, 150, 5, 1);
-    private BoardCell	     chance2         = new BoardCell       ("Chance", new ImageIcon("images/topChance.jpg"), 9, 1);
+    private BoardCell	     chanceTop       = new BoardCell       ("Chance", new ImageIcon("images/topChance.jpg"), 9, 1);
     private PropagandaOutlet indianaAv	     = new PropagandaOutlet("Indiana Av.", new ImageIcon("images/properties/indianaAv.jpg"), 220, 18, 90, 250, 700, 875, 1050, 150, 13, 1);
     private PropagandaOutlet illinoisAv      = new PropagandaOutlet("Illinois Av.", new ImageIcon("images/properties/illinoisAv.jpg"), 240, 20, 100, 300, 750, 925, 1100, 150, 17, 1);
     private Railroad	     bAndORR	     = new Railroad        ("B & O RR", new ImageIcon("images/bAndORR.jpg"), 21, 1);
@@ -109,10 +109,10 @@ public class IdeopolyGUI implements ActionListener {
     private BoardCell	     goToJail        = new BoardCell       ("Go to Jail", new ImageIcon("images/goToJail.jpg"), 41, 1);
     private PropagandaOutlet pacificAv	     = new PropagandaOutlet("Pacific Av.", green, 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 5);
     private PropagandaOutlet nCarolinaAv     = new PropagandaOutlet("nCarolinaAv", green, 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 9);
-    private BoardCell	     commChest3      = new BoardCell       ("Community Chest", new ImageIcon("images/rightCommChest.jpg"), 41, 13);
+    private BoardCell	     commChestRight  = new BoardCell       ("Community Chest", new ImageIcon("images/rightCommChest.jpg"), 41, 13);
     private PropagandaOutlet pennsylvaniaAv  = new PropagandaOutlet("Pennsylvania Av.", green, 320, 28, 150, 450, 1000, 1200, 1400, 200, 41, 17);
     private Railroad         shortLineRR     = new Railroad        ("Short Line RR", new ImageIcon("images/shortLineRR.jpg"), 41, 21);
-    private BoardCell        chance3	     = new BoardCell       ("Chance", new ImageIcon("images/rightChance.jpg"), 41, 25);
+    private BoardCell        chanceRight     = new BoardCell       ("Chance", new ImageIcon("images/rightChance.jpg"), 41, 25);
     private PropagandaOutlet parkPlace       = new PropagandaOutlet("Park Place", darkBlue, 350, 35, 175, 500, 1100, 1300, 1500, 200, 41, 29);
     private BoardCell	     luxuryTax       = new BoardCell       ("Luxury Tax", luxTax, 41, 33);
     private PropagandaOutlet boardwalk       = new PropagandaOutlet("Boardwalk", darkBlue, 400, 50, 200, 600, 1400, 1700, 2000, 200, 41, 37);
@@ -124,7 +124,7 @@ public class IdeopolyGUI implements ActionListener {
     // hundreds more should surface.
     // TODO: Get actionlisteners implemented for the properties, so that I can mouseover them and have a picture of the property card pop up in the middle of the board.
 
-    final BoardCell boardProperties[] = { go, mediterraneanAv, commChest1, balticAv, incomeTax, readingRR, orientalAv, chance1, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChest2, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chance2, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChest3, pennsylvaniaAv, shortLineRR, chance3, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
+    final BoardCell boardProperties[] = { go, mediterraneanAv, commChestBottom, balticAv, incomeTax, readingRR, orientalAv, chanceBottom, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChestLeft, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chanceTop, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChestRight, pennsylvaniaAv, shortLineRR, chanceRight, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
 
     public  Player   player1 = new Player(1, this);
     public  Player   player2 = new Player(2, this);
@@ -311,8 +311,6 @@ public class IdeopolyGUI implements ActionListener {
 	    commChestCards.push(new CommunityChest(cardType));
 	}
 	// TODO: This should happen automatically - I shouldn't need to set images manually.
-	// HERE:
-
 	boardProperties[0].p1Pos.setImage(player1.getImage());
 	boardProperties[0].p2Pos.setImage(player2.getImage());
 	boardProperties[0].p3Pos.setImage(player3.getImage());
@@ -414,6 +412,11 @@ public class IdeopolyGUI implements ActionListener {
      *  by moving a player. */
     // TODO: Do I need the extra arguments here? Should be able to just provide p1 
     // and derive the rest later
+
+    // TODO: This logic should be moved into the Player class. This stuff has nothing to 
+    //       do with the GUI. When the player moves, I need to check where (s)he wants to
+    //       move and do actions accordingly. Currently, I'm just blindly moving the Player 
+    //       to a given spot.
     public void movePlayer(Player p, Player p2, Player p3, Player p4, int numCells) {
 	int landingSpot = p.getIndex() + numCells;
 
@@ -444,7 +447,6 @@ public class IdeopolyGUI implements ActionListener {
 		// Get the label at the player's current position,
 		// set it to no player present (since we're moving the player).
 		// TODO: Shouldn't need this big conditional statement to do this.
-		// HERE:
 		if (p == player1)
 		    p.getCell().p1Pos.setImage(new ImageIcon("images/noPlayerPresent.jpg"));
 		else if (p == player2)
@@ -475,16 +477,12 @@ public class IdeopolyGUI implements ActionListener {
 		    p.changeCell( landingSpot, this );
 
 		    // Player lands on a Community Chest card.
-		    if (    ( landingSpot >= 8   && landingSpot <= 11 )
-		         || ( landingSpot >= 68  && landingSpot <= 71 )
-			 || ( landingSpot >= 132 && landingSpot <= 135 ) ) {
+		    if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33) {
 			drawCommunityChest(p);
 		    }
 	    
 		    // Player lands on a Chance card.
-		    else if (    (landingSpot >= 28  && landingSpot <= 31 ) 
-			      || (landingSpot >= 88  && landingSpot <= 91 )
-			      || (landingSpot >= 144 && landingSpot <= 147)) {
+		    else if (landingSpot == 7 || landingSpot == 22 || landingSpot == 36) {
 			Chance card = chanceCards.pop();
 			card.doActions(p, this);
 		    }
@@ -592,6 +590,13 @@ public class IdeopolyGUI implements ActionListener {
 			}
 		    }
 		    // Player lands on a non-ownable property.
+		    // TODO: Is this neccessary? If not, I can get rid of a lot of code at 
+		    // the big conditional 
+		    // else if (    players[currentPlayer].getCell() == mediterraneanAv
+                    //           || players[currentPlayer].getCell() == balticAv
+		    // 	         || players[currentPlayer].getCell() == orientalAv
+		    // 	         || players[currentPlayer].getCell() == vermontAv
+
 		    else {
 			if (players[currentPlayer] == player1)
 			    buyProperty.setEnabled(false);
@@ -603,7 +608,6 @@ public class IdeopolyGUI implements ActionListener {
 	    }
 
 	    // TODO: Again, shouldn't need this huge conditional.
-	    // HERE:
 	    if (p == player1) {
 		p.getCell().p1Pos.setImage(p.getImage());
 	    }

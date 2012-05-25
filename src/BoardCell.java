@@ -46,17 +46,8 @@ public class BoardCell {
 
     /** Creates a BoardCell object, with the specified name, image, coordinates, and player standing 
      *  positions. Does not have an owner. There are no players standing on this object. */
-    // LEFTOFFHERE: Added this initial code for associating BoardPositions with BoardCells.
-    // Need to test it to make sure we get out correct x and y values (should be doable visually).
-    // Now that each BoardCell will have four BoardPositions associated with it, I need to review
-    // IdeopolyGUI and similar places to replace the old implementation (a meaningless linked list)
-    // with this new one.
-    //     ... 
-    // OK, so now the code compiles. Before I go ahead with doing the above stuff, it's time to scour
-    // the code for the duplicate stuff I can get rid of. There are several chunks that have been 
-    // commented out. See git commits for ideas. Then proceed with fixing bugs, etc.
-    // And I can also remove the duplicated, unneeded Chance functionality in IdeopolyGUI.
-    // Also do an isearch for "HERE:"
+    // TODO: Need to test BoardPositions to make sure we get out correct x and 
+    //       y values (should be doable visually).
 
     public BoardCell(String newName, Icon newImage, int xPos, int yPos) {
 	name	    = newName;
@@ -143,7 +134,7 @@ public class BoardCell {
     // TODO: Setters needed?
 
     // Start with these, add more if/where needed. Add specifics in inherited classes.
-    // LEFTOFFHERE: Implementing this class, so that I can make an array of BoardCells in the GUI class. TODO: Note that subclasses inherit public and protected, not private members.
+    // TODO: Note that subclasses inherit public and protected, not private members.
     // TODO: Implement those extra classes.
 
 
