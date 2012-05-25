@@ -67,7 +67,7 @@ public class Chance {
 
     /** Have the Player p carry out actions associated with a Chance card of this 
      * type, also using the players from the IdeopolyGUI gui when necessary. */
-    public void doActions(Player p, IdeopolyGUI gui) {
+    public void doActions(Player p, IdeopolyGUI gui) { // TODO: Rename this to drawCard() or something better.
     	switch (cardType) {
     	case 1:  // "Advance to Go (Collect $200)"
     	    p.changeCell(0, gui);
