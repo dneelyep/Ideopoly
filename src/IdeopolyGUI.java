@@ -485,7 +485,8 @@ public class IdeopolyGUI implements ActionListener {
 		    else if (    (landingSpot >= 28  && landingSpot <= 31 ) 
 			      || (landingSpot >= 88  && landingSpot <= 91 )
 			      || (landingSpot >= 144 && landingSpot <= 147)) {
-			drawChance(p);
+			Chance card = chanceCards.pop();
+			card.doActions(p, this);
 		    }
 
 		    // TODO: Make a separate method to handle this?
@@ -814,6 +815,7 @@ public class IdeopolyGUI implements ActionListener {
 
     /** Have Player p draw a Community Chest card. */
     // TODO: Should these methods be tied to the GUI class?
+    // TODO: Eventually, transfer this code over to the Community Chest class.
     public void drawCommunityChest(Player p) {
 	CommunityChest card = commChestCards.pop();
 
@@ -966,23 +968,5 @@ public class IdeopolyGUI implements ActionListener {
 
 	// TODO: Redirect this out to a GUI status element thing.
 	System.out.println(card.getText());
-    }
-
-    // TODO: Comment this out and move transfer functionality to the Chance class.
-    /** Have Player p draw a Chance card. */
-    public void drawChance(Player p) {
-	// LEFTOFFHERE: Did more refactoring. Should I have this behavior associated with the card
-	// objects rather than the GUI? Would make sense. The cards have a type with associated text,
-	// and they should cause certain behaviors when drawn. Plus it should clean up this file a
-	// bit, make things a bit more logical.
-
-	// TODO: And do I even need this drawChance() method now?
-
-	Chance card = chanceCards.pop();
-	// TODO: Review all of these, make sure the correct code's called when a person 
-	// lands on a cell. Right now, movement's looking ok, but I also need to 
-	// handle charging rent, buying properties, etc.
-
-	card.doActions(p, this);
     }
 }
