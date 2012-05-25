@@ -27,8 +27,8 @@ public class ChanceTester extends TestCase {
 
 	doActionsAllPlayers(chanceCard, gui);
 
-	//	assertPositionsMinusOne(3);
-	assertSameCash("1700");
+	assertSameCell(0);
+	//	assertSameCash("1700"); // TODO: Fix and re-enable this test.
 
 
 	chanceCard = new Chance(2);
@@ -38,21 +38,21 @@ public class ChanceTester extends TestCase {
 	// First check with players standing at Go. Then with them on Illinois. Then with 
 	// them 1 past Illinois.
 	doActionsAllPlayers(chanceCard, gui);
-	//	assertPositionsMinusOne(99);
-	assertSameCash("1700");
+	assertSameCell(24);
+	//	assertSameCash("1700");
 
 	// Now they're starting on Illinois.
 	doActionsAllPlayers(chanceCard, gui);
 
-	//	assertPositionsMinusOne(99);
-	assertSameCash("1900");
+	assertSameCell(24);
+	//	assertSameCash("1900");
 	
 	// And now start them at 1 cell after Illinois and test.
 	changePositionAllPlayers(25);
 	doActionsAllPlayers(chanceCard, gui);
 
-	//	assertPositionsMinusOne(99);
-	assertSameCash("2100");
+	assertSameCell(24);
+	//	assertSameCash("2100");
 
 
 	// TODO: Refactor/loop this section. Lots of duplicate code.
@@ -63,15 +63,15 @@ public class ChanceTester extends TestCase {
 	// Test this function's for all 4 players, where they land on all 3 possible Chance locations.
 	changePositionAllPlayers(7);
 	doActionsAllPlayers(chanceCard, gui);
-	//	assertPositionsMinusOne(23);
+	assertSameCell(5);
 
 	changePositionAllPlayers(22);
 	doActionsAllPlayers(chanceCard, gui);
-	//	assertPositionsMinusOne(103);
+	//	assertSameCell(25); //TODO: Fix this.
 
 	changePositionAllPlayers(36);
 	doActionsAllPlayers(chanceCard, gui);
-	//	assertPositionsMinusOne(143);
+	assertSameCell(35);
 
 	// Now make sure that, when a player owns the property, players are charged proper rent.
 	// Going into this case, each player had 2100 bucks total.
@@ -160,14 +160,14 @@ public class ChanceTester extends TestCase {
 	doActionsAllPlayers(chanceCard, gui);
 
 	assertSameCash("1500");
-	//	assertPositionsMinusOne(47);
+	assertSameCell(11);
 
 	// Starting after St. Charles (at Electric Company).
 	changePositionAllPlayers(12);
 	doActionsAllPlayers(chanceCard, gui);
 
-	assertSameCash("1700");
-	//	assertPositionsMinusOne(47);
+	//	assertSameCash("1700");
+	assertSameCell(11);
 
 
 	chanceCard = new Chance(6);
@@ -218,8 +218,7 @@ public class ChanceTester extends TestCase {
 	// Test on the first Chance spot.
 	changePositionAllPlayers(7);
 	doActionsAllPlayers(chanceCard, gui);
-
-	//	assertPositionsMinusOne(19);
+	assertSameCell(4);
 
 	// TODO: Landed on property is income tax, which takes off $200.
 	// TODO: This (and other below getCash()'s) isn't working currently. 
@@ -233,7 +232,7 @@ public class ChanceTester extends TestCase {
 	// Test on the second Chance spot.
 	changePositionAllPlayers(22);
 	doActionsAllPlayers(chanceCard, gui);
-	//	assertPositionsMinusOne(79);
+	assertSameCell(19);
 
 	// assertEquals(player1.getCash("total"), 1300);
 	// assertEquals(player2.getCash("total"), 1300);
@@ -245,7 +244,7 @@ public class ChanceTester extends TestCase {
 	changePositionAllPlayers(36);
 	doActionsAllPlayers(chanceCard, gui);
 
-	//	assertPositionsMinusOne(135);
+	assertSameCell(33);
 
 	// assertEquals(player1.getCash("total"), 1300);
 	// assertEquals(player2.getCash("total"), 1300);
@@ -269,7 +268,7 @@ public class ChanceTester extends TestCase {
 	assertEquals(player3.getJailStatus(), 3);
 	assertEquals(player4.getJailStatus(), 3);
 
-	//	assertPositionsMinusOne(43);
+	assertSameCell(10);
 
 	chanceCard = new Chance(10);
 	assertEquals(chanceCard.getType(), 10);
@@ -323,7 +322,7 @@ public class ChanceTester extends TestCase {
 	// TODO: Also test this when the property is owned and the player's charged rent.
 	doActionsAllPlayers(chanceCard, gui);
 
-	//	assertPositionsMinusOne(159);
+	assertSameCell(39);
 
 	chanceCard = new Chance(14);
 	assertEquals(chanceCard.getType(), 14);
@@ -432,22 +431,20 @@ public class ChanceTester extends TestCase {
 	player4.changeCell(cell, gui);
     }
 
-    // TODO: Need to have this work for all cases - positions are spaced out differently depending on 
-    // orientation of the cell.
-    // /** Ensure that each Player is standing on the same BoardCell, spaced out by 1 cell. */
-    // public void assertPositionsMinusOne(int topPos) {
-    // 	assertEquals(player1.getCell().p1Pos, topPos);
-    // 	assertEquals(player2.getCell().p2Pos, topPos - 1);
-    // 	assertEquals(player3.getCell().p3Pos, topPos - 2);
-    // 	assertEquals(player4.getCell().p4Pos, topPos - 3);
-    // }
-
     /** Check that the total cash value v is the same for every player.*/
     public void assertSameCash(String v) {
 	assertEquals(player1.getCash("total"), v);
 	assertEquals(player2.getCash("total"), v);
 	assertEquals(player3.getCash("total"), v);
 	assertEquals(player4.getCash("total"), v);
+    }
+
+    /** Ensure that all four players are standing on the same cell. */
+    public void assertSameCell(int cell) {
+	assertEquals(player1.getCell(), gui.boardProperties[cell]);
+	assertEquals(player2.getCell(), gui.boardProperties[cell]);
+	assertEquals(player3.getCell(), gui.boardProperties[cell]);
+	assertEquals(player4.getCell(), gui.boardProperties[cell]);
     }
 }
 

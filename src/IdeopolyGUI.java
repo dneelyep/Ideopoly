@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
-import java.util.Stack; // TODO: Remove this if it ends up not being needed.
+import java.util.Stack;
 
 // TODO: Add in Chance and Comm. Chest images.
 // TODO: Use the native look and feel for the program.
