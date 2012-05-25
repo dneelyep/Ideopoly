@@ -28,8 +28,7 @@ public class ChanceTester extends TestCase {
 	doActionsAllPlayers(chanceCard, gui);
 
 	assertSameCell(0);
-	//	assertSameCash("1700"); // TODO: Fix and re-enable this test.
-
+	assertSameCash("1700");
 
 	chanceCard = new Chance(2);
 	assertEquals(chanceCard.getType(), 2);
@@ -39,20 +38,21 @@ public class ChanceTester extends TestCase {
 	// them 1 past Illinois.
 	doActionsAllPlayers(chanceCard, gui);
 	assertSameCell(24);
-	//	assertSameCash("1700");
+	assertSameCash("1700");
 
-	// Now they're starting on Illinois.
+	// Now they're starting on Illinois. If this somehow occurs, we have the Player
+	// doing a trip around the board and picking up $200.
 	doActionsAllPlayers(chanceCard, gui);
 
 	assertSameCell(24);
-	//	assertSameCash("1900");
+	assertSameCash("1900");
 	
 	// And now start them at 1 cell after Illinois and test.
 	changePositionAllPlayers(25);
 	doActionsAllPlayers(chanceCard, gui);
 
 	assertSameCell(24);
-	//	assertSameCash("2100");
+	assertSameCash("2100");
 
 
 	// TODO: Refactor/loop this section. Lots of duplicate code.
@@ -67,7 +67,7 @@ public class ChanceTester extends TestCase {
 
 	changePositionAllPlayers(22);
 	doActionsAllPlayers(chanceCard, gui);
-	//	assertSameCell(25); //TODO: Fix this.
+	assertSameCell(25);
 
 	changePositionAllPlayers(36);
 	doActionsAllPlayers(chanceCard, gui);
@@ -78,7 +78,6 @@ public class ChanceTester extends TestCase {
 	gui.boardProperties[5].setOwner(gui.player1); // Reading RR
 	gui.boardProperties[25].setOwner(gui.player1); // B & O RR
 	gui.boardProperties[35].setOwner(gui.player2); // Short Line RR
-
 
 
 	// TODO: The below tests should work, I just need to solve the problem of knowing
@@ -166,7 +165,7 @@ public class ChanceTester extends TestCase {
 	changePositionAllPlayers(12);
 	doActionsAllPlayers(chanceCard, gui);
 
-	//	assertSameCash("1700");
+	assertSameCash("1700");
 	assertSameCell(11);
 
 
@@ -336,7 +335,7 @@ public class ChanceTester extends TestCase {
 	// doing actions on) the players associated with the GUI, rather than the player1/2/etc.
 	// that we're referring to in the tests here.
 	// Fix this problem and then re-enable the tests.
-	// chanceCard.doActions(player1, gui);
+	//chanceCard.doActions(player1, gui);
 	// assertEquals(player1.getCash("total"), "1350");
 	// assertEquals(player2.getCash("total"), "1550");
 	// assertEquals(player3.getCash("total"), "1550");

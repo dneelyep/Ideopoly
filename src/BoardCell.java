@@ -51,13 +51,12 @@ public class BoardCell {
     // Now that each BoardCell will have four BoardPositions associated with it, I need to review
     // IdeopolyGUI and similar places to replace the old implementation (a meaningless linked list)
     // with this new one.
-    // TODO: Update unit tests to account for this stuff.
     //     ... 
     // OK, so now the code compiles. Before I go ahead with doing the above stuff, it's time to scour
     // the code for the duplicate stuff I can get rid of. There are several chunks that have been 
-    // commented out. See git commits for ideas. Then proceed with fixing bugs, fixing tests, etc.
+    // commented out. See git commits for ideas. Then proceed with fixing bugs, etc.
     // And I can also remove the duplicated, unneeded Chance functionality in IdeopolyGUI.
-    // Also do an isearch for "old code". Should identify areas to remove. Also for "HERE:"
+    // Also do an isearch for "HERE:"
 
     public BoardCell(String newName, Icon newImage, int xPos, int yPos) {
 	name	    = newName;

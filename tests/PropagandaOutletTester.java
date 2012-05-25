@@ -21,7 +21,7 @@ public class PropagandaOutletTester extends TestCase {
 	assertEquals(testPropOutlet.getX(), 18);
 	assertEquals(testPropOutlet.getY(), 18);
 
-	// assertEquals(testPropOutlet.getNumHouses(), 0); TODO: Tests/methods for these?
+	//assertEquals(testPropOutlet.getNumHouses(), 0); TODO: Tests/methods for these?
 	// assertEquals(testPropOutlet.getNumHotels(), 0);
 	assertEquals(testPropOutlet.getCost(), 40);
 	// TODO: Test for mortgage value?

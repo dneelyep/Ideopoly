@@ -79,7 +79,7 @@ public class Chance {
     	    // Make this type of card into a function.
 
     	    // If the player's on B & O RR or after, give money.
-    	    if (p.getIndex() >= 25)
+    	    if (p.getIndex() >= 24)
     		p.addCash("hundreds", 2);
 
     	    p.changeCell(24, gui);
@@ -89,7 +89,7 @@ public class Chance {
 		p.changeCell(5, gui); // move to Reading RR.
 	    }
 	    else if (p.getCell() == gui.boardProperties[22]) { // Top Chance
-		p.changeCell(5, gui); // move to B & O RR.
+		p.changeCell(25, gui); // move to B & O RR.
 	    }
 	    else if (p.getCell() == gui.boardProperties[36]) { // Right Chance
 		p.changeCell(35, gui); // move to Short Line RR.

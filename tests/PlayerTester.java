@@ -244,84 +244,82 @@ public class PlayerTester extends TestCase {
 	// public void setPosition(int p)
 	// TODO: ^-- test ALL these.
 
-	// === Test changePosition() ===
-	// TODO: This was affected by BoardPosition switchover. Re-implement tests.
+	// === Test changeCell() ===
 	// TODO: Make sure to thoroughly test this function.
 	// Make sure a few normal cases work fine.
-	// testPlayer.changePosition(3);
-	// testPlayer2.changePosition(3);
-	// testPlayer3.changePosition(3);
-	// testPlayer4.changePosition(3);
-	// assertEquals(testPlayer.getPosition(),  3);
-	// assertEquals(testPlayer2.getPosition(), 2);
-	// assertEquals(testPlayer3.getPosition(), 1);
-	// assertEquals(testPlayer4.getPosition(), 0);
+	testPlayer.changeCell(0,  gui);
+	testPlayer2.changeCell(0, gui);
+	testPlayer3.changeCell(0, gui);
+	testPlayer4.changeCell(0, gui);
+	assertEquals(testPlayer.getCell(),  gui.boardProperties[0]);
+	assertEquals(testPlayer2.getCell(), gui.boardProperties[0]);
+	assertEquals(testPlayer3.getCell(), gui.boardProperties[0]);
+	assertEquals(testPlayer4.getCell(), gui.boardProperties[0]);
 
-	// testPlayer.changePosition(7);
-	// testPlayer2.changePosition(7);
-	// testPlayer3.changePosition(7);
-	// testPlayer4.changePosition(7);
-	// assertEquals(testPlayer.getPosition(),  7);
-	// assertEquals(testPlayer2.getPosition(), 6);
-	// assertEquals(testPlayer3.getPosition(), 5);
-	// assertEquals(testPlayer4.getPosition(), 4);
+	testPlayer.changeCell(1,  gui);
+	testPlayer2.changeCell(1, gui);
+	testPlayer3.changeCell(1, gui);
+	testPlayer4.changeCell(1, gui);
+	assertEquals(testPlayer.getCell(),  gui.boardProperties[1]);
+	assertEquals(testPlayer2.getCell(), gui.boardProperties[1]);
+	assertEquals(testPlayer3.getCell(), gui.boardProperties[1]);
+	assertEquals(testPlayer4.getCell(), gui.boardProperties[1]);
 
-	// testPlayer.changePosition(11);
-	// testPlayer2.changePosition(11);
-	// testPlayer3.changePosition(11);
-	// testPlayer4.changePosition(11);
-	// assertEquals(testPlayer.getPosition(),  11);
-	// assertEquals(testPlayer2.getPosition(), 10);
-	// assertEquals(testPlayer3.getPosition(),  9);
-	// assertEquals(testPlayer4.getPosition(),  8);
+	testPlayer.changeCell(2,  gui);
+	testPlayer2.changeCell(2, gui);
+	testPlayer3.changeCell(2, gui);
+	testPlayer4.changeCell(2, gui);
+	assertEquals(testPlayer.getCell(),  gui.boardProperties[2]);
+	assertEquals(testPlayer2.getCell(), gui.boardProperties[2]);
+	assertEquals(testPlayer3.getCell(), gui.boardProperties[2]);
+	assertEquals(testPlayer4.getCell(), gui.boardProperties[2]);
+
+	// NOTE: I removed previous test cases here. Previously, these tests checked to make 
+	//       sure, for example, that players 1 and 2 could not move to the same standing
+	//       position. Due to the new data model, that shouldn't be a problem. If I want to
+	//       reproduce those tests, just try to move two separate players to standing on the
+	//       same standing position.
 
 	// Then try incorrect cases.
-	// Players should not be allowed to changePosition() to an incorrect cell. This would
-	// lead to more than one Player standing on the same BoardPosition. Bad.
-	// testPlayer.changePosition(0);
-	// testPlayer2.changePosition(0);
-	// testPlayer3.changePosition(0);
-	// testPlayer4.changePosition(0);
-	// assertEquals(testPlayer.getPosition(),  11);
-	// assertEquals(testPlayer2.getPosition(), 10);
-	// assertEquals(testPlayer3.getPosition(),  9);
-	// assertEquals(testPlayer4.getPosition(),  8);
 
-	// testPlayer.changePosition(1);
-	// testPlayer2.changePosition(1);
-	// testPlayer3.changePosition(1);
-	// testPlayer4.changePosition(1);
-	// assertEquals(testPlayer.getPosition(),  11);
-	// assertEquals(testPlayer2.getPosition(), 10);
-	// assertEquals(testPlayer3.getPosition(),  9);
-	// assertEquals(testPlayer4.getPosition(),  8);
+	// Don't allow negative BoardCell arguments.
+	testPlayer.changeCell(-1, gui);
+	testPlayer.changeCell(-1, gui);
+	testPlayer.changeCell(-1, gui);
+	testPlayer.changeCell(-1, gui);
+	assertEquals(testPlayer.getCell(),  gui.boardProperties[2]);
+	assertEquals(testPlayer2.getCell(), gui.boardProperties[2]);
+	assertEquals(testPlayer3.getCell(), gui.boardProperties[2]);
+	assertEquals(testPlayer4.getCell(), gui.boardProperties[2]);
 
-	// testPlayer.changePosition(2);
-	// testPlayer2.changePosition(2);
-	// testPlayer3.changePosition(2);
-	// testPlayer4.changePosition(2);
-	// assertEquals(testPlayer.getPosition(),  11);
-	// assertEquals(testPlayer2.getPosition(), 10);
-	// assertEquals(testPlayer3.getPosition(),  9);
-	// assertEquals(testPlayer4.getPosition(),  8);
+	testPlayer.changeCell(-5, gui);
+	testPlayer.changeCell(-5, gui);
+	testPlayer.changeCell(-5, gui);
+	testPlayer.changeCell(-5, gui);
+	assertEquals(testPlayer.getCell(),  gui.boardProperties[2]);
+	assertEquals(testPlayer2.getCell(), gui.boardProperties[2]);
+	assertEquals(testPlayer3.getCell(), gui.boardProperties[2]);
+	assertEquals(testPlayer4.getCell(), gui.boardProperties[2]);
 
-	// testPlayer.changePosition(20);
-	// testPlayer2.changePosition(20);
-	// testPlayer3.changePosition(20);
-	// testPlayer4.changePosition(20);
-	// assertEquals(testPlayer.getPosition(),  11);
-	// assertEquals(testPlayer2.getPosition(), 10);
-	// assertEquals(testPlayer3.getPosition(),  9);
-	// assertEquals(testPlayer4.getPosition(),  8);
+	// And check to make sure we can't move beyond the edge of the board.
+	testPlayer.changeCell(40, gui);
+	testPlayer.changeCell(40, gui);
+	testPlayer.changeCell(40, gui);
+	testPlayer.changeCell(40, gui);
+	assertEquals(testPlayer.getCell(),  gui.boardProperties[2]);
+	assertEquals(testPlayer2.getCell(), gui.boardProperties[2]);
+	assertEquals(testPlayer3.getCell(), gui.boardProperties[2]);
+	assertEquals(testPlayer4.getCell(), gui.boardProperties[2]);
 
-	// testPlayer.changePosition(19);
-	// testPlayer2.changePosition(19);
-	// testPlayer3.changePosition(19);
-	// testPlayer4.changePosition(19);
-	// assertEquals(testPlayer.getPosition(),  19);
-	// assertEquals(testPlayer2.getPosition(), 18);
-	// assertEquals(testPlayer3.getPosition(), 17);
-	// assertEquals(testPlayer4.getPosition(), 16);
+	testPlayer.changeCell(55, gui);
+	testPlayer.changeCell(55, gui);
+	testPlayer.changeCell(55, gui);
+	testPlayer.changeCell(55, gui);
+	assertEquals(testPlayer.getCell(),  gui.boardProperties[2]);
+	assertEquals(testPlayer2.getCell(), gui.boardProperties[2]);
+	assertEquals(testPlayer3.getCell(), gui.boardProperties[2]);
+	assertEquals(testPlayer4.getCell(), gui.boardProperties[2]);
+
 
 	// === Test putInJail() ===
 	testPlayer.putInJail(gui);
@@ -333,14 +331,13 @@ public class PlayerTester extends TestCase {
 	testPlayer3.putInJail(gui);
 	testPlayer4.putInJail(gui);
 
-	// TODO: Fix these tests that previously relied on getPosition()
-	//	assertEquals(testPlayer.getPosition(),    43);
+	assertEquals(testPlayer.getCell(),  gui.boardProperties[10]);
 	assertEquals(testPlayer.getJailStatus(),  3);
-	//	assertEquals(testPlayer2.getPosition(),   42);
+	assertEquals(testPlayer2.getCell(), gui.boardProperties[10]);
 	assertEquals(testPlayer2.getJailStatus(), 3);
-	//	assertEquals(testPlayer3.getPosition(),   41);
+	assertEquals(testPlayer3.getCell(), gui.boardProperties[10]);
 	assertEquals(testPlayer3.getJailStatus(), 3);
-	//	assertEquals(testPlayer4.getPosition(),   40);
+	assertEquals(testPlayer4.getCell(), gui.boardProperties[10]);
 	assertEquals(testPlayer4.getJailStatus(), 3);
     }
 }

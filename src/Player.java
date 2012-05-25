@@ -167,8 +167,14 @@ public class Player {
      *  to move to. For example, changePosition(3) will move any player to the 4th
      *  BoardCell on the board. */
     public void changeCell(int index, IdeopolyGUI gui) { // TODO: Better function name.
-	currentCell = gui.boardProperties[index];
-	cellIndex = index;
+	// Only allow valid indexes.
+	if (index < 0 || index > 39) {
+	    System.out.println("Error! That cell is outside the bounds of valid cells!");
+	}
+	else {
+	    currentCell = gui.boardProperties[index];
+	    cellIndex = index;
+	}
     }
 
     /** Change this player's amount a of currency type t. */
