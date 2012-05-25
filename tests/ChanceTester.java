@@ -332,14 +332,16 @@ public class ChanceTester extends TestCase {
 	player3 = new Player(3, gui);
 	player4 = new Player(4, gui);
 	// TODO: I think the problem here is that Chance.java's doActions() is referring to (and 
-	// doing actions on) the players associated with the GUI, rather than the player1/2/etc.
-	// that we're referring to in the tests here.
+	// doing actions on) the players associated with the GUI. The players I create here are
+	// not the same Players as player1/2/3/4 in gui.
 	// Fix this problem and then re-enable the tests.
-	//chanceCard.doActions(player1, gui);
-	// assertEquals(player1.getCash("total"), "1350");
-	// assertEquals(player2.getCash("total"), "1550");
-	// assertEquals(player3.getCash("total"), "1550");
-	// assertEquals(player4.getCash("total"), "1550");
+	chanceCard.doActions(player1, gui);
+	assertEquals(player1.getCash("total"), "1350");
+	assertEquals(player2.getCash("total"), "1550");
+	// Was 1500
+
+	//assertEquals(player3.getCash("total"), "1550");
+	//	assertEquals(player4.getCash("total"), "1550");
 
 	// chanceCard.doActions(player2, gui);
 	// assertEquals(player1.getCash("total"), "1400");

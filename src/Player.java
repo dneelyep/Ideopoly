@@ -335,10 +335,10 @@ public class Player {
 
 		    fiveHundreds = actualValues[5];
 		    hundreds     = actualValues[1];
-		    fifties	     = actualValues[2];
+		    fifties      = actualValues[2];
 		    twenties     = actualValues[3];
-		    tens	     = actualValues[4];
-		    fives	     = actualValues[0];
+		    tens         = actualValues[4];
+		    fives        = actualValues[0];
 		    ones         = actualValues[6];
 		}
 	    }

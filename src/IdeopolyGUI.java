@@ -57,9 +57,6 @@ public class IdeopolyGUI implements ActionListener {
     public  JButton	useGOOJFCard		= new JButton("Use get out of jail free card");
     private JLabel      status                  = new JLabel ("Status:");
 
-    /** Represents the player whose turn it currently is to roll. 0-3. */
-    private int currentPlayer = 0;
-
     // Create the game board.
     private Icon             darkBlue        = new ImageIcon       ("images/darkBlueTemplate.jpg");
     private Icon             green           = new ImageIcon       ("images/greenTemplate.jpg");
@@ -125,6 +122,9 @@ public class IdeopolyGUI implements ActionListener {
     // TODO: Get actionlisteners implemented for the properties, so that I can mouseover them and have a picture of the property card pop up in the middle of the board.
 
     final BoardCell boardProperties[] = { go, mediterraneanAv, commChestBottom, balticAv, incomeTax, readingRR, orientalAv, chanceBottom, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChestLeft, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chanceTop, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChestRight, pennsylvaniaAv, shortLineRR, chanceRight, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
+
+    /** Represents the player whose turn it currently is to roll. 0-3. */
+    private int currentPlayer = 0;
 
     public  Player   player1 = new Player(1, this);
     public  Player   player2 = new Player(2, this);
@@ -360,18 +360,14 @@ public class IdeopolyGUI implements ActionListener {
 		    players[currentPlayer].spreadCash(500);
 		    players[currentPlayer].setInJail(0);
 
-		    if (currentPlayer == 0) {
+		    if (currentPlayer == 0)
 			movePlayer(player1, player2, player3, player4, roll);
-		    }
-		    else if (currentPlayer == 1) {
+		    else if (currentPlayer == 1)
 			movePlayer(player2, player1, player3, player4, roll);
-		    }
-		    else if (currentPlayer == 2) {
+		    else if (currentPlayer == 2)
 			movePlayer(player3, player2, player1, player4, roll);
-		    }
-		    else if (currentPlayer == 3) {
+		    else if (currentPlayer == 3)
 			movePlayer(player4, player2, player3, player1, roll);
-		    }
 		}
 	    }
 
@@ -456,7 +452,7 @@ public class IdeopolyGUI implements ActionListener {
 		else if (p == player4)
 		    p.getCell().p4Pos.setImage(new ImageIcon("images/noPlayerPresent.jpg"));
 
-		// The player is about to overshoot Go.
+		// The player is about to land on/overshoot Go.
 		// TODO: Test to ensure that this is the correct cell. I think it's right but not positive.
 		// TODO: Could I just remove p.getIndex() >= 34 and have the same thing?
 		if (landingSpot > 39) {
@@ -488,6 +484,8 @@ public class IdeopolyGUI implements ActionListener {
 		// TODO: Make this so that the above checks to see if I land on a non-ownable property.
 		// So if I land on an ownable property, there shouldn't be a need for the following big
 		// conditional and such.
+		// The other non-ownable properties are: Income tax, In Jail, Free Parking, and Luxury Tax.
+		// LEFTOFFHERE: Working on the above stuff.
 		else {
 		    p.changeCell(landingSpot, this);
 
@@ -593,14 +591,8 @@ public class IdeopolyGUI implements ActionListener {
 			    }
 			}
 		    }
-		    // Player lands on a non-ownable property.
-		    // TODO: Is this neccessary? If not, I can get rid of a lot of code at 
-		    // the big conditional 
-		    // else if (    players[currentPlayer].getCell() == mediterraneanAv
-                    //           || players[currentPlayer].getCell() == balticAv
-		    // 	         || players[currentPlayer].getCell() == orientalAv
-		    // 	         || players[currentPlayer].getCell() == vermontAv
 
+		    // Player lands on a non-ownable property.
 		    else {
 			if (players[currentPlayer] == player1)
 			    buyProperty.setEnabled(false);

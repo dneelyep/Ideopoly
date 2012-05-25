@@ -182,17 +182,21 @@ public class Chance {
     		p.spreadCash(50);
     		p.addCash("fifties", -3);
 
-    		if      (p == gui.player1)
-    		    morePlayers = new Player[] {gui.player2, gui.player3, gui.player4};
-    		else if (p == gui.player2)
+		// LEFTOFFHERE: Fixing case 14 in chancetester. now this method is identifying
+		// p correctly. Now to have it set the morePlayers[] array correctly. See line
+		// ~330 in chancetester.
+    		if      (p.getName() == "Player 1 (H)")
+   		    morePlayers = new Player[] {gui.player2, gui.player3, gui.player4};
+		else if (p.getName() == "Player 2 (C)")
     		    morePlayers = new Player[] {gui.player1, gui.player3, gui.player4};
-    		else if (p == gui.player3)
+    		else if (p.getName() == "Player 3 (C)")
     		    morePlayers = new Player[] {gui.player1, gui.player2, gui.player4};
-    		else // if (p == gui.player4) TODO: Shouldn't allow this for all cases.
+    		else // if (p == gui.player4) // TODO: Shouldn't allow this for all cases.
     		    morePlayers = new Player[] {gui.player1, gui.player2, gui.player3};
 
-    		for (Player iterPlayer : morePlayers) {
-    		    iterPlayer.addCash("fifties", 1);
+    		for (Player i : morePlayers) {
+    		    i.addCash("fifties", 1);
+		    System.out.println(i.getName());
     		}
 
     		p.spreadCash(500);
