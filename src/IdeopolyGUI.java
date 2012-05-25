@@ -695,13 +695,6 @@ public class IdeopolyGUI implements ActionListener {
 	}
     }
 
-    // TODO: Old code, should be able to remove. Useless now.
-    // /** Given a Player p and that player's location, return the cell the player is standing on. */
-    // // TODO: This sounds like a method that should belong to the Player class.
-    // private BoardCell getLocation(Player p) {
-    // 	return boardProperties[p.getPosition() / 4];
-    // }
-
     /** Put a given player in jail. */
     private void putInJail(Player p) {
 	// TODO: Make a visual indicator for when a person's in jail. 
