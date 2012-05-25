@@ -70,7 +70,7 @@ public class Chance {
     public void doActions(Player p, IdeopolyGUI gui) {
     	switch (cardType) {
     	case 1:  // "Advance to Go (Collect $200)"
-    	    p.changeCell(gui.boardProperties[0], 0);
+    	    p.changeCell(0, gui);
     	    p.addCash("hundreds", 2);
     	    break;
     	case 2:  //"Advance to Illinois Ave - if you pass Go, collect $200"
@@ -82,17 +82,17 @@ public class Chance {
     	    if (p.getIndex() >= 25)
     		p.addCash("hundreds", 2);
 
-    	    p.changeCell(gui.boardProperties[24], 24);
+    	    p.changeCell(24, gui);
     	    break;
     	case 3:  //"Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
 	    if (p.getCell() == gui.boardProperties[7]) { // Bottom Chance
-		p.changeCell(gui.boardProperties[5], 5); // move to Reading RR.
+		p.changeCell(5, gui); // move to Reading RR.
 	    }
 	    else if (p.getCell() == gui.boardProperties[22]) { // Top Chance
-		p.changeCell(gui.boardProperties[25], 25); // move to B & O RR.
+		p.changeCell(5, gui); // move to B & O RR.
 	    }
 	    else if (p.getCell() == gui.boardProperties[36]) { // Right Chance
-		p.changeCell(gui.boardProperties[35], 35); // move to Short Line RR.
+		p.changeCell(35, gui); // move to Short Line RR.
 	    }
 	    else {
 		System.out.println("Error! Apparently you tried to do the actions on a Chance card 3, but you weren't standing on a Chance space to begin with.");
@@ -112,7 +112,7 @@ public class Chance {
     	    if (p.getIndex() >= 12)
     		p.addCash("hundreds", 2);
 
-    	    p.changeCell(gui.boardProperties[11], 11);
+    	    p.changeCell(11, gui);
     	    break;
 
     	case 6:  //"Bank pays you dividend of $50"
@@ -122,7 +122,7 @@ public class Chance {
     	    p.giveGOOJF();
     	    break;
     	case 8:  //"Go back 3 spaces"
-    	    p.changeCell(gui.boardProperties[p.getIndex() - 3], (p.getIndex() - 3));
+    	    p.changeCell((p.getIndex() - 3), gui);
     	    // TODO: Then call onland function.
     	    // TODO: Or just call movePlayer() ?
 	    // TODO: Should I use changePosition() instead for some reason?
@@ -162,12 +162,12 @@ public class Chance {
     	    if (p.getIndex() >= 6)
     		p.addCash("hundreds", 2);
 
-    	    p.changeCell(gui.boardProperties[5], 5);
+    	    p.changeCell(5, gui);
     	    // TODO: And then onland function.
     	    break;
 
     	case 13: //"Take a walk on the Boardwalk – advance token to Boardwalk"
-    	    p.changeCell(gui.boardProperties[39], 5);
+    	    p.changeCell(39, gui);
     	    //TODO: And then call the onland function for boardwalk.
     	    break;
     	case 14: //"You have been elected chairman of the board – pay each player $50"

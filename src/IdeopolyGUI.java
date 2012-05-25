@@ -464,7 +464,7 @@ public class IdeopolyGUI implements ActionListener {
 		if ( p.getIndex() >= 34 && (p.getIndex() + numCells >= 40) ) {
 		    // TODO: Try to clarify what's happening here. Could probably simplify it.
 		    // TODO: If circular linked list works, this conditional should be unneeded.
-		    p.changeCell(boardProperties[landingSpot - 40], (landingSpot - 40));
+		    p.changeCell((landingSpot - 40), this);
 		    p.addCash("hundreds", 2); // Give 200 bucks for passing Go.
 		}
 
@@ -476,7 +476,7 @@ public class IdeopolyGUI implements ActionListener {
 		// Regular move - not overshooting Go or landing on Go to Jail. 
 		// Just move forward 4 spaces.
 		else {
-		    p.changeCell( boardProperties[landingSpot], landingSpot );
+		    p.changeCell( landingSpot, this );
 
 		    // Player lands on a Community Chest card.
 		    if (    ( landingSpot >= 8   && landingSpot <= 11 )
@@ -705,7 +705,7 @@ public class IdeopolyGUI implements ActionListener {
 	if (p == player1 && p.getNumGOOJFCards() > 0) {
 	    useGOOJFCard.setEnabled(true);
 	}
-	p.changeCell(boardProperties[10], 10);
+	p.changeCell(10, this);
 	p.setInJail(3);
     }
 
@@ -824,7 +824,7 @@ public class IdeopolyGUI implements ActionListener {
 	switch ( card.getType() ) {
 
 	case 1: // "Advance to Go (Collect $200)"
-	    p.changeCell(boardProperties[0], 0);
+	    p.changeCell(0, this);
 	    p.addCash("hundreds", 2);
 	    break;
 	case 2:	// "Bank error in your favor – collect $200"
@@ -988,7 +988,7 @@ public class IdeopolyGUI implements ActionListener {
 	switch ( card.getType() ) {
 
 	case 1:  // "Advance to Go (Collect $200)"
-	    p.changeCell(boardProperties[0], 0);
+	    p.changeCell(0, this);
 	    p.addCash("hundreds", 2);
 	    break;
 	case 2:  //"Advance to Illinois Ave - if you pass Go, collect $200"
@@ -1000,7 +1000,7 @@ public class IdeopolyGUI implements ActionListener {
 	    if (p.getIndex() >= 25)
 		p.addCash("hundreds", 2);
 
-    	    p.changeCell(boardProperties[24], 24);
+    	    p.changeCell(24, this);
     	    break;
 	case 3:  //"Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
 	    // TODO: Implement this.
@@ -1014,7 +1014,7 @@ public class IdeopolyGUI implements ActionListener {
 	    if (p.getIndex() >= 11)
 		p.addCash("hundreds", 2);
 
-	    p.changeCell(boardProperties[11], 11);
+	    p.changeCell(11, this);
 	    break;
 
 	case 6:  //"Bank pays you dividend of $50"
@@ -1024,7 +1024,7 @@ public class IdeopolyGUI implements ActionListener {
 	    p.giveGOOJF();
 	    break;
 	case 8:  //"Go back 3 spaces"
-	    p.changeCell(boardProperties[p.getIndex() - 3], (p.getIndex() - 3) );
+	    p.changeCell((p.getIndex() - 3), this);
 	    // TODO: Then call onland function.
 	    // TODO: Or just call movePlayer() ?
 	    break;
@@ -1063,11 +1063,11 @@ public class IdeopolyGUI implements ActionListener {
 	    if (p.getIndex() >= 6)
 		p.addCash("hundreds", 2);
 
-	    p.changeCell(boardProperties[5], 5);
+	    p.changeCell(5, this);
 	    // TODO: And then onland function.
 	    break;
 	case 13: //"Take a walk on the Boardwalk – advance token to Boardwalk"
-	    p.changeCell(boardProperties[39], 39);
+	    p.changeCell(39, this);
 	    //TODO: And then call the onland function for boardwalk.
 	    break;
 	case 14: //"You have been elected chairman of the board – pay each player $50"

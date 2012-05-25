@@ -48,7 +48,7 @@ public class ChanceTester extends TestCase {
 	assertSameCash("1900");
 	
 	// And now start them at 1 cell after Illinois and test.
-	changePositionAllPlayers(gui.boardProperties[25], 25);
+	changePositionAllPlayers(25);
 	doActionsAllPlayers(chanceCard, gui);
 
 	//	assertPositionsMinusOne(99);
@@ -61,15 +61,15 @@ public class ChanceTester extends TestCase {
 	assertEquals(chanceCard.getText(), "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.");
 	// TODO: Test the 10x amount thrown part. And the may buy it part.
 	// Test this function's for all 4 players, where they land on all 3 possible Chance locations.
-	changePositionAllPlayers(gui.boardProperties[7], 7);
+	changePositionAllPlayers(7);
 	doActionsAllPlayers(chanceCard, gui);
 	//	assertPositionsMinusOne(23);
 
-	changePositionAllPlayers(gui.boardProperties[22], 22);
+	changePositionAllPlayers(22);
 	doActionsAllPlayers(chanceCard, gui);
 	//	assertPositionsMinusOne(103);
 
-	changePositionAllPlayers(gui.boardProperties[36], 36);
+	changePositionAllPlayers(36);
 	doActionsAllPlayers(chanceCard, gui);
 	//	assertPositionsMinusOne(143);
 
@@ -156,14 +156,14 @@ public class ChanceTester extends TestCase {
 	// Test when we start before/after St. Charles. Impossible to start at St. Charles (no
 	// Chance card there), so we don't test that.
 	// Starting before St. Charles (at Go).
-	changePositionAllPlayers(gui.boardProperties[0], 0);
+	changePositionAllPlayers(0);
 	doActionsAllPlayers(chanceCard, gui);
 
 	assertSameCash("1500");
 	//	assertPositionsMinusOne(47);
 
 	// Starting after St. Charles (at Electric Company).
-	changePositionAllPlayers(gui.boardProperties[12], 12);
+	changePositionAllPlayers(12);
 	doActionsAllPlayers(chanceCard, gui);
 
 	assertSameCash("1700");
@@ -216,7 +216,7 @@ public class ChanceTester extends TestCase {
 	player4 = new Player(4, gui);
 
 	// Test on the first Chance spot.
-	changePositionAllPlayers(gui.boardProperties[7], 7);
+	changePositionAllPlayers(7);
 	doActionsAllPlayers(chanceCard, gui);
 
 	//	assertPositionsMinusOne(19);
@@ -231,7 +231,7 @@ public class ChanceTester extends TestCase {
 
 
 	// Test on the second Chance spot.
-	changePositionAllPlayers(gui.boardProperties[22], 22);
+	changePositionAllPlayers(22);
 	doActionsAllPlayers(chanceCard, gui);
 	//	assertPositionsMinusOne(79);
 
@@ -242,7 +242,7 @@ public class ChanceTester extends TestCase {
 
 
 	// Test on the third (and last) Chance spot.
-	changePositionAllPlayers(gui.boardProperties[36], 36);
+	changePositionAllPlayers(36);
 	doActionsAllPlayers(chanceCard, gui);
 
 	//	assertPositionsMinusOne(135);
@@ -295,23 +295,23 @@ public class ChanceTester extends TestCase {
 	assertEquals(chanceCard.getType(), 12);
 	assertEquals(chanceCard.getText(), "Take a trip to Reading Railroad – if you pass Go, collect $200");
 
-	player1.changeCell(gui.boardProperties[0], 0);  // Test when we start on Go.
+	player1.changeCell(0, gui);  // Test when we start on Go.
 	chanceCard.doActions(player1, gui);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), "1485");
 
-	player1.changeCell(gui.boardProperties[3], 3); // Test when we start before Reading RR (Baltic Av. here).
+	player1.changeCell(3, gui); // Test when we start before Reading RR (Baltic Av. here).
 	chanceCard.doActions(player1, gui);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), "1485");
 
-	player1.changeCell(gui.boardProperties[5], 5); // Test when we start on Reading RR.
+	player1.changeCell(5, gui); // Test when we start on Reading RR.
 	chanceCard.doActions(player1, gui);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), "1485"); // TODO: Should this count as passing
 	// Go? Even though doing this is impossible by the game's rules...
 
-	player1.changeCell(gui.boardProperties[6], 6); // Test when we start after Reading RR.
+	player1.changeCell(6, gui); // Test when we start after Reading RR.
 	chanceCard.doActions(player1, gui);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), "1685");
@@ -425,11 +425,11 @@ public class ChanceTester extends TestCase {
 	card.doActions(player4, gui);
     }
 
-    public void changePositionAllPlayers(BoardCell cell, int index) {
-	player1.changeCell(cell, index);
-	player2.changeCell(cell, index);
-	player3.changeCell(cell, index);
-	player4.changeCell(cell, index);
+    public void changePositionAllPlayers(int cell) {
+	player1.changeCell(cell, gui);
+	player2.changeCell(cell, gui);
+	player3.changeCell(cell, gui);
+	player4.changeCell(cell, gui);
     }
 
     // TODO: Need to have this work for all cases - positions are spaced out differently depending on 

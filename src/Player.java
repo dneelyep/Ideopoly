@@ -166,9 +166,8 @@ public class Player {
     /** Move this player to a given position q. q refers to the cell the Player wants 
      *  to move to. For example, changePosition(3) will move any player to the 4th
      *  BoardCell on the board. */
-    // TODO: Just pass in a single value, and have that be boardProperties[q] and index = q.
-    public void changeCell(BoardCell q, int index) { // TODO: Better function name.
-	currentCell = q;
+    public void changeCell(int index, IdeopolyGUI gui) { // TODO: Better function name.
+	currentCell = gui.boardProperties[index];
 	cellIndex = index;
     }
 
@@ -488,7 +487,7 @@ public class Player {
 	if (name == "Player 1 (H)" && GOOJFCards > 0) {
 	    gui.useGOOJFCard.setEnabled(true);
 	}
-	changeCell(gui.boardProperties[10], 10);
+	changeCell(10, gui);
 	// TODO: Seems kind of pointless to have two separate methods for this...
 	setInJail(3);
     }

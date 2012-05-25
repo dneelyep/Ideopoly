@@ -56,7 +56,6 @@ public class BoardCell {
     // OK, so now the code compiles. Before I go ahead with doing the above stuff, it's time to scour
     // the code for the duplicate stuff I can get rid of. There are several chunks that have been 
     // commented out. See git commits for ideas. Then proceed with fixing bugs, fixing tests, etc.
-    // See Player.java's changeCell() for a quick fix.
     // And I can also remove the duplicated, unneeded Chance functionality in IdeopolyGUI.
     // Also do an isearch for "old code". Should identify areas to remove. Also for "HERE:"
 
