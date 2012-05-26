@@ -48,7 +48,7 @@ public class ChanceTester extends TestCase {
 	assertSameCash("1900");
 	
 	// And now start them at 1 cell after Illinois and test.
-	changePositionAllPlayers(25);
+	changeCellAllPlayers(25);
 	doActionsAllPlayers(chanceCard, gui);
 
 	assertSameCell(24);
@@ -62,15 +62,15 @@ public class ChanceTester extends TestCase {
 	// TODO: Test the 10x amount thrown part. And the may buy it part.
 	// Test this function's for all 4 players, where they land on all 3 possible Chance locations.
 	// TODO: This is landing the people on the Railroads rather than the utilities...
-	changePositionAllPlayers(7);
+	changeCellAllPlayers(7);
 	doActionsAllPlayers(chanceCard, gui);
 	assertSameCell(12);
 
-	changePositionAllPlayers(22);
+	changeCellAllPlayers(22);
 	doActionsAllPlayers(chanceCard, gui);
 	assertSameCell(28);
 
-	changePositionAllPlayers(36);
+	changeCellAllPlayers(36);
 	doActionsAllPlayers(chanceCard, gui);
 	assertSameCell(28);
 
@@ -149,14 +149,14 @@ public class ChanceTester extends TestCase {
 	// Test when we start before/after St. Charles. Impossible to start at St. Charles (no
 	// Chance card there), so we don't test that.
 	// Starting before St. Charles (at Go).
-	changePositionAllPlayers(0);
+	changeCellAllPlayers(0);
 	doActionsAllPlayers(chanceCard, gui);
 
 	assertSameCash("1500");
 	assertSameCell(11);
 
 	// Starting after St. Charles (at Electric Company).
-	changePositionAllPlayers(12);
+	changeCellAllPlayers(12);
 	doActionsAllPlayers(chanceCard, gui);
 
 	assertSameCash("1700");
@@ -209,7 +209,7 @@ public class ChanceTester extends TestCase {
 	player4 = new Player(4, gui);
 
 	// Test on the first Chance spot.
-	changePositionAllPlayers(7);
+	changeCellAllPlayers(7);
 	doActionsAllPlayers(chanceCard, gui);
 	assertSameCell(4);
 
@@ -223,7 +223,7 @@ public class ChanceTester extends TestCase {
 
 
 	// Test on the second Chance spot.
-	changePositionAllPlayers(22);
+	changeCellAllPlayers(22);
 	doActionsAllPlayers(chanceCard, gui);
 	assertSameCell(19);
 
@@ -234,7 +234,7 @@ public class ChanceTester extends TestCase {
 
 
 	// Test on the third (and last) Chance spot.
-	changePositionAllPlayers(36);
+	changeCellAllPlayers(36);
 	doActionsAllPlayers(chanceCard, gui);
 
 	assertSameCell(33);
@@ -415,7 +415,8 @@ public class ChanceTester extends TestCase {
 	card.doActions(player4, gui, player1, player2, player3);
     }
 
-    public void changePositionAllPlayers(int cell) {
+    /** Move all players to the same BoardCell on the gui. */
+    public void changeCellAllPlayers(int cell) {
 	player1.changeCell(cell, gui);
 	player2.changeCell(cell, gui);
 	player3.changeCell(cell, gui);

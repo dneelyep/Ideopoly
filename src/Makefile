@@ -7,8 +7,8 @@ CLASSPATH  = /home/daniel/Desktop/School_Files/CECS_220/Assignment_5/bin:/home/d
 all:
 	javac -cp $(CLASSPATH) $(JFLAGS) -d ../bin $(SRC) # Compile source files.
 
-	java -cp $(CLASSPATH) org.junit.runner.JUnitCore BoardCellTester BoardPositionTester CashCellTester ChanceTester CharacterSelectTester CommunityChestTester IdeopolyGUITester MenuTester PlayerTester PropagandaOutletTester RailroadTester # Run tests.o
+	java -cp $(CLASSPATH) org.junit.runner.JUnitCore BoardCellTester BoardPositionTester CashCellTester ChanceTester CharacterSelectTester CommunityChestTester IdeopolyGUITester MenuTester PlayerTester PropagandaOutletTester RailroadTester # Run tests.
 
 	java -cp $(CLASSPATH) -jar /home/daniel/findbugs-2.0.0/lib/findbugs.jar -textui -emacs $(CLASS)                                                           # Check for static analysis bugs.
 docs: # Regenerate my javadoc stuff.
-	javadoc -d javadoc -author $(SRC)
+	javadoc -d javadoc -author -classpath $(CLASSPATH) $(SRC)
