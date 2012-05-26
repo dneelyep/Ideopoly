@@ -122,6 +122,11 @@ public class IdeopolyGUI implements ActionListener {
     // hundreds more should surface.
     // TODO: Get actionlisteners implemented for the properties, so that I can mouseover them and have a picture of the property card pop up in the middle of the board.
 
+    // TODO: Consider making this an enum. Enumerations are apparently a fixed list of constants,
+    //       and that's what this array is.
+    // TODO: Also, see file:///home/daniel/Desktop/aaa-TIJ3-distribution/TIJ3.htm and then
+    //       "Downcasting vs. templates/generics" for how to get the original class back out
+    //       of this array. This should help solve some problems I was having before. See above TODO.
     final BoardCell boardProperties[] = { go, mediterraneanAv, commChestBottom, balticAv, incomeTax, readingRR, orientalAv, chanceBottom, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChestLeft, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chanceTop, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChestRight, pennsylvaniaAv, shortLineRR, chanceRight, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
 
     /** Represents the player whose turn it currently is to roll. 0-3. */

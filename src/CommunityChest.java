@@ -72,5 +72,42 @@ public class CommunityChest {
     /** Have the Player p carry out actions associated with 
      *  a Community Chest card of this type. */
     public void doActions(Player p, IdeopolyGUI gui) { // TODO: Rename this to drawCard() or something better.
+	switch (this.cardType) {
+	    case 1: p.changeCell(0, gui); // "Advance to Go (Collect $200)"
+		p.addCash("hundreds", 2);
+		break;
+            case 2: p.addCash("hundreds", 2);  // "Bank error in your favor – collect $200"
+		break;
+	    case 3:   // "Doctor's fees – Pay $50"
+		break;
+	    case 4:   // "Get Out of Jail Free – this card may be kept until needed, or sold.
+		break;
+	    case 5:   // "Go to Jail – go directly to jail – Do not pass Go, do not collect $200");
+		break;
+	    case 6:   // "It is your birthday - Collect $10 from each player"
+		break;
+	    case 7:   // "Grand Opera Night – collect $50 from every player for opening night seats"
+		break;
+	    case 8: p.addCash("tens", 2);  // "Income Tax refund – collect $20"
+		break;
+	    case 9:   // "Life Insurance Matures – collect $100"
+		break;
+	    case 10:  // "Pay Hospital Fees of $100"
+		break;
+	    case 11: // "Pay School Fees of $50"
+		break;
+	    case 12: // "Receive $25 Consultancy Fee"
+		break;
+	    case 13: // "You are assessed for street repairs – $40 per house, $115 per hotel"
+		break;
+	    case 14: // "You have won second prize in a beauty contest– collect $10"
+		break;
+	    case 15: // "You inherit $100"
+		break;
+	    case 16: // "From sale of stock you get $50"
+		break;
+	    case 17: // "Holiday Fund matures - Receive $100"
+		break;
+	}
     }
 }

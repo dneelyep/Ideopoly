@@ -404,10 +404,10 @@ public class ChanceTester extends TestCase {
     // ===============
     // Helper methods.
     // ===============
-
-    // TODO: Javadocs for these methods
     // TODO: Reduce the excessive amount of arguments here. For example, just require 'gui',
     // then use gui.player1/2/3/4, etc. Can also get rid of gui probably.
+    // TODO: Can I remove the gui argument here?
+    /** Have each Player draw a card. */
     public void doActionsAllPlayers(Chance card, IdeopolyGUI gui) {
 	card.doActions(player1, gui, player2, player3, player4);
 	card.doActions(player2, gui, player1, player3, player4);
