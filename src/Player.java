@@ -181,8 +181,8 @@ public class Player {
     // TODO: Rename this setCash() ? Seems more consistent with getters/setters, and 
     //       is more accurate to its purpose.
     public void addCash(String t, int a) {
-	// TODO: This results in the Player having negative cash values. That's kind 
-	// of impossible...
+	// TODO: This results in the Player having negative cash values. That's not allowed...
+	// TODO: Make sure addCash handles negative values appropriately.
 	switch (t) {
 	case "ones":         ones  += a;
 	    break;

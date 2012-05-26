@@ -61,24 +61,23 @@ public class ChanceTester extends TestCase {
 	assertEquals(chanceCard.getText(), "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.");
 	// TODO: Test the 10x amount thrown part. And the may buy it part.
 	// Test this function's for all 4 players, where they land on all 3 possible Chance locations.
+	// TODO: This is landing the people on the Railroads rather than the utilities...
 	changePositionAllPlayers(7);
 	doActionsAllPlayers(chanceCard, gui);
-	assertSameCell(5);
+	assertSameCell(12);
 
 	changePositionAllPlayers(22);
 	doActionsAllPlayers(chanceCard, gui);
-	assertSameCell(25);
+	assertSameCell(28);
 
 	changePositionAllPlayers(36);
 	doActionsAllPlayers(chanceCard, gui);
-	assertSameCell(35);
+	assertSameCell(28);
 
 	// Now make sure that, when a player owns the property, players are charged proper rent.
 	// Going into this case, each player had 2100 bucks total.
-	gui.boardProperties[5].setOwner(gui.player1); // Reading RR
-	gui.boardProperties[25].setOwner(gui.player1); // B & O RR
-	gui.boardProperties[35].setOwner(gui.player2); // Short Line RR
-
+	gui.boardProperties[12].setOwner(gui.player1); // Electric Company
+	gui.boardProperties[28].setOwner(gui.player1); // Water Works
 
 	// TODO: The below tests should work, I just need to solve the problem of knowing
 	// the value of the rollGenerator so I can assertEquals() cash values.
@@ -88,12 +87,7 @@ public class ChanceTester extends TestCase {
 	// Random rollGenerator = new Random();
 	// int roll = 0;
 	// int expectedCash = 0;
-
-	// player1.setPosition(31);
-	// player2.setPosition(31);
-	// player3.setPosition(31);
-	// player4.setPosition(31);
-	// doActionsAllPlayers(player1, player2, player3, player4, chanceCard, gui);
+        // TODO: Then test unexpected boundary cases. IE: bankruptcys, etc.
 
 	// TODO: Loop this/etc.
 	// TODO: Little problem here. I need to know ahead of time what random value will be 

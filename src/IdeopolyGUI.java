@@ -23,7 +23,8 @@ import java.util.Stack;
 public class IdeopolyGUI implements ActionListener {
     // TODO: Make some of these arrays, etc., final/static when they're constant. Also see
     // if it's possible to get rid of some of them.
-    /** Number to represent if the game has been won. Once the game's won, this switches to another value. */
+    /** Number to represent if the game has been won. Once the game's won, 
+     *  this switches to another value. */
     private int gameWon = 0;
 
     // TODO: Try to reduce usage of this players array. Is useless and confusing except when looping.

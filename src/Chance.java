@@ -76,7 +76,7 @@ public class Chance {
     	    p.changeCell(0, gui);
     	    p.addCash("hundreds", 2);
     	    break;
-    	case 2:  //"Advance to Illinois Ave - if you pass Go, collect $200"
+    	case 2:  // "Advance to Illinois Ave - if you pass Go, collect $200"
     	    // TODO: There's a general pattern to these cards. It's if position is 
     	    // >= some value, give $200 dollars. And then, depending on player, set position.
     	    // Make this type of card into a function.
@@ -87,15 +87,26 @@ public class Chance {
 
     	    p.changeCell(24, gui);
     	    break;
-    	case 3:  //"Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
+    	case 3:  // "Advance token to nearest Utility. If unowned, you may buy it from the 
+	         //  Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
 	    if (p.getCell() == gui.boardProperties[7]) { // Bottom Chance
-		p.changeCell(5, gui); // move to Reading RR.
+		p.changeCell(12, gui); // move to Electric Co.
+
+		if (gui.boardProperties[12].getOwner() != null) {
+		    // TODO: Charge players appropriately here.
+		}
 	    }
 	    else if (p.getCell() == gui.boardProperties[22]) { // Top Chance
-		p.changeCell(25, gui); // move to B & O RR.
+		p.changeCell(28, gui); // move to Water Works.
+
+		if (gui.boardProperties[28].getOwner() != null) {
+		}
 	    }
 	    else if (p.getCell() == gui.boardProperties[36]) { // Right Chance
-		p.changeCell(35, gui); // move to Short Line RR.
+		p.changeCell(28, gui); // move to Water Works.
+
+		if (gui.boardProperties[28].getOwner() != null) {
+		}
 	    }
 	    else {
 		System.out.println("Error! Apparently you tried to do the actions on a Chance card 3, but you weren't standing on a Chance space to begin with.");
@@ -106,10 +117,12 @@ public class Chance {
 		// TODO: Charge the player 10x normal rent here.
 	    }
     	    break;
-    	case 4:  //"Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank. (There are two of these.)"
+    	case 4:  // "Advance token to the nearest Railroad and pay owner twice the 
+	         // rental to which he/she is otherwise entitled. If Railroad is unowned, 
+	         // you may buy it from the Bank. (There are two of these.)"
     	    // TODO: Implement this.
     	    break;
-    	case 5:  //"Advance to St. Charles Place – if you pass Go, collect $200"
+    	case 5:  // "Advance to St. Charles Place – if you pass Go, collect $200"
 
     	    // If the player's position is on or after Electric Company, give em $200.
     	    if (p.getIndex() >= 12)
@@ -118,23 +131,23 @@ public class Chance {
     	    p.changeCell(11, gui);
     	    break;
 
-    	case 6:  //"Bank pays you dividend of $50"
+    	case 6:  // "Bank pays you dividend of $50"
     	    p.addCash("fifties", 1);
     	    break;
-    	case 7:  //"Get out of Jail Free – this card may be kept until needed, or traded/sold"
+    	case 7:  // "Get out of Jail Free – this card may be kept until needed, or traded/sold"
     	    p.giveGOOJF();
     	    break;
-    	case 8:  //"Go back 3 spaces"
+    	case 8:  // "Go back 3 spaces"
     	    p.changeCell((p.getIndex() - 3), gui);
     	    // TODO: Then call onland function.
     	    // TODO: Or just call movePlayer() ?
 	    // TODO: Should I use changePosition() instead for some reason?
     	    break;
-    	case 9:  //"Go directly to Jail – do not pass Go, do not collect $200"
+    	case 9:  // "Go directly to Jail – do not pass Go, do not collect $200"
     	    p.putInJail(gui);
     	    break;
-    	case 10: //"Make general repairs on all your property – for each house pay $25 – 
-                 // for each hotel $100"
+    	case 10: // "Make general repairs on all your property – for each house pay $25 – 
+                 //  for each hotel $100"
     	    // If the payment will bankrupt the Player, do x.
     	    // TODO: Haven't tested this yet, to make sure I get correct values out of parseInt().
     	    int payment = (p.getNumHouses() * 25) + (p.getNumHotels() * 100);
@@ -146,7 +159,7 @@ public class Chance {
     		//TODO: Remove cash here.
     	    }
     	    break;
-    	case 11: //"Pay poor tax of $15"
+    	case 11: // "Pay poor tax of $15"
 
     	    if (p.willBankrupt(15)) {
     		p.bankruptPlayer();
@@ -159,7 +172,7 @@ public class Chance {
     		p.spreadCash(500);
     	    }    
     	    break;
-    	case 12: //"Take a trip to Reading Railroad – if you pass Go, collect $200"
+    	case 12: // "Take a trip to Reading Railroad – if you pass Go, collect $200"
     	    // If the player's position is on or after Oriental avenue, give em $200.
     	    // TODO: Test this to make sure it works.
     	    if (p.getIndex() >= 6)
@@ -169,12 +182,11 @@ public class Chance {
     	    // TODO: And then onland function.
     	    break;
 
-    	case 13: //"Take a walk on the Boardwalk – advance token to Boardwalk"
+    	case 13: // "Take a walk on the Boardwalk – advance token to Boardwalk"
     	    p.changeCell(39, gui);
     	    //TODO: And then call the onland function for boardwalk.
     	    break;
-    	case 14: //"You have been elected chairman of the board – pay each player $50"
-   	    // TODO: Make sure addCash handles negative values appropriately.
+    	case 14: // "You have been elected chairman of the board – pay each player $50"
     	    if (p.willBankrupt(150)) {
     		p.bankruptPlayer();
     		// TODO: Should this still give the other players 50 bucks each?
@@ -190,11 +202,11 @@ public class Chance {
     		p.spreadCash(500);
     	    }
     	    break;
-    	case 15: //"Your building loan matures – collect $150"
+    	case 15: // "Your building loan matures – collect $150"
     	    p.addCash("hundreds", 1);
     	    p.addCash("fifties", 1);
     	    break;
-    	case 16: //"You have won a crossword competition - collect $100 "
+    	case 16: // "You have won a crossword competition - collect $100"
     	    p.addCash("hundreds", 1);
     	    break;
 

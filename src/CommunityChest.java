@@ -68,4 +68,9 @@ public class CommunityChest {
     public int getType() {
 	return cardType;
     }
+
+    /** Have the Player p carry out actions associated with 
+     *  a Community Chest card of this type. */
+    public void doActions(Player p, IdeopolyGUI gui) { // TODO: Rename this to drawCard() or something better.
+
 }
