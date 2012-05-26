@@ -475,7 +475,7 @@ public class IdeopolyGUI implements ActionListener {
 		// Player lands on a Chance card.
 		else if (landingSpot == 7 || landingSpot == 22 || landingSpot == 36) {
 		    Chance card = chanceCards.pop();
-		    card.doActions(p, this);
+		    card.doActions(p, this, p2, p3, p4);
 		}
 
 		// Regular move - not overshooting Go, landing on Go to Jail, or

@@ -66,8 +66,11 @@ public class Chance {
     }
 
     /** Have the Player p carry out actions associated with a Chance card of this 
-     * type, also using the players from the IdeopolyGUI gui when necessary. */
-    public void doActions(Player p, IdeopolyGUI gui) { // TODO: Rename this to drawCard() or something better.
+     *  type, using players pA/B/C when necessary. */
+    public void doActions(Player p, IdeopolyGUI gui, Player pA, Player pB, Player pC) { // TODO: Rename this to drawCard() or something better.
+	// TODO: Remove usage of Player pA/B/C. See if I can find a more elegant solution.
+	// TODO: Review this method's use of pA/B/C. See if it subtly screws up things (IE: If in
+	//       some cases I refer to pA/B/C, and in others I refer to gui.player2/3/4).
     	switch (cardType) {
     	case 1:  // "Advance to Go (Collect $200)"
     	    p.changeCell(0, gui);
@@ -171,9 +174,7 @@ public class Chance {
     	    //TODO: And then call the onland function for boardwalk.
     	    break;
     	case 14: //"You have been elected chairman of the board – pay each player $50"
-    	    // TODO: Make sure addCash handles negative values appropriately.
-    	    Player[] morePlayers; // TODO: Again, better variable name. Or use the same name for all three cases.
-
+   	    // TODO: Make sure addCash handles negative values appropriately.
     	    if (p.willBankrupt(150)) {
     		p.bankruptPlayer();
     		// TODO: Should this still give the other players 50 bucks each?
@@ -182,22 +183,9 @@ public class Chance {
     		p.spreadCash(50);
     		p.addCash("fifties", -3);
 
-		// LEFTOFFHERE: Fixing case 14 in chancetester. now this method is identifying
-		// p correctly. Now to have it set the morePlayers[] array correctly. See line
-		// ~330 in chancetester.
-    		if      (p.getName() == "Player 1 (H)")
-   		    morePlayers = new Player[] {gui.player2, gui.player3, gui.player4};
-		else if (p.getName() == "Player 2 (C)")
-    		    morePlayers = new Player[] {gui.player1, gui.player3, gui.player4};
-    		else if (p.getName() == "Player 3 (C)")
-    		    morePlayers = new Player[] {gui.player1, gui.player2, gui.player4};
-    		else // if (p == gui.player4) // TODO: Shouldn't allow this for all cases.
-    		    morePlayers = new Player[] {gui.player1, gui.player2, gui.player3};
-
-    		for (Player i : morePlayers) {
-    		    i.addCash("fifties", 1);
-		    System.out.println(i.getName());
-    		}
+		pA.addCash("fifties", 1);
+		pB.addCash("fifties", 1);
+		pC.addCash("fifties", 1);
 
     		p.spreadCash(500);
     	    }

@@ -294,23 +294,23 @@ public class ChanceTester extends TestCase {
 	assertEquals(chanceCard.getText(), "Take a trip to Reading Railroad – if you pass Go, collect $200");
 
 	player1.changeCell(0, gui);  // Test when we start on Go.
-	chanceCard.doActions(player1, gui);
+	chanceCard.doActions(player1, gui, player2, player3, player4);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), "1485");
 
 	player1.changeCell(3, gui); // Test when we start before Reading RR (Baltic Av. here).
-	chanceCard.doActions(player1, gui);
+	chanceCard.doActions(player1, gui, player2, player3, player4);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), "1485");
 
 	player1.changeCell(5, gui); // Test when we start on Reading RR.
-	chanceCard.doActions(player1, gui);
+	chanceCard.doActions(player1, gui, player2, player3, player4);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), "1485"); // TODO: Should this count as passing
 	// Go? Even though doing this is impossible by the game's rules...
 
 	player1.changeCell(6, gui); // Test when we start after Reading RR.
-	chanceCard.doActions(player1, gui);
+	chanceCard.doActions(player1, gui, player2, player3, player4);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), "1685");
 
@@ -331,32 +331,30 @@ public class ChanceTester extends TestCase {
 	player2 = new Player(2, gui);
 	player3 = new Player(3, gui);
 	player4 = new Player(4, gui);
-	// TODO: I think the problem here is that Chance.java's doActions() is referring to (and 
-	// doing actions on) the players associated with the GUI. The players I create here are
+	// TODO: I think the problem here is that Chance.java's doActions() is referring to and 
+	// doing actions on the players associated with the GUI. The players I create here are
 	// not the same Players as player1/2/3/4 in gui.
 	// Fix this problem and then re-enable the tests.
-	chanceCard.doActions(player1, gui);
+	chanceCard.doActions(player1, gui, player2, player3, player4);
 	assertEquals(player1.getCash("total"), "1350");
 	assertEquals(player2.getCash("total"), "1550");
-	// Was 1500
+	assertEquals(player3.getCash("total"), "1550");
+	assertEquals(player4.getCash("total"), "1550");
 
-	//assertEquals(player3.getCash("total"), "1550");
-	//	assertEquals(player4.getCash("total"), "1550");
+	chanceCard.doActions(player2, gui, player1, player3, player4);
+	assertEquals(player1.getCash("total"), "1400");
+	assertEquals(player2.getCash("total"), "1400");
+	assertEquals(player3.getCash("total"), "1600");
+	assertEquals(player4.getCash("total"), "1600");
 
-	// chanceCard.doActions(player2, gui);
-	// assertEquals(player1.getCash("total"), "1400");
-	// assertEquals(player2.getCash("total"), "1400");
-	// assertEquals(player3.getCash("total"), "1600");
-	// assertEquals(player4.getCash("total"), "1600");
+	chanceCard.doActions(player3, gui, player1, player2, player4);
+	assertEquals(player1.getCash("total"), "1450");
+	assertEquals(player2.getCash("total"), "1450");
+	assertEquals(player3.getCash("total"), "1450");
+	assertEquals(player4.getCash("total"), "1650");
 
-	// chanceCard.doActions(player3, gui);
-	// assertEquals(player1.getCash("total"), "1450");
-	// assertEquals(player2.getCash("total"), "1450");
-	// assertEquals(player3.getCash("total"), "1450");
-	// assertEquals(player4.getCash("total"), "1650");
-
-	// chanceCard.doActions(player4, gui);
-	// assertSameCash("1500");
+	chanceCard.doActions(player4, gui, player1, player2, player3);
+	assertSameCash("1500");
 
 	// TODO: Then test when the main player will be bankrupt.
 	//	player1.addCash("ones", );
@@ -365,8 +363,6 @@ public class ChanceTester extends TestCase {
 	// TODO: Test this when the main Player is going to go bankrupt.
 	// Then test when 1/2/n other players are bankrupt. Make sure they're not given money.
 	//       Or is that a general thing that should be tested elsewhere?
-	// TODO: Implement this test.
-
 
 	chanceCard = new Chance(15);
 	assertEquals(chanceCard.getType(), 15);
@@ -419,10 +415,10 @@ public class ChanceTester extends TestCase {
     // TODO: Reduce the excessive amount of arguments here. For example, just require 'gui',
     // then use gui.player1/2/3/4, etc. Can also get rid of gui probably.
     public void doActionsAllPlayers(Chance card, IdeopolyGUI gui) {
-	card.doActions(player1, gui);
-	card.doActions(player2, gui);
-	card.doActions(player3, gui);
-	card.doActions(player4, gui);
+	card.doActions(player1, gui, player2, player3, player4);
+	card.doActions(player2, gui, player1, player3, player4);
+	card.doActions(player3, gui, player1, player2, player4);
+	card.doActions(player4, gui, player1, player2, player3);
     }
 
     public void changePositionAllPlayers(int cell) {
