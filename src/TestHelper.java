@@ -4,9 +4,8 @@ import org.junit.*;
 
 /** Class to provide helper methods for use in my testing classes. */
 class TestHelper extends TestCase {
-    // TODO: Make a TestHelperTester class?
+    // TODO: Make a TestHelperTester class to test these methods? Overkill?
     /** Have each Player draw a card. */
-    // LEFTOFFHERE: Also when that's done, delete the now obsolete helper methods in Chance.
     // TODO: Rather than using two separate methods, try to find a way to allow the first
     //       argument to be of type Chance or CommunityChest.
     public static void doActionsAllPlayersChance(Chance card, IdeopolyGUI gui, Player p1, Player p2, Player p3, Player p4) {

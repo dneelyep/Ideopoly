@@ -101,13 +101,13 @@ public class CommunityChest {
 		break;
 	    case 13: // "You are assessed for street repairs – $40 per house, $115 per hotel"
 		break;
-	    case 14: // "You have won second prize in a beauty contest– collect $10"
+	    case 14: p.addCash("tens", 1); // "You have won second prize in a beauty contest– collect $10"
 		break;
-	    case 15: // "You inherit $100"
+	    case 15: p.addCash("hundreds", 1); // "You inherit $100"
 		break;
-	    case 16: // "From sale of stock you get $50"
+	    case 16: p.addCash("fifties", 1);// "From sale of stock you get $50"
 		break;
-	    case 17: // "Holiday Fund matures - Receive $100"
+	    case 17: p.addCash("hundreds", 1); // "Holiday Fund matures - Receive $100"
 		break;
 	}
     }
