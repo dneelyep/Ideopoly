@@ -5,8 +5,6 @@ per regular class in the src/ directory.
 Some TODOS for these tests
 ==========================
 * TODO: Add all the relevant below test cases.
-* TODO: Refactor the test files a bit. There are a lot of cases where I'm repeating the 
-        same code for ie all four players in a row. Could easily be looped in those cases.
 * TODO: Make sure order of arguments is correct on assertEquals().
 * TODO: Split the individual test files into multiple methods per file. For example, if Chance.java
         has 5 methods, ChanceTester.java could test each of those 5 methods separately.

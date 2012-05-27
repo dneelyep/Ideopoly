@@ -47,21 +47,21 @@ public class PlayerTester extends TestCase {
 	// functionality should be disabled when we're not currently in jail.
 	assertEquals(testPlayer.getNumGOOJFCards(), 0);
 
-	testPlayer.setInJail(3);
+	testPlayer.setJailStatus(3);
 	assertEquals(testPlayer.getJailStatus(), 3);
-	testPlayer.setInJail(2);
+	testPlayer.setJailStatus(2);
 	assertEquals(testPlayer.getJailStatus(), 2);
-	testPlayer.setInJail(1);	
+	testPlayer.setJailStatus(1);	
 	assertEquals(testPlayer.getJailStatus(), 1);
-	testPlayer.setInJail(0);
+	testPlayer.setJailStatus(0);
 	assertEquals(testPlayer.getJailStatus(), 0);
 
 	// Test un-allowed cases.
-	testPlayer.setInJail(4);
+	testPlayer.setJailStatus(4);
 	assertEquals(testPlayer.getJailStatus(), 0);
-	testPlayer.setInJail(-1);
+	testPlayer.setJailStatus(-1);
 	assertEquals(testPlayer.getJailStatus(), 0);
-	testPlayer.setInJail('c');
+	testPlayer.setJailStatus('c');
 	assertEquals(testPlayer.getJailStatus(), 0);
 
 	// TODO: More tests for this method to test edge cases.

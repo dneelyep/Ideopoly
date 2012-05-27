@@ -207,14 +207,6 @@ public class Player {
 
     }
 
-    /** Set the value of this Player's inJail property. */
-    public void setInJail(int weeks) {
-	if (weeks != 0 && weeks != 1 && weeks != 2 && weeks != 3)
-	    System.out.println("Invalid weeks value. Must be either 0, 1, 2, or 3.");
-	else
-	    inJail = weeks;
-    }
-
     /** Give this player a get out of jail free card. */
     public void giveGOOJF() {
 	GOOJFCards++;
@@ -241,6 +233,14 @@ public class Player {
     /** See what week of jail this person is in. */
     public int getJailStatus() {
 	return inJail;
+    }
+
+    /** Set the value of this Player's inJail property. */
+    public void setJailStatus(int weeks) {
+	if (weeks != 0 && weeks != 1 && weeks != 2 && weeks != 3)
+	    System.out.println("Invalid weeks value. Must be either 0, 1, 2, or 3.");
+	else
+	    inJail = weeks;
     }
 
     /** Get the number of houses this player owns. */
@@ -484,7 +484,6 @@ public class Player {
 
     /** Put the given Player p in jail, and enable the "Use get 
      *  out of jail free card" button if the Player is the human player. */
-    // TODO: Make this all just one method. Confusing splitting it up.
     public void putInJail(IdeopolyGUI gui) {
 	// TODO: Make a visual indicator for when a person's in jail. 
 	// IE: put a little colored square on their portrait that indicates the week they're in.
@@ -494,8 +493,8 @@ public class Player {
 	if (name == "Player 1 (H)" && GOOJFCards > 0) {
 	    gui.useGOOJFCard.setEnabled(true);
 	}
+
 	changeCell(10, gui);
-	// TODO: Seems kind of pointless to have two separate methods for this...
-	setInJail(3);
+	setJailStatus(3);
     }
 }

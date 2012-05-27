@@ -347,12 +347,12 @@ public class IdeopolyGUI implements ActionListener {
 
 	    // First week in jail.
 	    if ( players[currentPlayer].getJailStatus() == 3 ) {
-		players[currentPlayer].setInJail(2);
+		players[currentPlayer].setJailStatus(2);
 	    }
 
 	    // Second week in jail.
 	    else if ( players[currentPlayer].getJailStatus() == 2 ) {
-		players[currentPlayer].setInJail(1);
+		players[currentPlayer].setJailStatus(1);
 	    }
 
 	    // Last week in jail. Player gets charged $50, then moves forward.
@@ -364,7 +364,7 @@ public class IdeopolyGUI implements ActionListener {
 		    players[currentPlayer].spreadCash(50);
 		    players[currentPlayer].addCash("fifties", -1);
 		    players[currentPlayer].spreadCash(500);
-		    players[currentPlayer].setInJail(0);
+		    players[currentPlayer].setJailStatus(0);
 
 		    if (currentPlayer == 0)
 			movePlayer(player1, player2, player3, player4, roll);
@@ -709,7 +709,7 @@ public class IdeopolyGUI implements ActionListener {
 	    useGOOJFCard.setEnabled(true);
 	}
 	p.changeCell(10, this);
-	p.setInJail(3);
+	p.setJailStatus(3);
     }
 
     /** Given an integer i, break it up into the smallest possible amount of bills. */

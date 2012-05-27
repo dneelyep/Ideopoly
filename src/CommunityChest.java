@@ -109,6 +109,10 @@ public class CommunityChest {
 		break;
 	    case 17: p.addCash("hundreds", 1); // "Holiday Fund matures - Receive $100"
 		break;
+
+    	    default: System.out.println("Wrong Community Chest value!");
+		break;
+	    
 	}
     }
 }
