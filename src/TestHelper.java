@@ -6,10 +6,18 @@ import org.junit.*;
 class TestHelper extends TestCase {
     // TODO: Make a TestHelperTester class?
     /** Have each Player draw a card. */
-    // LEFTOFFHERE: Adding tests. Now I need to have doActionsAllPlayers accept parametrized
-    // types (think that's the right term). Basically I need to allow the first type to be either
-    // a Chance card or CommunityChest card, and do the same thing to them in either case.
-    public static void doActionsAllPlayers(CommunityChest card, IdeopolyGUI gui, Player p1, Player p2, Player p3, Player p4) {
+    // LEFTOFFHERE: Also when that's done, delete the now obsolete helper methods in Chance.
+    // TODO: Rather than using two separate methods, try to find a way to allow the first
+    //       argument to be of type Chance or CommunityChest.
+    public static void doActionsAllPlayersChance(Chance card, IdeopolyGUI gui, Player p1, Player p2, Player p3, Player p4) {
+	// TODO: Do I need the two arguments? They're the same for each time I call them here.
+	card.doActions(p1, gui, p2, p3, p4);
+	card.doActions(p2, gui, p1, p3, p4);
+	card.doActions(p3, gui, p1, p2, p4);
+	card.doActions(p4, gui, p1, p2, p3);
+    }
+
+    public static void doActionsAllPlayersCommChest(CommunityChest card, IdeopolyGUI gui, Player p1, Player p2, Player p3, Player p4) {
 	// TODO: Do I need the two arguments? They're the same for each time I call them here.
 	card.doActions(p1, gui);
 	card.doActions(p2, gui);
