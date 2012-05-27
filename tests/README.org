@@ -14,7 +14,7 @@ per regular class in the src/ directory.
 :PROPERTIES:
 :COOKIE_DATA: todo recursive
 :END:
-** === BoardCell ===
+** BoardCell
 *** TODO BoardCell()
 *** TODO getName()
 *** TODO getOwner()
@@ -25,17 +25,17 @@ per regular class in the src/ directory.
 *** TODO getY()
 *** TODO getRent
 *** TODO getCost
-** === BoardPosition ===
+** BoardPosition
 *** DONE BoardPosition()
 *** TODO getXCoord()
 *** TODO getYCoord()
 *** TODO getImage()
 *** TODO setImage()
-** === CashCell ===
+** CashCell
 *** DONE CashCell()
 *** DONE getXCoord()
 *** DONE getYCoord()
-** === Chance ===
+** Chance
 *** DONE Chance()
 *** DONE getText()
 *** DONE getType()
@@ -56,10 +56,10 @@ per regular class in the src/ directory.
 **** DONE Card 14
 **** DONE Card 15
 **** DONE Card 16
-** === CharacterSelect ===
+** CharacterSelect
 *** TODO CharacterSelect()
 *** TODO actionPerformed()
-** === CommunityChest ===*
+** CommunityChest
 *** DONE CommunityChest()
 *** DONE getText()
 *** DONE getType()
@@ -81,7 +81,7 @@ per regular class in the src/ directory.
 **** DONE Card 15
 **** DONE Card 16
 **** DONE Card 17
-** === IdeopolyGUI ===
+** IdeopolyGUI
 *** TODO IdeopolyGUI()
 *** TODO doTurn()
 *** TODO movePlayer()
@@ -91,11 +91,11 @@ per regular class in the src/ directory.
 *** TODO getCashDistribution()
 *** TODO playerPayPlayer()
 *** TODO drawCommunityChest()
-** === Menu ===
+** Menu
 *** TODO main()
 *** TODO Menu()
 *** TODO actionPerformed()
-** === Player ===
+** Player
 *** TODO Player()
 *** TODO getCash()
 *** TODO addProperty()
@@ -119,13 +119,13 @@ per regular class in the src/ directory.
 *** TODO getNumOwnedProperties()
 *** TODO getIndex()
 *** TODO putInJail()
-** === PropagandaOutlet ===
+** PropagandaOutlet
 *** TODO PropagandaOutlet()
 *** TODO getRent()
 *** TODO getCost()
-** === Railroad ===
+** Railroad
 *** TODO Railroad()
-** === TestHelper ===
+** TestHelper
 *** TODO doActionsAllPlayersChance()
 *** TODO doActionsAllPlayersCommChest()
 *** TODO assertSameCash()
