@@ -484,6 +484,7 @@ public class Player {
 
     /** Put the given Player p in jail, and enable the "Use get 
      *  out of jail free card" button if the Player is the human player. */
+    // TODO: Make this all just one method. Confusing splitting it up.
     public void putInJail(IdeopolyGUI gui) {
 	// TODO: Make a visual indicator for when a person's in jail. 
 	// IE: put a little colored square on their portrait that indicates the week they're in.

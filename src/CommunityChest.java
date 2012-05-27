@@ -80,9 +80,9 @@ public class CommunityChest {
 		break;
 	    case 3:   // "Doctor's fees – Pay $50"
 		break;
-	    case 4:   // "Get Out of Jail Free – this card may be kept until needed, or sold.
+	    case 4: p.giveGOOJF();  // "Get Out of Jail Free – this card may be kept until needed, or sold.
 		break;
-	    case 5:   // "Go to Jail – go directly to jail – Do not pass Go, do not collect $200");
+	    case 5: p.putInJail(gui);  // "Go to Jail – go directly to jail – Do not pass Go, do not collect $200");
 		break;
 	    case 6:   // "It is your birthday - Collect $10 from each player"
 		break;
