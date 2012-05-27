@@ -1,0 +1,157 @@
+This directory contains all the tests for this project. Currently, there is one test class
+per regular class in the src/ directory.
+
+* Some TODOS for all tests
+** TODO: Add all the relevant below test cases.
+** TODO: Make sure order of arguments is correct on assertEquals().
+** TODO: Split the individual test files into multiple methods per file. 
+   For example, if Chance.java has 5 methods, ChanceTester.java could test each of those 5 methods separately.
+   This should help pinpoint errors a little more quickly.
+
+* TODO For large sections of items that aren't done, it would be helpful to split test files into separate methods to make this process easier.
+* Overall Test Progress - by tested methods. [34/105]
+ If a test is marked done, it means basic tests are in place. Not neccessarily complete coverage of every possible way everything can go wrong.
+:PROPERTIES:
+:COOKIE_DATA: todo recursive
+:END:
+** === BoardCell ===
+*** TODO BoardCell()
+*** TODO getName()
+*** TODO getOwner()
+*** TODO setOwner()
+*** TODO getImage()
+*** TODO setImage()
+*** TODO getX()
+*** TODO getY()
+*** TODO getRent
+*** TODO getCost
+** === BoardPosition ===
+*** DONE BoardPosition()
+*** TODO getXCoord()
+*** TODO getYCoord()
+*** TODO getImage()
+*** TODO setImage()
+** === CashCell ===
+*** DONE CashCell()
+*** DONE getXCoord()
+*** DONE getYCoord()
+** === Chance ===
+*** DONE Chance()
+*** DONE getText()
+*** DONE getType()
+*** TODO doActions()
+**** DONE Card 1
+**** DONE Card 2
+**** TODO Card 3
+**** TODO Card 4
+**** DONE Card 5
+**** DONE Card 6
+**** DONE Card 7
+**** DONE Card 8
+**** DONE Card 9
+**** TODO Card 10
+**** DONE Card 11
+**** DONE Card 12
+**** DONE Card 13
+**** DONE Card 14
+**** DONE Card 15
+**** DONE Card 16
+** === CharacterSelect ===
+*** TODO CharacterSelect()
+*** TODO actionPerformed()
+** === CommunityChest ===*
+*** DONE CommunityChest()
+*** DONE getText()
+*** DONE getType()
+*** TODO doActions()
+**** DONE Card 1
+**** DONE Card 2
+**** TODO Card 3
+**** DONE Card 4
+**** DONE Card 5
+**** TODO Card 6
+**** TODO Card 7
+**** DONE Card 8
+**** DONE Card 9
+**** TODO Card 10
+**** TODO Card 11
+**** DONE Card 12
+**** TODO Card 13
+**** DONE Card 14
+**** DONE Card 15
+**** DONE Card 16
+**** DONE Card 17
+** === IdeopolyGUI ===
+*** TODO IdeopolyGUI()
+*** TODO doTurn()
+*** TODO movePlayer()
+*** TODO updateDisplay()
+*** TODO actionPerformed()
+*** TODO putInJail()
+*** TODO getCashDistribution()
+*** TODO playerPayPlayer()
+*** TODO drawCommunityChest()
+** === Menu ===
+*** TODO main()
+*** TODO Menu()
+*** TODO actionPerformed()
+** === Player ===
+*** TODO Player()
+*** TODO getCash()
+*** TODO addProperty()
+*** TODO removeProperty()
+*** TODO roll()
+*** TODO getImage()
+*** TODO getCell()
+*** TODO changeCell()
+*** TODO addCash()
+*** TODO giveGOOJF()
+*** TODO spendGOOJF()
+*** TODO getNumGOOJFCards()
+*** TODO getJailStatus()
+*** TODO setJailStatus()
+*** TODO getNumHouses()
+*** TODO getNumHotels()
+*** TODO willBankrupt()
+*** TODO spreadCash()
+*** TODO bankruptPlayer()
+*** TODO getName()
+*** TODO getNumOwnedProperties()
+*** TODO getIndex()
+*** TODO putInJail()
+** === PropagandaOutlet ===
+*** TODO PropagandaOutlet()
+*** TODO getRent()
+*** TODO getCost()
+** === Railroad ===
+*** TODO Railroad()
+** === TestHelper ===
+*** TODO doActionsAllPlayersChance()
+*** TODO doActionsAllPlayersCommChest()
+*** TODO assertSameCash()
+*** TODO changeCellAllPlayers()
+*** TODO assertSameCell()
+* Potential future tests
+** Check that every single cell in the board is initialized, with the correct values etc. IE for a property, that all rent values are correct.
+** Make sure that a person who passes go and lands on the community chest that then passes them back to go is payed twice accordingly.
+** Make sure that the user gets moved to the correct space when they move pass go.
+** Have a player mortgage a property. After they mortgage it, make sure it's removed from their list of owned properties and their number of owned properties is decremented. Also, that property should no longer have an associated owner. Make sure also that this works for each type of property. IE for regular tile, school, elec. company, water works.
+** Have a player land on chance and community chest. Both times, make sure the top item was taken off the stack, that the second to top item was moved to the top, and that the top item gets put back on the bottom.
+** Have a player use their get out of jail free card. Make sure the card's returned to the bottom of the stack of either community chest or chance accordingly.
+** Include tests to make sure this works for community chest and chance.
+** Have the player land on Income tax. Test cases where the user decides to pay $200, or when they choose to pay 10%.
+** Have the player land on go to jail. Make sure they're not given $200. Make sure their currently in jail value is set to the correct number of weeks.
+** Have the player roll doubles in jail. Make sure their current space gets set properly, and that their currently in jail value is not true
+** Make sure a person in jail can still buy and sell property, houses, hotels, and collect rents.
+** Make sure a person in the last week of jail who doesn't roll doubles is charged $50.
+** Make sure a person attempting to buy houses has all houses in a color group. Make sure this works for all color groups.
+** Make sure the person distributes houses evenly, putting them on unimproved properties owned before improved properties.
+** Make sure a person can't add more than 4 houses to a property.
+** Make sure a person can't do eg 1 house on 2 properties in a group and then 3 houses in another property.
+** Make sure that a person can only buy a hotel if they have each property in a color group, and each of those properties holds 4 houses.
+** Make sure multiple hotels can't be erected on a property.
+** Make sure the player can't mortgage an unsellable property (IE Go, free parking, jail, etc.) Check this for all relevant properties.
+** Check to make sure the mortgage process works correctly. Correct amount of money lost by the player, property's owner is removed, etc.
+** Make sure a bankrupt person gets removed from the game
+** Make sure a bankrupt person by the bank loses all their assets properly
+** Make sure a bankrupt person by another player transfers assets properly. And make sure the receiving player pays tax on the items received.
