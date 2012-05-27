@@ -90,13 +90,14 @@ public class CommunityChest {
 		break;
 	    case 8: p.addCash("tens", 2);  // "Income Tax refund – collect $20"
 		break;
-	    case 9:   // "Life Insurance Matures – collect $100"
+	    case 9: p.addCash("hundreds", 1);  // "Life Insurance Matures – collect $100"
 		break;
 	    case 10:  // "Pay Hospital Fees of $100"
 		break;
 	    case 11: // "Pay School Fees of $50"
 		break;
-	    case 12: // "Receive $25 Consultancy Fee"
+	    case 12: p.addCash("twenties", 1); // "Receive $25 Consultancy Fee"
+		p.addCash("fives", 1);
 		break;
 	    case 13: // "You are assessed for street repairs – $40 per house, $115 per hotel"
 		break;

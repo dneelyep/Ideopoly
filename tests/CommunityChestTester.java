@@ -21,21 +21,21 @@ public class CommunityChestTester extends TestCase {
 	assertEquals(testCommChestCard.getText(), "Advance to Go (Collect $200)");
 
 	// Ensure that this method works properly on all three Comm. Chest spots and for all Players.
-	changeCellAllPlayers(2);
-	doActionsAllPlayers(testCommChestCard, gui);
+	TestHelper.changeCellAllPlayers(2, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(testCommChestCard, gui, player1, player2, player3, player4);
 	// Make sure the players land on the right spot and get the right amount of $.
-	assertSameCash("1700");
-	assertSameCell(0);
+	TestHelper.assertSameCash("1700", player1, player2, player3, player4);
+	TestHelper.assertSameCell(0, gui, player1, player2, player3, player4);
 
-	changeCellAllPlayers(17);
-	doActionsAllPlayers(testCommChestCard, gui);
-	assertSameCash("1900");
-	assertSameCell(0);
+	TestHelper.changeCellAllPlayers(17, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(testCommChestCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCash("1900", player1, player2, player3, player4);
+	TestHelper.assertSameCell(0, gui, player1, player2, player3, player4);
 
-	changeCellAllPlayers(33);
-	doActionsAllPlayers(testCommChestCard, gui);
-	assertSameCash("2100");
-	assertSameCell(0);
+	TestHelper.changeCellAllPlayers(33, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(testCommChestCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCash("2100", player1, player2, player3, player4);
+	TestHelper.assertSameCell(0, gui, player1, player2, player3, player4);
     }
 
     @Test
@@ -47,20 +47,20 @@ public class CommunityChestTester extends TestCase {
 	// Test this on all three Comm. Chest spots and for all Players.
 	// Make sure the players get the right amount of money and that they're 
 	// on the correct BoardCells.
-	changeCellAllPlayers(2);
-	doActionsAllPlayers(testCommChestCard, gui);
-	assertSameCash("1700");
-	assertSameCell(2);
+	TestHelper.changeCellAllPlayers(2, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(testCommChestCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCash("1700", player1, player2, player3, player4);
+	TestHelper.assertSameCell(2, gui, player1, player2, player3, player4);
 
-	changeCellAllPlayers(17);
-	doActionsAllPlayers(testCommChestCard, gui);
-	assertSameCash("1900");
-	assertSameCell(17);
+	TestHelper.changeCellAllPlayers(17, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(testCommChestCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCash("1900", player1, player2, player3, player4);
+	TestHelper.assertSameCell(17, gui, player1, player2, player3, player4);
 
-	changeCellAllPlayers(33);
-	doActionsAllPlayers(testCommChestCard, gui);
-	assertSameCash("2100");
-	assertSameCell(33);
+	TestHelper.changeCellAllPlayers(33, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(testCommChestCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCash("2100", player1, player2, player3, player4);
+	TestHelper.assertSameCell(33, gui, player1, player2, player3, player4);
     }
 
     @Test
@@ -110,20 +110,20 @@ public class CommunityChestTester extends TestCase {
 	// Test this on all three Comm. Chest spots and for all Players.
 	// Make sure the players get the right amount of money and that they're 
 	// on the correct BoardCells.
-	changeCellAllPlayers(2);
-	doActionsAllPlayers(testCommChestCard, gui);
-	assertSameCash("1520");
-	assertSameCell(2);
+	TestHelper.changeCellAllPlayers(2, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(testCommChestCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCash("1520", player1, player2, player3, player4);
+	TestHelper.assertSameCell(2, gui, player1, player2, player3, player4);
 
-	changeCellAllPlayers(17);
-	doActionsAllPlayers(testCommChestCard, gui);
-	assertSameCash("1540");
-	assertSameCell(17);
+	TestHelper.changeCellAllPlayers(17, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(testCommChestCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCash("1540", player1, player2, player3, player4);
+	TestHelper.assertSameCell(17, gui, player1, player2, player3, player4);
 
-	changeCellAllPlayers(33);
-	doActionsAllPlayers(testCommChestCard, gui);
-	assertSameCash("1560");
-	assertSameCell(33);
+	TestHelper.changeCellAllPlayers(33, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(testCommChestCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCash("1560", player1, player2, player3, player4);
+	TestHelper.assertSameCell(33, gui, player1, player2, player3, player4);
 	// TODO: Then is it possible to test any out of whack cases?
     }
 
@@ -132,6 +132,26 @@ public class CommunityChestTester extends TestCase {
 	testCommChestCard = new CommunityChest(9);
 	assertEquals(testCommChestCard.getType(), 9);
 	assertEquals(testCommChestCard.getText(), "Life Insurance Matures – collect $100");
+
+	// Test this on all three Comm. Chest spots and for all Players.
+	// Make sure the players get the right amount of money and that they're 
+	// on the correct BoardCells.
+	TestHelper.changeCellAllPlayers(2, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(testCommChestCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCash("1600", player1, player2, player3, player4);
+	TestHelper.assertSameCell(2, gui, player1, player2, player3, player4);
+
+	TestHelper.changeCellAllPlayers(17, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(testCommChestCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCash("1700", player1, player2, player3, player4);
+	TestHelper.assertSameCell(17, gui, player1, player2, player3, player4);
+
+	TestHelper.changeCellAllPlayers(33, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(testCommChestCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCash("1800", player1, player2, player3, player4);
+	TestHelper.assertSameCell(33, gui, player1, player2, player3, player4);
+
+	// TODO: And then any screwed cases here.
     }
 
     @Test
@@ -153,6 +173,29 @@ public class CommunityChestTester extends TestCase {
 	testCommChestCard = new CommunityChest(12);
 	assertEquals(testCommChestCard.getType(), 12);
 	assertEquals(testCommChestCard.getText(), "Receive $25 Consultancy Fee");
+
+	// TODO: Make a helper method for this type of card? IE: all players
+	//       move to a spot, doactions, gain money, and land on a final spot.
+
+	// Test this on all three Comm. Chest spots and for all Players.
+	// Make sure the players get the right amount of money and that they're 
+	// on the correct BoardCells.
+	TestHelper.changeCellAllPlayers(2, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(testCommChestCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCash("1525", player1, player2, player3, player4);
+	TestHelper.assertSameCell(2, gui, player1, player2, player3, player4);
+
+	TestHelper.changeCellAllPlayers(17, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(testCommChestCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCash("1550", player1, player2, player3, player4);
+	TestHelper.assertSameCell(17, gui, player1, player2, player3, player4);
+
+	TestHelper.changeCellAllPlayers(33, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(testCommChestCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCash("1575", player1, player2, player3, player4);
+	TestHelper.assertSameCell(33, gui, player1, player2, player3, player4);
+
+	// TODO: And then any odd cases here.
     }
 
     @Test
@@ -208,48 +251,6 @@ public class CommunityChestTester extends TestCase {
 	assertEquals(testCommChestCard.getType(), 0);
 	assertEquals(testCommChestCard.getText(), null);
     }
-
-    // ======================
-    // === Helper methods ===
-    // ======================
-    // TODO: These methods are duplicated in ChanceTester. Find a way to remove duplication.
-    //       Consider making a class full of testing helper methods?
-    /** Have each Player draw a card. */
-    public void doActionsAllPlayers(CommunityChest card, IdeopolyGUI gui) {
-	// TODO: Do I need the two arguments? They're the same for each time I call them here.
-	card.doActions(player1, gui);
-	card.doActions(player2, gui);
-	card.doActions(player3, gui);
-	card.doActions(player4, gui);
-    }
-
-    /** Check that the total cash value v is the same for every player.*/
-    public void assertSameCash(String v) {
-	assertEquals(player1.getCash("total"), v);
-	assertEquals(player2.getCash("total"), v);
-	assertEquals(player3.getCash("total"), v);
-	assertEquals(player4.getCash("total"), v);
-    }
-
-    /** Move all players to the same BoardCell on the gui. */
-    public void changeCellAllPlayers(int cell) {
-	player1.changeCell(cell, gui);
-	player2.changeCell(cell, gui);
-	player3.changeCell(cell, gui);
-	player4.changeCell(cell, gui);
-    }
-
-    /** Ensure that all four players are standing on the same cell. */
-    public void assertSameCell(int cell) {
-	assertEquals(player1.getCell(), gui.boardProperties[cell]);
-	assertEquals(player2.getCell(), gui.boardProperties[cell]);
-	assertEquals(player3.getCell(), gui.boardProperties[cell]);
-	assertEquals(player4.getCell(), gui.boardProperties[cell]);
-    }
-
-    // LEFTOFFHERE: Adding tests/functionality here. A good next step would be adding in 
-    // a doActionsAllPlayers() method, copied from ChanceTester, and/or go ahead with a TestHelperMethods
-    // class.
 }
 
 // Test coverage status:
@@ -264,10 +265,10 @@ public class CommunityChestTester extends TestCase {
 // TODO: 6
 // TODO: 7
 // DONE: 8
-// TODO: 9
+// DONE: 9
 // TODO: 10
 // TODO: 11
-// TODO: 12
+// DONE: 12
 // TODO: 13
 // TODO: 14
 // TODO: 15

@@ -51,6 +51,7 @@ public class Menu implements ActionListener {
 	String eventSource = e.getActionCommand();
 
 	if (eventSource == "Start") { // Launch the game
+	    // TODO: Or should I just make the object invisible and keep it around?
 	    mainMenu.dispose(); // Get rid of the menu since we don't need it anymore.
 	    CharacterSelect charSelectScreen = new CharacterSelect();
 	}
