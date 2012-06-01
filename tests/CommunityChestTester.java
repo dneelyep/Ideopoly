@@ -7,11 +7,11 @@ import org.junit.*;
  *  @author Daniel Neel */
 public class CommunityChestTester extends TestCase {
     private CommunityChest commChestCard;
-    private IdeopolyGUI gui     = new IdeopolyGUI("Test GUI");
-    private Player      p1 = new Player(1, gui);
-    private Player      p2 = new Player(2, gui);
-    private Player      p3 = new Player(3, gui);
-    private Player      p4 = new Player(4, gui);
+    private IdeopolyGUI    gui = new IdeopolyGUI("Test GUI");
+    private Player         p1  = new Player(1, gui);
+    private Player         p2  = new Player(2, gui);
+    private Player         p3  = new Player(3, gui);
+    private Player         p4  = new Player(4, gui);
 
     // TODO: Javadocs for all methods here.
     @Test
