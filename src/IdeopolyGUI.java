@@ -470,7 +470,7 @@ public class IdeopolyGUI implements ActionListener {
 
 		// Player lands on Go to Jail.
 		else if (landingSpot == 30) {
-		    putInJail(p);
+		    p.putInJail(this);
 		}
 
 		// Player lands on a Community Chest card.
@@ -695,20 +695,6 @@ public class IdeopolyGUI implements ActionListener {
 	}
     }
 
-    /** Put a given player in jail. */
-    private void putInJail(Player p) {
-	// TODO: Make a visual indicator for when a person's in jail. 
-	// IE: put a little colored square on their portrait that indicates the week they're in.
-	// Or change the color of the text by their name.
-
-	// Allow the main player to use their cards.
-	if (p == player1 && p.getNumGOOJFCards() > 0) {
-	    useGOOJFCard.setEnabled(true);
-	}
-	p.changeCell(10, this);
-	p.setJailStatus(3);
-    }
-
     /** Given an integer i, break it up into the smallest possible amount of bills. */
     // TODO: Can/should this be public? And this seems like it should maybe be associated with
     //       a Player object instead? Or similar?
@@ -754,9 +740,6 @@ public class IdeopolyGUI implements ActionListener {
 	    paymentAmounts[4] = billTotals[2];
 	    paymentAmounts[5] = billTotals[1];
 	    paymentAmounts[6] = billTotals[0];
-
-	    // TODO: After this method's working decently and is tested, remove the above duplicate
-	    // putInJail method. Useless and a waste.
 	}
 
 	return paymentAmounts;
@@ -835,7 +818,7 @@ public class IdeopolyGUI implements ActionListener {
 	    p.giveGOOJF();
 	    break;
 	case 5:   // "Go to Jail – go directly to jail – Do not pass Go, do not collect $200"
-	    putInJail(p);
+	    p.putInJail(this);
 	    break;
 	case 6:   // "It is your birthday - Collect $10 from each player"
 	    // TODO: Repeated also.
