@@ -9,7 +9,7 @@ per regular class in the src/ directory.
    This should help pinpoint errors a little more quickly.
 
 * TODO For large sections of items that aren't done, it would be helpful to split test files into separate methods to make this process easier.
-* Overall Test Progress - by tested methods. [36/106]
+* Overall Test Progress - by tested methods. [38/106]
  If a test is marked done, it means basic tests are in place. Not neccessarily complete coverage of every possible way everything can go wrong.
 :PROPERTIES:
 :COOKIE_DATA: todo recursive
@@ -59,7 +59,7 @@ per regular class in the src/ directory.
 ** CharacterSelect [0/2]
 *** TODO CharacterSelect()
 *** TODO actionPerformed()
-** CommunityChest [15/21]
+** CommunityChest [17/21]
 *** DONE CommunityChest()
 *** DONE getText()
 *** DONE getType()
@@ -73,8 +73,8 @@ per regular class in the src/ directory.
 **** TODO Card 7
 **** DONE Card 8
 **** DONE Card 9
-**** TODO Card 10
-**** TODO Card 11
+**** DONE Card 10
+**** DONE Card 11
 **** DONE Card 12
 **** TODO Card 13
 **** DONE Card 14

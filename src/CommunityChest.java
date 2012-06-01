@@ -162,30 +162,24 @@ public class CommunityChest {
 	    case 9: p.addCash("hundreds", 1); // "Life Insurance Matures – collect $100"
 		break;
 	    case 10:  // "Pay Hospital Fees of $100"
-
-    // 	    if (p.willBankrupt(100)) {
-    // 		p.bankruptPlayer();
-    // 	    }
-    // 	    else {
-    // 		p.spreadCash(100);
-    // 		p.addCash("hundreds", -1);
-    // 		p.spreadCash(500);
-    // 	    }
-    // 	    break;
+		if (p.willBankrupt(100)) {
+		    p.bankruptPlayer();
+		}
+		else {
+		    p.spreadCash(100);
+		    p.addCash("hundreds", -1);
+		    p.spreadCash(500);
+		}
 		break;
 	    case 11:  // "Pay School Fees of $50"
-    // 	case 11:  // "Pay School Fees of $50"
-
-    // 	    if (p.willBankrupt(50)) {
-    // 		p.bankruptPlayer();
-    // 	    }
-    // 	    else {
-    // 		p.spreadCash(50);
-    // 		p.addCash("fifties", -1);
-    // 		p.spreadCash(500);
-    // 	    }
-    // 	    break;
-
+		if (p.willBankrupt(50)) {
+		    p.bankruptPlayer();
+		}
+		else {
+		    p.spreadCash(50);
+		    p.addCash("fifties", -1);
+		    p.spreadCash(500);
+		}
 		break;
 	    case 12: p.addCash("twenties", 1); // "Receive $25 Consultancy Fee"
 		p.addCash("fives", 1);

@@ -85,6 +85,7 @@ public class CommunityChestTester extends TestCase {
 
 
 	// Now bankrupt the player.
+	// TODO: Use the player's bankruptPlayer() method here? Or make a helper method?
 	p1.setCash("ones",         1);
 	p1.setCash("fives",        0);
 	p1.setCash("tens",         0);
@@ -232,25 +233,60 @@ public class CommunityChestTester extends TestCase {
 
 	TestHelper.assertSameCash("1500", p1, p2, p3, p4);
 
-	// TODO: To enable the below tests, I need a way of removing an arbitrary amount
-	// of money from a player, rather than dealing directly with units of ones, fives, tens, etc.
+	TestHelper.changeCellAllPlayers(2, gui, p1, p2, p3, p4);
+	TestHelper.doActionsAllPlayersCommChest(commChestCard, gui, p1, p2, p3, p4);
+	TestHelper.assertSameCash("1400", p1, p2, p3, p4);
+	TestHelper.assertSameCell(2, gui, p1, p2, p3, p4);
 
-	// TestHelper.changeCellAllPlayers(2, gui, p1, p2, p3, p4);
-	// TestHelper.doActionsAllPlayersCommChest(commChestCard, gui, p1, p2, p3, p4);
-	// TestHelper.assertSameCash("1400", p1, p2, p3, p4);
-	// TestHelper.assertSameCell(2, gui, p1, p2, p3, p4);
+	TestHelper.changeCellAllPlayers(17, gui, p1, p2, p3, p4);
+	TestHelper.doActionsAllPlayersCommChest(commChestCard, gui, p1, p2, p3, p4);
+	TestHelper.assertSameCash("1300", p1, p2, p3, p4);
+	TestHelper.assertSameCell(17, gui, p1, p2, p3, p4);
 
-	// TestHelper.changeCellAllPlayers(17, gui, p1, p2, p3, p4);
-	// TestHelper.doActionsAllPlayersCommChest(commChestCard, gui, p1, p2, p3, p4);
-	// TestHelper.assertSameCash("1300", p1, p2, p3, p4);
-	// TestHelper.assertSameCell(17, gui, p1, p2, p3, p4);
+	TestHelper.changeCellAllPlayers(33, gui, p1, p2, p3, p4);
+	TestHelper.doActionsAllPlayersCommChest(commChestCard, gui, p1, p2, p3, p4);
+	TestHelper.assertSameCash("1200", p1, p2, p3, p4);
+	TestHelper.assertSameCell(33, gui, p1, p2, p3, p4);
 
-	// TestHelper.changeCellAllPlayers(33, gui, p1, p2, p3, p4);
-	// TestHelper.doActionsAllPlayersCommChest(commChestCard, gui, p1, p2, p3, p4);
-	// TestHelper.assertSameCash("1200", p1, p2, p3, p4);
-	// TestHelper.assertSameCell(33, gui, p1, p2, p3, p4);
+	// TODO: This pattern of testing is repeated. Can probably refactor.
+	// ...and then when a player will bankrupt.
+	p1.setCash("ones",         1);
+	p1.setCash("fives",        0);
+	p1.setCash("tens",         0);
+	p1.setCash("twenties",     0);
+	p1.setCash("fifties",      0);
+	p1.setCash("hundreds",     0);
+	p1.setCash("fiveHundreds", 0);
+	commChestCard.doActions(p1, gui);
 
-	// TODO: Now test this when players will go bankrupt.
+	assertEquals(p1.getCash("total"),        "0");
+	assertEquals(p1.getCash("ones"),         "0");
+	assertEquals(p1.getCash("fives"),        "0");
+	assertEquals(p1.getCash("tens"),         "0");
+	assertEquals(p1.getCash("twenties"),     "0");
+	assertEquals(p1.getCash("fifties"),      "0");
+	assertEquals(p1.getCash("hundreds"),     "0");
+	assertEquals(p1.getCash("fiveHundreds"), "0");
+
+
+	// And when the amount payed is the Player's exact total of cash.
+	p1.setCash("ones",         0);
+	p1.setCash("fives",        0);
+	p1.setCash("tens",         0);
+	p1.setCash("twenties",     0);
+	p1.setCash("fifties",      0);
+	p1.setCash("hundreds",     1);
+	p1.setCash("fiveHundreds", 0);
+	commChestCard.doActions(p1, gui);
+
+	assertEquals(p1.getCash("total"),        "0");
+	assertEquals(p1.getCash("ones"),         "0");
+	assertEquals(p1.getCash("fives"),        "0");
+	assertEquals(p1.getCash("tens"),         "0");
+	assertEquals(p1.getCash("twenties"),     "0");
+	assertEquals(p1.getCash("fifties"),      "0");
+	assertEquals(p1.getCash("hundreds"),     "0");
+	assertEquals(p1.getCash("fiveHundreds"), "0");
     }
 
     @Test
@@ -259,7 +295,61 @@ public class CommunityChestTester extends TestCase {
 	assertEquals(commChestCard.getType(), 11);
 	assertEquals(commChestCard.getText(), "Pay School Fees of $50");
 
-	// TODO: Test this when players have adequate money, and when they'll become bankrupt.
+	TestHelper.assertSameCash("1500", p1, p2, p3, p4);
+
+	TestHelper.changeCellAllPlayers(2, gui, p1, p2, p3, p4);
+	TestHelper.doActionsAllPlayersCommChest(commChestCard, gui, p1, p2, p3, p4);
+	TestHelper.assertSameCash("1450", p1, p2, p3, p4);
+	TestHelper.assertSameCell(2, gui, p1, p2, p3, p4);
+
+	TestHelper.changeCellAllPlayers(17, gui, p1, p2, p3, p4);
+	TestHelper.doActionsAllPlayersCommChest(commChestCard, gui, p1, p2, p3, p4);
+	TestHelper.assertSameCash("1400", p1, p2, p3, p4);
+	TestHelper.assertSameCell(17, gui, p1, p2, p3, p4);
+
+	TestHelper.changeCellAllPlayers(33, gui, p1, p2, p3, p4);
+	TestHelper.doActionsAllPlayersCommChest(commChestCard, gui, p1, p2, p3, p4);
+	TestHelper.assertSameCash("1350", p1, p2, p3, p4);
+	TestHelper.assertSameCell(33, gui, p1, p2, p3, p4);
+
+	// ...and then when a player will bankrupt.
+	p1.setCash("ones",         1);
+	p1.setCash("fives",        0);
+	p1.setCash("tens",         0);
+	p1.setCash("twenties",     0);
+	p1.setCash("fifties",      0);
+	p1.setCash("hundreds",     0);
+	p1.setCash("fiveHundreds", 0);
+	commChestCard.doActions(p1, gui);
+
+	assertEquals(p1.getCash("total"),        "0");
+	assertEquals(p1.getCash("ones"),         "0");
+	assertEquals(p1.getCash("fives"),        "0");
+	assertEquals(p1.getCash("tens"),         "0");
+	assertEquals(p1.getCash("twenties"),     "0");
+	assertEquals(p1.getCash("fifties"),      "0");
+	assertEquals(p1.getCash("hundreds"),     "0");
+	assertEquals(p1.getCash("fiveHundreds"), "0");
+
+
+	// And when the amount payed is the Player's exact total of cash.
+	p1.setCash("ones",         0);
+	p1.setCash("fives",        0);
+	p1.setCash("tens",         0);
+	p1.setCash("twenties",     0);
+	p1.setCash("fifties",      1);
+	p1.setCash("hundreds",     0);
+	p1.setCash("fiveHundreds", 0);
+	commChestCard.doActions(p1, gui);
+
+	assertEquals(p1.getCash("total"),        "0");
+	assertEquals(p1.getCash("ones"),         "0");
+	assertEquals(p1.getCash("fives"),        "0");
+	assertEquals(p1.getCash("tens"),         "0");
+	assertEquals(p1.getCash("twenties"),     "0");
+	assertEquals(p1.getCash("fifties"),      "0");
+	assertEquals(p1.getCash("hundreds"),     "0");
+	assertEquals(p1.getCash("fiveHundreds"), "0");
     }
 
     @Test
@@ -294,7 +384,6 @@ public class CommunityChestTester extends TestCase {
 	commChestCard = new CommunityChest(13);
 	assertEquals(commChestCard.getType(), 13);
 	assertEquals(commChestCard.getText(), "You are assessed for street repairs – $40 per house, $115 per hotel");
-
     }
 
     @Test
@@ -425,8 +514,8 @@ public class CommunityChestTester extends TestCase {
 // TODO: 7
 // DONE: 8
 // DONE: 9
-// TODO: 10
-// TODO: 11
+// DONE: 10
+// DONE: 11
 // DONE: 12
 // TODO: 13
 // DONE: 14
