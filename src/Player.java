@@ -281,16 +281,24 @@ public class Player {
 	return totalHotelsOwned;
     }
 
+    /** Set the number of houses this player owns. */
+    public void setNumHouses(int num) {
+	totalHousesOwned = num;
+    }
+
+    /** Set the number of hotels this player owns. */
+    public void setNumHotels(int num) {
+	totalHotelsOwned = num;
+    }
+
     /** Determine if the given amount will bankrupt this Player
      *  if (s)he has to pay it.
      *  Return True if Player will be bankrupted, False otherwise. */
     public Boolean willBankrupt(int amount) {
-	if ( totalMoney < amount ) {
+	if ( totalMoney < amount )
 	    return true;
-	}
-	else {
+	else
 	    return false;
-	}
     }
 
     /** Convert this Player's cash into bill type numToSwitch.

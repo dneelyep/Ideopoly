@@ -476,7 +476,7 @@ public class IdeopolyGUI implements ActionListener {
 		// Player lands on a Community Chest card.
 		else if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33) {
 		    CommunityChest card = commChestCards.pop();
-		    card.doActions(p, this);
+		    card.doActions(p, this, p2, p3, p4);
 		}
 	    
 		// Player lands on a Chance card.
@@ -747,6 +747,8 @@ public class IdeopolyGUI implements ActionListener {
     }
 
     /** Transfer money amount a from player p1 to player p2.*/
+    // TODO: This is a little misleading. This provides a general way to split bills correctly and
+    // pay for any task. I think. Better method name would be good.
     public void playerPayPlayer(int a, Player p1, Player p2) {
 	// TODO: Before each call of this, make sure the player won't go bankrupt.
 	// TODO: Move that step of checking for bankruptcy status to the method rather than

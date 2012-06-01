@@ -9,7 +9,7 @@ per regular class in the src/ directory.
    This should help pinpoint errors a little more quickly.
 
 * TODO For large sections of items that aren't done, it would be helpful to split test files into separate methods to make this process easier.
-* Overall Test Progress - by tested methods. [38/106]
+* Overall Test Progress - by tested methods. [42/108]
  If a test is marked done, it means basic tests are in place. Not neccessarily complete coverage of every possible way everything can go wrong.
 :PROPERTIES:
 :COOKIE_DATA: todo recursive
@@ -59,24 +59,24 @@ per regular class in the src/ directory.
 ** CharacterSelect [0/2]
 *** TODO CharacterSelect()
 *** TODO actionPerformed()
-** CommunityChest [17/21]
+** CommunityChest [21/21]
 *** DONE CommunityChest()
 *** DONE getText()
 *** DONE getType()
-*** TODO doActions()
+*** DONE doActions()
 **** DONE Card 1
 **** DONE Card 2
 **** DONE Card 3
 **** DONE Card 4
 **** DONE Card 5
-**** TODO Card 6
-**** TODO Card 7
+**** DONE Card 6
+**** DONE Card 7
 **** DONE Card 8
 **** DONE Card 9
 **** DONE Card 10
 **** DONE Card 11
 **** DONE Card 12
-**** TODO Card 13
+**** DONE Card 13
 **** DONE Card 14
 **** DONE Card 15
 **** DONE Card 16
@@ -95,7 +95,7 @@ per regular class in the src/ directory.
 *** TODO main()
 *** TODO Menu()
 *** TODO actionPerformed()
-** Player [0/24]
+** Player [0/26]
 *** TODO Player()
 *** TODO getCash()
 *** TODO addProperty()
@@ -113,6 +113,8 @@ per regular class in the src/ directory.
 *** TODO setJailStatus()
 *** TODO getNumHouses()
 *** TODO getNumHotels()
+*** TODO setNumHouses()
+*** TODO setNumHotels()
 *** TODO willBankrupt()
 *** TODO spreadCash()
 *** TODO bankruptPlayer()

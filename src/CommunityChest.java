@@ -71,7 +71,7 @@ public class CommunityChest {
 
     /** Have the Player p carry out actions associated with 
      *  a Community Chest card of this type. */
-    public void doActions(Player p, IdeopolyGUI gui) { // TODO: Rename this to drawCard() or something better.
+    public void doActions(Player p, IdeopolyGUI gui, Player p2, Player p3, Player p4) { // TODO: Rename this to drawCard() or something better.
 	switch (this.cardType) {
 	    case 1: p.changeCell(0, gui); // "Advance to Go (Collect $200)"
 		p.addCash("hundreds", 2);
@@ -96,66 +96,45 @@ public class CommunityChest {
 		// TODO: Repeated also.
 		// TODO: Subtle bug(?) in these. If a player bankrupts, the main player still 
 		// gets their money. Should this be allowed? Add relevant tests.
+		Player[] otherPlayers;
 
-    // 	    if      (p == player1) {
-    // 		otherPlayers = new Player[] { player2, player3, player4 };
-    // 	    }
-    // 	    else if (p == player2) {
-    // 		otherPlayers = new Player[] { player1, player3, player4};
-    // 	    }
-    // 	    else if (p == player3) {
-    // 		otherPlayers = new Player[] { player1, player2, player4 };
-    // 	    } 
-    // 	    else { // p == player4, or some random other value.
-    // 		// TODO: Shouldn't allow this for all other cases.
-    // 		otherPlayers = new Player[] { player1, player2, player3 };
-    // 	    }
+		/** The number of Players being taken from that are not bankrupt. For each one
+		 *  of these players that are bankrupt, the receiving Player gets $10 less. */
+		int numNotBankrupt = 3;
 
-    // 	    for (Player iterPlayer : otherPlayers) {
-    // 		if (iterPlayer.willBankrupt(10)) {
-    // 		    // TODO: More code needed to handle this? And the identical below cases?
-    // 		    iterPlayer.bankruptPlayer();
-    // 		}
-    // 		else {
-    // 		    iterPlayer.spreadCash(10);
-    // 		    iterPlayer.addCash("tens", -1);
-    // 		    iterPlayer.spreadCash(500);
-    // 		}
-    // 	    }
+		otherPlayers = new Player[] { p2, p3, p4 }; // TODO: Is this conditional redundant?
 
-    // 	    p.addCash("tens", 3);
-    // 	    break;
+		for (Player iterPlayer : otherPlayers) {
+		    if (iterPlayer.willBankrupt(10)) {
+			iterPlayer.bankruptPlayer();
+			numNotBankrupt--;
+		    }
+		    else {
+			iterPlayer.spreadCash(10);
+			iterPlayer.addCash("tens", -1);
+			iterPlayer.spreadCash(500);
+		    }
+		}
+
+		p.addCash("tens", numNotBankrupt);
 		break;
 	    case 7:   // "Grand Opera Night – collect $50 from every player for opening night seats"
-    // 	    Player[] extraPlayers;
-    // 	    if      ( p == player1 ) {
-    // 		// TODO: Better variable name, or a better way of doing this.
-    // 		extraPlayers = new Player[] { player2, player3, player4 };
-    // 	    }
-    // 	    else if (p == player2) {
-    // 		extraPlayers = new Player[] { player1, player3, player4 };
-    // 	    }
-    // 	    else if (p == player3) {
-    // 		extraPlayers = new Player[] { player1, player2, player4 };
-    // 	    }
-    // 	    else { // (p == player4) and all other cases. TODO: Shouldn't allow all cases for this.
-    // 		extraPlayers = new Player[] { player1, player2, player3 };
-    // 	    }
+		Player[] extraPlayers = new Player[] {p2, p3, p4}; // TODO: Just use otherPlayers instead?
+		numNotBankrupt = 3;
 
-    // 	    for (Player iterPlayer : extraPlayers) {
-    // 		if (iterPlayer.willBankrupt(50)) {
-    // 		    iterPlayer.bankruptPlayer();
-    // 		}
-    // 		else {
-    // 		    iterPlayer.spreadCash(50);
-    // 		    iterPlayer.addCash("fifties", -1);
-    // 		    iterPlayer.spreadCash(500);
-    // 		}
-    // 	    }
+		for (Player iterPlayer : extraPlayers) {
+		    if (iterPlayer.willBankrupt(50)) {
+			iterPlayer.bankruptPlayer();
+			numNotBankrupt--;
+		    }
+		    else {
+			iterPlayer.spreadCash(50);
+			iterPlayer.addCash("fifties", -1);
+			iterPlayer.spreadCash(500);
+		    }
+		}
 
-    // 	    p.addCash("fifties", 3);
-    // 	    break;
-
+		p.addCash("fifties", numNotBankrupt);
 		break;
 	    case 8: p.addCash("tens", 2);     // "Income Tax refund – collect $20"
 		break;
@@ -185,6 +164,19 @@ public class CommunityChest {
 		p.addCash("fives", 1);
 		break;
 	    case 13:  // "You are assessed for street repairs – $40 per house, $115 per hotel"
+		int chargeAmount = (p.getNumHouses() * 40) + (p.getNumHotels() * 115);
+
+		/** A random Player I can use just to transfer money to. */
+		Player bank = new Player(5, gui);
+		// TODO: This should not rely on such a hack. Should have a way of decreasing
+		// money without transferring to a junk Player.
+
+		if (p.willBankrupt(chargeAmount))
+		    p.bankruptPlayer();
+		else
+		    gui.playerPayPlayer(chargeAmount, p, bank);
+
+		// TODO: And then destroy bank.
 		break;
 	    case 14: p.addCash("tens", 1);     // "You have won second prize in a beauty contest– collect $10"
 		break;

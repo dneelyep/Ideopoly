@@ -93,7 +93,7 @@ public class CommunityChestTester extends TestCase {
 	p1.setCash("fifties",      0);
 	p1.setCash("hundreds",     0);
 	p1.setCash("fiveHundreds", 0);
-	commChestCard.doActions(p1, gui);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
 
 	assertEquals(p1.getCash("total"),        "0");
 	assertEquals(p1.getCash("ones"),         "0");
@@ -169,6 +169,54 @@ public class CommunityChestTester extends TestCase {
 	commChestCard = new CommunityChest(6);
 	assertEquals(commChestCard.getType(), 6);
 	assertEquals(commChestCard.getText(), "It is your birthday - Collect $10 from each player");
+
+	// Test when no players are bankrupt.
+	TestHelper.changeCellAllPlayers(2, gui, p1, p2, p3, p4);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	TestHelper.assertSameCell(2, gui, p1, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1530");
+	assertEquals(p2.getCash("total"), "1490");
+	assertEquals(p3.getCash("total"), "1490");
+	assertEquals(p4.getCash("total"), "1490");
+
+	TestHelper.changeCellAllPlayers(17, gui, p1, p2, p3, p4);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	TestHelper.assertSameCell(17, gui, p1, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1560");
+	assertEquals(p2.getCash("total"), "1480");
+	assertEquals(p3.getCash("total"), "1480");
+	assertEquals(p4.getCash("total"), "1480");
+
+	TestHelper.changeCellAllPlayers(33, gui, p1, p2, p3, p4);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	TestHelper.assertSameCell(33, gui, p1, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1590");
+	assertEquals(p2.getCash("total"), "1470");
+	assertEquals(p3.getCash("total"), "1470");
+	assertEquals(p4.getCash("total"), "1470");
+
+	// And test when 1, 2, and 3 other players are bankrupt.
+	p1 = new Player(1, gui);
+	p2.bankruptPlayer();
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1520");
+	assertEquals(p2.getCash("total"), "0");
+	assertEquals(p3.getCash("total"), "1460");
+	assertEquals(p4.getCash("total"), "1460");
+
+	p3.bankruptPlayer();
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1530");
+	assertEquals(p2.getCash("total"), "0");
+	assertEquals(p3.getCash("total"), "0");
+	assertEquals(p4.getCash("total"), "1450");
+
+	p4.bankruptPlayer();
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1530");
+	assertEquals(p2.getCash("total"), "0");
+	assertEquals(p3.getCash("total"), "0");
+	assertEquals(p4.getCash("total"), "0");
     }
 
     @Test
@@ -176,6 +224,55 @@ public class CommunityChestTester extends TestCase {
 	commChestCard = new CommunityChest(7);
 	assertEquals(commChestCard.getType(), 7);
 	assertEquals(commChestCard.getText(), "Grand Opera Night – collect $50 from every player for opening night seats");
+
+	// Test when no players are bankrupt.
+	TestHelper.changeCellAllPlayers(2, gui, p1, p2, p3, p4);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	TestHelper.assertSameCell(2, gui, p1, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1650");
+	assertEquals(p2.getCash("total"), "1450");
+	assertEquals(p3.getCash("total"), "1450");
+	assertEquals(p4.getCash("total"), "1450");
+
+	TestHelper.changeCellAllPlayers(17, gui, p1, p2, p3, p4);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	TestHelper.assertSameCell(17, gui, p1, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1800");
+	assertEquals(p2.getCash("total"), "1400");
+	assertEquals(p3.getCash("total"), "1400");
+	assertEquals(p4.getCash("total"), "1400");
+
+	TestHelper.changeCellAllPlayers(33, gui, p1, p2, p3, p4);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	TestHelper.assertSameCell(33, gui, p1, p2, p3, p4);
+	// TODO: A method for asserting arbitrary total cash values?
+	assertEquals(p1.getCash("total"), "1950");
+	assertEquals(p2.getCash("total"), "1350");
+	assertEquals(p3.getCash("total"), "1350");
+	assertEquals(p4.getCash("total"), "1350");
+
+	// And then when 1, 2, and 3 other players are bankrupt.
+	p1 = new Player(1, gui);
+	p2.bankruptPlayer();
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1600");
+	assertEquals(p2.getCash("total"), "0");
+	assertEquals(p3.getCash("total"), "1300");
+	assertEquals(p4.getCash("total"), "1300");
+
+	p3.bankruptPlayer();
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1650");
+	assertEquals(p2.getCash("total"), "0");
+	assertEquals(p3.getCash("total"), "0");
+	assertEquals(p4.getCash("total"), "1250");
+
+	p4.bankruptPlayer();
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1650");
+	assertEquals(p2.getCash("total"), "0");
+	assertEquals(p3.getCash("total"), "0");
+	assertEquals(p4.getCash("total"), "0");
     }
 
     @Test
@@ -257,7 +354,7 @@ public class CommunityChestTester extends TestCase {
 	p1.setCash("fifties",      0);
 	p1.setCash("hundreds",     0);
 	p1.setCash("fiveHundreds", 0);
-	commChestCard.doActions(p1, gui);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
 
 	assertEquals(p1.getCash("total"),        "0");
 	assertEquals(p1.getCash("ones"),         "0");
@@ -277,7 +374,7 @@ public class CommunityChestTester extends TestCase {
 	p1.setCash("fifties",      0);
 	p1.setCash("hundreds",     1);
 	p1.setCash("fiveHundreds", 0);
-	commChestCard.doActions(p1, gui);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
 
 	assertEquals(p1.getCash("total"),        "0");
 	assertEquals(p1.getCash("ones"),         "0");
@@ -320,7 +417,7 @@ public class CommunityChestTester extends TestCase {
 	p1.setCash("fifties",      0);
 	p1.setCash("hundreds",     0);
 	p1.setCash("fiveHundreds", 0);
-	commChestCard.doActions(p1, gui);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
 
 	assertEquals(p1.getCash("total"),        "0");
 	assertEquals(p1.getCash("ones"),         "0");
@@ -340,7 +437,7 @@ public class CommunityChestTester extends TestCase {
 	p1.setCash("fifties",      1);
 	p1.setCash("hundreds",     0);
 	p1.setCash("fiveHundreds", 0);
-	commChestCard.doActions(p1, gui);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
 
 	assertEquals(p1.getCash("total"),        "0");
 	assertEquals(p1.getCash("ones"),         "0");
@@ -384,7 +481,54 @@ public class CommunityChestTester extends TestCase {
 	commChestCard = new CommunityChest(13);
 	assertEquals(commChestCard.getType(), 13);
 	assertEquals(commChestCard.getText(), "You are assessed for street repairs – $40 per house, $115 per hotel");
+
+	// Test when the player has no property.
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1500");
+
+	// Then when the player has 1 house.
+	p1.setNumHouses(1);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1460");
+
+	// Then when the player has 2 houses.
+	p1.setNumHouses(2);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1380");
+
+	// Then when the player has 3 houses.
+	p1.setNumHouses(3);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1260");
+
+	// Then when the player has 4 houses.
+	p1.setNumHouses(4);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "1100");
+
+	// Then when the player has 5 houses.
+	p1.setNumHouses(5);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "900");
+
+	// Then when the player has 1 hotel.
+	p1.setNumHouses(0);
+	p1.setNumHotels(1);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "785");
+
+	// Then when the player has 2 hotels.
+	p1.setNumHotels(2);
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "555");
+
+	// And lastly when the player will be bankrupt by this.
+	p1.setNumHouses(10); // $400
+	p1.setNumHotels(2);  // $300
+	commChestCard.doActions(p1, gui, p2, p3, p4);
+	assertEquals(p1.getCash("total"), "0");
     }
+
 
     @Test
     public void testCommChest14() {
@@ -500,25 +644,3 @@ public class CommunityChestTester extends TestCase {
 	assertEquals(commChestCard.getText(), null);
     }
 }
-
-// Test coverage status:
-// (Note that this means basic tests are in place for all relevant methods/conditions. 
-//  It does NOT mean that all tests pass, or that every single possible case is tested.
-//  Just testing that the basic, expected cases work correctly.)
-// DONE: 1
-// DONE: 2
-// DONE: 3
-// DONE: 4
-// DONE: 5
-// TODO: 6
-// TODO: 7
-// DONE: 8
-// DONE: 9
-// DONE: 10
-// DONE: 11
-// DONE: 12
-// TODO: 13
-// DONE: 14
-// DONE: 15
-// DONE: 16
-// DONE: 17
