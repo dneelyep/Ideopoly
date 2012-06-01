@@ -79,15 +79,14 @@ public class CommunityChest {
             case 2: p.addCash("hundreds", 2); // "Bank error in your favor – collect $200"
 		break;
 	    case 3:   // "Doctor's fees – Pay $50"
-    // 	    if (p.willBankrupt(50)) {
-    // 		p.bankruptPlayer(); // TODO: Update this code to do more relevant stuff.
-    // 	    }
-    // 	    else {
-    // 		p.spreadCash(50); // Shuffle money around to get 50s.
-    // 		p.addCash("fifties", -1);
-    // 		p.spreadCash(500); // Then shuffle back to a more reasonable amount.
-    // 	    }
-    // 	    break;
+		if (p.willBankrupt(50)) {
+		    p.bankruptPlayer(); // TODO: Update this code to do more relevant stuff.
+		}
+		else {
+		    p.spreadCash(50);  // Shuffle money around to get 50s.
+		    p.addCash("fifties", -1);
+		    p.spreadCash(500); // Then shuffle back to a more reasonable amount.
+		}
 		break;
 	    case 4: p.giveGOOJF();    // "Get Out of Jail Free – this card may be kept until needed, or sold.
 		break;

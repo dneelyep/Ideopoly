@@ -207,6 +207,34 @@ public class Player {
 
     }
 
+    /** Set this players currency of type t to a given amount a.*/
+    // TODO: With this, is addCash() now obsolete? For example, I could setCash("x", p.getCash("x") + 5)
+    public void setCash(String t, int a) {
+	// TODO: Make sure this handles negative values appropriately.
+	switch (t) {
+	case "ones":         ones  = a;
+	    break;
+	case "fives":        fives = a;
+	    break;
+	case "tens":         tens  = a;
+	    break;
+	case "twenties":     twenties = a;
+	    break;
+	case "fifties":      fifties  = a;
+	    break;
+	case "hundreds":     hundreds = a;
+	    break;
+	case "fiveHundreds": fiveHundreds = a;
+	    break;
+	default: System.out.println("Invalid currency amount.");
+	    break;
+	}
+
+	// After money total changes, update the totalMoney field accordingly.
+	// TODO: Make a method for this? Is reused a bit. updateTotalMoney() ?
+	totalMoney = ( ones + (fives * 5) + (tens * 10) + (twenties * 20) + (fifties * 50) + (hundreds * 100) + (fiveHundreds * 500) );
+    }
+
     /** Give this player a get out of jail free card. */
     public void giveGOOJF() {
 	GOOJFCards++;

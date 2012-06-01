@@ -9,12 +9,12 @@ per regular class in the src/ directory.
    This should help pinpoint errors a little more quickly.
 
 * TODO For large sections of items that aren't done, it would be helpful to split test files into separate methods to make this process easier.
-* Overall Test Progress - by tested methods. [35/105]
+* Overall Test Progress - by tested methods. [36/106]
  If a test is marked done, it means basic tests are in place. Not neccessarily complete coverage of every possible way everything can go wrong.
 :PROPERTIES:
 :COOKIE_DATA: todo recursive
 :END:
-** BoardCell
+** BoardCell [0/10]
 *** TODO BoardCell()
 *** TODO getName()
 *** TODO getOwner()
@@ -25,17 +25,17 @@ per regular class in the src/ directory.
 *** TODO getY()
 *** TODO getRent
 *** TODO getCost
-** BoardPosition
+** BoardPosition [1/5]
 *** DONE BoardPosition()
 *** TODO getXCoord()
 *** TODO getYCoord()
 *** TODO getImage()
 *** TODO setImage()
-** CashCell
+** CashCell [3/3]
 *** DONE CashCell()
 *** DONE getXCoord()
 *** DONE getYCoord()
-** Chance
+** Chance [16/20]
 *** DONE Chance()
 *** DONE getText()
 *** DONE getType()
@@ -56,17 +56,17 @@ per regular class in the src/ directory.
 **** DONE Card 14
 **** DONE Card 15
 **** DONE Card 16
-** CharacterSelect
+** CharacterSelect [0/2]
 *** TODO CharacterSelect()
 *** TODO actionPerformed()
-** CommunityChest
+** CommunityChest [15/21]
 *** DONE CommunityChest()
 *** DONE getText()
 *** DONE getType()
 *** TODO doActions()
 **** DONE Card 1
 **** DONE Card 2
-**** TODO Card 3
+**** DONE Card 3
 **** DONE Card 4
 **** DONE Card 5
 **** TODO Card 6
@@ -81,7 +81,7 @@ per regular class in the src/ directory.
 **** DONE Card 15
 **** DONE Card 16
 **** DONE Card 17
-** IdeopolyGUI
+** IdeopolyGUI [1/9]
 *** TODO IdeopolyGUI()
 *** TODO doTurn()
 *** TODO movePlayer()
@@ -91,11 +91,11 @@ per regular class in the src/ directory.
 *** DONE getCashDistribution()
 *** TODO playerPayPlayer()
 *** TODO drawCommunityChest()
-** Menu
+** Menu [0/3]
 *** TODO main()
 *** TODO Menu()
 *** TODO actionPerformed()
-** Player
+** Player [0/24]
 *** TODO Player()
 *** TODO getCash()
 *** TODO addProperty()
@@ -105,6 +105,7 @@ per regular class in the src/ directory.
 *** TODO getCell()
 *** TODO changeCell()
 *** TODO addCash()
+*** TODO setCash()
 *** TODO giveGOOJF()
 *** TODO spendGOOJF()
 *** TODO getNumGOOJFCards()
@@ -119,11 +120,11 @@ per regular class in the src/ directory.
 *** TODO getNumOwnedProperties()
 *** TODO getIndex()
 *** TODO putInJail()
-** PropagandaOutlet
+** PropagandaOutlet [0/3]
 *** TODO PropagandaOutlet()
 *** TODO getRent()
 *** TODO getCost()
-** Railroad
+** Railroad [0/1]
 *** TODO Railroad()
 ** TestHelper
 *** TODO doActionsAllPlayersChance()
