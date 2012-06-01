@@ -710,12 +710,25 @@ public class IdeopolyGUI implements ActionListener {
     }
 
     /** Given an integer i, break it up into the smallest possible amount of bills. */
-    private void getCashDistribution(int total) {
+    // TODO: Can/should this be public? And this seems like it should maybe be associated with
+    //       a Player object instead? Or similar?
+    public int[] getCashDistribution(int total) {
+	// TODO: This functionality seems so generic that it should be in a library somewhere...
 	// LEFTOFFHERE: TODO: This is almost working, but I think BoardCell's getCost() function
 	// is not being overwritten by PropagandaOutlet's => since BoardCell always returns 
 	// 0, I get this case where total = 0, which screws up gameplay.
 	if (total <= 0) {
 	    System.out.println("Can't break up 0 or negative dollars!");
+
+	    // Since we can't break up this amount of money, the amount for each bill is 0.
+	    // TODO: Convert this to a for-each loop or similar.
+	    paymentAmounts[0] = 0;
+	    paymentAmounts[1] = 0;
+	    paymentAmounts[2] = 0;
+	    paymentAmounts[3] = 0;
+	    paymentAmounts[4] = 0;
+	    paymentAmounts[5] = 0;
+	    paymentAmounts[6] = 0;
 	}
 
 	else {
@@ -741,7 +754,12 @@ public class IdeopolyGUI implements ActionListener {
 	    paymentAmounts[4] = billTotals[2];
 	    paymentAmounts[5] = billTotals[1];
 	    paymentAmounts[6] = billTotals[0];
-	}  
+
+	    // TODO: After this method's working decently and is tested, remove the above duplicate
+	    // putInJail method. Useless and a waste.
+	}
+
+	return paymentAmounts;
     }
 
     /** Transfer money amount a from player p1 to player p2.*/

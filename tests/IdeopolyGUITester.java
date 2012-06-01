@@ -5,16 +5,25 @@ import org.junit.*;
  *
  *  @author Daniel Neel */
 public class IdeopolyGUITester extends TestCase{
+    /** A generic GUI we use for the below tests. */
+    private IdeopolyGUI testGUI;
+
+    /** Generic Players that we also use for tests. */
+    private Player testCCPlayer1;
+    private Player testCCPlayer2;
+    private Player testCCPlayer3;
+    private Player testCCPlayer4;
+
     /** Test all methods in the IdeopolyGUI class. */
     public void testIdeopolyGUI() {
-	IdeopolyGUI testGUI = new IdeopolyGUI("Test GUI");
+	testGUI = new IdeopolyGUI("Test GUI");
 	// LEFTOFFHERE: To enable these, make a new IdeopolyGUI object.
 	// TODO: Test, after creation of the GUI, the isEnabled() statuses for all the buttons.
 	// TODO: These Players have to have a gui to pass in. 
-	Player testCCPlayer1  = new Player(1, testGUI);
-	Player testCCPlayer2  = new Player(2, testGUI);
-	Player testCCPlayer3  = new Player(3, testGUI);
-	Player testCCPlayer4  = new Player(4, testGUI);
+	testCCPlayer1  = new Player(1, testGUI);
+	testCCPlayer2  = new Player(2, testGUI);
+	testCCPlayer3  = new Player(3, testGUI);
+	testCCPlayer4  = new Player(4, testGUI);
 	assertEquals(testCCPlayer1.getCell(), testGUI.boardProperties[0]);
 	assertEquals(testCCPlayer2.getCell(), testGUI.boardProperties[0]);
 	assertEquals(testCCPlayer3.getCell(), testGUI.boardProperties[0]);
@@ -22,39 +31,133 @@ public class IdeopolyGUITester extends TestCase{
     }
 
     // TODO: Javadocs for this and all other methods.
+    // "Given an integer i, break it up into the smallest possible amount of bills."
     public void testGetCashDistribution() {
-	// /** Given an integer i, break it up into the smallest possible amount of bills. */
-	// private void getCashDistribution(int total) {
-	//     // LEFTOFFHERE: TODO: This is almost working, but I think BoardCell's getCost() function
-	//     // is not being overwritten by PropagandaOutlet's => since BoardCell always returns 
-	//     // 0, I get this case where total = 0, which screws up gameplay.
-	//     if (total <= 0) {
-	// 	System.out.println("Can't break up 0 or negative dollars!");
-	//     }
+	testGUI = new IdeopolyGUI("Test GUI");
 
-	//     else {
-	// 	// TODO: Ambiguous, confusing names here.
-	// 	int[] billValues  = {500, 100, 50, 20, 10, 5, 1};
-	// 	int[] billTotals  = {0, 0, 0, 0, 0, 0, 0};
-	// 	int i = 0;
+	testCCPlayer1  = new Player(1, testGUI);
+	testCCPlayer2  = new Player(2, testGUI);
+	testCCPlayer3  = new Player(3, testGUI);
+	testCCPlayer4  = new Player(4, testGUI);
 
-	// 	for (int bill : billValues) {
-	// 	    if (total / bill != 0) {
-	// 		billTotals[i] = total / bill;
-	// 		total -= (bill * billTotals[i]);
-	// 	    }
+	// TODO: This long assertEquals looks like an opportunity for a helper method.
+	int[] cashDistribution = testGUI.getCashDistribution(2000);
+	assertEquals(cashDistribution[0], 0); // 1s
+	assertEquals(cashDistribution[1], 0); // 5s
+	assertEquals(cashDistribution[2], 0); // 10s
+	assertEquals(cashDistribution[3], 0); // 20s
+	assertEquals(cashDistribution[4], 0); // 50s
+	assertEquals(cashDistribution[5], 0); // 100s
+	assertEquals(cashDistribution[6], 4); // 500s
 
-	// 	    i++;
-	// 	}
+	cashDistribution = testGUI.getCashDistribution(1500);
+	assertEquals(cashDistribution[0], 0);
+	assertEquals(cashDistribution[1], 0);
+	assertEquals(cashDistribution[2], 0);
+	assertEquals(cashDistribution[3], 0);
+	assertEquals(cashDistribution[4], 0);
+	assertEquals(cashDistribution[5], 0);
+	assertEquals(cashDistribution[6], 3);
 
-	// 	//Then have the player pay each of the amounts
-	// 	paymentAmounts[0] = billTotals[6];
-	// 	paymentAmounts[1] = billTotals[5];
-	// 	paymentAmounts[2] = billTotals[4];
-	// 	paymentAmounts[3] = billTotals[3];
-	// 	paymentAmounts[4] = billTotals[2];
-	// 	paymentAmounts[5] = billTotals[1];
-	// 	paymentAmounts[6] = billTotals[0];
-	//     }  
+	cashDistribution = testGUI.getCashDistribution(1200);
+	assertEquals(cashDistribution[0], 0);
+	assertEquals(cashDistribution[1], 0);
+	assertEquals(cashDistribution[2], 0);
+	assertEquals(cashDistribution[3], 0);
+	assertEquals(cashDistribution[4], 0);
+	assertEquals(cashDistribution[5], 2);
+	assertEquals(cashDistribution[6], 2);
+
+	cashDistribution = testGUI.getCashDistribution(1100);
+	assertEquals(cashDistribution[0], 0);
+	assertEquals(cashDistribution[1], 0);
+	assertEquals(cashDistribution[2], 0);
+	assertEquals(cashDistribution[3], 0);
+	assertEquals(cashDistribution[4], 0);
+	assertEquals(cashDistribution[5], 1);
+	assertEquals(cashDistribution[6], 2);
+
+	cashDistribution = testGUI.getCashDistribution(1150);
+	assertEquals(cashDistribution[0], 0);
+	assertEquals(cashDistribution[1], 0);
+	assertEquals(cashDistribution[2], 0);
+	assertEquals(cashDistribution[3], 0);
+	assertEquals(cashDistribution[4], 1);
+	assertEquals(cashDistribution[5], 1);
+	assertEquals(cashDistribution[6], 2);
+
+	cashDistribution = testGUI.getCashDistribution(1170);
+	assertEquals(cashDistribution[0], 0);
+	assertEquals(cashDistribution[1], 0);
+	assertEquals(cashDistribution[2], 0);
+	assertEquals(cashDistribution[3], 1);
+	assertEquals(cashDistribution[4], 1);
+	assertEquals(cashDistribution[5], 1);
+	assertEquals(cashDistribution[6], 2);
+
+	cashDistribution = testGUI.getCashDistribution(1180);
+	assertEquals(cashDistribution[0], 0);
+	assertEquals(cashDistribution[1], 0);
+	assertEquals(cashDistribution[2], 1);
+	assertEquals(cashDistribution[3], 1);
+	assertEquals(cashDistribution[4], 1);
+	assertEquals(cashDistribution[5], 1);
+	assertEquals(cashDistribution[6], 2);
+
+	cashDistribution = testGUI.getCashDistribution(1185);
+	assertEquals(cashDistribution[0], 0);
+	assertEquals(cashDistribution[1], 1);
+	assertEquals(cashDistribution[2], 1);
+	assertEquals(cashDistribution[3], 1);
+	assertEquals(cashDistribution[4], 1);
+	assertEquals(cashDistribution[5], 1);
+	assertEquals(cashDistribution[6], 2);
+
+	cashDistribution = testGUI.getCashDistribution(1186);
+	assertEquals(cashDistribution[0], 1);
+	assertEquals(cashDistribution[1], 1);
+	assertEquals(cashDistribution[2], 1);
+	assertEquals(cashDistribution[3], 1);
+	assertEquals(cashDistribution[4], 1);
+	assertEquals(cashDistribution[5], 1);
+	assertEquals(cashDistribution[6], 2);
+
+	cashDistribution = testGUI.getCashDistribution(1187);
+	assertEquals(cashDistribution[0], 2);
+	assertEquals(cashDistribution[1], 1);
+	assertEquals(cashDistribution[2], 1);
+	assertEquals(cashDistribution[3], 1);
+	assertEquals(cashDistribution[4], 1);
+	assertEquals(cashDistribution[5], 1);
+	assertEquals(cashDistribution[6], 2);
+
+
+	// And then test some invalid values...
+	cashDistribution = testGUI.getCashDistribution(0);
+	//	assertEquals(cashDistribution[0], 0);
+	assertEquals(cashDistribution[1], 0);
+	assertEquals(cashDistribution[2], 0);
+	assertEquals(cashDistribution[3], 0);
+	assertEquals(cashDistribution[4], 0);
+	assertEquals(cashDistribution[5], 0);
+	assertEquals(cashDistribution[6], 0);
+
+	cashDistribution = testGUI.getCashDistribution(-1);
+	assertEquals(cashDistribution[0], 0);
+	assertEquals(cashDistribution[1], 0);
+	assertEquals(cashDistribution[2], 0);
+	assertEquals(cashDistribution[3], 0);
+	assertEquals(cashDistribution[4], 0);
+	assertEquals(cashDistribution[5], 0);
+	assertEquals(cashDistribution[6], 0);
+
+	cashDistribution = testGUI.getCashDistribution(-37);
+	assertEquals(cashDistribution[0], 0);
+	assertEquals(cashDistribution[1], 0);
+	assertEquals(cashDistribution[2], 0);
+	assertEquals(cashDistribution[3], 0);
+	assertEquals(cashDistribution[4], 0);
+	assertEquals(cashDistribution[5], 0);
+	assertEquals(cashDistribution[6], 0);
     }
 }
