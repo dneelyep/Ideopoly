@@ -13,21 +13,32 @@ public class ChanceTester extends TestCase {
     private Player player3 = gui.player3;
     private Player player4 = gui.player4;
 
+    Chance chanceCard;
+
     // TODO: I added the carryOutActions() method to the Chance class. Make sure to have tests
     // for this.
     // TODO: Split this up into 16 different methods, one for each type of card?
     /** Test all methods in the Chance class. */
     @Test
-	public void testChance() {
+	public void testChance1() {
 	// TODO: Later, is it possible for this method to go wrong? If so, test for those ways.
 
-	Chance chanceCard = new Chance(1);
+	chanceCard = new Chance(1);
 	assertEquals(chanceCard.getType(), 1);
 	assertEquals(chanceCard.getText(), "Advance to Go (Collect $200)");
 
 	TestHelper.doActionsAllPlayersChance(chanceCard, gui, player1, player2, player3, player4);
 	TestHelper.assertSameCell(0, gui, player1, player2, player3, player4);
 	TestHelper.assertSameCash("1700", player1, player2, player3, player4);
+	
+    }
+
+    // TODO: Add javadocs for each test. Possibly include the text of the card with each.
+    @Test
+	public void testChance2() {
+	// LEFTOFFHERE: Began splitting this file into separate tests. Now to follow through with 
+	// that. Current failing test is due I think to dealing with a new IdeopolyGUI object in this
+	// new test - money amounts for Players are reset.
 
 	chanceCard = new Chance(2);
 	assertEquals(chanceCard.getType(), 2);
@@ -37,23 +48,25 @@ public class ChanceTester extends TestCase {
 	// them 1 past Illinois.
 	TestHelper.doActionsAllPlayersChance(chanceCard, gui, player1, player2, player3, player4);
 	TestHelper.assertSameCell(24, gui, player1, player2, player3, player4);
-	TestHelper.assertSameCash("1700", player1, player2, player3, player4);
+	TestHelper.assertSameCash("1500", player1, player2, player3, player4);
 
 	// Now they're starting on Illinois. If this somehow occurs, we have the Player
 	// doing a trip around the board and picking up $200.
 	TestHelper.doActionsAllPlayersChance(chanceCard, gui, player1, player2, player3, player4);
 
 	TestHelper.assertSameCell(24, gui, player1, player2, player3, player4);
-	TestHelper.assertSameCash("1900", player1, player2, player3, player4);
+	TestHelper.assertSameCash("1700", player1, player2, player3, player4);
 	
 	// And now start them at 1 cell after Illinois and test.
 	TestHelper.changeCellAllPlayers(25, gui, player1, player2, player3, player4);
 	TestHelper.doActionsAllPlayersChance(chanceCard, gui, player1, player2, player3, player4);
 
 	TestHelper.assertSameCell(24, gui, player1, player2, player3, player4);
-	TestHelper.assertSameCash("2100", player1, player2, player3, player4);
+	TestHelper.assertSameCash("1900", player1, player2, player3, player4);
+    }
 
-
+    @Test
+	public void testChance3() {
 	// TODO: Refactor/loop this section. Lots of duplicate code.
 	chanceCard = new Chance(3);
 	assertEquals(chanceCard.getType(), 3);
@@ -131,11 +144,17 @@ public class ChanceTester extends TestCase {
 	// Chance locations: 1 by Reading, 1 by B. &. O., 1 by Short Line
 	// If Go is cell 1,  ^--8-6        ^---23-26      ^---37()-36()
 	// Pattern is ^--chancecell-rrcell
+    }
 
+    @Test
+	public void testChance4() {
 	chanceCard = new Chance(4);
 	assertEquals(chanceCard.getType(), 4);
 	assertEquals(chanceCard.getText(), "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank. (There are two of these.)");
+    }
 
+    @Test
+	public void testChance5() {
 	chanceCard = new Chance(5);
 	assertEquals(chanceCard.getType(), 5);
 	assertEquals(chanceCard.getText(), "Advance to St. Charles Place – if you pass Go, collect $200");
@@ -160,8 +179,10 @@ public class ChanceTester extends TestCase {
 
 	TestHelper.assertSameCash("1700", player1, player2, player3, player4);
 	TestHelper.assertSameCell(11, gui, player1, player2, player3, player4);
+    }
 
-
+    @Test
+	public void testChance6() {
 	chanceCard = new Chance(6);
 	assertEquals(chanceCard.getType(), 6);
 	assertEquals(chanceCard.getText(), "Bank pays you dividend of $50");
@@ -177,8 +198,10 @@ public class ChanceTester extends TestCase {
 	assertEquals(Integer.parseInt(player2.getCash("total")), p2Money + 50);
 	assertEquals(Integer.parseInt(player3.getCash("total")), p3Money + 50);
 	assertEquals(Integer.parseInt(player4.getCash("total")), p4Money + 50);
+    }
 
-
+    @Test
+	public void testChance7() {
 	chanceCard = new Chance(7);
 	assertEquals(chanceCard.getType(), 7);
 	assertEquals(chanceCard.getText(), "Get out of Jail Free – this card may be kept until needed, or traded/sold");
@@ -194,7 +217,10 @@ public class ChanceTester extends TestCase {
 	assertEquals(player2.getNumGOOJFCards(), 1);
 	assertEquals(player3.getNumGOOJFCards(), 1);
 	assertEquals(player4.getNumGOOJFCards(), 1);
+    }
 
+    @Test
+	public void testChance8() {
 	// Chance is on cells 8, 23, and 37.
 	chanceCard = new Chance(8); 
 	assertEquals(chanceCard.getType(), 8);
@@ -242,8 +268,10 @@ public class ChanceTester extends TestCase {
 	// assertEquals(player2.getCash("total"), 1300);
 	// assertEquals(player3.getCash("total"), 1300);
 	// assertEquals(player4.getCash("total"), 1300);
+    }
 
-
+    @Test
+	public void testChance9() {
 	chanceCard = new Chance(9);
 	assertEquals(chanceCard.getType(), 9);
 	assertEquals(chanceCard.getText(), "Go directly to Jail – do not pass Go, do not collect $200");
@@ -261,13 +289,19 @@ public class ChanceTester extends TestCase {
 	assertEquals(player4.getJailStatus(), 3);
 
 	TestHelper.assertSameCell(10, gui, player1, player2, player3, player4);
+    }
 
+    @Test
+	public void testChance10() {
 	chanceCard = new Chance(10);
 	assertEquals(chanceCard.getType(), 10);
 	assertEquals(chanceCard.getText(), "Make general repairs on all your property – for each house pay $25 – for each hotel $100");
 	// TODO: Test this for 0 houses/hotels, 0 houses/n hotels, n houses/0 hotels, n houses/n hotels.
+    }
 
 
+    @Test
+	public void testChance11() {
 	chanceCard = new Chance(11);
 	assertEquals(chanceCard.getType(), 11);
 	assertEquals(chanceCard.getText(), "Pay poor tax of $15");
@@ -280,8 +314,10 @@ public class ChanceTester extends TestCase {
 	TestHelper.assertSameCash("1500", player1, player2, player3, player4);
 	TestHelper.doActionsAllPlayersChance(chanceCard, gui, player1, player2, player3, player4);
 	TestHelper.assertSameCash("1485", player1, player2, player3, player4);
+    }
 
-
+    @Test
+	public void testChance12() {
 	chanceCard = new Chance(12);
 	assertEquals(chanceCard.getType(), 12);
 	assertEquals(chanceCard.getText(), "Take a trip to Reading Railroad – if you pass Go, collect $200");
@@ -289,25 +325,27 @@ public class ChanceTester extends TestCase {
 	player1.changeCell(0, gui);  // Test when we start on Go.
 	chanceCard.doActions(player1, gui, player2, player3, player4);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
-	assertEquals(player1.getCash("total"), "1485");
+	assertEquals(player1.getCash("total"), "1500");
 
 	player1.changeCell(3, gui); // Test when we start before Reading RR (Baltic Av. here).
 	chanceCard.doActions(player1, gui, player2, player3, player4);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
-	assertEquals(player1.getCash("total"), "1485");
+	assertEquals(player1.getCash("total"), "1500");
 
 	player1.changeCell(5, gui); // Test when we start on Reading RR.
 	chanceCard.doActions(player1, gui, player2, player3, player4);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
-	assertEquals(player1.getCash("total"), "1485"); // TODO: Should this count as passing
+	assertEquals(player1.getCash("total"), "1500"); // TODO: Should this count as passing
 	// Go? Even though doing this is impossible by the game's rules...
 
 	player1.changeCell(6, gui); // Test when we start after Reading RR.
 	chanceCard.doActions(player1, gui, player2, player3, player4);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
-	assertEquals(player1.getCash("total"), "1685");
+	assertEquals(player1.getCash("total"), "1700");
+    }
 
-
+    @Test
+	public void testChance13() {
 	chanceCard = new Chance(13);
 	assertEquals(chanceCard.getType(), 13);
 	assertEquals(chanceCard.getText(), "Take a walk on the Boardwalk – advance token to Boardwalk");
@@ -315,7 +353,10 @@ public class ChanceTester extends TestCase {
 	TestHelper.doActionsAllPlayersChance(chanceCard, gui, player1, player2, player3, player4);
 
 	TestHelper.assertSameCell(39, gui, player1, player2, player3, player4);
+    }
 
+    @Test
+	public void testChance14() {
 	chanceCard = new Chance(14);
 	assertEquals(chanceCard.getType(), 14);
 	assertEquals(chanceCard.getText(), "You have been elected chairman of the board – pay each player $50");
@@ -356,7 +397,10 @@ public class ChanceTester extends TestCase {
 	// TODO: Test this when the main Player is going to go bankrupt.
 	// Then test when 1/2/n other players are bankrupt. Make sure they're not given money.
 	//       Or is that a general thing that should be tested elsewhere?
+    }
 
+    @Test
+	public void testChance15() {
 	chanceCard = new Chance(15);
 	assertEquals(chanceCard.getType(), 15);
 	assertEquals(chanceCard.getText(), "Your building loan matures – collect $150");
@@ -370,8 +414,10 @@ public class ChanceTester extends TestCase {
 
 	TestHelper.assertSameCash("1650", player1, player2, player3, player4);
 	// TODO: Tests for when n number of players are bankrupt and they somehow draw this card.
+    }
 
-
+    @Test
+	public void testChance16() {
 	chanceCard = new Chance(16);
 	assertEquals(chanceCard.getType(), 16);
 	assertEquals(chanceCard.getText(), "You have won a crossword competition - collect $100.");
@@ -384,8 +430,10 @@ public class ChanceTester extends TestCase {
 	TestHelper.doActionsAllPlayersChance(chanceCard, gui, player1, player2, player3, player4);
 	TestHelper.assertSameCash("1600", player1, player2, player3, player4);
 	// TODO: Tests for when n number of players are bankrupt and they somehow draw this card.
+    }
 
-
+    @Test
+	public void testBrokenChance() {
 	// Make sure un-allowed card values don't affect text, etc.
 	chanceCard = new Chance(17);
 	assertEquals(chanceCard.getType(), 17);
