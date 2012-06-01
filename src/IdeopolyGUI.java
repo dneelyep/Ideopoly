@@ -632,15 +632,12 @@ public class IdeopolyGUI implements ActionListener {
 	// TODO: This same code's used earlier.
 	for (int i = 0; i <= 3; i++) {
 	    for (int j = 0; j <= 9; j++) {
-		if (j == 9) {
+		if (j == 9)
 		    cashLabels[i][j].setText(Integer.toString(players[i].getJailStatus()));
-		}
-		else if (j == 8) {
+		else if (j == 8)
 		    cashLabels[i][j].setText(Integer.toString(players[i].getNumGOOJFCards()));
-		}
-		else {
+		else
 		    cashLabels[i][j].setText(players[i].getCash(cashValues[j]));
-		}
 	    }
 
 	    if (currentPlayer == 0) {
@@ -722,60 +719,31 @@ public class IdeopolyGUI implements ActionListener {
 	}
 
 	else {
-	    int	fiveHundredsAmount = 0;
-	    int	hundredsAmount	   = 0;
-	    int	fiftiesAmount	   = 0;
-	    int	twentiesAmount	   = 0;
-	    int	tensAmount	   = 0;
-	    int	fivesAmount	   = 0;
-	    int	onesAmount	   = 0;
+	    // TODO: Ambiguous, confusing names here.
+	    int[] billValues  = {500, 100, 50, 20, 10, 5, 1};
+	    int[] billTotals  = {0, 0, 0, 0, 0, 0, 0};
+	    int i = 0;
 
-	    // TODO: Loop this.
-	    if (total / 500 != 0) {
-	    	fiveHundredsAmount = total / 500;
-	    	total -= (500 * fiveHundredsAmount);
-	    }
+	    for (int bill : billValues) {
+		if (total / bill != 0) {
+		    billTotals[i] = total / bill;
+		    total -= (bill * billTotals[i]);
+		}
 
-	    if (total / 100 != 0) {
-		hundredsAmount = total / 100;
-		total -= (100 * hundredsAmount);
-	    }
-
-	    if (total / 50 != 0) {
-		fiftiesAmount = total / 50;
-		total -= (50 * fiftiesAmount);
-	    }
-
-	    if (total / 20 != 0) {
-		twentiesAmount = total / 20;
-		total -= (20 * twentiesAmount);
-	    }
-
-	    if (total / 10 != 0) {
-		tensAmount = total / 10;
-		total -= (10 * tensAmount);
-	    }
-
-	    if (total / 5 != 0) {
-		fivesAmount = total / 5;
-		total -= (5 * fivesAmount);
-	    }
-
-	    if (total / 1 != 0) {
-		onesAmount = total / 1 ;
-		total -= (1 * onesAmount); // TODO: <-- That's not really needed.
+		i++;
 	    }
 
 	    //Then have the player pay each of the amounts
-	    paymentAmounts[0] = onesAmount;
-	    paymentAmounts[1] = fivesAmount;
-	    paymentAmounts[2] = tensAmount;
-	    paymentAmounts[3] = twentiesAmount;
-	    paymentAmounts[4] = fiftiesAmount;
-	    paymentAmounts[5] = hundredsAmount;
-	    paymentAmounts[6] = fiveHundredsAmount;
+	    paymentAmounts[0] = billTotals[6];
+	    paymentAmounts[1] = billTotals[5];
+	    paymentAmounts[2] = billTotals[4];
+	    paymentAmounts[3] = billTotals[3];
+	    paymentAmounts[4] = billTotals[2];
+	    paymentAmounts[5] = billTotals[1];
+	    paymentAmounts[6] = billTotals[0];
 	}  
     }
+
     /** Transfer money amount a from player p1 to player p2.*/
     public void playerPayPlayer(int a, Player p1, Player p2) {
 	// TODO: Before each call of this, make sure the player won't go bankrupt.

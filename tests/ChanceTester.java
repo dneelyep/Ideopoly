@@ -36,10 +36,6 @@ public class ChanceTester extends TestCase {
     // TODO: Add javadocs for each test. Possibly include the text of the card with each.
     @Test
 	public void testChance2() {
-	// LEFTOFFHERE: Began splitting this file into separate tests. Now to follow through with 
-	// that. Current failing test is due I think to dealing with a new IdeopolyGUI object in this
-	// new test - money amounts for Players are reset.
-
 	chanceCard = new Chance(2);
 	assertEquals(chanceCard.getType(), 2);
 	assertEquals(chanceCard.getText(), "Advance to Illinois Ave - if you pass Go, collect $200");
@@ -111,7 +107,7 @@ public class ChanceTester extends TestCase {
 	// roll = rollGenerator.nextInt(6) + 1;
 	// expectedCash = Integer.parseInt(player2.getCash("total")) - (roll * 10);
         // assertEquals(player2.getCash("total"), expectedCash);
-
+	
 	// roll = rollGenerator.nextInt(6) + 1;
 	// expectedCash = Integer.parseInt(player3.getCash("total")) - (roll * 10);
 	// assertEquals(player3.getCash("total"), expectedCash);
