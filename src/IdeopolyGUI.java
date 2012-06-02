@@ -485,13 +485,25 @@ public class IdeopolyGUI implements ActionListener {
 		    card.doActions(p, this, p2, p3, p4);
 		}
 
+		// TODO: Allow the Player to choose 10% or $200, or do the cheapest automatically.
+		// Player lands on Income Tax.
+		else if (landingSpot == 4) {
+		    if (p.willBankrupt(200))
+			p.bankruptPlayer();
+		    else {
+			p.spreadCash(100);
+			p.addCash("hundreds", -2);
+			p.spreadCash(500);
+		    }
+		}
+
 		// Regular move - not overshooting Go, landing on Go to Jail, or
 		// a Community Chest/Chance card. 
 
 		// TODO: Make this so that the above checks to see if I land on a non-ownable property.
 		// So if I land on an ownable property, there shouldn't be a need for the following big
 		// conditional and such.
-		// The other non-ownable properties are: Income tax, In Jail, Free Parking, and Luxury Tax.
+		// The other non-ownable properties are: In Jail, Free Parking, and Luxury Tax.
 		// LEFTOFFHERE: Working on the above stuff.
 		else {
 		    p.changeCell(landingSpot, this);

@@ -301,16 +301,15 @@ public class Player {
 	    return false;
     }
 
-    /** Convert this Player's cash into bill type numToSwitch.
+    /** Convert this Player's cash into bill type desiredBill.
      *  For example, if a Player needs more 5s, this will convert all the Player's
      *  cash to 5s. By default (with an invalid argument), converts to 500s. */
-    // TODO: Test this function more, make sure it works correctly in all cases.
-    public void spreadCash(int numToSwitch) {
+    public void spreadCash(int desiredBill) {
 
 	// The amount still left to be spread out.
 	int amountNotSpread = totalMoney;
 	// The number of a given type of bill spread.
-	int numSpread;
+	int numBillsSpread;
 
 	fiveHundreds = 0;
 	hundreds     = 0;
@@ -320,171 +319,95 @@ public class Player {
 	fives	     = 0;
 	ones	     = 0;
 
-	int numbers[]      = {500, 100, 50, 20, 10, 5, 1};
-	int actualValues[] = {fiveHundreds, hundreds, fifties, twenties, tens, fives, ones};
+	int billValues[]   = {500, 100, 50, 20, 10, 5, 1};
+	int newValues[] = {fiveHundreds, hundreds, fifties, twenties, tens, fives, ones};
 
 	// TODO: Clean up this mess of code.
 	//	if input is x, set item[0] to x, and item[x] to fiveHundreds
 	//      And update the rest of the behavior accordingly.
-	if (numToSwitch == 1) {
-	    numbers[0] = 1;
-	    actualValues[0] = ones;
-	    numbers[6] = 500;
-	    actualValues[6] = fiveHundreds ;
+	if (desiredBill == 1) {
+	    billValues[0] = 1;
+	    newValues[0]  = ones;
+	    billValues[6] = 500;
+	    newValues[6]  = fiveHundreds ;
+	}
+	else if (desiredBill == 5) {
+	    billValues[0] = 5;
+	    newValues[0]  = fives;
+	    billValues[5] = 500;
+	    newValues[5]  = fiveHundreds;
+	}
 
-	    for (int i = 0; i <= 6; i++) {
-		if ( (amountNotSpread / numbers[i]) != 0) {
-		    numSpread = amountNotSpread / numbers[i];
-		    actualValues[i] += numSpread;
-		    amountNotSpread -= (numbers[i] * numSpread);
-		    // Can use this for debugging later if want.
-		    // System.out.println("Amount not spread: " + amountNotSpread);
-		    // System.out.println("Five Hundreds: " + actualValues[6]);
-		    // System.out.println("Hundreds: "      + actualValues[1]);
-		    // System.out.println("Fifties: "       + actualValues[2]);
-		    // System.out.println("Twenties: "      + actualValues[3]);
-		    // System.out.println("Tens: "          + actualValues[4]);
-		    // System.out.println("Fives: "         + actualValues[5]);
-		    // System.out.println("Ones: "          + actualValues[0]);
+	else if (desiredBill == 10) {
+	    billValues[0] = 10;
+	    newValues[0]  = tens;
+	    billValues[4] = 500;
+	    newValues[4]  = fiveHundreds;
+	}
 
-		    fiveHundreds = actualValues[6];
-		    hundreds     = actualValues[1];
-		    fifties	 = actualValues[2];
-		    twenties     = actualValues[3];
-		    tens	 = actualValues[4];
-		    fives	 = actualValues[5];
-		    ones         = actualValues[0];
-		}
+	else if (desiredBill == 20) {
+	    billValues[0] = 20;
+	    newValues[0]  = twenties;
+	    billValues[3] = 500;
+	    newValues[3]  = fiveHundreds;
+	}
+
+	else if (desiredBill == 50) {
+	    billValues[0] = 50;
+	    newValues[0]  = fifties;
+	    billValues[2] = 500;
+	    newValues[2]  = fiveHundreds;
+	}
+
+	else if (desiredBill == 100) {
+	    billValues[0] = 100;
+	    newValues[0]  = hundreds;
+	    billValues[1] = 500;
+	    newValues[1]  = fiveHundreds;
+	}
+
+	for (int i = 0; i <= 6; i++) {
+	    if ( (amountNotSpread / billValues[i]) != 0) {
+		numBillsSpread   = amountNotSpread / billValues[i];
+		newValues[i]    += numBillsSpread;
+		amountNotSpread -= (billValues[i] * numBillsSpread);
 	    }
 	}
-	else if (numToSwitch == 5) {
-	    numbers[0] = 5;
-	    actualValues[0] = fives;
-	    numbers[5] = 500;
-	    actualValues[5] = fiveHundreds;
 
-	    for (int i = 0; i <= 6; i++) {
-		if ( (amountNotSpread / numbers[i]) != 0) {
-		    numSpread = amountNotSpread / numbers[i];
-		    actualValues[i] += numSpread;
-		    amountNotSpread -= (numbers[i] * numSpread);
+	fiveHundreds = newValues[0];
+	hundreds     = newValues[1];
+	fifties      = newValues[2];
+	twenties     = newValues[3];
+	tens         = newValues[4];
+	fives	     = newValues[5];
+	ones         = newValues[6];
 
-		    fiveHundreds = actualValues[5];
-		    hundreds     = actualValues[1];
-		    fifties      = actualValues[2];
-		    twenties     = actualValues[3];
-		    tens         = actualValues[4];
-		    fives        = actualValues[0];
-		    ones         = actualValues[6];
-		}
-	    }
+	if (desiredBill == 1) {
+	    fiveHundreds = newValues[6];
+	    ones         = newValues[0];
 	}
-	else if (numToSwitch == 10) {
-	    numbers[0] = 10;
-	    actualValues[0] = tens;
-	    numbers[4] = 500;
-	    actualValues[4] = fiveHundreds;
-
-	    for (int i = 0; i <= 6; i++) {
-		if ( (amountNotSpread / numbers[i]) != 0) {
-		    numSpread = amountNotSpread / numbers[i];
-		    actualValues[i] += numSpread;
-		    amountNotSpread -= (numbers[i] * numSpread);
-
-		    fiveHundreds = actualValues[4];
-		    hundreds     = actualValues[1];
-		    fifties	 = actualValues[2];
-		    twenties     = actualValues[3];
-		    tens	 = actualValues[0];
-		    fives	 = actualValues[5];
-		    ones         = actualValues[6];
-		}
-	    }
+	else if (desiredBill == 5) {
+	    fiveHundreds = newValues[5];
+	    fives        = newValues[0];
 	}
-	else if (numToSwitch == 20) {
-	    numbers[0] = 20;
-	    actualValues[0] = twenties;
-	    numbers[3] = 500;
-	    actualValues[3] = fiveHundreds;
-
-	    for (int i = 0; i <= 6; i++) {
-		if ( (amountNotSpread / numbers[i]) != 0) {
-		    numSpread = amountNotSpread / numbers[i];
-		    actualValues[i] += numSpread;
-		    amountNotSpread -= (numbers[i] * numSpread);
-
-		    fiveHundreds = actualValues[3];
-		    hundreds     = actualValues[1];
-		    fifties      = actualValues[2];
-		    twenties     = actualValues[0];
-		    tens         = actualValues[4];
-		    fives        = actualValues[5];
-		    ones         = actualValues[6];
-		}
-	    }
+	else if (desiredBill == 10) {
+	    fiveHundreds = newValues[4];
+	    tens	 = newValues[0];
 	}
-	else if (numToSwitch == 50) {
-	    numbers[0] = 50;
-	    actualValues[0] = fifties;
-	    numbers[2] = 500;
-	    actualValues[2] = fiveHundreds;
-
-	    for (int i = 0; i <= 6; i++) {
-		if ( (amountNotSpread / numbers[i]) != 0) {
-		    numSpread = amountNotSpread / numbers[i];
-		    actualValues[i] += numSpread;
-		    amountNotSpread -= (numbers[i] * numSpread);
-
-		    fiveHundreds = actualValues[2];
-		    hundreds     = actualValues[1];
-		    fifties      = actualValues[0];
-		    twenties     = actualValues[3];
-		    tens         = actualValues[4];
-		    fives        = actualValues[5];
-		    ones         = actualValues[6];
-		}
-	    }
+	else if (desiredBill == 20) {
+	    fiveHundreds = newValues[3];
+	    twenties     = newValues[0];
 	}
-	else if (numToSwitch == 100) {
-	    numbers[0] = 100;
-	    actualValues[0] = hundreds;
-	    numbers[1] = 500;
-	    actualValues[1] = fiveHundreds;
-
-	    for (int i = 0; i <= 6; i++) {
-		if ( (amountNotSpread / numbers[i]) != 0) {
-		    numSpread = amountNotSpread / numbers[i];
-		    actualValues[i] += numSpread;
-		    amountNotSpread -= (numbers[i] * numSpread);
-
-		    fiveHundreds = actualValues[1];
-		    hundreds     = actualValues[0];
-		    fifties      = actualValues[2];
-		    twenties     = actualValues[3];
-		    tens         = actualValues[4];
-		    fives        = actualValues[5];
-		    ones         = actualValues[6];
-		}
-	    }
+	else if (desiredBill == 50) {
+	    fiveHundreds = newValues[2];
+	    fifties      = newValues[0];
 	}
-	else { // Default, orders by 500s.
-	    for (int i = 0; i <= 6; i++) {
-		if ( (amountNotSpread / numbers[i]) != 0) {
-		    numSpread = amountNotSpread / numbers[i];
-		    actualValues[i] += numSpread;
-		    amountNotSpread -= (numbers[i] * numSpread);
-
-		    fiveHundreds = actualValues[0];
-		    hundreds     = actualValues[1];
-		    fifties	 = actualValues[2];
-		    twenties     = actualValues[3];
-		    tens	 = actualValues[4];
-		    fives	 = actualValues[5];
-		    ones         = actualValues[6];
-		}
-	    }
+	else if (desiredBill == 100) {
+	    fiveHundreds = newValues[1];
+	    hundreds     = newValues[0];
 	}
     }
+
     /** Bankrupt this player. */
     public void bankruptPlayer() {
 	// TODO: Do more than just set cash values. The player can still 

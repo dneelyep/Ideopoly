@@ -97,7 +97,7 @@ public class PlayerTester extends TestCase {
 
 	// TODO: More tests for negative inputs?
 
-	// Test that correct values are set for the spreadMoney() method.
+	// Test that correct values are set for the spreadCash() method.
 	testPlayer.spreadCash(500);
 	assertEquals(testPlayer.getCash("fiveHundreds"), "16");
 	assertEquals(testPlayer.getCash("hundreds"),     "2");

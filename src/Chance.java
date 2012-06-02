@@ -138,6 +138,7 @@ public class Chance {
     	    p.giveGOOJF();
     	    break;
     	case 8:  // "Go back 3 spaces"
+	    // TODO: This should take charge the Player for landing on Income Tax.
     	    p.changeCell((p.getIndex() - 3), gui);
     	    // TODO: Then call onland function.
     	    // TODO: Or just call movePlayer() ?
