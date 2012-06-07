@@ -305,7 +305,6 @@ public class Player {
      *  For example, if a Player needs more 5s, this will convert all the Player's
      *  cash to 5s. By default (with an invalid argument), converts to 500s. */
     public void spreadCash(int desiredBill) {
-
 	// The amount still left to be spread out.
 	int amountNotSpread = totalMoney;
 	// The number of a given type of bill spread.
@@ -325,46 +324,24 @@ public class Player {
 	// TODO: Clean up this mess of code.
 	//	if input is x, set item[0] to x, and item[x] to fiveHundreds
 	//      And update the rest of the behavior accordingly.
-	if (desiredBill == 1) {
-	    billValues[0] = 1;
-	    newValues[0]  = ones;
-	    billValues[6] = 500;
-	    newValues[6]  = fiveHundreds ;
-	}
-	else if (desiredBill == 5) {
-	    billValues[0] = 5;
-	    newValues[0]  = fives;
-	    billValues[5] = 500;
-	    newValues[5]  = fiveHundreds;
-	}
 
-	else if (desiredBill == 10) {
-	    billValues[0] = 10;
-	    newValues[0]  = tens;
-	    billValues[4] = 500;
-	    newValues[4]  = fiveHundreds;
-	}
+	if (desiredBill == 1)
+	    swapValues(billValues, newValues, 1, ones, 6);
 
-	else if (desiredBill == 20) {
-	    billValues[0] = 20;
-	    newValues[0]  = twenties;
-	    billValues[3] = 500;
-	    newValues[3]  = fiveHundreds;
-	}
+	else if (desiredBill == 5)
+	    swapValues(billValues, newValues, 5, fives, 5);
 
-	else if (desiredBill == 50) {
-	    billValues[0] = 50;
-	    newValues[0]  = fifties;
-	    billValues[2] = 500;
-	    newValues[2]  = fiveHundreds;
-	}
+	else if (desiredBill == 10)
+	    swapValues(billValues, newValues, 10, tens, 4);
 
-	else if (desiredBill == 100) {
-	    billValues[0] = 100;
-	    newValues[0]  = hundreds;
-	    billValues[1] = 500;
-	    newValues[1]  = fiveHundreds;
-	}
+	else if (desiredBill == 20)
+	    swapValues(billValues, newValues, 20, twenties, 3);
+
+	else if (desiredBill == 50)
+	    swapValues(billValues, newValues, 50, fifties, 2);
+
+	else if (desiredBill == 100)
+	    swapValues(billValues, newValues, 100, hundreds, 1);
 
 	for (int i = 0; i <= 6; i++) {
 	    if ( (amountNotSpread / billValues[i]) != 0) {
@@ -406,6 +383,15 @@ public class Player {
 	    fiveHundreds = newValues[1];
 	    hundreds     = newValues[0];
 	}
+    }
+
+    // LEFTOFFHERE: Check over this. I'm not sure if it really makes sense or not. Tired.
+    /** I'm not really sure what this method does, other than simplifying some above code. */
+    private void swapValues(int[] billVals, int[] newVals, int firstValue, int first2Value, int second) {
+	billVals[0]      = firstValue;
+	newVals[0]       = first2Value;
+	billVals[second] = 500;
+	newVals[second]  = fiveHundreds;
     }
 
     /** Bankrupt this player. */
@@ -457,3 +443,8 @@ public class Player {
 	setJailStatus(3);
     }
 }
+
+
+(if (eq (compare-strings ".java" 0 4 (substring buffer-file-name -5) 0 4) t)
+    (insert "\n\n/** " (buffer-file-name) " - <description here>\n *\n * @author Daniel Neel */\n\npublic class " (substring buffer-file-name 0 -5) " { \n\n    /** <Main method javadocs> */\n    public static void main(String args[]) {\n\n    }\n}")
+  "This is not a Java file!")
