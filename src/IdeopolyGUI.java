@@ -763,6 +763,7 @@ public class IdeopolyGUI implements ActionListener {
     // pay for any task. I think. Better method name would be good.
     public void playerPayPlayer(int a, Player p1, Player p2) {
 	// TODO: Before each call of this, make sure the player won't go bankrupt.
+	//       This will allow me to remove bankruptcy checking everywhere this method's called.
 	// TODO: Move that step of checking for bankruptcy status to the method rather than
 	// spreading it out everywhere across the file. Less duplication.
 	// First, get a distribution of what bills to pay.

@@ -113,6 +113,7 @@ public class Player {
 
     /** Get the amount of bills of the given type for this player. */
     // TODO: Make this return an int instead? Would make much more sense.
+    //       ^-- Do that. returning a string is unintuitive, pointless complexity.
     public String getCash(String billType) {
 	// TODO: Have the string parameter refer to the actual value. So i could just say "return billType" 
 	// rather than switch
@@ -443,8 +444,3 @@ public class Player {
 	setJailStatus(3);
     }
 }
-
-
-(if (eq (compare-strings ".java" 0 4 (substring buffer-file-name -5) 0 4) t)
-    (insert "\n\n/** " (buffer-file-name) " - <description here>\n *\n * @author Daniel Neel */\n\npublic class " (substring buffer-file-name 0 -5) " { \n\n    /** <Main method javadocs> */\n    public static void main(String args[]) {\n\n    }\n}")
-  "This is not a Java file!")

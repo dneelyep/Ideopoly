@@ -1,6 +1,6 @@
 import junit.framework.TestCase;
 import org.junit.*;
-import java.util.Random;
+//import java.util.Random;
 
 /** Class to test all methods inside the Chance class.
  *
@@ -67,18 +67,20 @@ public class ChanceTester extends TestCase {
 	assertEquals(chanceCard.getText(), "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.");
 	// TODO: Test the 10x amount thrown part. And the may buy it part.
 	// Test this function's for all 4 players, where they land on all 3 possible Chance locations.
-	// TODO: This is landing the people on the Railroads rather than the utilities...
 	TestHelper.changeCellAllPlayers(7, gui, player1, player2, player3, player4);
 	TestHelper.doActionsAllPlayers(chanceCard, gui, player1, player2, player3, player4);
 	TestHelper.assertSameCell(12, gui, player1, player2, player3, player4);
+	assertEquals(gui.boardProperties[12].getOwner(), null);
 
 	TestHelper.changeCellAllPlayers(22, gui, player1, player2, player3, player4);
 	TestHelper.doActionsAllPlayers(chanceCard, gui, player1, player2, player3, player4);
 	TestHelper.assertSameCell(28, gui, player1, player2, player3, player4);
+	assertEquals(gui.boardProperties[28].getOwner(), null);
 
 	TestHelper.changeCellAllPlayers(36, gui, player1, player2, player3, player4);
 	TestHelper.doActionsAllPlayers(chanceCard, gui, player1, player2, player3, player4);
 	TestHelper.assertSameCell(28, gui, player1, player2, player3, player4);
+	assertEquals(gui.boardProperties[28].getOwner(), null);
 
 	// Now make sure that, when a player owns the property, players are charged proper rent.
 	// Going into this case, each player had 2100 bucks total.
@@ -100,7 +102,7 @@ public class ChanceTester extends TestCase {
 	// generated to test it. So I need to get that information from Chance.java
 	// roll = rollGenerator.nextInt(6) + 1;
 	// expectedCash = Integer.parseInt(player1.getCash("total")) - (roll * 10);
-	// assertEquals(player1.getCash("total"), expectedCash);
+	// assertEquals(Integer.parseInt(player1.getCash("total")) < 1500, true);
 
 	// roll = rollGenerator.nextInt(6) + 1;
 	// expectedCash = Integer.parseInt(player2.getCash("total")) - (roll * 10);

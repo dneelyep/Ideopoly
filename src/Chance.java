@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /** Class to represent a Chance card.
  *
  *  @author Daniel Neel */
@@ -92,29 +94,25 @@ public class Chance {
 	    if (p.getCell() == gui.boardProperties[7]) { // Bottom Chance
 		p.changeCell(12, gui); // move to Electric Co.
 
+		// TODO: Would be good if I could remove the duplication here.
 		if (gui.boardProperties[12].getOwner() != null) {
-		    // TODO: Charge players appropriately here.
+		    // TODO: Add handling for bankruptcy here. Or build that into playerPayPlayer?
+		    Random rollGenerator = new Random();
+		    int roll = rollGenerator.nextInt(6) + 1;
+		    gui.playerPayPlayer(roll * 10, p, gui.boardProperties[12].getOwner());
 		}
 	    }
-	    else if (p.getCell() == gui.boardProperties[22]) { // Top Chance
+	    else if (p.getCell() == gui.boardProperties[22] || p.getCell() == gui.boardProperties[36]) { // Top or Right Chance
 		p.changeCell(28, gui); // move to Water Works.
 
 		if (gui.boardProperties[28].getOwner() != null) {
-		}
-	    }
-	    else if (p.getCell() == gui.boardProperties[36]) { // Right Chance
-		p.changeCell(28, gui); // move to Water Works.
-
-		if (gui.boardProperties[28].getOwner() != null) {
+		    Random rollGenerator = new Random();
+		    int roll = rollGenerator.nextInt(6) + 1;
+		    gui.playerPayPlayer(roll * 10, p, gui.boardProperties[28].getOwner());
 		}
 	    }
 	    else {
-		System.out.println("Error! Apparently you tried to do the actions on a Chance card 3, but you weren't standing on a Chance space to begin with.");
-	    }
-
-	    // TODO: This still gets called if I get the above error message. Is not correct.
-	    if (p.getCell().getOwner() != null) {
-		// TODO: Charge the player 10x normal rent here.
+		System.out.println("Error! Apparently you tried to do actions on a Chance card 3, but you weren't standing on a Chance space to begin with.");
 	    }
     	    break;
     	case 4:  // "Advance token to the nearest Railroad and pay owner twice the 
