@@ -119,6 +119,17 @@ public class Chance {
 	         // rental to which he/she is otherwise entitled. If Railroad is unowned, 
 	         // you may buy it from the Bank. (There are two of these.)"
     	    // TODO: Implement this.
+	    if (p.getCell() == gui.boardProperties[7]) {
+		p.changeCell(5, gui);
+	    }
+	    else if (p.getCell() == gui.boardProperties[22]) {
+		p.changeCell(25, gui);
+	    }
+	    else if (p.getCell() == gui.boardProperties[36]) {
+		p.changeCell(35, gui);
+	    }
+	    else
+		System.out.println("Error! Apparently you tried to do actions on a Chance card 3, but you weren't standing on a Chance space to begin with.");
     	    break;
     	case 5:  // "Advance to St. Charles Place – if you pass Go, collect $200"
 

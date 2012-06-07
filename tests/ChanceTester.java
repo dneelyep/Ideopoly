@@ -147,6 +147,25 @@ public class ChanceTester extends TestCase {
 	chanceCard = new Chance(4);
 	assertEquals(chanceCard.getType(), 4);
 	assertEquals(chanceCard.getText(), "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank. (There are two of these.)");
+
+	// Test on all Chance cards.
+	TestHelper.changeCellAllPlayers(7, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(chanceCard, gui, player1, player2, player3, player4);
+	//	TestHelper.assertCash("1500", player1, player2, player3, player4);
+	TestHelper.assertSameCell(5, gui, player1, player2, player3, player4);
+	TestHelper.assertCash("1500", gui, player1, player2, player3, player4); // No owner yet.
+
+	TestHelper.changeCellAllPlayers(22, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(chanceCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCell(25, gui, player1, player2, player3, player4);
+	TestHelper.assertCash("1500", gui, player1, player2, player3, player4); // No owner yet.
+
+	TestHelper.changeCellAllPlayers(36, gui, player1, player2, player3, player4);
+	TestHelper.doActionsAllPlayers(chanceCard, gui, player1, player2, player3, player4);
+	TestHelper.assertSameCell(35, gui, player1, player2, player3, player4);
+	TestHelper.assertCash("1500", gui, player1, player2, player3, player4); // No owner yet.
+
+	// TODO: And then test when the railroads have owners.
     }
 
     @Test
@@ -155,6 +174,7 @@ public class ChanceTester extends TestCase {
 	assertEquals(chanceCard.getType(), 5);
 	assertEquals(chanceCard.getText(), "Advance to St. Charles Place – if you pass Go, collect $200");
 	// Start with clean Players.
+	// TODO: Do I need these start with clean players things where I have them? If not, remove.
 	player1 = new Player(1, gui);
 	player2 = new Player(2, gui);
 	player3 = new Player(3, gui);
