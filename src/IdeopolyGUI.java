@@ -137,7 +137,6 @@ public class IdeopolyGUI implements ActionListener {
     public  Player   player3 = new Player(3, this);
     public  Player   player4 = new Player(4, this);
     private Player   players[]       = { player1, player2, player3, player4 };
-    private int      playersArrSize  = 3;
 
     /** The stack of Chance cards. */
     private Stack<Chance>         chanceCards    = new Stack<Chance>();
@@ -328,81 +327,59 @@ public class IdeopolyGUI implements ActionListener {
 	System.out.println("You picked " + playerCharacter);
     }
 
-    /** Do a turn's worth of gameplay. First the player rolls/moves. 
+    /** Do a turn's worth of gameplay. First the player p rolls/moves. 
      *  Then cash is exchanged. Then players can buy/trade, etc.
      *  Return a 0 if nobody has won yet, or a 1 if someone won the game. */
-    private void doTurn(JFrame frame) {
-	// TODO: This method should recieve a Player as input. I can do the calculations
-	// on which player is the current player outside this method. Should make things
-	// simpler.
+    private void doTurn(JFrame frame, Player p) {
 	Random rollGenerator = new Random();
-	int roll;
-	// TODO: Add IE: "Player 1 rolled 7." to status messages after each roll.
-	// Later feature: Add all those status messages to a log file players can review.
-	//x.setEnabled(true/false)
+	int roll = rollGenerator.nextInt(6) + 1; // Roll a new random number between 1 and 6.
 
-	    // Roll a new random number between 1 and 6.
-	    roll = rollGenerator.nextInt(6) + 1;
+	// First or second week in jail.
+	if (p.getJailStatus() == 3 || p.getJailStatus() == 2) {
+	    p.setJailStatus(p.getJailStatus() - 1);
+	}
 
-	    // ==============================
-	    // === First move the player. ===
-	    // ==============================
-
-	    // First or second week in jail.
-	    if (players[currentPlayer].getJailStatus() == 3 || players[currentPlayer].getJailStatus() == 2) {
-		players[currentPlayer].setJailStatus(players[currentPlayer].getJailStatus() - 1);
-	    }
-
-	    // Last week in jail. Player gets charged $50, then moves forward.
-	    else if ( players[currentPlayer].getJailStatus() == 1 ) {
-		if (players[currentPlayer].willBankrupt(50)) {
-		    players[currentPlayer].bankruptPlayer();
-		}
-		else {
-		    players[currentPlayer].spreadCash(50);
-		    players[currentPlayer].addCash("fifties", -1);
-		    players[currentPlayer].spreadCash(500);
-		    players[currentPlayer].setJailStatus(0);
-
-		    if (currentPlayer == 0)
-			movePlayer(player1, player2, player3, player4, roll);
-		    else if (currentPlayer == 1)
-			movePlayer(player2, player1, player3, player4, roll);
-		    else if (currentPlayer == 2)
-			movePlayer(player3, player2, player1, player4, roll);
-		    else if (currentPlayer == 3)
-			movePlayer(player4, player2, player3, player1, roll);
-		}
-	    }
-
-	    // Not in jail, so move the player as normal.
+	// Last week in jail. Player gets charged $50, then moves forward.
+	else if ( p.getJailStatus() == 1 ) {
+	    if (p.willBankrupt(50))
+		p.bankruptPlayer();
 	    else {
-		// TODO: This is repeated right above.
-		if (currentPlayer == 0) {
+		p.spreadCash(50);
+		p.addCash("fifties", -1);
+		p.spreadCash(500);
+		p.setJailStatus(0);
+
+		if (p == player1)
 		    movePlayer(player1, player2, player3, player4, roll);
-		}
-		else if (currentPlayer == 1) {
+		else if (p == player2)
 		    movePlayer(player2, player1, player3, player4, roll);
-		}
-		else if (currentPlayer == 2) {
+		else if (p == player3)
 		    movePlayer(player3, player2, player1, player4, roll);
-		}
-		else if (currentPlayer == 3) {
+		else if (p == player4)
 		    movePlayer(player4, player2, player3, player1, roll);
-		}
 	    }
+	}
 
-	    // =====================================================
-	    // === Then allow the player to make moves and such. ===
-	    // =====================================================
+	// Not in jail, so move the player as normal.
+	else {
+	    // TODO: This is repeated right above.
+	    if (p == player1)
+		movePlayer(player1, player2, player3, player4, roll);
+	    else if (p == player2)
+		movePlayer(player2, player1, player3, player4, roll);
+	    else if (p == player3)
+		movePlayer(player3, player2, player1, player4, roll);
+	    else if (p == player4)
+		movePlayer(player4, player2, player3, player1, roll);
+	}
 
-	    // Perform all the above actions, then move to the next player.
-	    if (currentPlayer == playersArrSize)
-		currentPlayer = 0;
-	    else
-		currentPlayer++;
+	// Now move on to the next player.
+	if (p == player3)
+	    currentPlayer = 0;
+	else
+	    currentPlayer++;
 
-	    updateDisplay();
+	updateDisplay();
     }
 
     /** Move the given Player p forward numCells (where numCells is # of 
@@ -508,42 +485,28 @@ public class IdeopolyGUI implements ActionListener {
 		    // TODO: Make a separate method to handle this?
 		    // TODO: Instead, just check for class. If is PropOutlet/RR/Utility, do x.
 		    // And if that doesn't work, could have a field that indicates type of property.
-		    if (   players[currentPlayer].getCell() == mediterraneanAv
-                        || players[currentPlayer].getCell() == balticAv
-                        || players[currentPlayer].getCell() == orientalAv
-			|| players[currentPlayer].getCell() == vermontAv
-			|| players[currentPlayer].getCell() == connecticutAv
-			|| players[currentPlayer].getCell() == stCharles
-			|| players[currentPlayer].getCell() == statesAv
-			|| players[currentPlayer].getCell() == virginiaAv
-			|| players[currentPlayer].getCell() == stJames
-			|| players[currentPlayer].getCell() == tennesseeAv
-			|| players[currentPlayer].getCell() == newYorkAv
-			|| players[currentPlayer].getCell() == kentuckyAv
-			|| players[currentPlayer].getCell() == indianaAv
-			|| players[currentPlayer].getCell() == illinoisAv
-			|| players[currentPlayer].getCell() == atlanticAv
-			|| players[currentPlayer].getCell() == ventnorAv
-			|| players[currentPlayer].getCell() == marvinGardens
-			|| players[currentPlayer].getCell() == pacificAv
-			|| players[currentPlayer].getCell() == nCarolinaAv
-			|| players[currentPlayer].getCell() == pennsylvaniaAv
-			|| players[currentPlayer].getCell() == parkPlace
-			|| players[currentPlayer].getCell() == boardwalk
+		    if (   p.getCell() == mediterraneanAv || p.getCell() == balticAv
+                        || p.getCell() == orientalAv      || p.getCell() == vermontAv
+			|| p.getCell() == connecticutAv   || p.getCell() == stCharles
+			|| p.getCell() == statesAv        || p.getCell() == virginiaAv
+			|| p.getCell() == stJames         || p.getCell() == tennesseeAv
+			|| p.getCell() == newYorkAv       || p.getCell() == kentuckyAv
+			|| p.getCell() == indianaAv       || p.getCell() == illinoisAv
+			|| p.getCell() == atlanticAv      || p.getCell() == ventnorAv
+			|| p.getCell() == marvinGardens   || p.getCell() == pacificAv
+			|| p.getCell() == nCarolinaAv     || p.getCell() == pennsylvaniaAv
+			|| p.getCell() == parkPlace       || p.getCell() == boardwalk
 
-			|| players[currentPlayer].getCell() == readingRR
-			|| players[currentPlayer].getCell() == pennsylvaniaRR
-			|| players[currentPlayer].getCell() == bAndORR
-			|| players[currentPlayer].getCell() == shortLineRR
+			|| p.getCell() == readingRR       || p.getCell() == pennsylvaniaRR
+			|| p.getCell() == bAndORR         || p.getCell() == shortLineRR
 
-                        || players[currentPlayer].getCell() == waterWorks
-     			|| players[currentPlayer].getCell() == electricCompany) {
+                        || p.getCell() == waterWorks      || p.getCell() == electricCompany) {
 
 			// No player currently owns the property.			
-			if ( players[currentPlayer].getCell().getOwner() == null ) {
+			if (boardProperties[landingSpot].getOwner() == null ) {
 
 			    // Allow player to buy the property.
-			    if (players[currentPlayer] == player1) {
+			    if (p == player1) {
 				// TODO: This is nice to have, but it screws up my later switch statement.
 				// buyProperty.setText("Buy property (" + getCurrentLocation(players[currentPlayer]).getName() + ")");
 				buyProperty.setEnabled(true);
@@ -551,37 +514,41 @@ public class IdeopolyGUI implements ActionListener {
 
 			    // Have the AI buy the property if it has more than $500.
 			    else {
-				if (Integer.parseInt(players[currentPlayer].getCash("total")) >= 500) {
-				    players[currentPlayer].getCell().setOwner(players[currentPlayer]);
+				if (Integer.parseInt(p.getCash("total")) >= 500) {
+				    p.getCell().setOwner(p);
 
-				    getCashDistribution(players[currentPlayer].getCell().getCost());
-				    System.out.println(players[currentPlayer].getCell().getCost() );
+				    getCashDistribution(p.getCell().getCost());
+				    System.out.println(p.getCell().getCost() );
 
 				    // Then, for each bill, transfer the correct amount from p1 to p2.
-				    players[currentPlayer].spreadCash(1);
-				    players[currentPlayer].addCash("ones", - paymentAmounts[0]);
+				    // TODO: This looks ripe for replacing with playerPayPlayer.
+				    //       Except pPP currently handles transactions only between
+				    //       players. Need to allow it to handle "deposits" to the
+				    //       bank - just one player losing a certain amount of $.
+				    p.spreadCash(1);
+				    p.addCash("ones", - paymentAmounts[0]);
 
-				    players[currentPlayer].spreadCash(5);
-				    players[currentPlayer].addCash("fives", - paymentAmounts[1]);
+				    p.spreadCash(5);
+				    p.addCash("fives", - paymentAmounts[1]);
 
-				    players[currentPlayer].spreadCash(10);
-				    players[currentPlayer].addCash("tens", - paymentAmounts[2]);
+				    p.spreadCash(10);
+				    p.addCash("tens", - paymentAmounts[2]);
 
-				    players[currentPlayer].spreadCash(20);
-				    players[currentPlayer].addCash("twenties", - paymentAmounts[3]);
+				    p.spreadCash(20);
+				    p.addCash("twenties", - paymentAmounts[3]);
 
-				    players[currentPlayer].spreadCash(50);
-				    players[currentPlayer].addCash("fifties", - paymentAmounts[4]);
+				    p.spreadCash(50);
+				    p.addCash("fifties", - paymentAmounts[4]);
 
-				    players[currentPlayer].spreadCash(100);
-				    players[currentPlayer].addCash("hundreds", - paymentAmounts[5]);
+				    p.spreadCash(100);
+				    p.addCash("hundreds", - paymentAmounts[5]);
 
-				    players[currentPlayer].spreadCash(500);
-				    players[currentPlayer].addCash("fiveHundreds", - paymentAmounts[6]);
+				    p.spreadCash(500);
+				    p.addCash("fiveHundreds", - paymentAmounts[6]);
 
 
 				    // And set cash to sensible values.
-				    players[currentPlayer].spreadCash(500);
+				    p.spreadCash(500);
 				}
 			    }
 			}
@@ -589,28 +556,26 @@ public class IdeopolyGUI implements ActionListener {
 			// A player owns the property.
 			else {
 			    // TODO: Add this message to status buffer?
-			    System.out.println( players[currentPlayer].getName() + " pays " + players[currentPlayer].getCell().getOwner().getName() + "$" + Integer.toString(players[currentPlayer].getCell().getRent()));
+			    System.out.println( p.getName() + " pays " + p.getCell().getOwner().getName() + "$" + Integer.toString(p.getCell().getRent()));
 
 			    // Disable button when the human player lands on an owned property.
-			    if (players[currentPlayer] == player1) {
+			    if (p == player1) {
 				buyProperty.setEnabled(false);
 			    }
 			    
 			    // Charge the player appropriately.
-			    if ( players[currentPlayer].willBankrupt( players[currentPlayer].getCell().getRent() ) ) {
-				players[currentPlayer].bankruptPlayer();
-			    }
-			    else {
-				playerPayPlayer(players[currentPlayer].getCell().getRent(), 
-						players[currentPlayer], 
-						players[currentPlayer].getCell().getOwner());
-			    }
+			    //landingSpot
+
+			    if (p.willBankrupt(boardProperties[landingSpot].getRent()))
+				p.bankruptPlayer();
+			    else
+				playerPayPlayer(p.getCell().getRent(), p, p.getCell().getOwner());
 			}
 		    }
 
 		    // Player lands on a non-ownable property.
 		    else {
-			if (players[currentPlayer] == player1)
+			if (p == player1)
 			    buyProperty.setEnabled(false);
 		    }
 
@@ -620,18 +585,18 @@ public class IdeopolyGUI implements ActionListener {
 	    }
 
 	    // TODO: Again, shouldn't need this huge conditional.
-	    if (p == player1) {
+	    // TODO: Move that logic into BoardPosition? So I could say: cell.position.setImage()
+	    //       And if p == player1, set it to y, p == player2 set to z, etc.
+	    // LEFTOFFHERE: Refactoring this method, and about to start implementing this above
+	    //              todo most likely.
+	    if (p == player1)
 		p.getCell().p1Pos.setImage(p.getImage());
-	    }
-	    else if (p == player2) {
+	    else if (p == player2)
 		p.getCell().p2Pos.setImage(p.getImage());
-	    }
-	    else if (p == player3) {
+	    else if (p == player3)
 		p.getCell().p3Pos.setImage(p.getImage());
-	    }
-	    else if (p == player4) {
+	    else if (p == player4)
 		p.getCell().p4Pos.setImage(p.getImage());
-	    }
 	}
     }
 
@@ -674,7 +639,7 @@ public class IdeopolyGUI implements ActionListener {
 	String eventSource = e.getActionCommand();
 
 	switch (eventSource) {
-	    case "Continue": doTurn(frame);
+	    case "Continue": doTurn(frame, players[currentPlayer + 1]);
 		break;
 		// TODO: Make the player pay to buy it, add bankruptcy check.
 	    case "Buy property": player1.getCell().setOwner( player1 );
