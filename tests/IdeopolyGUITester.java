@@ -160,4 +160,26 @@ public class IdeopolyGUITester extends TestCase{
 	assertEquals(cashDistribution[5], 0);
 	assertEquals(cashDistribution[6], 0);
     }
+
+    // TODO: Use standardized test player/gui names across all tests.
+    // TODO: Add tests for this. In particular, I switched this:
+	    // // First week in jail.
+	    // if ( players[currentPlayer].getJailStatus() == 3 ) {
+	    // 	players[currentPlayer].setJailStatus(2);
+	    // }
+
+	    // // Second week in jail.
+	    // else if ( players[currentPlayer].getJailStatus() == 2 ) {
+	    // 	players[currentPlayer].setJailStatus(1);
+	    // }
+
+    // ...to this:
+
+
+    // /** Test the doTurn() method. */
+    // @Test
+    // public void testDoTurn() {
+    // 	testGUI.doTurn(frame);
+    // 	//	testCCPlayer1;
+    // }
 }

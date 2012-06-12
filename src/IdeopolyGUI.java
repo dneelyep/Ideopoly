@@ -331,7 +331,10 @@ public class IdeopolyGUI implements ActionListener {
     /** Do a turn's worth of gameplay. First the player rolls/moves. 
      *  Then cash is exchanged. Then players can buy/trade, etc.
      *  Return a 0 if nobody has won yet, or a 1 if someone won the game. */
-    private void doTurn( JFrame frame) {
+    private void doTurn(JFrame frame) {
+	// TODO: This method should recieve a Player as input. I can do the calculations
+	// on which player is the current player outside this method. Should make things
+	// simpler.
 	Random rollGenerator = new Random();
 	int roll;
 	// TODO: Add IE: "Player 1 rolled 7." to status messages after each roll.
@@ -345,14 +348,9 @@ public class IdeopolyGUI implements ActionListener {
 	    // === First move the player. ===
 	    // ==============================
 
-	    // First week in jail.
-	    if ( players[currentPlayer].getJailStatus() == 3 ) {
-		players[currentPlayer].setJailStatus(2);
-	    }
-
-	    // Second week in jail.
-	    else if ( players[currentPlayer].getJailStatus() == 2 ) {
-		players[currentPlayer].setJailStatus(1);
+	    // First or second week in jail.
+	    if (players[currentPlayer].getJailStatus() == 3 || players[currentPlayer].getJailStatus() == 2) {
+		players[currentPlayer].setJailStatus(players[currentPlayer].getJailStatus() - 1);
 	    }
 
 	    // Last week in jail. Player gets charged $50, then moves forward.
@@ -397,7 +395,6 @@ public class IdeopolyGUI implements ActionListener {
 	    // =====================================================
 	    // === Then allow the player to make moves and such. ===
 	    // =====================================================
-	    // ....
 
 	    // Perform all the above actions, then move to the next player.
 	    if (currentPlayer == playersArrSize)

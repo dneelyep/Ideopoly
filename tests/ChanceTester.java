@@ -153,17 +153,17 @@ public class ChanceTester extends TestCase {
 	TestHelper.doActionsAllPlayers(chanceCard, gui, player1, player2, player3, player4);
 	//	TestHelper.assertCash("1500", player1, player2, player3, player4);
 	TestHelper.assertSameCell(5, gui, player1, player2, player3, player4);
-	TestHelper.assertCash("1500", gui, player1, player2, player3, player4); // No owner yet.
+	TestHelper.assertCash("1500", player1, player2, player3, player4); // No owner yet.
 
 	TestHelper.changeCellAllPlayers(22, gui, player1, player2, player3, player4);
 	TestHelper.doActionsAllPlayers(chanceCard, gui, player1, player2, player3, player4);
 	TestHelper.assertSameCell(25, gui, player1, player2, player3, player4);
-	TestHelper.assertCash("1500", gui, player1, player2, player3, player4); // No owner yet.
+	TestHelper.assertCash("1500", player1, player2, player3, player4); // No owner yet.
 
 	TestHelper.changeCellAllPlayers(36, gui, player1, player2, player3, player4);
 	TestHelper.doActionsAllPlayers(chanceCard, gui, player1, player2, player3, player4);
 	TestHelper.assertSameCell(35, gui, player1, player2, player3, player4);
-	TestHelper.assertCash("1500", gui, player1, player2, player3, player4); // No owner yet.
+	TestHelper.assertCash("1500", player1, player2, player3, player4); // No owner yet.
 
 	// TODO: And then test when the railroads have owners.
     }
