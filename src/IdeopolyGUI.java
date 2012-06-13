@@ -298,28 +298,20 @@ public class IdeopolyGUI implements ActionListener {
 	c.gridwidth   = 1;
 	frame.add(status, c);
 
-	// c.gridx      = 51;
-	// c.gridheight = 4;
-	// JTextArea messages =  new JTextArea("Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.", 5, 5);
-	//	messages.setLineWrap(true);
-	//	frame.add(messages, c);
+	c.gridx      = 51;
+	c.gridheight = 4;
+	// JTextArea messages = new JTextArea("Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.", 5, 5);
+	// messages.setLineWrap(true);
+	// frame.add(messages, c);
 
 	Random generator = new Random();
-	int cardType; // Controls the type of Chance/Community Chest card made.
 
 	// Make a large stack of cards to use for the game.
 	for (int i = 0; i < 200; i++) {
-	    cardType = generator.nextInt(16) + 1;
-	    chanceCards.push(new Chance(cardType));
-
-	    cardType = generator.nextInt(17) + 1;
-	    commChestCards.push(new CommunityChest(cardType));
+	    // Add random types of Chance and Community Chest cards.
+	    chanceCards.push(new Chance(generator.nextInt(16) + 1));
+	    commChestCards.push(new CommunityChest(generator.nextInt(17) + 1));
 	}
-	// TODO: This should happen automatically - I shouldn't need to set images manually.
-	boardProperties[0].p1Pos.setImage(player1.getImage());
-	boardProperties[0].p2Pos.setImage(player2.getImage());
-	boardProperties[0].p3Pos.setImage(player3.getImage());
-	boardProperties[0].p4Pos.setImage(player4.getImage());
 
 	frame.pack();
 	frame.setVisible(true);
@@ -393,6 +385,9 @@ public class IdeopolyGUI implements ActionListener {
     //       do with the GUI. When the player moves, I need to check where (s)he wants to
     //       move and do actions accordingly. Currently, I'm just blindly moving the Player 
     //       to a given spot.
+
+    // TODO: A lot of this method could be replaced by the whole onLand() method idea for
+    //       BoardCells.
     public void movePlayer(Player p, Player p2, Player p3, Player p4, int numCells) {
 	int landingSpot = p.getIndex() + numCells;
 
@@ -418,11 +413,12 @@ public class IdeopolyGUI implements ActionListener {
 		//  *  3 = first week in jail. */
 	    }
 
-	    else { // Player's not in jail, so they're free to move around..
+	    else { // Player's not in jail, so they're free to move around.
 
 		// Here we're moving the player, so set the label at p's
 		// current position to no player present.
 		p.getCell().setPositionImage(p, new ImageIcon("images/noPlayerPresent.jpg"), this);
+
 		// The player is about to land on/overshoot Go.
 		// TODO: Test to ensure that this is the correct cell. I think it's right but not positive.
 		// TODO: Could I just remove p.getIndex() >= 34 and have the same thing?
@@ -458,114 +454,107 @@ public class IdeopolyGUI implements ActionListener {
 			p.addCash("hundreds", -2);
 			p.spreadCash(500);
 		    }
+		    // TODO: Make a method for this "if (p.willBankrupt())" form?
 		}
 
-		// Regular move - not overshooting Go, landing on Go to Jail, or
-		// a Community Chest/Chance card. 
+		// Luxury tax.
+		else if (landingSpot == 38) {
+		    if (p.willBankrupt(75))
+			p.bankruptPlayer();
+		    else {
+			p.spreadCash(50);
+			p.addCash("fifties", -1);
+			p.spreadCash(20);
+			p.addCash("twenties", -1);
+			p.spreadCash(5);
+			p.addCash("fives", -1);
 
-		// TODO: Make this so that the above checks to see if I land on a non-ownable property.
-		// So if I land on an ownable property, there shouldn't be a need for the following big
-		// conditional and such.
-		// The other non-ownable properties are: In Jail, Free Parking, and Luxury Tax.
-		// LEFTOFFHERE: Working on the above stuff.
+			p.spreadCash(500);
+		    }
+		}
+
+		// Free parking
+		else if (landingSpot == 20) {
+		    System.out.println("Free parking!");
+		}
+
+		// In jail (just visiting)
+		else if (landingSpot == 10) {
+		    System.out.println("In jail - but just visiting!");
+		}
+
+		// Regular move. Here the Player should have not overshot Go or landed on any
+		// position-changing cells (Go to Jail, Chance, etc.). The Player has landed on
+		// an ownable BoardCell.
 		else {
 		    p.changeCell(landingSpot, this);
 
-		    // TODO: Make a separate method to handle this?
-		    // TODO: Instead, just check for class. If is PropOutlet/RR/Utility, do x.
-		    // And if that doesn't work, could have a field that indicates type of property.
-		    if (   p.getCell() == mediterraneanAv || p.getCell() == balticAv
-                        || p.getCell() == orientalAv      || p.getCell() == vermontAv
-			|| p.getCell() == connecticutAv   || p.getCell() == stCharles
-			|| p.getCell() == statesAv        || p.getCell() == virginiaAv
-			|| p.getCell() == stJames         || p.getCell() == tennesseeAv
-			|| p.getCell() == newYorkAv       || p.getCell() == kentuckyAv
-			|| p.getCell() == indianaAv       || p.getCell() == illinoisAv
-			|| p.getCell() == atlanticAv      || p.getCell() == ventnorAv
-			|| p.getCell() == marvinGardens   || p.getCell() == pacificAv
-			|| p.getCell() == nCarolinaAv     || p.getCell() == pennsylvaniaAv
-			|| p.getCell() == parkPlace       || p.getCell() == boardwalk
+		    // No player currently owns the property.			
+		    if (boardProperties[landingSpot].getOwner() == null ) {
 
-			|| p.getCell() == readingRR       || p.getCell() == pennsylvaniaRR
-			|| p.getCell() == bAndORR         || p.getCell() == shortLineRR
-
-                        || p.getCell() == waterWorks      || p.getCell() == electricCompany) {
-
-			// No player currently owns the property.			
-			if (boardProperties[landingSpot].getOwner() == null ) {
-
-			    // Allow player to buy the property.
-			    if (p == player1) {
-				// TODO: This is nice to have, but it screws up my later switch statement.
-				// buyProperty.setText("Buy property (" + getCurrentLocation(players[currentPlayer]).getName() + ")");
-				buyProperty.setEnabled(true);
-			    }
-
-			    // Have the AI buy the property if it has more than $500.
-			    else {
-				if (Integer.parseInt(p.getCash("total")) >= 500) {
-				    p.getCell().setOwner(p);
-
-				    getCashDistribution(p.getCell().getCost());
-				    System.out.println(p.getCell().getCost() );
-
-				    // Then, for each bill, transfer the correct amount from p1 to p2.
-				    // TODO: This looks ripe for replacing with playerPayPlayer.
-				    //       Except pPP currently handles transactions only between
-				    //       players. Need to allow it to handle "deposits" to the
-				    //       bank - just one player losing a certain amount of $.
-				    p.spreadCash(1);
-				    p.addCash("ones", - paymentAmounts[0]);
-
-				    p.spreadCash(5);
-				    p.addCash("fives", - paymentAmounts[1]);
-
-				    p.spreadCash(10);
-				    p.addCash("tens", - paymentAmounts[2]);
-
-				    p.spreadCash(20);
-				    p.addCash("twenties", - paymentAmounts[3]);
-
-				    p.spreadCash(50);
-				    p.addCash("fifties", - paymentAmounts[4]);
-
-				    p.spreadCash(100);
-				    p.addCash("hundreds", - paymentAmounts[5]);
-
-				    p.spreadCash(500);
-				    p.addCash("fiveHundreds", - paymentAmounts[6]);
-
-
-				    // And set cash to sensible values.
-				    p.spreadCash(500);
-				}
-			    }
+			// Allow player to buy the property.
+			if (p == player1) {
+			    // TODO: This is nice to have, but it screws up 
+			    // my later switch statement.
+			    // buyProperty.setText("Buy property (" + getCurrentLocation(players[currentPlayer]).getName() + ")");
+			    buyProperty.setEnabled(true);
 			}
-			
-			// A player owns the property.
+
+			// Have the AI buy the property if it has more than $500.
 			else {
-			    // TODO: Add this message to status buffer?
-			    System.out.println( p.getName() + " pays " + p.getCell().getOwner().getName() + "$" + Integer.toString(p.getCell().getRent()));
+			    if (Integer.parseInt(p.getCash("total")) >= 500) {
+				p.getCell().setOwner(p);
 
-			    // Disable button when the human player lands on an owned property.
-			    if (p == player1) {
-				buyProperty.setEnabled(false);
+				getCashDistribution(p.getCell().getCost());
+				System.out.println(p.getCell().getCost() );
+
+				// Then, for each bill, transfer the correct amount from p1 to p2.
+				// TODO: This looks ripe for replacing with playerPayPlayer.
+				//       Except pPP currently handles transactions only between
+				//       players. Need to allow it to handle "deposits" to the
+				//       bank - just one player losing a certain amount of $.
+				p.spreadCash(1);
+				p.addCash("ones", - paymentAmounts[0]);
+
+				p.spreadCash(5);
+				p.addCash("fives", - paymentAmounts[1]);
+
+				p.spreadCash(10);
+				p.addCash("tens", - paymentAmounts[2]);
+
+				p.spreadCash(20);
+				p.addCash("twenties", - paymentAmounts[3]);
+
+				p.spreadCash(50);
+				p.addCash("fifties", - paymentAmounts[4]);
+
+				p.spreadCash(100);
+				p.addCash("hundreds", - paymentAmounts[5]);
+
+				p.spreadCash(500);
+				p.addCash("fiveHundreds", - paymentAmounts[6]);
+
+
+				// And set cash to sensible values.
+				p.spreadCash(500);
 			    }
-			    
-			    // Charge the player appropriately.
-			    //landingSpot
-
-			    if (p.willBankrupt(boardProperties[landingSpot].getRent()))
-				p.bankruptPlayer();
-			    else
-				playerPayPlayer(p.getCell().getRent(), p, p.getCell().getOwner());
 			}
 		    }
-
-		    // Player lands on a non-ownable property.
+			
+		    // A player owns the property.
 		    else {
+			// TODO: Add this message to status buffer?
+			System.out.println( p.getName() + " pays " + p.getCell().getOwner().getName() + "$" + Integer.toString(p.getCell().getRent()));
+
+			// Disable button when the human player lands on an owned property.
 			if (p == player1)
 			    buyProperty.setEnabled(false);
+			    
+			// Charge the player appropriately.
+			if (p.willBankrupt(boardProperties[landingSpot].getRent()))
+			    p.bankruptPlayer();
+			else
+			    playerPayPlayer(p.getCell().getRent(), p, p.getCell().getOwner());
 		    }
 
 		    // TODO: Make BoardCells and such clickable. That way, I can easily implement
