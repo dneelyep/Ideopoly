@@ -630,23 +630,23 @@ public class IdeopolyGUI implements ActionListener {
 	}
 
 	else {
+
+	    // We keep the arrays in reverse order here. This way, when we iterate
+	    // through them, we start with the highest dollar amount, which leads to
+	    // less dividing up the player's money into (eg) hundreds of little bills.
 	    // TODO: Ambiguous, confusing names here.
-	    // TODO: And is there a reason the orders of values is reversed in the arrays?
-	    // LEFTOFFHERE: Trying to make sense of and improve this little section. On
-	    //              the verge of some nice simplifications I think.
-	    int[] billValues  = {500, 100, 50, 20, 10, 5, 1};
-	    int[] billTotals  = {0, 0, 0, 0, 0, 0, 0};
+	    int[] billValues  = {500, 100, 50, 20, 10, 5, 1}; // billValues is the amount, in dollars, of bills that go into a given bill type.
+	    int[] billTotals  = {0, 0, 0, 0, 0, 0, 0};        // And billTotals is the number of each bill type I have.
 	    // TODO: Do I need this billTotals array? Could I just store values 
 	    //       directly in paymentAmounts[] instead?
 	    int i = 0;
 
 	    for (int bill : billValues) {
-		if (total / bill != 0) {
-		    billTotals[i] = total / bill;
-		    total -= (bill * billTotals[i]);
-		}
-
-		i++;
+	    	if (total / bill != 0) {
+	    	    billTotals[i] = total / bill;
+	    	    total -= (bill * billTotals[i]);
+	    	}
+	    	i++;
 	    }
 
 	    //Then have the player pay each of the amounts

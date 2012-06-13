@@ -15,6 +15,7 @@ public class IdeopolyGUITester extends TestCase{
     private Player testCCPlayer4;
 
     /** Test all methods in the IdeopolyGUI class. */
+    @Test
     public void testIdeopolyGUI() {
 	testGUI = new IdeopolyGUI("Test GUI");
 	// LEFTOFFHERE: To enable these, make a new IdeopolyGUI object.
@@ -32,6 +33,7 @@ public class IdeopolyGUITester extends TestCase{
 
     // TODO: Javadocs for this and all other methods.
     // "Given an integer i, break it up into the smallest possible amount of bills."
+    @Test
     public void testGetCashDistribution() {
 	testGUI = new IdeopolyGUI("Test GUI");
 
@@ -160,6 +162,101 @@ public class IdeopolyGUITester extends TestCase{
 	assertEquals(cashDistribution[5], 0);
 	assertEquals(cashDistribution[6], 0);
     }
+
+    @Test
+    /** Test the playerPayPlayer method. */
+    public void testPlayerPayPlayer() {
+	// First test with a variety of sensible values being transferred.
+	testGUI = new IdeopolyGUI("Test player");
+	testCCPlayer1 = new Player(1, testGUI);
+	testCCPlayer2 = new Player(2, testGUI);
+	testCCPlayer3 = new Player(3, testGUI);
+	testCCPlayer4 = new Player(4, testGUI);
+
+
+	// LEFTOFFHERE: Wrote these stubs to implement. Now to implement the tests.
+	//              And add more as/where needed.
+	playerPayPlayer(500);// between all 4 players
+	assertEquals(p1cash, x);
+	assertEquals(p2cash, y);
+	playerPayPlayer(500);
+	playerPayPlayer(500);
+	playerPayPlayer(500);
+
+	playerPayPlayer(100);
+	playerPayPlayer(100);
+	playerPayPlayer(100);
+	playerPayPlayer(100);
+
+	playerPayPlayer(50);
+	playerPayPlayer(50);
+	playerPayPlayer(50);
+	playerPayPlayer(50);
+
+	playerPayPlayer(20);
+	playerPayPlayer(20);
+	playerPayPlayer(20);
+	playerPayPlayer(20);
+
+	playerPayPlayer(10);
+	playerPayPlayer(10);
+	playerPayPlayer(10);
+	playerPayPlayer(10);
+
+	playerPayPlayer(5);
+	playerPayPlayer(5);
+	playerPayPlayer(5);
+	playerPayPlayer(5);
+
+	playerPayPlayer(1);
+	playerPayPlayer(1);
+	playerPayPlayer(1);
+	playerPayPlayer(1);
+
+
+	// Will bring first player to $0.
+	playerPayPlayer(1500);
+	playerPayPlayer(1500);
+	playerPayPlayer(1500);
+	playerPayPlayer(1500);
+
+	// Will bankrupt first player.
+	playerPayPlayer(1501);
+	playerPayPlayer(1501);
+	playerPayPlayer(1501);
+	playerPayPlayer(1501);
+
+
+	// Now test with un-sensible values being transferred.
+
+	// Negative values
+	playerPayPlayer(-1);
+	playerPayPlayer(-1);
+	playerPayPlayer(-1);
+	playerPayPlayer(-1);
+
+	playerPayPlayer(-100);
+	playerPayPlayer(-100);
+	playerPayPlayer(-100);
+	playerPayPlayer(-100);
+
+	// Zero (pointless)
+	playerPayPlayer(0);
+	playerPayPlayer(0);
+	playerPayPlayer(0);
+	playerPayPlayer(0);
+
+
+	// And now test transferring from a player to the bank.
+	// For all 4 players
+	playerPayPlayer(1500, a, null);
+	playerPayPlayer(0);
+	playerPayPlayer(0);
+	playerPayPlayer(0);
+
+	// Then from the bank to the player[?]
+    }
+
 
     // TODO: Use standardized test player/gui names across all tests.
     // TODO: Add tests for this. In particular, I switched this:
