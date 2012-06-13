@@ -134,7 +134,7 @@ public class IdeopolyGUITester extends TestCase{
 
 	// And then test some invalid values...
 	cashDistribution = testGUI.getCashDistribution(0);
-	//	assertEquals(cashDistribution[0], 0);
+	assertEquals(cashDistribution[0], 0);
 	assertEquals(cashDistribution[1], 0);
 	assertEquals(cashDistribution[2], 0);
 	assertEquals(cashDistribution[3], 0);

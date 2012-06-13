@@ -132,14 +132,14 @@ public class IdeopolyGUI implements ActionListener {
     /** Represents the player whose turn it currently is to roll. 0-3. */
     private int currentPlayer = 0;
 
-    public  Player   player1 = new Player(1, this);
-    public  Player   player2 = new Player(2, this);
-    public  Player   player3 = new Player(3, this);
-    public  Player   player4 = new Player(4, this);
-    private Player   players[]       = { player1, player2, player3, player4 };
+    public  Player   player1   = new Player(1, this);
+    public  Player   player2   = new Player(2, this);
+    public  Player   player3   = new Player(3, this);
+    public  Player   player4   = new Player(4, this);
+    private Player   players[] = { player1, player2, player3, player4 };
 
     /** The stack of Chance cards. */
-    private Stack<Chance>         chanceCards    = new Stack<Chance>();
+    private Stack<Chance> chanceCards = new Stack<Chance>();
 
     /** The stack of Community Chest cards. */
     private Stack<CommunityChest> commChestCards = new Stack<CommunityChest>();
@@ -199,6 +199,9 @@ public class IdeopolyGUI implements ActionListener {
 	c.gridx = 49;
 	c.gridy = 0;
 
+
+	// TODO: Would be good if I just used a 2D array to store all this, rather
+	// than the separate titles, playerRowLabels, and for loop parts.
 	// Display the column titles.
 	for (String s : titles) {
 	    c.gridx++;
@@ -430,19 +433,16 @@ public class IdeopolyGUI implements ActionListener {
 		}
 
 		// Player lands on Go to Jail.
-		else if (landingSpot == 30) {
+		else if (landingSpot == 30)
 		    p.putInJail(this);
-		}
 
 		// Player lands on a Community Chest card.
-		else if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33) {
+		else if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33)
 		    commChestCards.pop().doActions(p, this, p2, p3, p4);
-		}
 	    
 		// Player lands on a Chance card.
-		else if (landingSpot == 7 || landingSpot == 22 || landingSpot == 36) {
+		else if (landingSpot == 7 || landingSpot == 22 || landingSpot == 36)
 		    chanceCards.pop().doActions(p, this, p2, p3, p4);
-		}
 
 		// TODO: Allow the Player to choose 10% or $200, or do the cheapest automatically.
 		// Player lands on Income Tax.
@@ -474,14 +474,12 @@ public class IdeopolyGUI implements ActionListener {
 		}
 
 		// Free parking
-		else if (landingSpot == 20) {
+		else if (landingSpot == 20)
 		    System.out.println("Free parking!");
-		}
 
 		// In jail (just visiting)
-		else if (landingSpot == 10) {
+		else if (landingSpot == 10)
 		    System.out.println("In jail - but just visiting!");
-		}
 
 		// Regular move. Here the Player should have not overshot Go or landed on any
 		// position-changing cells (Go to Jail, Chance, etc.). The Player has landed on
@@ -506,37 +504,13 @@ public class IdeopolyGUI implements ActionListener {
 				p.getCell().setOwner(p);
 
 				getCashDistribution(p.getCell().getCost());
-				System.out.println(p.getCell().getCost() );
+				System.out.println(p.getCell().getCost());
 
-				// Then, for each bill, transfer the correct amount from p1 to p2.
-				// TODO: This looks ripe for replacing with playerPayPlayer.
-				//       Except pPP currently handles transactions only between
-				//       players. Need to allow it to handle "deposits" to the
-				//       bank - just one player losing a certain amount of $.
-				p.spreadCash(1);
-				p.addCash("ones", - paymentAmounts[0]);
-
-				p.spreadCash(5);
-				p.addCash("fives", - paymentAmounts[1]);
-
-				p.spreadCash(10);
-				p.addCash("tens", - paymentAmounts[2]);
-
-				p.spreadCash(20);
-				p.addCash("twenties", - paymentAmounts[3]);
-
-				p.spreadCash(50);
-				p.addCash("fifties", - paymentAmounts[4]);
-
-				p.spreadCash(100);
-				p.addCash("hundreds", - paymentAmounts[5]);
-
-				p.spreadCash(500);
-				p.addCash("fiveHundreds", - paymentAmounts[6]);
-
-
-				// And set cash to sensible values.
-				p.spreadCash(500);
+				// TODO: Test to make sure this is working. Have not yet tested
+				//       playerPayPlayer on a null Player input.
+				//       Also test this later on where the player buys a property
+				//       - apparently it's not working.
+				playerPayPlayer(p.getCell().getRent(), p, null);
 			    }
 			}
 		    }
@@ -607,8 +581,12 @@ public class IdeopolyGUI implements ActionListener {
 	switch (eventSource) {
 	    case "Continue": doTurn(frame, players[currentPlayer + 1]);
 		break;
-		// TODO: Make the player pay to buy it, add bankruptcy check.
-	    case "Buy property": player1.getCell().setOwner( player1 );
+	    // TODO: Make sure I don't need a bankruptcy check for this event.
+            //       Shouldn't, because button's only highlighted when the Player can buy.
+            //       Also add plenty of tests for this.
+	    case "Buy property": getCashDistribution(player1.getCell().getCost());
+		playerPayPlayer(player1.getCell().getRent(), player1, null);
+		player1.getCell().setOwner(player1);
 		buyProperty.setEnabled(false); // Disable button after property's bought.
 		break;
 	    case "Buy house": System.out.println("Testing buy house.");
@@ -623,11 +601,8 @@ public class IdeopolyGUI implements ActionListener {
             // Use a card and take the main player out of jail.
 	    // TODO: Disable this when the player's not on a jail cell.
 	    case "Use get out of jail free card":
-		// TODO: This conditional's confusing. What's it getting at?
-		if (player1.getNumGOOJFCards() > 0)
-		    useGOOJFCard.setEnabled(false);
-
 		player1.spendGOOJF();
+		useGOOJFCard.setEnabled(false);
 		updateDisplay();
 		break;
 
@@ -649,19 +624,20 @@ public class IdeopolyGUI implements ActionListener {
 
 	    // Since we can't break up this amount of money, the amount for each bill is 0.
 	    // TODO: Convert this to a for-each loop or similar.
-	    paymentAmounts[0] = 0;
-	    paymentAmounts[1] = 0;
-	    paymentAmounts[2] = 0;
-	    paymentAmounts[3] = 0;
-	    paymentAmounts[4] = 0;
-	    paymentAmounts[5] = 0;
-	    paymentAmounts[6] = 0;
+	    for (int i = 0; i <= 6; i++) {
+	    	paymentAmounts[i] = 0;
+	    }
 	}
 
 	else {
 	    // TODO: Ambiguous, confusing names here.
+	    // TODO: And is there a reason the orders of values is reversed in the arrays?
+	    // LEFTOFFHERE: Trying to make sense of and improve this little section. On
+	    //              the verge of some nice simplifications I think.
 	    int[] billValues  = {500, 100, 50, 20, 10, 5, 1};
 	    int[] billTotals  = {0, 0, 0, 0, 0, 0, 0};
+	    // TODO: Do I need this billTotals array? Could I just store values 
+	    //       directly in paymentAmounts[] instead?
 	    int i = 0;
 
 	    for (int bill : billValues) {
@@ -674,13 +650,10 @@ public class IdeopolyGUI implements ActionListener {
 	    }
 
 	    //Then have the player pay each of the amounts
-	    paymentAmounts[0] = billTotals[6];
-	    paymentAmounts[1] = billTotals[5];
-	    paymentAmounts[2] = billTotals[4];
-	    paymentAmounts[3] = billTotals[3];
-	    paymentAmounts[4] = billTotals[2];
-	    paymentAmounts[5] = billTotals[1];
-	    paymentAmounts[6] = billTotals[0];
+	    // TODO: Again, replace with a for each loop.
+	    for (int j = 0; j <= 6; j++) {
+		paymentAmounts[j] = billTotals[6 - j];
+	    }
 	}
 
 	return paymentAmounts;
