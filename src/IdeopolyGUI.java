@@ -420,18 +420,9 @@ public class IdeopolyGUI implements ActionListener {
 
 	    else { // Player's not in jail, so they're free to move around..
 
-		// Get the label at the player's current position,
-		// set it to no player present (since we're moving the player).
-		// TODO: Shouldn't need this big conditional statement to do this.
-		if (p == player1)
-		    p.getCell().p1Pos.setImage(new ImageIcon("images/noPlayerPresent.jpg"));
-		else if (p == player2)
-		    p.getCell().p2Pos.setImage(new ImageIcon("images/noPlayerPresent.jpg"));
-		else if (p == player3)
-		    p.getCell().p3Pos.setImage(new ImageIcon("images/noPlayerPresent.jpg"));
-		else if (p == player4)
-		    p.getCell().p4Pos.setImage(new ImageIcon("images/noPlayerPresent.jpg"));
-
+		// Here we're moving the player, so set the label at p's
+		// current position to no player present.
+		p.getCell().setPositionImage(p, new ImageIcon("images/noPlayerPresent.jpg"), this);
 		// The player is about to land on/overshoot Go.
 		// TODO: Test to ensure that this is the correct cell. I think it's right but not positive.
 		// TODO: Could I just remove p.getIndex() >= 34 and have the same thing?
@@ -449,14 +440,12 @@ public class IdeopolyGUI implements ActionListener {
 
 		// Player lands on a Community Chest card.
 		else if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33) {
-		    CommunityChest card = commChestCards.pop();
-		    card.doActions(p, this, p2, p3, p4);
+		    commChestCards.pop().doActions(p, this, p2, p3, p4);
 		}
 	    
 		// Player lands on a Chance card.
 		else if (landingSpot == 7 || landingSpot == 22 || landingSpot == 36) {
-		    Chance card = chanceCards.pop();
-		    card.doActions(p, this, p2, p3, p4);
+		    chanceCards.pop().doActions(p, this, p2, p3, p4);
 		}
 
 		// TODO: Allow the Player to choose 10% or $200, or do the cheapest automatically.
@@ -584,19 +573,7 @@ public class IdeopolyGUI implements ActionListener {
 		}
 	    }
 
-	    // TODO: Again, shouldn't need this huge conditional.
-	    // TODO: Move that logic into BoardPosition? So I could say: cell.position.setImage()
-	    //       And if p == player1, set it to y, p == player2 set to z, etc.
-	    // LEFTOFFHERE: Refactoring this method, and about to start implementing this above
-	    //              todo most likely.
-	    if (p == player1)
-		p.getCell().p1Pos.setImage(p.getImage());
-	    else if (p == player2)
-		p.getCell().p2Pos.setImage(p.getImage());
-	    else if (p == player3)
-		p.getCell().p3Pos.setImage(p.getImage());
-	    else if (p == player4)
-		p.getCell().p4Pos.setImage(p.getImage());
+	    p.getCell().setPositionImage(p, p.getImage(), this);
 	}
     }
 

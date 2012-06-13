@@ -9,12 +9,12 @@ per regular class in the src/ directory.
    This should help pinpoint errors a little more quickly.
 
 * TODO For large sections of items that aren't done, it would be helpful to split test files into separate methods to make this process easier.
-* Overall Test Progress - by tested methods. [42/108]
+* Overall Test Progress - by tested methods. [42/109]
  If a test is marked done, it means basic tests are in place. Not neccessarily complete coverage of every possible way everything can go wrong.
 :PROPERTIES:
 :COOKIE_DATA: todo recursive
 :END:
-** BoardCell [0/10]
+** BoardCell [0/11]
 *** TODO BoardCell()
 *** TODO getName()
 *** TODO getOwner()
@@ -23,8 +23,9 @@ per regular class in the src/ directory.
 *** TODO setImage()
 *** TODO getX()
 *** TODO getY()
-*** TODO getRent
-*** TODO getCost
+*** TODO getRent()
+*** TODO getCost()
+*** TODO setPositionImage()
 ** BoardPosition [1/5]
 *** DONE BoardPosition()
 *** TODO getXCoord()

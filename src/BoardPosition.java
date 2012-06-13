@@ -43,7 +43,8 @@ public class BoardPosition extends JLabel {
     /** Set the image associated with this position to
      *  the indicated image i. */
     public void setImage(Icon i) {
+	// TODO: This is a bit confusing.
 	image = i;
-	this.setIcon(image);
+	this.setIcon(i);
     }
 }

@@ -131,6 +131,19 @@ public class BoardCell {
 	return 0;
     }
 
+    /** Given a Player p, set the image i for the BoardPosition associated 
+     *  with p on this cell. */
+    public void setPositionImage(Player p, Icon i, IdeopolyGUI gui) {
+	if (p == gui.player1)
+	    this.p1Pos.setImage(i);
+	else if (p == gui.player2)
+	    this.p2Pos.setImage(i);
+	else if (p == gui.player3)
+	    this.p3Pos.setImage(i);
+	else if (p == gui.player4)
+	    this.p4Pos.setImage(i);
+    }
+
     // TODO: Setters needed?
 
     // Start with these, add more if/where needed. Add specifics in inherited classes.
