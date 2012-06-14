@@ -510,7 +510,7 @@ public class IdeopolyGUI implements ActionListener {
 				//       playerPayPlayer on a null Player input.
 				//       Also test this later on where the player buys a property
 				//       - apparently it's not working.
-				playerPayPlayer(p.getCell().getRent(), p, null);
+				playerPayPlayer(p.getCell().getRent(), p);
 			    }
 			}
 		    }
@@ -585,7 +585,7 @@ public class IdeopolyGUI implements ActionListener {
             //       Shouldn't, because button's only highlighted when the Player can buy.
             //       Also add plenty of tests for this.
 	    case "Buy property": getCashDistribution(player1.getCell().getCost());
-		playerPayPlayer(player1.getCell().getRent(), player1, null);
+		playerPayPlayer(player1.getCell().getRent(), player1);
 		player1.getCell().setOwner(player1);
 		buyProperty.setEnabled(false); // Disable button after property's bought.
 		break;
@@ -662,6 +662,8 @@ public class IdeopolyGUI implements ActionListener {
     /** Transfer money amount a from player p1 to player p2.*/
     // TODO: This is a little misleading. This provides a general way to split bills correctly and
     // pay for any task. I think. Better method name would be good.
+    // TODO: Better function name. chargePlayer() maybe? less of a tongue-twister, 
+    //       easier to type.
     public void playerPayPlayer(int a, Player p1, Player p2) {
 	// TODO: Before each call of this, make sure the player won't go bankrupt.
 	//       This will allow me to remove bankruptcy checking everywhere this method's called.
@@ -703,5 +705,39 @@ public class IdeopolyGUI implements ActionListener {
 
 	// And set cash back to sensible values.
 	p2.spreadCash(500);
+    }
+
+    /** Transfer money amount a from Player p to the "bank". */
+    public void playerPayPlayer(int a, Player p) {
+	// Player will be bankrupt.
+	if (a > Integer.parseInt(p.getCash("total"))) {
+	    p.bankruptPlayer();
+	}
+	// Amount is ok.
+	else {
+	    getCashDistribution(a);
+
+	    // TODO: Duplicate code from above function.
+	    p.spreadCash(1);
+	    p.addCash("ones", - paymentAmounts[0]);
+
+	    p.spreadCash(5);
+	    p.addCash("fives", - paymentAmounts[1]);
+
+	    p.spreadCash(10);
+	    p.addCash("tens", - paymentAmounts[2]);
+
+	    p.spreadCash(20);
+	    p.addCash("twenties", - paymentAmounts[3]);
+
+	    p.spreadCash(50);
+	    p.addCash("fifties", - paymentAmounts[4]);
+
+	    p.spreadCash(100);
+	    p.addCash("hundreds", - paymentAmounts[5]);
+
+	    p.spreadCash(500);
+	    p.addCash("fiveHundreds", - paymentAmounts[6]);
+	}
     }
 }

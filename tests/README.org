@@ -10,7 +10,7 @@ per regular class in the src/ directory.
 
 * TODO For large sections of items that aren't done, it would be helpful to split test files into separate methods to make this process easier.
 * TODO Write an emacs lisp script that can automatically generate the below overall progress tree.
-* Overall Test Progress - by tested methods. [42/107]
+* Overall Test Progress - by tested methods. [43/107]
  If a test is marked done, it means basic tests are in place. Not neccessarily complete coverage of every possible way everything can go wrong.
 :PROPERTIES:
 :COOKIE_DATA: todo recursive
@@ -83,14 +83,14 @@ per regular class in the src/ directory.
 **** DONE Card 15
 **** DONE Card 16
 **** DONE Card 17
-** IdeopolyGUI [1/7]
+** IdeopolyGUI [2/7]
 *** TODO IdeopolyGUI()
 *** TODO doTurn()
 *** TODO movePlayer()
 *** TODO updateDisplay()
 *** TODO actionPerformed()
 *** DONE getCashDistribution()
-*** TODO playerPayPlayer()
+*** DONE playerPayPlayer()
 ** Menu [0/3]
 *** TODO main()
 *** TODO Menu()

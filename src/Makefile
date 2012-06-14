@@ -4,7 +4,7 @@ SRC        = ../src/*.java ../tests/*.java
 CLASS      = ../bin/*.class
 CLASSPATH  = /home/daniel/Programming/Java/Ideopoly/bin:/home/daniel/Desktop/School_Files/CECS_220/Assignment_5/tests:/home/daniel/.junit/junit4.10/junit-4.10.jar:.
 
-all:
+all: $(SRC) $(CLASS) 
 	javac -cp $(CLASSPATH) $(JFLAGS) -d ../bin $(SRC) # Compile source files.
 
 	java -cp $(CLASSPATH) org.junit.runner.JUnitCore BoardCellTester BoardPositionTester CashCellTester ChanceTester CharacterSelectTester CommunityChestTester IdeopolyGUITester MenuTester PlayerTester PropagandaOutletTester RailroadTester # Run tests.

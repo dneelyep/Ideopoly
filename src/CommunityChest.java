@@ -166,17 +166,11 @@ public class CommunityChest {
 	    case 13:  // "You are assessed for street repairs – $40 per house, $115 per hotel"
 		int chargeAmount = (p.getNumHouses() * 40) + (p.getNumHotels() * 115);
 
-		/** A random Player I can use just to transfer money to. */
-		Player bank = new Player(5, gui);
-		// TODO: This should not rely on such a hack. Should have a way of decreasing
-		// money without transferring to a junk Player.
-
 		if (p.willBankrupt(chargeAmount))
 		    p.bankruptPlayer();
 		else
-		    gui.playerPayPlayer(chargeAmount, p, bank);
+		    gui.playerPayPlayer(chargeAmount, p);
 
-		// TODO: And then destroy bank.
 		break;
 	    case 14: p.addCash("tens", 1);     // "You have won second prize in a beauty contest– collect $10"
 		break;
