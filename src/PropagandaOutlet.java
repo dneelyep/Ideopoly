@@ -55,9 +55,9 @@ public class PropagandaOutlet extends BoardCell {
     // TODO: Should we accept an array instead maybe?
     // TODO: Accept an array for rent values rather than separate variables?
     // TODO: camelCase variable names here.
-    public PropagandaOutlet(String newName, Icon newImage, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, int xPos, int yPos) {
+    public PropagandaOutlet(String newName, String imagePath, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, int xPos, int yPos) {
 	// TODO: Better, less ambiguous variable names here.
-	super(newName, newImage, xPos, yPos); // Use the BoardCell class' constructor.
+	super(newName, imagePath, xPos, yPos); // Use the BoardCell class' constructor.
 	numHouses	    = 0;
 	numHotels	    = 0;
 	cost                = newCost;

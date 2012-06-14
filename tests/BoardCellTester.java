@@ -13,7 +13,7 @@ public class BoardCellTester extends TestCase {
 	IdeopolyGUI gui = new IdeopolyGUI("TestGUI");
 
 	// TODO: Should have deleted this file.
-	BoardCell testCell = new BoardCell("name", new ImageIcon("images/orangeTemplate.jpg"), 4, 10);
+	BoardCell testCell = new BoardCell("name", "images/orangeTemplate.jpg", 4, 10);
 	Player    aPlayer  = new Player(1, gui);
 
 	// Test basic, not out-of-the-ordinary cases.

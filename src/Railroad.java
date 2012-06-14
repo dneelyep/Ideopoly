@@ -9,7 +9,7 @@ import javax.swing.*;
 public class Railroad extends BoardCell {
 
     /** Create a new Railroad with a given name, image, and no owner. */
-    public Railroad(String newName, Icon newImage, int xPos, int yPos) {
-	super(newName, newImage, xPos, yPos); // Use the BoardCell class' constructor.
+    public Railroad(String newName, String imagePath, int xPos, int yPos) {
+	super(newName, imagePath, xPos, yPos); // Use the BoardCell class' constructor.
     }
 }

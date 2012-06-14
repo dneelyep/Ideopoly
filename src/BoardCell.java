@@ -44,15 +44,17 @@ public class BoardCell {
     public BoardPosition p3Pos;
     public BoardPosition p4Pos;
 
-    /** Creates a BoardCell object, with the specified name, image, coordinates, and player standing 
-     *  positions. Does not have an owner. There are no players standing on this object. */
+    /** Creates a BoardCell object, with the specified name, image path, coordinates, and 
+     *  player standing positions. Does not have an owner. There are no players standing 
+     *  on this object. */
     // TODO: Need to test BoardPositions to make sure we get out correct x and 
     //       y values (should be doable visually).
 
-    public BoardCell(String newName, Icon newImage, int xPos, int yPos) {
+    public BoardCell(String newName, String imagePath, int xPos, int yPos) {
 	name	    = newName;
 	ownedBy     = null;
-	image	    = newImage;
+	image	    = new ImageIcon("images/" + imagePath); // Use the path to generate the image.
+	// TODO: Make the "images/" prefix automatic here?
 	cellX	    = xPos;
 	cellY       = yPos;
 
