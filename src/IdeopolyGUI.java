@@ -28,10 +28,11 @@ public class IdeopolyGUI implements ActionListener {
     // TODO: Try to reduce usage of this players array. Is useless and confusing except when looping.
     private String   cashValues[] = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
     private String   titles[] = { "Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail" };
-    private JLabel[] playerRowLabels = { new JLabel("Player 1"), 
-					 new JLabel("Player 2"), 
-					 new JLabel("Player 3"), 
-					 new JLabel("Player 4") };
+    // TODO: Come up with a better solution than making this public.
+    public JLabel[] playerRowLabels = { new JLabel("Player 1"), 
+					new JLabel("Player 2"), 
+					new JLabel("Player 3"), 
+					new JLabel("Player 4") };
 
     /* TODO: Consider making these values constant, since they won't change.
        IE: static final int ROWS = 4
@@ -326,7 +327,7 @@ public class IdeopolyGUI implements ActionListener {
 	// Last week in jail. Player gets charged $50, then moves forward.
 	else if ( p.getJailStatus() == 1 ) {
 	    if (p.willBankrupt(50))
-		p.bankruptPlayer();
+		p.bankruptPlayer(this);
 	    else {
 		p.spreadCash(50);
 		p.addCash("fifties", -1);
@@ -437,7 +438,7 @@ public class IdeopolyGUI implements ActionListener {
 		// Player lands on Income Tax.
 		else if (landingSpot == 4) {
 		    if (p.willBankrupt(200))
-			p.bankruptPlayer();
+			p.bankruptPlayer(this);
 		    else {
 			p.spreadCash(100);
 			p.addCash("hundreds", -2);
@@ -449,7 +450,7 @@ public class IdeopolyGUI implements ActionListener {
 		// Luxury tax.
 		else if (landingSpot == 38) {
 		    if (p.willBankrupt(75))
-			p.bankruptPlayer();
+			p.bankruptPlayer(this);
 		    else {
 			p.spreadCash(50);
 			p.addCash("fifties", -1);
@@ -515,7 +516,7 @@ public class IdeopolyGUI implements ActionListener {
 			    
 			// Charge the player appropriately.
 			if (p.willBankrupt(boardProperties[landingSpot].getRent()))
-			    p.bankruptPlayer();
+			    p.bankruptPlayer(this);
 			else
 			    playerPayPlayer(p.getCell().getRent(), p, p.getCell().getOwner());
 		    }
@@ -639,9 +640,8 @@ public class IdeopolyGUI implements ActionListener {
 
 	    //Then have the player pay each of the amounts
 	    // TODO: Again, replace with a for each loop.
-	    for (int j = 0; j <= 6; j++) {
+	    for (int j = 0; j <= 6; j++)
 		paymentAmounts[j] = billTotals[6 - j];
-	    }
 	}
 
 	return paymentAmounts;
@@ -699,7 +699,7 @@ public class IdeopolyGUI implements ActionListener {
     public void playerPayPlayer(int a, Player p) {
 	// Player will be bankrupt.
 	if (a > p.getCash("total")) {
-	    p.bankruptPlayer();
+	    p.bankruptPlayer(this);
 	}
 	// Amount is ok.
 	else {

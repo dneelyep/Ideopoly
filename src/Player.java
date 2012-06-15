@@ -143,6 +143,7 @@ public class Player {
     public void addProperty(BoardCell property) {
 	//TODO: Implement this. add the property, and increment number of properties owned.
     }
+
     /** Remove a property from this player. */
     public void removeProperty(BoardCell property) {
 	//TODO: Implement this. remove the property, decrement number of properties owned.
@@ -177,9 +178,7 @@ public class Player {
 	}
     }
 
-    /** Change this player's amount a of currency type t. */
-    // TODO: Rename this setCash() ? Seems more consistent with getters/setters, and 
-    //       is more accurate to its purpose.
+    /** Change this Player's amount a of currency type t. */
     public void addCash(String t, int a) {
 	// TODO: This results in the Player having negative cash values. That's not allowed...
 	// TODO: Make sure addCash handles negative values appropriately.
@@ -207,8 +206,9 @@ public class Player {
 
     }
 
-    /** Set this players currency of type t to a given amount a.*/
-    // TODO: With this, is addCash() now obsolete? For example, I could setCash("x", p.getCash("x") + 5)
+    /** Set this Player's currency of type t to a given amount a.*/
+    // TODO: With this, is addCash() now obsolete? For example, 
+    //       I could setCash("x", p.getCash("x") + 5)
     public void setCash(String t, int a) {
 	// TODO: Make sure this handles negative values appropriately.
 	switch (t) {
@@ -386,7 +386,8 @@ public class Player {
     }
 
     // LEFTOFFHERE: Check over this. I'm not sure if it really makes sense or not. Tired.
-    /** I'm not really sure what this method does, other than simplifying some above code. */
+    /** I'm not really sure what this method does, other 
+     *  than simplifying some above code. */
     private void swapValues(int[] billVals, int[] newVals, int firstValue, int first2Value, int second) {
 	billVals[0]      = firstValue;
 	newVals[0]       = first2Value;
@@ -395,7 +396,7 @@ public class Player {
     }
 
     /** Bankrupt this player. */
-    public void bankruptPlayer() {
+    public void bankruptPlayer(IdeopolyGUI gui) {
 	// TODO: Do more than just set cash values. The player can still 
 	// be considered alive, given money, etc. in this state.
 	// TODO: Set the player's text to red when this happens maybe also?
@@ -409,6 +410,17 @@ public class Player {
 	fiveHundreds = 0;
 	totalMoney   = 0;
 	image = null;
+
+	// TODO: There's probably a better way of doing this whole thing.
+	// TODO: Add tests and things for this. Haven't made sure it works yet.
+	if (name == "Player 1 (H)")
+	    gui.playerRowLabels[0].setForeground(Color.red);
+	else if (name == "Player 2 (C)")
+	    gui.playerRowLabels[1].setForeground(Color.red);
+	else if (name == "Player 3 (C)")
+	    gui.playerRowLabels[2].setForeground(Color.red);
+	else if (name == "Player 4 (C)")
+	    gui.playerRowLabels[3].setForeground(Color.red);
     }
 
     /** Get the name of this Player. */

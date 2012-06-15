@@ -80,7 +80,7 @@ public class CommunityChest {
 		break;
 	    case 3:   // "Doctor's fees – Pay $50"
 		if (p.willBankrupt(50)) {
-		    p.bankruptPlayer(); // TODO: Update this code to do more relevant stuff.
+		    p.bankruptPlayer(gui); // TODO: Update this code to do more relevant stuff.
 		}
 		else {
 		    p.spreadCash(50);  // Shuffle money around to get 50s.
@@ -106,7 +106,7 @@ public class CommunityChest {
 
 		for (Player iterPlayer : otherPlayers) {
 		    if (iterPlayer.willBankrupt(10)) {
-			iterPlayer.bankruptPlayer();
+			iterPlayer.bankruptPlayer(gui);
 			numNotBankrupt--;
 		    }
 		    else {
@@ -124,7 +124,7 @@ public class CommunityChest {
 
 		for (Player iterPlayer : extraPlayers) {
 		    if (iterPlayer.willBankrupt(50)) {
-			iterPlayer.bankruptPlayer();
+			iterPlayer.bankruptPlayer(gui);
 			numNotBankrupt--;
 		    }
 		    else {
@@ -142,7 +142,7 @@ public class CommunityChest {
 		break;
 	    case 10:  // "Pay Hospital Fees of $100"
 		if (p.willBankrupt(100)) {
-		    p.bankruptPlayer();
+		    p.bankruptPlayer(gui);
 		}
 		else {
 		    p.spreadCash(100);
@@ -152,7 +152,7 @@ public class CommunityChest {
 		break;
 	    case 11:  // "Pay School Fees of $50"
 		if (p.willBankrupt(50)) {
-		    p.bankruptPlayer();
+		    p.bankruptPlayer(gui);
 		}
 		else {
 		    p.spreadCash(50);
@@ -167,7 +167,7 @@ public class CommunityChest {
 		int chargeAmount = (p.getNumHouses() * 40) + (p.getNumHotels() * 115);
 
 		if (p.willBankrupt(chargeAmount))
-		    p.bankruptPlayer();
+		    p.bankruptPlayer(gui);
 		else
 		    gui.playerPayPlayer(chargeAmount, p);
 

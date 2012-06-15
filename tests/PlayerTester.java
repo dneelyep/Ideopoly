@@ -67,7 +67,7 @@ public class PlayerTester extends TestCase {
 	// TODO: More tests for this method to test edge cases.
 	assertEquals(testPlayer.getNumOwnedProperties(), 0); 
 
-	testPlayer.bankruptPlayer();
+	testPlayer.bankruptPlayer(gui);
 	assertEquals(testPlayer.getCash("ones"),         0);
 	assertEquals(testPlayer.getCash("fives"),        0);
 	assertEquals(testPlayer.getCash("tens"),         0);
@@ -162,7 +162,7 @@ public class PlayerTester extends TestCase {
 	assertEquals(testPlayer.getCash("ones"),      8245);
 
 
-	testPlayer.bankruptPlayer();
+	testPlayer.bankruptPlayer(gui);
 	testPlayer.spreadCash(500);
 	assertEquals(testPlayer.getCash("fiveHundreds"), 0);
 	assertEquals(testPlayer.getCash("hundreds"),     0);

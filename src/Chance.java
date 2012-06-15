@@ -163,7 +163,7 @@ public class Chance {
     	    int payment = (p.getNumHouses() * 25) + (p.getNumHotels() * 100);
 
     	    if ( p.willBankrupt(payment) ) {
-    		p.bankruptPlayer();
+    		p.bankruptPlayer(gui);
     	    }
     	    else {
     		//TODO: Remove cash here.
@@ -172,7 +172,7 @@ public class Chance {
     	case 11: // "Pay poor tax of $15"
 
     	    if (p.willBankrupt(15)) {
-    		p.bankruptPlayer();
+    		p.bankruptPlayer(gui);
     	    }
     	    else {
     		p.spreadCash(10);
@@ -198,7 +198,7 @@ public class Chance {
     	    break;
     	case 14: // "You have been elected chairman of the board – pay each player $50"
     	    if (p.willBankrupt(150)) {
-    		p.bankruptPlayer();
+    		p.bankruptPlayer(gui);
     		// TODO: Should this still give the other players 50 bucks each?
     	    }
     	    else {

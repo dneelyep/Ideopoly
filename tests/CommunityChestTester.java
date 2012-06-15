@@ -179,15 +179,15 @@ public class CommunityChestTester extends TestCase {
 
 	// And test when 1, 2, and 3 other players are bankrupt.
 	p1 = new Player(1, gui);
-	p2.bankruptPlayer();
+	p2.bankruptPlayer(gui);
 	commChestCard.doActions(p1, gui, p2, p3, p4);
 	TestHelper.assertCash(1520, 0, 1460, 1460, p1, p2, p3, p4);
 
-	p3.bankruptPlayer();
+	p3.bankruptPlayer(gui);
 	commChestCard.doActions(p1, gui, p2, p3, p4);
 	TestHelper.assertCash(1530, 0, 0, 1450, p1, p2, p3, p4);
 
-	p4.bankruptPlayer();
+	p4.bankruptPlayer(gui);
 	commChestCard.doActions(p1, gui, p2, p3, p4);
 	TestHelper.assertCash(1530, 0, 0, 0, p1, p2, p3, p4);
     }
@@ -218,15 +218,15 @@ public class CommunityChestTester extends TestCase {
 
 	// And then when 1, 2, and 3 other players are bankrupt.
 	p1 = new Player(1, gui);
-	p2.bankruptPlayer();
+	p2.bankruptPlayer(gui);
 	commChestCard.doActions(p1, gui, p2, p3, p4);
 	TestHelper.assertCash(1600, 0, 1300, 1300, p1, p2, p3, p4);
 
-	p3.bankruptPlayer();
+	p3.bankruptPlayer(gui);
 	commChestCard.doActions(p1, gui, p2, p3, p4);
 	TestHelper.assertCash(1650, 0, 0, 1250, p1, p2, p3, p4);
 
-	p4.bankruptPlayer();
+	p4.bankruptPlayer(gui);
 	commChestCard.doActions(p1, gui, p2, p3, p4);
 	TestHelper.assertCash(1650, 0, 0, 0, p1, p2, p3, p4);
     }
