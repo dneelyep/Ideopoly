@@ -175,114 +175,114 @@ public class IdeopolyGUITester extends TestCase{
 
 	// TODO: Loop relevant stuff in this method.
 	testGUI.playerPayPlayer(500, p1, p2); // between all 4 players
-	assertEquals(p1.getCash("total"), "1000");
-	assertEquals(p2.getCash("total"), "2000");
+	assertEquals(p1.getCash("total"), 1000);
+	assertEquals(p2.getCash("total"), 2000);
 	testGUI.playerPayPlayer(500, p2, p3);
-	assertEquals(p2.getCash("total"), "1500");
-	assertEquals(p3.getCash("total"), "2000");
+	assertEquals(p2.getCash("total"), 1500);
+	assertEquals(p3.getCash("total"), 2000);
 	testGUI.playerPayPlayer(500, p3, p4);
-	assertEquals(p3.getCash("total"), "1500");
-	assertEquals(p4.getCash("total"), "2000");
+	assertEquals(p3.getCash("total"), 1500);
+	assertEquals(p4.getCash("total"), 2000);
 	testGUI.playerPayPlayer(500, p4, p1);
-	assertEquals(p4.getCash("total"), "1500");
-	assertEquals(p1.getCash("total"), "1500");
+	assertEquals(p4.getCash("total"), 1500);
+	assertEquals(p1.getCash("total"), 1500);
 
 	// Started immediately after semicolon on the first playerPayPlayer here--v
 	testGUI.playerPayPlayer(100, p1, p2);
-	assertEquals(p1.getCash("total"), "1400");
-	assertEquals(p2.getCash("total"), "1600");
+	assertEquals(p1.getCash("total"), 1400);
+	assertEquals(p2.getCash("total"), 1600);
 	testGUI.playerPayPlayer(100, p2, p3);
-	assertEquals(p2.getCash("total"), "1500");
-	assertEquals(p3.getCash("total"), "1600");
+	assertEquals(p2.getCash("total"), 1500);
+	assertEquals(p3.getCash("total"), 1600);
 	testGUI.playerPayPlayer(100, p3, p4);
-	assertEquals(p3.getCash("total"), "1500");
-	assertEquals(p4.getCash("total"), "1600");
+	assertEquals(p3.getCash("total"), 1500);
+	assertEquals(p4.getCash("total"), 1600);
 	testGUI.playerPayPlayer(100, p4, p1);
-	assertEquals(p4.getCash("total"), "1500");
-	assertEquals(p1.getCash("total"), "1500");
+	assertEquals(p4.getCash("total"), 1500);
+	assertEquals(p1.getCash("total"), 1500);
 
 	testGUI.playerPayPlayer(50, p1, p2);
-	assertEquals(p1.getCash("total"), "1450");
-	assertEquals(p2.getCash("total"), "1550");
+	assertEquals(p1.getCash("total"), 1450);
+	assertEquals(p2.getCash("total"), 1550);
 	testGUI.playerPayPlayer(50, p2, p3);
-	assertEquals(p2.getCash("total"), "1500");
-	assertEquals(p3.getCash("total"), "1550");
+	assertEquals(p2.getCash("total"), 1500);
+	assertEquals(p3.getCash("total"), 1550);
 	testGUI.playerPayPlayer(50, p3, p4);
-	assertEquals(p3.getCash("total"), "1500");
-	assertEquals(p4.getCash("total"), "1550");
+	assertEquals(p3.getCash("total"), 1500);
+	assertEquals(p4.getCash("total"), 1550);
 	testGUI.playerPayPlayer(50, p4, p1);
-	assertEquals(p4.getCash("total"), "1500");
-	assertEquals(p1.getCash("total"), "1500");
+	assertEquals(p4.getCash("total"), 1500);
+	assertEquals(p1.getCash("total"), 1500);
 
 	testGUI.playerPayPlayer(20, p1, p2);
-	assertEquals(p1.getCash("total"), "1480");
-	assertEquals(p2.getCash("total"), "1520");
+	assertEquals(p1.getCash("total"), 1480);
+	assertEquals(p2.getCash("total"), 1520);
 	testGUI.playerPayPlayer(20, p2, p3);
-	assertEquals(p2.getCash("total"), "1500");
-	assertEquals(p3.getCash("total"), "1520");
+	assertEquals(p2.getCash("total"), 1500);
+	assertEquals(p3.getCash("total"), 1520);
 	testGUI.playerPayPlayer(20, p3, p4);
-	assertEquals(p3.getCash("total"), "1500");
-	assertEquals(p4.getCash("total"), "1520");
+	assertEquals(p3.getCash("total"), 1500);
+	assertEquals(p4.getCash("total"), 1520);
 	testGUI.playerPayPlayer(20, p4, p1);
-	assertEquals(p4.getCash("total"), "1500");
-	assertEquals(p1.getCash("total"), "1500");
+	assertEquals(p4.getCash("total"), 1500);
+	assertEquals(p1.getCash("total"), 1500);
 
 	testGUI.playerPayPlayer(10, p1, p2);
-	assertEquals(p1.getCash("total"), "1490");
-	assertEquals(p2.getCash("total"), "1510");
+	assertEquals(p1.getCash("total"), 1490);
+	assertEquals(p2.getCash("total"), 1510);
 	testGUI.playerPayPlayer(10, p2, p3);
-	assertEquals(p2.getCash("total"), "1500");
-	assertEquals(p3.getCash("total"), "1510");
+	assertEquals(p2.getCash("total"), 1500);
+	assertEquals(p3.getCash("total"), 1510);
 	testGUI.playerPayPlayer(10, p3, p4);
-	assertEquals(p3.getCash("total"), "1500");
-	assertEquals(p4.getCash("total"), "1510");
+	assertEquals(p3.getCash("total"), 1500);
+	assertEquals(p4.getCash("total"), 1510);
 	testGUI.playerPayPlayer(10, p4, p1);
-	assertEquals(p4.getCash("total"), "1500");
-	assertEquals(p1.getCash("total"), "1500");
+	assertEquals(p4.getCash("total"), 1500);
+	assertEquals(p1.getCash("total"), 1500);
 
 	testGUI.playerPayPlayer(5, p1, p2);
-	assertEquals(p1.getCash("total"), "1495");
-	assertEquals(p2.getCash("total"), "1505");
+	assertEquals(p1.getCash("total"), 1495);
+	assertEquals(p2.getCash("total"), 1505);
 	testGUI.playerPayPlayer(5, p2, p3);
-	assertEquals(p2.getCash("total"), "1500");
-	assertEquals(p3.getCash("total"), "1505");
+	assertEquals(p2.getCash("total"), 1500);
+	assertEquals(p3.getCash("total"), 1505);
 	testGUI.playerPayPlayer(5, p3, p4);
-	assertEquals(p3.getCash("total"), "1500");
-	assertEquals(p4.getCash("total"), "1505");
+	assertEquals(p3.getCash("total"), 1500);
+	assertEquals(p4.getCash("total"), 1505);
 	testGUI.playerPayPlayer(5, p4, p1);
-	assertEquals(p4.getCash("total"), "1500");
-	assertEquals(p1.getCash("total"), "1500");
+	assertEquals(p4.getCash("total"), 1500);
+	assertEquals(p1.getCash("total"), 1500);
 
 	testGUI.playerPayPlayer(1, p1, p2);
-	assertEquals(p1.getCash("total"), "1499");
-	assertEquals(p2.getCash("total"), "1501");
+	assertEquals(p1.getCash("total"), 1499);
+	assertEquals(p2.getCash("total"), 1501);
 	testGUI.playerPayPlayer(1, p2, p3);
-	assertEquals(p2.getCash("total"), "1500");
-	assertEquals(p3.getCash("total"), "1501");
+	assertEquals(p2.getCash("total"), 1500);
+	assertEquals(p3.getCash("total"), 1501);
 	testGUI.playerPayPlayer(1, p3, p4);
-	assertEquals(p3.getCash("total"), "1500");
-	assertEquals(p4.getCash("total"), "1501");
+	assertEquals(p3.getCash("total"), 1500);
+	assertEquals(p4.getCash("total"), 1501);
 	testGUI.playerPayPlayer(1, p4, p1);
-	assertEquals(p4.getCash("total"), "1500");
-	assertEquals(p1.getCash("total"), "1500");
+	assertEquals(p4.getCash("total"), 1500);
+	assertEquals(p1.getCash("total"), 1500);
 
 
 	// Test when we bring a player to $0.
 	testGUI.playerPayPlayer(1500, p1, p2);
-	assertEquals(p1.getCash("total"), "0");
-	assertEquals(p2.getCash("total"), "3000");
+	assertEquals(p1.getCash("total"), 0);
+	assertEquals(p2.getCash("total"), 3000);
 	testGUI.playerPayPlayer(1500, p3, p2);
-	assertEquals(p3.getCash("total"), "0");
-	assertEquals(p2.getCash("total"), "4500");
+	assertEquals(p3.getCash("total"), 0);
+	assertEquals(p2.getCash("total"), 4500);
 	testGUI.playerPayPlayer(1500, p4, p2);
-	assertEquals(p4.getCash("total"), "0");
-	assertEquals(p2.getCash("total"), "6000");
+	assertEquals(p4.getCash("total"), 0);
+	assertEquals(p2.getCash("total"), 6000);
 	testGUI.playerPayPlayer(1500, p2, p1);
 	testGUI.playerPayPlayer(1500, p2, p1);
 	testGUI.playerPayPlayer(1500, p2, p1);
 	testGUI.playerPayPlayer(1500, p2, p1);
-	assertEquals(p2.getCash("total"), "0");
-	assertEquals(p1.getCash("total"), "6000");
+	assertEquals(p2.getCash("total"), 0);
+	assertEquals(p1.getCash("total"), 6000);
 
 	// Will bankrupt first player.
 	p1 = new Player(1, testGUI);
@@ -290,14 +290,14 @@ public class IdeopolyGUITester extends TestCase{
 	p3 = new Player(3, testGUI);
 	p4 = new Player(4, testGUI);
 	testGUI.playerPayPlayer(1501, p1);
-	assertEquals(p1.getCash("total"), "0");
+	assertEquals(p1.getCash("total"), 0);
 	// TODO: Should have a better method for these cases. IE, isBankrupt()
 	testGUI.playerPayPlayer(1570, p2);
-	assertEquals(p1.getCash("total"), "0");
+	assertEquals(p1.getCash("total"), 0);
 	testGUI.playerPayPlayer(1600, p3);
-	assertEquals(p1.getCash("total"), "0");
+	assertEquals(p1.getCash("total"), 0);
 	testGUI.playerPayPlayer(20000, p4);
-	assertEquals(p1.getCash("total"), "0");
+	assertEquals(p1.getCash("total"), 0);
 
 
 	// Now test with un-sensible values being transferred.
@@ -309,56 +309,56 @@ public class IdeopolyGUITester extends TestCase{
 	// Negative values. These aren't allowed, so cash totals 
 	// should stay the same.
 	testGUI.playerPayPlayer(-1, p1, p2);
-	assertEquals(p1.getCash("total"), "1500");
-	assertEquals(p2.getCash("total"), "1500");
+	assertEquals(p1.getCash("total"), 1500);
+	assertEquals(p2.getCash("total"), 1500);
 	testGUI.playerPayPlayer(-1, p2, p3);
-	assertEquals(p2.getCash("total"), "1500");
-	assertEquals(p3.getCash("total"), "1500");
+	assertEquals(p2.getCash("total"), 1500);
+	assertEquals(p3.getCash("total"), 1500);
 	testGUI.playerPayPlayer(-1, p3, p4);
-	assertEquals(p3.getCash("total"), "1500");
-	assertEquals(p4.getCash("total"), "1500");
+	assertEquals(p3.getCash("total"), 1500);
+	assertEquals(p4.getCash("total"), 1500);
 	testGUI.playerPayPlayer(-1, p4, p1);
-	assertEquals(p4.getCash("total"), "1500");
-	assertEquals(p1.getCash("total"), "1500");
+	assertEquals(p4.getCash("total"), 1500);
+	assertEquals(p1.getCash("total"), 1500);
 
 	testGUI.playerPayPlayer(-100, p1, p2);
-	assertEquals(p1.getCash("total"), "1500");
-	assertEquals(p2.getCash("total"), "1500");
+	assertEquals(p1.getCash("total"), 1500);
+	assertEquals(p2.getCash("total"), 1500);
 	testGUI.playerPayPlayer(-100, p2, p3);
-	assertEquals(p2.getCash("total"), "1500");
-	assertEquals(p3.getCash("total"), "1500");
+	assertEquals(p2.getCash("total"), 1500);
+	assertEquals(p3.getCash("total"), 1500);
 	testGUI.playerPayPlayer(-100, p3, p4);
-	assertEquals(p3.getCash("total"), "1500");
-	assertEquals(p4.getCash("total"), "1500");
+	assertEquals(p3.getCash("total"), 1500);
+	assertEquals(p4.getCash("total"), 1500);
 	testGUI.playerPayPlayer(-100, p4, p1);
-	assertEquals(p4.getCash("total"), "1500");
-	assertEquals(p1.getCash("total"), "1500");
+	assertEquals(p4.getCash("total"), 1500);
+	assertEquals(p1.getCash("total"), 1500);
 
 	// Player pays the other player $0 - pointless
 	testGUI.playerPayPlayer(0, p1, p2);
-	assertEquals(p1.getCash("total"), "1500");
-	assertEquals(p2.getCash("total"), "1500");
+	assertEquals(p1.getCash("total"), 1500);
+	assertEquals(p2.getCash("total"), 1500);
 	testGUI.playerPayPlayer(0, p2, p3);
-	assertEquals(p1.getCash("total"), "1500");
-	assertEquals(p2.getCash("total"), "1500");
+	assertEquals(p1.getCash("total"), 1500);
+	assertEquals(p2.getCash("total"), 1500);
 	testGUI.playerPayPlayer(0, p3, p4);
-	assertEquals(p1.getCash("total"), "1500");
-	assertEquals(p2.getCash("total"), "1500");
+	assertEquals(p1.getCash("total"), 1500);
+	assertEquals(p2.getCash("total"), 1500);
 	testGUI.playerPayPlayer(0, p4, p1);
-	assertEquals(p1.getCash("total"), "1500");
-	assertEquals(p2.getCash("total"), "1500");
+	assertEquals(p1.getCash("total"), 1500);
+	assertEquals(p2.getCash("total"), 1500);
 
 
 	// And now test transferring from a player to the bank.
 	// For all 4 players
 	testGUI.playerPayPlayer(1500, p1);
-	assertEquals(p1.getCash("total"), "0");
+	assertEquals(p1.getCash("total"), 0);
 	testGUI.playerPayPlayer(1430, p2);
-	assertEquals(p2.getCash("total"), "70");
+	assertEquals(p2.getCash("total"), 70);
 	testGUI.playerPayPlayer(10, p3);
-	assertEquals(p3.getCash("total"), "1490");
+	assertEquals(p3.getCash("total"), 1490);
 	testGUI.playerPayPlayer(500, p4);
-	assertEquals(p4.getCash("total"), "1000");
+	assertEquals(p4.getCash("total"), 1000);
     }
 
 

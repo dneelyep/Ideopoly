@@ -112,31 +112,30 @@ public class Player {
     }
 
     /** Get the amount of bills of the given type for this player. */
-    // TODO: Make this return an int instead? Would make much more sense.
-    //       ^-- Do that. returning a string is unintuitive, pointless complexity.
-    public String getCash(String billType) {
-	// TODO: Have the string parameter refer to the actual value. So i could just say "return billType" 
-	// rather than switch
+    public int getCash(String billType) {
+	// TODO: Have the string parameter refer to the actual value. So i could just 
+	// say "return billType" rather than switch
 
 	switch (billType) {
 	    case "ones":
-		return Integer.toString(ones);
+		return ones;
 	    case "fives":
-		return Integer.toString(fives);
+		return fives;
 	    case "tens":
-		return Integer.toString(tens);
+		return tens;
 	    case "twenties":
-		return Integer.toString(twenties);
+		return twenties;
 	    case "fifties":
-		return Integer.toString(fifties);
+		return fifties;
 	    case "hundreds":
-		return Integer.toString(hundreds);
+		return hundreds;
 	    case "fiveHundreds": // TODO: Replace this with 'fiveHundreds'
-		return Integer.toString(fiveHundreds);
+		return fiveHundreds;
             case "total":
-		return Integer.toString(totalMoney);
+		return totalMoney;
 	    default:
-		return "Error! Incorrect argument."; // TODO: Make this an error code thing.
+		System.out.println("Error! Incorrect argument."); 
+		return -15; // TODO: Make this error code thing make sense.
 	}
     }
 

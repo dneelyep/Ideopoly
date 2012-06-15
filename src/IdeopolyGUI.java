@@ -2,14 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
-import java.util.Stack;
 
 // TODO: Add in Chance and Comm. Chest images.
 // TODO: Use the native look and feel for the program.
 // TODO: Keep using M-a/M-e. Useful.
 // TODO: Make an updateStatus() function that, given a string as an input,
 //       updates the status text at bottom of screen.
-// TODO: Remove unneeded image templates.
 // TODO: Get rid of the spacing between cells.
 // TODO: Make text on cells readable.
 
@@ -60,47 +58,48 @@ public class IdeopolyGUI implements ActionListener {
     private JLabel      status                  = new JLabel ("Status:");
 
     // Create the game board.
-    private BoardCell	     go              = new BoardCell       ("Go", "go.jpg", 41, 41);
+    // TODO: Remove unneeded image templates.
+    private BoardCell	     go              = new BoardCell("Go", "go.jpg", 41, 41);
     private PropagandaOutlet mediterraneanAv = new PropagandaOutlet("Mediterranean Av.", "purpleTemplate.jpg", 60, 2, 10, 30, 90, 160, 250, 50, 37, 41);
-    private BoardCell        commChestBottom = new BoardCell       ("Community Chest", "bottCommChest.jpg", 33, 41);
+    private BoardCell        commChestBottom = new BoardCell("Community Chest", "bottCommChest.jpg", 33, 41);
     private PropagandaOutlet balticAv        = new PropagandaOutlet("Baltic Av.", "purpleTemplate.jpg", 60, 4, 20, 60, 180, 320, 450, 50, 29, 41);
-    private BoardCell	     incomeTax       = new BoardCell       ("Income Tax", "incomeTax.jpg", 25, 41);    // TODO: Redo this image. Just re-download the version
+    private BoardCell	     incomeTax       = new BoardCell("Income Tax", "incomeTax.jpg", 25, 41);    // TODO: Redo this image. Just re-download the version
               // from email and add border. Had resized it incorrectly.
     // TODO: Bigger font size (~80) for the text on railroads - hard to read currently.
-    private Railroad	     readingRR       = new Railroad        ("Reading RR", "readingRR.jpg", 21, 41);
+    private Railroad	     readingRR       = new Railroad("Reading RR", "readingRR.jpg", 21, 41);
     private PropagandaOutlet orientalAv      = new PropagandaOutlet("Oriental Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, 17, 41);
-    private BoardCell	     chanceBottom    = new BoardCell       ("Chance", "botChance.jpg", 13, 41);
+    private BoardCell	     chanceBottom    = new BoardCell("Chance", "botChance.jpg", 13, 41);
     private PropagandaOutlet vermontAv       = new PropagandaOutlet("Vermont Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, 9, 41);
     private PropagandaOutlet connecticutAv   = new PropagandaOutlet("Connecticut Av.", "lightBlueTemplate.jpg", 120, 8, 40, 100, 300, 450, 600, 50, 5, 41);
-    private BoardCell	     jail	     = new BoardCell       ("Jail", "jail.jpg", 1, 41);
+    private BoardCell	     jail	     = new BoardCell("Jail", "jail.jpg", 1, 41);
     private PropagandaOutlet stCharles       = new PropagandaOutlet("St. Charles Place", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, 1, 37);
-    private BoardCell	     electricCompany = new BoardCell       ("Electric Co.", "electricCo.jpg", 1, 33);
+    private BoardCell	     electricCompany = new BoardCell("Electric Co.", "electricCo.jpg", 1, 33);
     private PropagandaOutlet statesAv	     = new PropagandaOutlet("States Av.", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, 1, 29);
     private PropagandaOutlet virginiaAv      = new PropagandaOutlet("Virginia Av.", "pinkTemplate.jpg", 160, 12, 60, 180, 500, 700, 900, 100, 1, 25);
-    private Railroad	     pennsylvaniaRR  = new Railroad        ("Pennsylvania RR", "pennsylvaniaRR.jpg", 1, 21);
+    private Railroad	     pennsylvaniaRR  = new Railroad("Pennsylvania RR", "pennsylvaniaRR.jpg", 1, 21);
     private PropagandaOutlet stJames         = new PropagandaOutlet("St. James", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, 1, 17);
-    private BoardCell	     commChestLeft   = new BoardCell       ("Community Chest", "leftCommChest.jpg", 1, 13);
+    private BoardCell	     commChestLeft   = new BoardCell("Community Chest", "leftCommChest.jpg", 1, 13);
     private PropagandaOutlet tennesseeAv     = new PropagandaOutlet("Tennessee Av.", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, 1, 9);
     private PropagandaOutlet newYorkAv       = new PropagandaOutlet("New York Av.", "orangeTemplate.jpg", 200, 16, 80, 220, 600, 800, 1000, 100, 1, 5);
-    private BoardCell	     freeParking     = new BoardCell       ("Free Parking", "freeParking.jpg", 1, 1);
+    private BoardCell	     freeParking     = new BoardCell("Free Parking", "freeParking.jpg", 1, 1);
     private PropagandaOutlet kentuckyAv      = new PropagandaOutlet("Kentucky Av.", "properties/kentuckyAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, 5, 1);
-    private BoardCell	     chanceTop       = new BoardCell       ("Chance", "topChance.jpg", 9, 1);
+    private BoardCell	     chanceTop       = new BoardCell("Chance", "topChance.jpg", 9, 1);
     private PropagandaOutlet indianaAv	     = new PropagandaOutlet("Indiana Av.", "properties/indianaAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, 13, 1);
     private PropagandaOutlet illinoisAv      = new PropagandaOutlet("Illinois Av.", "properties/illinoisAv.jpg", 240, 20, 100, 300, 750, 925, 1100, 150, 17, 1);
-    private Railroad	     bAndORR	     = new Railroad        ("B & O RR", "bAndORR.jpg", 21, 1);
+    private Railroad	     bAndORR	     = new Railroad("B & O RR", "bAndORR.jpg", 21, 1);
     private PropagandaOutlet atlanticAv      = new PropagandaOutlet("Atlantic Av.", "properties/atlanticAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 1, 25, 1);
     private PropagandaOutlet ventnorAv	     = new PropagandaOutlet("Ventnor Av.", "properties/ventnorAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 150, 29, 1);
-    private BoardCell	     waterWorks      = new BoardCell       ("Water Works", "waterWorks.jpg", 33, 1);
+    private BoardCell	     waterWorks      = new BoardCell("Water Works", "waterWorks.jpg", 33, 1);
     private PropagandaOutlet marvinGardens   = new PropagandaOutlet("Marvin Gardens", "properties/marvinGardens.jpg", 280, 24, 120, 360, 850, 1025, 1200, 150, 37, 1);
-    private BoardCell	     goToJail        = new BoardCell       ("Go to Jail", "goToJail.jpg", 41, 1);
+    private BoardCell	     goToJail        = new BoardCell("Go to Jail", "goToJail.jpg", 41, 1);
     private PropagandaOutlet pacificAv	     = new PropagandaOutlet("Pacific Av.", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 5);
     private PropagandaOutlet nCarolinaAv     = new PropagandaOutlet("nCarolinaAv", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 9);
-    private BoardCell	     commChestRight  = new BoardCell       ("Community Chest", "rightCommChest.jpg", 41, 13);
+    private BoardCell	     commChestRight  = new BoardCell("Community Chest", "rightCommChest.jpg", 41, 13);
     private PropagandaOutlet pennsylvaniaAv  = new PropagandaOutlet("Pennsylvania Av.", "greenTemplate.jpg", 320, 28, 150, 450, 1000, 1200, 1400, 200, 41, 17);
-    private Railroad         shortLineRR     = new Railroad        ("Short Line RR", "shortLineRR.jpg", 41, 21);
-    private BoardCell        chanceRight     = new BoardCell       ("Chance", "rightChance.jpg", 41, 25);
+    private Railroad         shortLineRR     = new Railroad("Short Line RR", "shortLineRR.jpg", 41, 21);
+    private BoardCell        chanceRight     = new BoardCell("Chance", "rightChance.jpg", 41, 25);
     private PropagandaOutlet parkPlace       = new PropagandaOutlet("Park Place", "darkBlueTemplate.jpg", 350, 35, 175, 500, 1100, 1300, 1500, 200, 41, 29);
-    private BoardCell	     luxuryTax       = new BoardCell       ("Luxury Tax", "luxuryTax.jpg", 41, 33);
+    private BoardCell	     luxuryTax       = new BoardCell("Luxury Tax", "luxuryTax.jpg", 41, 33);
     private PropagandaOutlet boardwalk       = new PropagandaOutlet("Boardwalk", "darkBlueTemplate.jpg", 400, 50, 200, 600, 1400, 1700, 2000, 200, 41, 37);
 
     // TODO: Make this a vector, or similar, so I can insert multiple types of objects. 
@@ -108,7 +107,9 @@ public class IdeopolyGUI implements ActionListener {
     // That method can only be called on PropagandaOutlets, but this situation turns all
     // Prop Outlets into BoardCells. => if I solve this problem, that one should disappear. And
     // hundreds more should surface.
-    // TODO: Get actionlisteners implemented for the properties, so that I can mouseover them and have a picture of the property card pop up in the middle of the board.
+
+    // TODO: Get actionlisteners implemented for the properties, so that I can
+    //  mouseover them and have a picture of the property card pop up in the middle of the board.
 
     // TODO: Consider making this an enum. Enumerations are apparently a fixed list of constants,
     //       and that's what this array is.
@@ -120,11 +121,11 @@ public class IdeopolyGUI implements ActionListener {
     /** Represents the player whose turn it currently is to roll. 0-3. */
     private int currentPlayer = 0;
 
-    public  Player   player1   = new Player(1, this);
-    public  Player   player2   = new Player(2, this);
-    public  Player   player3   = new Player(3, this);
-    public  Player   player4   = new Player(4, this);
-    private Player   players[] = { player1, player2, player3, player4 };
+    public  Player player1   = new Player(1, this);
+    public  Player player2   = new Player(2, this);
+    public  Player player3   = new Player(3, this);
+    public  Player player4   = new Player(4, this);
+    private Player players[] = { player1, player2, player3, player4 };
 
     /** The stack of Chance cards. */
     private Stack<Chance> chanceCards = new Stack<Chance>();
@@ -215,7 +216,7 @@ public class IdeopolyGUI implements ActionListener {
 		else if (j == 8)
 		    cashLabels[i][j] = new CashCell(51 + j, 1 + i, Integer.toString(players[i].getNumGOOJFCards()) );
 		else
-		    cashLabels[i][j] = new CashCell(51 + j, 1 + i, players[i].getCash( cashValues[j] ));
+		    cashLabels[i][j] = new CashCell(51 + j, 1 + i, Integer.toString(players[i].getCash(cashValues[j])));
 	    }
 	}
 
@@ -488,7 +489,7 @@ public class IdeopolyGUI implements ActionListener {
 
 			// Have the AI buy the property if it has more than $500.
 			else {
-			    if (Integer.parseInt(p.getCash("total")) >= 500) {
+			    if (p.getCash("total") >= 500) {
 				p.getCell().setOwner(p);
 
 				getCashDistribution(p.getCell().getCost());
@@ -540,7 +541,7 @@ public class IdeopolyGUI implements ActionListener {
 		else if (j == 8)
 		    cashLabels[i][j].setText(Integer.toString(players[i].getNumGOOJFCards()));
 		else
-		    cashLabels[i][j].setText(players[i].getCash(cashValues[j]));
+		    cashLabels[i][j].setText(Integer.toString(players[i].getCash(cashValues[j])));
 	    }
 
 	    if (currentPlayer == 0) {
@@ -604,7 +605,7 @@ public class IdeopolyGUI implements ActionListener {
     //       a Player object instead? Or similar?
     public int[] getCashDistribution(int total) {
 	// TODO: This functionality seems so generic that it should be in a library somewhere...
-	// LEFTOFFHERE: TODO: This is almost working, but I think BoardCell's getCost() function
+	// TODO: This is almost working, but I think BoardCell's getCost() function
 	// is not being overwritten by PropagandaOutlet's => since BoardCell always returns 
 	// 0, I get this case where total = 0, which screws up gameplay.
 	if (total <= 0) {
@@ -618,7 +619,6 @@ public class IdeopolyGUI implements ActionListener {
 	}
 
 	else {
-
 	    // We keep the arrays in reverse order here. This way, when we iterate
 	    // through them, we start with the highest dollar amount, which leads to
 	    // less dividing up the player's money into (eg) hundreds of little bills.
@@ -698,7 +698,7 @@ public class IdeopolyGUI implements ActionListener {
     /** Transfer money amount a from Player p to the "bank". */
     public void playerPayPlayer(int a, Player p) {
 	// Player will be bankrupt.
-	if (a > Integer.parseInt(p.getCash("total"))) {
+	if (a > p.getCash("total")) {
 	    p.bankruptPlayer();
 	}
 	// Amount is ok.
