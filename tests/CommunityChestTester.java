@@ -1,5 +1,4 @@
 import junit.framework.TestCase;
-import javax.swing.*;
 import org.junit.*;
 
 /** Class to test all methods inside the CommunityChest class.

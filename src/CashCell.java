@@ -14,6 +14,7 @@ public class CashCell extends JLabel {
     private final int yCoordPos;
 
     /** The text to be displayed in this JLabel. */
+    // TODO: This is currently unused. Use it or remove it.
     private String value;
 
     /** Create this object with the given x and y coordinates. */

@@ -1,5 +1,3 @@
-import javax.swing.*;
-
 // TODO: Is this class even needed?
 // TODO: Also, should these be made schools rather than railroads?
 

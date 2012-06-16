@@ -1,5 +1,3 @@
-import javax.swing.*;
-
 /** Class to represent a given propaganda outlet.
  *  Extends a generic BoardCell to also include properties 
  *  such as number of houses/hotels present, cost of rent, etc.

@@ -10,7 +10,7 @@ public class Menu implements ActionListener {
 
     /** Create an instance of this menu to start the game */
     public static void main(String[] args) {
-	Menu game = new Menu();
+	new Menu();
     }
 
     // TODO: Use multiple instances of GridBagConstraints.
@@ -53,7 +53,7 @@ public class Menu implements ActionListener {
 	if (eventSource == "Start") { // Launch the game
 	    // TODO: Or should I just make the object invisible and keep it around?
 	    mainMenu.dispose(); // Get rid of the menu since we don't need it anymore.
-	    CharacterSelect charSelectScreen = new CharacterSelect();
+	    new CharacterSelect();
 	}
 	else if (eventSource == "Quit") {
 	    mainMenu.dispose();

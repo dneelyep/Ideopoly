@@ -42,21 +42,19 @@ public class IdeopolyGUI implements ActionListener {
 
     /** Array used to store the values of each type of bill a Player
      *  should pay after requiring a payment. */
-    private int[]       paymentAmounts = {0, 0, 0, 0, 0, 0, 0};
-
-    private JFrame	frame			= new JFrame("Ideopoly | Main game");
-
-    private JButton	continueButton		= new JButton("Continue");
+    private int[]   paymentAmounts = {0, 0, 0, 0, 0, 0, 0};
+    private JFrame  frame			= new JFrame("Ideopoly | Main game");
+    private JButton continueButton		= new JButton("Continue");//new ImageIcon("images/continueButton.jpg"));
     // TODO: Would be good to list the property name, such as "Buy property (Mediterranean Avenue)"
-    private JButton	buyProperty		= new JButton("Buy property");
-    private JButton	buyHouse		= new JButton("Buy house");
-    private JButton	buyHotel		= new JButton("Buy hotel");
-    private JButton	sellProperty		= new JButton("Sell property");
-    private JButton	mortgageProperty	= new JButton("Mortgage property");
+    private JButton buyProperty	     = new JButton("Buy property");
+    private JButton buyHouse	     = new JButton("Buy house");
+    private JButton buyHotel	     = new JButton("Buy hotel");
+    private JButton sellProperty     = new JButton("Sell property");
+    private JButton mortgageProperty = new JButton("Mortgage property");
     // TODO: Should I make this private, and include a function to set its enable-ability? The Player
     // class is currently the only outside class that changes its state.
-    public  JButton	useGOOJFCard		= new JButton("Use get out of jail free card");
-    private JLabel      status                  = new JLabel ("Status:");
+    public  JButton useGOOJFCard     = new JButton("Use get out of jail free card");
+    private JLabel  status           = new JLabel ("Status:");
 
     // Create the game board.
     // TODO: Remove unneeded image templates.
@@ -126,7 +124,7 @@ public class IdeopolyGUI implements ActionListener {
     public  Player player2   = new Player(2, this);
     public  Player player3   = new Player(3, this);
     public  Player player4   = new Player(4, this);
-    private Player players[] = { player1, player2, player3, player4 };
+    private Player players[] = {player1, player2, player3, player4};
 
     /** The stack of Chance cards. */
     private Stack<Chance> chanceCards = new Stack<Chance>();
@@ -165,6 +163,7 @@ public class IdeopolyGUI implements ActionListener {
 	// === Add the standing positions around the edge of the board. ===
 	// ================================================================
 	for (BoardCell property : boardProperties) {
+	    // TODO: Should be loopable.
 	    c.gridx = property.p1Pos.getXCoord();
 	    c.gridy = property.p1Pos.getYCoord();
 	    frame.add(property.p1Pos, c);
@@ -306,6 +305,11 @@ public class IdeopolyGUI implements ActionListener {
 	    commChestCards.push(new CommunityChest(generator.nextInt(17) + 1));
 	}
 
+	boardProperties[0].p1Pos.setImage(player1.getImage());
+	boardProperties[0].p2Pos.setImage(player2.getImage());
+	boardProperties[0].p3Pos.setImage(player3.getImage());
+	boardProperties[0].p4Pos.setImage(player4.getImage());
+
 	frame.pack();
 	frame.setVisible(true);
 
@@ -359,7 +363,7 @@ public class IdeopolyGUI implements ActionListener {
 	}
 
 	// Now move on to the next player.
-	if (p == player3)
+	if (p == player4)
 	    currentPlayer = 0;
 	else
 	    currentPlayer++;
@@ -569,12 +573,16 @@ public class IdeopolyGUI implements ActionListener {
 	String eventSource = e.getActionCommand();
 
 	switch (eventSource) {
-	    case "Continue": doTurn(frame, players[currentPlayer + 1]);
+	    case "Continue": doTurn(frame, players[currentPlayer]);
 		break;
 	    // TODO: Make sure I don't need a bankruptcy check for this event.
             //       Shouldn't, because button's only highlighted when the Player can buy.
             //       Also add plenty of tests for this.
 	    case "Buy property": getCashDistribution(player1.getCell().getCost());
+		// LEFTOFFHERE: Fixing this hairy problem. It's the same old problem where
+		//              BoardCell.getRent() is returning a dummy 0, rather than the
+		//              actual rent amount. So the Player's getting charged nothing.
+		//              when they buy a property.
 		playerPayPlayer(player1.getCell().getRent(), player1);
 		player1.getCell().setOwner(player1);
 		buyProperty.setEnabled(false); // Disable button after property's bought.

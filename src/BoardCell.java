@@ -17,8 +17,13 @@ import javax.swing.*;
 // TODO: Make BoardCell implement ActionListener, like Menu.java, so I can get mouseover events on cells.
 // TODO: Also, just have the subclasses implement the listener, since not all subclasses need to be listened to? IE: Go to jail.
 // TODO: On go to jail, on land do a funny animation?
+
+
+// LEFTOFFHERE: About to go ahead with this idea. Should help things make more sense I think.
+// TODO: Consider making this an abstract class. I don't think I actually create any BoardCell
+//       objects, just the sub-classes.
 public class BoardCell {
-    // TODO: Add a field indicating whether or not a player is present on the cell? And a method to set that.
+    // TODO: Add a field indicating whether or not a player is present on this cell? And a method to set that.
     // TODO: Do I need this name field?
     /** A unique name that identifies this cell.
      *  For example, the "Park Place" property would have that name. */
@@ -137,13 +142,13 @@ public class BoardCell {
      *  with p on this cell. */
     public void setPositionImage(Player p, Icon i, IdeopolyGUI gui) {
 	if (p == gui.player1)
-	    this.p1Pos.setImage(i);
+	    p1Pos.setImage(i);
 	else if (p == gui.player2)
-	    this.p2Pos.setImage(i);
+	    p2Pos.setImage(i);
 	else if (p == gui.player3)
-	    this.p3Pos.setImage(i);
+	    p3Pos.setImage(i);
 	else if (p == gui.player4)
-	    this.p4Pos.setImage(i);
+	    p4Pos.setImage(i);
     }
 
     // TODO: Setters needed?

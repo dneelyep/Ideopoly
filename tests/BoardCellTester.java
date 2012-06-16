@@ -1,7 +1,5 @@
 import junit.framework.TestCase;
 import org.junit.*;
-import javax.swing.*;
-
 /** Class to test all methods inside the BoardCell class.
  *
  *  @author Daniel Neel */

@@ -97,11 +97,11 @@ public class CharacterSelect implements ActionListener {
 	continueButton.setEnabled(true);
 
 	if (actionSource == "Continue") {
-	    IdeopolyGUI mainGame = new IdeopolyGUI(selectedPlayer);
+	    new IdeopolyGUI(selectedPlayer);
 	    frame.dispose();
 	}
 	else if (actionSource == "Back") {
-	    Menu game = new Menu();
+	    new Menu();
 	    frame.dispose();
 	}
 	else {
