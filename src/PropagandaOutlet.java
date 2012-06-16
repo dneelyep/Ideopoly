@@ -97,6 +97,8 @@ public class PropagandaOutlet extends BoardCell {
 	    return -1;
     }
 
+    /** Returns the cost for a Player to buy this 
+     *  property, unimproved. */
     public int getCost() {
 	return cost;
     }

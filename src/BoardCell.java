@@ -63,7 +63,7 @@ public class BoardCell {
 	cellX	    = xPos;
 	cellY       = yPos;
 
-	if (xPos >= 1 && xPos <= 41 && yPos == 1) {      // Top row.
+	if (xPos >= 1 && xPos <= 41 && yPos == 1) {       // Top row.
 	    p1Pos = new BoardPosition(cellX + 3, 0);
 	    p2Pos = new BoardPosition(cellX + 2, 0);
 	    p3Pos = new BoardPosition(cellX + 1, 0);
@@ -131,10 +131,6 @@ public class BoardCell {
     // See this: http://www.cafeaulait.org/javafaq.html#xtocid2672631t
     /** Dummy method. Used so I can access getRent() from the derived class PropagandaOutlet. */
     public int getRent() {
-	return 0;
-    }
-
-    public int getCost() {
 	return 0;
     }
 

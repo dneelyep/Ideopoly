@@ -58,47 +58,47 @@ public class IdeopolyGUI implements ActionListener {
 
     // Create the game board.
     // TODO: Remove unneeded image templates.
-    private BoardCell	     go              = new BoardCell("Go", "go.jpg", 41, 41);
+    private SpecialCell	     go              = new SpecialCell("Go", "go.jpg", 41, 41);
     private PropagandaOutlet mediterraneanAv = new PropagandaOutlet("Mediterranean Av.", "purpleTemplate.jpg", 60, 2, 10, 30, 90, 160, 250, 50, 37, 41);
-    private BoardCell        commChestBottom = new BoardCell("Community Chest", "bottCommChest.jpg", 33, 41);
+    private ChanceOrCommChestCell commChestBottom = new ChanceOrCommChestCell("Community Chest", "bottCommChest.jpg", 33, 41);
     private PropagandaOutlet balticAv        = new PropagandaOutlet("Baltic Av.", "purpleTemplate.jpg", 60, 4, 20, 60, 180, 320, 450, 50, 29, 41);
-    private BoardCell	     incomeTax       = new BoardCell("Income Tax", "incomeTax.jpg", 25, 41);    // TODO: Redo this image. Just re-download the version
+    private SpecialCell	     incomeTax       = new SpecialCell("Income Tax", "incomeTax.jpg", 25, 41);    // TODO: Redo this image. Just re-download the version
               // from email and add border. Had resized it incorrectly.
     // TODO: Bigger font size (~80) for the text on railroads - hard to read currently.
     private Railroad	     readingRR       = new Railroad("Reading RR", "readingRR.jpg", 21, 41);
     private PropagandaOutlet orientalAv      = new PropagandaOutlet("Oriental Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, 17, 41);
-    private BoardCell	     chanceBottom    = new BoardCell("Chance", "botChance.jpg", 13, 41);
+    private ChanceOrCommChestCell chanceBottom    = new ChanceOrCommChestCell("Chance", "botChance.jpg", 13, 41);
     private PropagandaOutlet vermontAv       = new PropagandaOutlet("Vermont Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, 9, 41);
     private PropagandaOutlet connecticutAv   = new PropagandaOutlet("Connecticut Av.", "lightBlueTemplate.jpg", 120, 8, 40, 100, 300, 450, 600, 50, 5, 41);
-    private BoardCell	     jail	     = new BoardCell("Jail", "jail.jpg", 1, 41);
+    private SpecialCell	     jail	     = new SpecialCell("Jail", "jail.jpg", 1, 41);
     private PropagandaOutlet stCharles       = new PropagandaOutlet("St. Charles Place", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, 1, 37);
-    private BoardCell	     electricCompany = new BoardCell("Electric Co.", "electricCo.jpg", 1, 33);
+    private UtilityCell	     electricCompany = new UtilityCell("Electric Co.", "electricCo.jpg", 1, 33);
     private PropagandaOutlet statesAv	     = new PropagandaOutlet("States Av.", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, 1, 29);
     private PropagandaOutlet virginiaAv      = new PropagandaOutlet("Virginia Av.", "pinkTemplate.jpg", 160, 12, 60, 180, 500, 700, 900, 100, 1, 25);
     private Railroad	     pennsylvaniaRR  = new Railroad("Pennsylvania RR", "pennsylvaniaRR.jpg", 1, 21);
     private PropagandaOutlet stJames         = new PropagandaOutlet("St. James", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, 1, 17);
-    private BoardCell	     commChestLeft   = new BoardCell("Community Chest", "leftCommChest.jpg", 1, 13);
+    private ChanceOrCommChestCell commChestLeft   = new ChanceOrCommChestCell("Community Chest", "leftCommChest.jpg", 1, 13);
     private PropagandaOutlet tennesseeAv     = new PropagandaOutlet("Tennessee Av.", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, 1, 9);
     private PropagandaOutlet newYorkAv       = new PropagandaOutlet("New York Av.", "orangeTemplate.jpg", 200, 16, 80, 220, 600, 800, 1000, 100, 1, 5);
-    private BoardCell	     freeParking     = new BoardCell("Free Parking", "freeParking.jpg", 1, 1);
+    private SpecialCell      freeParking     = new SpecialCell("Free Parking", "freeParking.jpg", 1, 1);
     private PropagandaOutlet kentuckyAv      = new PropagandaOutlet("Kentucky Av.", "properties/kentuckyAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, 5, 1);
-    private BoardCell	     chanceTop       = new BoardCell("Chance", "topChance.jpg", 9, 1);
+    private ChanceOrCommChestCell chanceTop       = new ChanceOrCommChestCell("Chance", "topChance.jpg", 9, 1);
     private PropagandaOutlet indianaAv	     = new PropagandaOutlet("Indiana Av.", "properties/indianaAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, 13, 1);
     private PropagandaOutlet illinoisAv      = new PropagandaOutlet("Illinois Av.", "properties/illinoisAv.jpg", 240, 20, 100, 300, 750, 925, 1100, 150, 17, 1);
     private Railroad	     bAndORR	     = new Railroad("B & O RR", "bAndORR.jpg", 21, 1);
     private PropagandaOutlet atlanticAv      = new PropagandaOutlet("Atlantic Av.", "properties/atlanticAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 1, 25, 1);
     private PropagandaOutlet ventnorAv	     = new PropagandaOutlet("Ventnor Av.", "properties/ventnorAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 150, 29, 1);
-    private BoardCell	     waterWorks      = new BoardCell("Water Works", "waterWorks.jpg", 33, 1);
+    private UtilityCell	     waterWorks      = new UtilityCell("Water Works", "waterWorks.jpg", 33, 1);
     private PropagandaOutlet marvinGardens   = new PropagandaOutlet("Marvin Gardens", "properties/marvinGardens.jpg", 280, 24, 120, 360, 850, 1025, 1200, 150, 37, 1);
-    private BoardCell	     goToJail        = new BoardCell("Go to Jail", "goToJail.jpg", 41, 1);
+    private SpecialCell      goToJail        = new SpecialCell("Go to Jail", "goToJail.jpg", 41, 1);
     private PropagandaOutlet pacificAv	     = new PropagandaOutlet("Pacific Av.", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 5);
     private PropagandaOutlet nCarolinaAv     = new PropagandaOutlet("nCarolinaAv", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 9);
-    private BoardCell	     commChestRight  = new BoardCell("Community Chest", "rightCommChest.jpg", 41, 13);
+    private ChanceOrCommChestCell commChestRight  = new ChanceOrCommChestCell("Community Chest", "rightCommChest.jpg", 41, 13);
     private PropagandaOutlet pennsylvaniaAv  = new PropagandaOutlet("Pennsylvania Av.", "greenTemplate.jpg", 320, 28, 150, 450, 1000, 1200, 1400, 200, 41, 17);
     private Railroad         shortLineRR     = new Railroad("Short Line RR", "shortLineRR.jpg", 41, 21);
-    private BoardCell        chanceRight     = new BoardCell("Chance", "rightChance.jpg", 41, 25);
+    private ChanceOrCommChestCell chanceRight     = new ChanceOrCommChestCell("Chance", "rightChance.jpg", 41, 25);
     private PropagandaOutlet parkPlace       = new PropagandaOutlet("Park Place", "darkBlueTemplate.jpg", 350, 35, 175, 500, 1100, 1300, 1500, 200, 41, 29);
-    private BoardCell	     luxuryTax       = new BoardCell("Luxury Tax", "luxuryTax.jpg", 41, 33);
+    private SpecialCell      luxuryTax       = new SpecialCell("Luxury Tax", "luxuryTax.jpg", 41, 33);
     private PropagandaOutlet boardwalk       = new PropagandaOutlet("Boardwalk", "darkBlueTemplate.jpg", 400, 50, 200, 600, 1400, 1700, 2000, 200, 41, 37);
 
     // TODO: Make this a vector, or similar, so I can insert multiple types of objects. 
@@ -467,6 +467,9 @@ public class IdeopolyGUI implements ActionListener {
 		    }
 		}
 
+		// TODO: Possibly redo this to take advantage of p.getCell().getClass()
+		// rather than using landingSpot numbers.
+
 		// Free parking
 		else if (landingSpot == 20)
 		    System.out.println("Free parking!");
@@ -495,16 +498,43 @@ public class IdeopolyGUI implements ActionListener {
 			// Have the AI buy the property if it has more than $500.
 			else {
 			    if (p.getCash("total") >= 500) {
-				p.getCell().setOwner(p);
+				// TODO: Refactor.
+				if (p.getCell().getClass() == bAndORR.getClass()) {
+				    Railroad r = (Railroad) p.getCell();
+				    p.getCell().setOwner(p);
+				    getCashDistribution(r.getCost());
+				    System.out.println(r.getCost());
 
-				getCashDistribution(p.getCell().getCost());
-				System.out.println(p.getCell().getCost());
+				    // TODO: Test to make sure this is working. Have not yet tested
+				    //       playerPayPlayer on a null Player input.
+				    //       Also test this later on where the player buys a property
+				    //       - apparently it's not working.
+				    playerPayPlayer(r.getRent(), p);
+				}
+				else if (p.getCell().getClass() == boardwalk.getClass()) {
+				    PropagandaOutlet pO = (PropagandaOutlet) p.getCell();
+				    p.getCell().setOwner(p);
+				    getCashDistribution(pO.getCost());
+				    System.out.println(pO.getCost());
 
-				// TODO: Test to make sure this is working. Have not yet tested
-				//       playerPayPlayer on a null Player input.
-				//       Also test this later on where the player buys a property
-				//       - apparently it's not working.
-				playerPayPlayer(p.getCell().getRent(), p);
+				    // TODO: Test to make sure this is working. Have not yet tested
+				    //       playerPayPlayer on a null Player input.
+				    //       Also test this later on where the player buys a property
+				    //       - apparently it's not working.
+				    playerPayPlayer(pO.getRent(), p);
+				}
+				else if (p.getCell().getClass() == waterWorks.getClass()) {
+				    UtilityCell u = (UtilityCell) p.getCell();
+				    p.getCell().setOwner(p);
+				    getCashDistribution(u.getCost());
+				    System.out.println(u.getCost());
+
+				    // TODO: Test to make sure this is working. Have not yet tested
+				    //       playerPayPlayer on a null Player input.
+				    //       Also test this later on where the player buys a property
+				    //       - apparently it's not working.
+				    playerPayPlayer(u.getRent(), p);
+				}
 			    }
 			}
 		    }
@@ -578,12 +608,28 @@ public class IdeopolyGUI implements ActionListener {
 	    // TODO: Make sure I don't need a bankruptcy check for this event.
             //       Shouldn't, because button's only highlighted when the Player can buy.
             //       Also add plenty of tests for this.
-	    case "Buy property": getCashDistribution(player1.getCell().getCost());
+	    case "Buy property":
+		if (player1.getCell().getClass() == bAndORR.getClass()) {
+		    Railroad r = (Railroad) player1.getCell();
+		    getCashDistribution(r.getCost());
+		    playerPayPlayer(r.getCost(), player1);
+		}
+		else if (player1.getCell().getClass() == boardwalk.getClass()) {
+		    PropagandaOutlet pO = (PropagandaOutlet) player1.getCell();
+		    getCashDistribution(pO.getCost());
+		    playerPayPlayer(pO.getCost(), player1);
+		}
+		else if (player1.getCell().getClass() == waterWorks.getClass()) {
+		    UtilityCell u = (UtilityCell) player1.getCell();
+		    getCashDistribution(u.getCost());
+		    playerPayPlayer(u.getCost(), player1);
+		}
+		// TODO: ^-- That should take care of all cases, uncertain though. Needs tests.
+
 		// LEFTOFFHERE: Fixing this hairy problem. It's the same old problem where
 		//              BoardCell.getRent() is returning a dummy 0, rather than the
 		//              actual rent amount. So the Player's getting charged nothing.
 		//              when they buy a property.
-		playerPayPlayer(player1.getCell().getRent(), player1);
 		player1.getCell().setOwner(player1);
 		buyProperty.setEnabled(false); // Disable button after property's bought.
 		break;
@@ -607,6 +653,7 @@ public class IdeopolyGUI implements ActionListener {
 	    default:
 		System.out.println("Received an action from an unknown source.");
 	}
+	updateDisplay();
     }
 
     /** Given an integer i, break it up into the smallest possible amount of bills. */
