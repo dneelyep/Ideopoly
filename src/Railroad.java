@@ -6,7 +6,8 @@
  *  @author Daniel Neel */
 public class Railroad extends BoardCell {
     /** The cost to buy this cell, unimproved. */
-    private int cost;
+    // TODO: Make this constant?
+    private int cost = 200;
 
     /** Create a new Railroad with a given name, image, and no owner. */
     public Railroad(String newName, String imagePath, int xPos, int yPos) {

@@ -609,6 +609,7 @@ public class IdeopolyGUI implements ActionListener {
             //       Shouldn't, because button's only highlighted when the Player can buy.
             //       Also add plenty of tests for this.
 	    case "Buy property":
+		// LEFTOFFHERE: Just fixed this stuff. Made a $200 price for all RailRoads.
 		if (player1.getCell().getClass() == bAndORR.getClass()) {
 		    Railroad r = (Railroad) player1.getCell();
 		    getCashDistribution(r.getCost());

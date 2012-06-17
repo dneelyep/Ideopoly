@@ -14,16 +14,18 @@ public class CharacterSelect implements ActionListener {
 
     /** Buttons to represent the various characters players can pick. */
     // TODO: Represent these buttons as sexy pictures that highlight when selected.
-    private JButton stallmanButton = new JButton("Richard Stallman");
-    private JButton thatcherButton = new JButton("Margaret Thatcher");
-    private JButton randButton     = new JButton("Ayn Rand");
-    private JButton gandhiButton   = new JButton("Mahatma Gandhi");
-    private JButton hitlerButton   = new JButton("Adolf Hitler");
-    private JButton bismarckButton = new JButton("Otto von Bismarck");
+    private JButton stallmanButton  = new JButton(new ImageIcon("images/Richard_Stallman.jpg"));
+    private JButton thatcherButton  = new JButton(new ImageIcon("images/Margaret_Thatcher.jpg"));
+    private JButton marxButton      = new JButton(new ImageIcon("images/Karl_Marx.jpg"));
+    private JButton gandhiButton    = new JButton(new ImageIcon("images/Mahatma_Gandhi.jpg"));
+    private JButton kropotkinButton = new JButton(new ImageIcon("images/Peter_Kropotkin.jpg"));
+    private JButton bismarckButton  = new JButton(new ImageIcon("images/Otto_von_Bismarck.jpg"));
+    // LEFTOFFHERE: Added these images to CharacterSelect. Now I need to fix the part where, after
+    //  running the program, I get "You picked" rather than "You picked Richard Stallman".
 
     /** An array full of the token buttons. */
     // TODO: Move this to the constructor?
-    private JButton[] tokenButtons = {stallmanButton, thatcherButton, randButton, gandhiButton, hitlerButton, bismarckButton};
+    private JButton[] tokenButtons = {stallmanButton, thatcherButton, marxButton, gandhiButton, kropotkinButton, bismarckButton};
 
     /** Button to continue to the actual game. */
     private JButton continueButton = new JButton("Continue");
@@ -69,7 +71,7 @@ public class CharacterSelect implements ActionListener {
 
 	for (JButton button : tokenButtons) {
 	    pane.add(button, c);
-	    if (button == randButton) {
+	    if (button == marxButton) {
 		c.gridx = 0;
 		c.gridy++;
 	    }
