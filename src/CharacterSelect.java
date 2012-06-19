@@ -39,7 +39,7 @@ public class CharacterSelect implements ActionListener {
     // TODO: Review other constructors - should their stuff be fields?
     public CharacterSelect() {
 	// TODO: Should this be set above? Outside the constructor that is.
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
 	Container pane       = frame.getContentPane();
 	pane.setLayout(new GridBagLayout());

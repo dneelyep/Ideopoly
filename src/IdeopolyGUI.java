@@ -292,9 +292,13 @@ public class IdeopolyGUI implements ActionListener {
 
 	c.gridx      = 51;
 	c.gridheight = 4;
-	// JTextArea messages = new JTextArea("Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.", 5, 5);
-	// messages.setLineWrap(true);
-	// frame.add(messages, c);
+	c.gridwidth  = 10;
+	JTextArea messages = new JTextArea("LEFTOFFHERE: Now that this text pane's implemented, I need to output all status messages to it, when relevant. Could start by, for example, displaying player roll values or something. Or the Player x pays Player y bits.", 3, 1);
+	JScrollPane messagesPane = new JScrollPane(messages);
+	// TODO: Can do a messages.setEditable(false) if desired.
+	messages.setLineWrap(true);
+	messages.setColumns(50);
+	frame.add(messagesPane, c);
 
 	Random generator = new Random();
 
