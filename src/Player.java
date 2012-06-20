@@ -139,6 +139,100 @@ public class Player {
 	}
     }
 
+
+    /** Return the image associated with this player. */
+    public Icon getImage() {
+	return image;
+    }
+
+    /** Get this player's current position. */
+    public BoardCell getCell() {
+	return currentCell;
+    }
+
+    /** Set this Player's currency of type t to a given amount a.*/
+    // TODO: With this, is addCash() now obsolete? For example, 
+    //       I could setCash("x", p.getCash("x") + 5)
+    public void setCash(String t, int a) {
+	// TODO: Make sure this handles negative values appropriately.
+	switch (t) {
+	case "ones":         ones  = a;
+	    break;
+	case "fives":        fives = a;
+	    break;
+	case "tens":         tens  = a;
+	    break;
+	case "twenties":     twenties = a;
+	    break;
+	case "fifties":      fifties  = a;
+	    break;
+	case "hundreds":     hundreds = a;
+	    break;
+	case "fiveHundreds": fiveHundreds = a;
+	    break;
+	default: System.out.println("Invalid currency amount.");
+	    break;
+	}
+
+	// After money total changes, update the totalMoney field accordingly.
+	// TODO: Make a method for this? Is reused a bit. updateTotalMoney() ?
+	totalMoney = ( ones + (fives * 5) + (tens * 10) + (twenties * 20) + (fifties * 50) + (hundreds * 100) + (fiveHundreds * 500) );
+    }
+
+    /** Return the number of GOOJF cards this player owns. */
+    public int getNumGOOJFCards() {
+	return GOOJFCards;
+    }
+
+    /** See what week of jail this person is in. */
+    public int getJailStatus() {
+	return inJail;
+    }
+
+    /** Set the value of this Player's inJail property. */
+    public void setJailStatus(int weeks) {
+	if (weeks != 0 && weeks != 1 && weeks != 2 && weeks != 3)
+	    System.out.println("Invalid weeks value. Must be either 0, 1, 2, or 3.");
+	else
+	    inJail = weeks;
+    }
+
+    /** Get the number of houses this player owns. */
+    public int getNumHouses() {
+	return totalHousesOwned;
+    }
+
+    /** Get the number of hotels this player owns. */
+    public int getNumHotels() {
+	return totalHotelsOwned;
+    }
+
+    /** Set the number of houses this player owns. */
+    public void setNumHouses(int num) {
+	totalHousesOwned = num;
+    }
+
+    /** Set the number of hotels this player owns. */
+    public void setNumHotels(int num) {
+	totalHotelsOwned = num;
+    }
+
+    /** Get the name of this Player. */
+    public String getName() {
+	return name;
+    }
+
+    /** Get the number of properties this Player owns. */
+    public int getNumOwnedProperties() {
+	return totalPropertiesOwned;
+    }
+
+    /** Get the index of the BoardCell in boardProperties[] this Player 
+     *  is standing on. */
+    public int getIndex() {
+	return cellIndex;
+    }
+
     /** Give this player a new property. */
     public void addProperty(BoardCell property) {
 	// TODO: Implement this. add the property, and increment number of properties owned.
@@ -185,16 +279,6 @@ public class Player {
 	// TODO: Implement this
     }
 
-    /** Return the image associated with this player. */
-    public Icon getImage() {
-	return image;
-    }
-
-    /** Get this player's current position. */
-    public BoardCell getCell() {
-	return currentCell;
-    }
-
     /** Move this player to a given position q. q refers to the cell the Player wants 
      *  to move to. For example, changePosition(3) will move any player to the 4th
      *  BoardCell on the board. */
@@ -237,35 +321,6 @@ public class Player {
 
     }
 
-    /** Set this Player's currency of type t to a given amount a.*/
-    // TODO: With this, is addCash() now obsolete? For example, 
-    //       I could setCash("x", p.getCash("x") + 5)
-    public void setCash(String t, int a) {
-	// TODO: Make sure this handles negative values appropriately.
-	switch (t) {
-	case "ones":         ones  = a;
-	    break;
-	case "fives":        fives = a;
-	    break;
-	case "tens":         tens  = a;
-	    break;
-	case "twenties":     twenties = a;
-	    break;
-	case "fifties":      fifties  = a;
-	    break;
-	case "hundreds":     hundreds = a;
-	    break;
-	case "fiveHundreds": fiveHundreds = a;
-	    break;
-	default: System.out.println("Invalid currency amount.");
-	    break;
-	}
-
-	// After money total changes, update the totalMoney field accordingly.
-	// TODO: Make a method for this? Is reused a bit. updateTotalMoney() ?
-	totalMoney = ( ones + (fives * 5) + (tens * 10) + (twenties * 20) + (fifties * 50) + (hundreds * 100) + (fiveHundreds * 500) );
-    }
-
     /** Give this player a get out of jail free card. */
     public void giveGOOJF() {
 	GOOJFCards++;
@@ -282,52 +337,12 @@ public class Player {
 	}
     }
 
-    /** Return the number of GOOJF cards this player owns. */
-    public int getNumGOOJFCards() {
-	return GOOJFCards;
-    }
-
-    /** See what week of jail this person is in. */
-    public int getJailStatus() {
-	return inJail;
-    }
-
-    /** Set the value of this Player's inJail property. */
-    public void setJailStatus(int weeks) {
-	if (weeks != 0 && weeks != 1 && weeks != 2 && weeks != 3)
-	    System.out.println("Invalid weeks value. Must be either 0, 1, 2, or 3.");
-	else
-	    inJail = weeks;
-    }
-
-    /** Get the number of houses this player owns. */
-    public int getNumHouses() {
-	return totalHousesOwned;
-    }
-
-    /** Get the number of hotels this player owns. */
-    public int getNumHotels() {
-	return totalHotelsOwned;
-    }
-
-    /** Set the number of houses this player owns. */
-    public void setNumHouses(int num) {
-	totalHousesOwned = num;
-    }
-
-    /** Set the number of hotels this player owns. */
-    public void setNumHotels(int num) {
-	totalHotelsOwned = num;
-    }
-
     /** Determine if the given amount will bankrupt this Player
      *  if (s)he has to pay it.
      *  Return True if Player will be bankrupted, False otherwise. */
     public Boolean willBankrupt(int amount) {
-	if ( totalMoney < amount )
-	    return true;
-	else
-	    return false;
+	if (totalMoney < amount) return true;
+	else return false;
     }
 
     /** Convert this Player's cash into bill type desiredBill.
@@ -450,22 +465,6 @@ public class Player {
 	    gui.playerRowLabels[2].setForeground(Color.red);
 	else if (name == "Player 4 (C)")
 	    gui.playerRowLabels[3].setForeground(Color.red);
-    }
-
-    /** Get the name of this Player. */
-    public String getName() {
-	return name;
-    }
-
-    /** Get the number of properties this Player owns. */
-    public int getNumOwnedProperties() {
-	return totalPropertiesOwned;
-    }
-
-    /** Get the index of the BoardCell in boardProperties[] this Player 
-     *  is standing on. */
-    public int getIndex() {
-	return cellIndex;
     }
 
     /** Put the given Player p in jail, and enable the "Use get 
