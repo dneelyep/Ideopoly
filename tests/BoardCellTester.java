@@ -1,5 +1,7 @@
 import junit.framework.TestCase;
 import org.junit.*;
+import java.io.*;
+
 /** Class to test all methods inside the BoardCell class.
  *
  *  @author Daniel Neel */
@@ -9,10 +11,10 @@ public class BoardCellTester extends TestCase {
     @Test
     public void testBoardCell() {
 	IdeopolyGUI gui = new IdeopolyGUI("TestGUI");
+	Player  aPlayer = new Player(1, gui);
 
 	// TODO: Should have deleted this file.
 	BoardCell testCell = new BoardCell("name", "images/orangeTemplate.jpg", 4, 10);
-	Player    aPlayer  = new Player(1, gui);
 
 	// Test basic, not out-of-the-ordinary cases.
 	assertEquals(testCell.getName(), "name");

@@ -6,9 +6,6 @@ import java.io.*;
 
 // TODO: Add in Chance and Comm. Chest images.
 // TODO: Use the native look and feel for the program.
-// TODO: Keep using M-a/M-e. Useful.
-// TODO: Make an updateStatus() function that, given a string as an input,
-//       updates the status text at bottom of screen.
 // TODO: Get rid of the spacing between cells.
 // TODO: Make text on cells readable.
 
@@ -57,9 +54,6 @@ public class IdeopolyGUI implements ActionListener {
     public  JButton useGOOJFCard     = new JButton("Use get out of jail free card");
     private JLabel  status           = new JLabel ("Status:");
     /** An area of text where we can display messages to the player. */
-    // TODO: When the game starts, have something like "Welcome to Ideopoly!
-    //       To start playing, press "Continue". Use the other buttons to
-    //       buy properties, sell properties, etc. Good luck!" on messages.
     private JTextArea messages = new JTextArea("Welcome to Ideopoly!\nTo start playing, press \"Continue\". \nUse the other buttons to buy properties, sell properties, etc. \nGood luck!", 6, 1);
 
     // Create the game board.
@@ -301,6 +295,7 @@ public class IdeopolyGUI implements ActionListener {
 	c.gridwidth  = 10;
 
 	JScrollPane messagesPane = new JScrollPane(messages);
+	messagesPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 	messages.setLineWrap(true);
 	messages.setColumns(50);
 	frame.add(messagesPane, c);
@@ -482,11 +477,11 @@ public class IdeopolyGUI implements ActionListener {
 
 		// Free parking
 		else if (landingSpot == 20)
-		    System.out.println("Free parking!");
+		    printStatusAndLog("\nFree parking!");
 
 		// In jail (just visiting)
 		else if (landingSpot == 10)
-		    System.out.println("In jail - but just visiting!");
+		    printStatusAndLog("\nIn jail - but just visiting!");
 
 		// Regular move. Here the Player should have not overshot Go or landed on any
 		// position-changing cells (Go to Jail, Chance, etc.). The Player has landed on
@@ -635,11 +630,6 @@ public class IdeopolyGUI implements ActionListener {
 		    playerPayPlayer(u.getCost(), player1);
 		}
 		// TODO: ^-- That should take care of all cases, uncertain though. Needs tests.
-
-		// LEFTOFFHERE: Fixing this hairy problem. It's the same old problem where
-		//              BoardCell.getRent() is returning a dummy 0, rather than the
-		//              actual rent amount. So the Player's getting charged nothing.
-		//              when they buy a property.
 		player1.getCell().setOwner(player1);
 		buyProperty.setEnabled(false); // Disable button after property's bought.
 		break;
@@ -675,7 +665,7 @@ public class IdeopolyGUI implements ActionListener {
 	// is not being overwritten by PropagandaOutlet's => since BoardCell always returns 
 	// 0, I get this case where total = 0, which screws up gameplay.
 	if (total <= 0) {
-	    System.out.println("Can't break up 0 or negative dollars!");
+	    printStatusAndLog("\nCan't break up 0 or negative dollars!");
 
 	    // Since we can't break up this amount of money, the amount for each bill is 0.
 	    // TODO: Convert this to a for-each loop or similar.
@@ -763,6 +753,7 @@ public class IdeopolyGUI implements ActionListener {
     /** Transfer money amount a from Player p to the "bank". */
     public void playerPayPlayer(int a, Player p) {
 	// Player will be bankrupt.
+	// TODO: Should this check be in the other playerPayPlayer?
 	if (a > p.getCash("total")) {
 	    p.bankruptPlayer(this);
 	}
@@ -797,7 +788,20 @@ public class IdeopolyGUI implements ActionListener {
     /** Given some text, output that text into the messages pane
      *  and append that message to the log file, with a time stamp. */
     // TODO: This isn't logging the stuff currently...
+    // TODO: I can do System.err.println(stuff), and then
+    //       in run_program, redirect my stderr output to a log file.
+    // IE: System.err.println("Player 1 pays Player 2 $10.");
+    //     run_program:
+    //     java -cp ~/Programming/Java/Ideopoly/bin/ Menu 2> log.txt
+
+    // ...although that might not work on Windows...
     public void printStatusAndLog(String text) {
 	messages.append(text);
+	// fout.append(text);	
+	// fout.close();
+
+	//	fout = new FileWriter("log.txt");
+	/** FileWriter we use to write to the log file. */
+	//    private FileWriter fout;
     }
 }

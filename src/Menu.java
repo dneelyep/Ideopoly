@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import sun.audio.*;
+import java.io.*;
 
 /** Represents the main menu for the game. From here, we can do
  *  things such as quit, start a new game, etc.

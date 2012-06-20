@@ -3,7 +3,7 @@
 public class UtilityCell extends BoardCell {
     // TODO: Add a test class and tests.
     /** The cost to buy this cell, unimproved. */
-    private int cost;
+    private int cost = 150;
 
     /** Create a new UtilityCell with a given name,
      *  image, and x/y coordinates on the board.*/

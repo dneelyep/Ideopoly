@@ -6,6 +6,9 @@ import org.junit.*;
  *
  *  @author Daniel Neel */
 public class ChanceTester extends TestCase {
+
+    // LEFTOFFHERE: Implementing the printStatusAndLog stuff in IdeopolyGUI. 
+    // Fixing all the stuff related to exception throwing.
     private IdeopolyGUI gui = new IdeopolyGUI("Ayn Rand");
     /** Grab all 4 players from the gui.*/
     private Player player1 = gui.player1;

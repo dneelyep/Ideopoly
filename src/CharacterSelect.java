@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 
 /** Class to represent the character select screen, after the user has decided
  *  to start a game.
@@ -107,8 +108,7 @@ public class CharacterSelect implements ActionListener {
 	    new Menu();
 	    frame.dispose();
 	}
-	else {
+	else
 	    selectedPlayer = actionSource;
-	}
     }
 }
