@@ -77,7 +77,7 @@ public class IdeopolyGUI implements ActionListener {
     private PropagandaOutlet virginiaAv      = new PropagandaOutlet("Virginia Av.", "pinkTemplate.jpg", 160, 12, 60, 180, 500, 700, 900, 100, 1, 25);
     private Railroad	     pennsylvaniaRR  = new Railroad("Pennsylvania RR", "pennsylvaniaRR.jpg", 1, 21);
     private PropagandaOutlet stJames         = new PropagandaOutlet("St. James", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, 1, 17);
-    private ChanceOrCommChestCell commChestLeft   = new ChanceOrCommChestCell("Community Chest", "leftCommChest.jpg", 1, 13);
+    private ChanceOrCommChestCell commChestLeft = new ChanceOrCommChestCell("Community Chest", "leftCommChest.jpg", 1, 13);
     private PropagandaOutlet tennesseeAv     = new PropagandaOutlet("Tennessee Av.", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, 1, 9);
     private PropagandaOutlet newYorkAv       = new PropagandaOutlet("New York Av.", "orangeTemplate.jpg", 200, 16, 80, 220, 600, 800, 1000, 100, 1, 5);
     private SpecialCell      freeParking     = new SpecialCell("Free Parking", "freeParking.jpg", 1, 1);
@@ -476,12 +476,16 @@ public class IdeopolyGUI implements ActionListener {
 		// rather than using landingSpot numbers.
 
 		// Free parking
-		else if (landingSpot == 20)
-		    printStatusAndLog("\nFree parking!");
+		else if (landingSpot == 20) {
+		    if (p == player1) 
+			printStatusAndLog("Free parking!");
+		}
 
 		// In jail (just visiting)
-		else if (landingSpot == 10)
-		    printStatusAndLog("\nIn jail - but just visiting!");
+		else if (landingSpot == 10) {
+		    if (p == player1)
+			printStatusAndLog("In jail - but just visiting!");
+		}
 
 		// Regular move. Here the Player should have not overshot Go or landed on any
 		// position-changing cells (Go to Jail, Chance, etc.). The Player has landed on
@@ -503,14 +507,15 @@ public class IdeopolyGUI implements ActionListener {
 			// Have the AI buy the property if it has more than $500.
 			else {
 			    if (p.getCash("total") >= 500) {
-				// TODO: Refactor.
+				p.getCell().setOwner(p);
+
+				// TODO: Refactor more if possible.
 				if (p.getCell().getClass() == bAndORR.getClass()) {
 				    Railroad r = (Railroad) p.getCell();
-				    p.getCell().setOwner(p);
 				    getCashDistribution(r.getCost());
-				    System.out.println(r.getCost());
-
-				    // TODO: Test to make sure this is working. Have not yet tested
+				    printStatusAndLog(p.getName() + " bought " + r.getName() + " for $" +  r.getCost() + ".");
+				    // TODO: Test to make sure ALL THREE CONDITIONS HERE are working. 
+				    //       Have not yet tested
 				    //       playerPayPlayer on a null Player input.
 				    //       Also test this later on where the player buys a property
 				    //       - apparently it's not working.
@@ -518,26 +523,16 @@ public class IdeopolyGUI implements ActionListener {
 				}
 				else if (p.getCell().getClass() == boardwalk.getClass()) {
 				    PropagandaOutlet pO = (PropagandaOutlet) p.getCell();
-				    p.getCell().setOwner(p);
 				    getCashDistribution(pO.getCost());
+				    printStatusAndLog(p.getName() + " bought " + pO.getName() + " for $" +  pO.getCost() + ".");
 				    System.out.println(pO.getCost());
-
-				    // TODO: Test to make sure this is working. Have not yet tested
-				    //       playerPayPlayer on a null Player input.
-				    //       Also test this later on where the player buys a property
-				    //       - apparently it's not working.
 				    playerPayPlayer(pO.getRent(), p);
 				}
 				else if (p.getCell().getClass() == waterWorks.getClass()) {
 				    UtilityCell u = (UtilityCell) p.getCell();
-				    p.getCell().setOwner(p);
 				    getCashDistribution(u.getCost());
+				    printStatusAndLog(p.getName() + " bought " + u.getName() + " for $" +  u.getCost() + ".");
 				    System.out.println(u.getCost());
-
-				    // TODO: Test to make sure this is working. Have not yet tested
-				    //       playerPayPlayer on a null Player input.
-				    //       Also test this later on where the player buys a property
-				    //       - apparently it's not working.
 				    playerPayPlayer(u.getRent(), p);
 				}
 			    }
@@ -546,7 +541,7 @@ public class IdeopolyGUI implements ActionListener {
 			
 		    // A player owns the property.
 		    else {
-			printStatusAndLog( "\n" + p.getName() + " pays " + p.getCell().getOwner().getName() + "$" + Integer.toString(p.getCell().getRent()) );
+			printStatusAndLog(p.getName() + " pays " + p.getCell().getOwner().getName() + "$" + Integer.toString(p.getCell().getRent()));
 
 			// Disable button when the human player lands on an owned property.
 			if (p == player1)
@@ -645,7 +640,7 @@ public class IdeopolyGUI implements ActionListener {
             // Use a card and take the main player out of jail.
 	    // TODO: Disable this when the player's not on a jail cell.
 	    case "Use get out of jail free card":
-		player1.spendGOOJF();
+		player1.spendGOOJF(this);
 		useGOOJFCard.setEnabled(false);
 		updateDisplay();
 		break;
@@ -665,7 +660,7 @@ public class IdeopolyGUI implements ActionListener {
 	// is not being overwritten by PropagandaOutlet's => since BoardCell always returns 
 	// 0, I get this case where total = 0, which screws up gameplay.
 	if (total <= 0) {
-	    printStatusAndLog("\nCan't break up 0 or negative dollars!");
+	    printStatusAndLog("Can't break up 0 or negative dollars!");
 
 	    // Since we can't break up this amount of money, the amount for each bill is 0.
 	    // TODO: Convert this to a for-each loop or similar.
@@ -796,12 +791,11 @@ public class IdeopolyGUI implements ActionListener {
 
     // ...although that might not work on Windows...
     public void printStatusAndLog(String text) {
-	messages.append(text);
+	messages.append("\n" + text);
 	// fout.append(text);	
 	// fout.close();
 
 	//	fout = new FileWriter("log.txt");
-	/** FileWriter we use to write to the log file. */
 	//    private FileWriter fout;
     }
 }

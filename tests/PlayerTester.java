@@ -40,9 +40,9 @@ public class PlayerTester extends TestCase {
 
 	testPlayer.giveGOOJF();
 	assertEquals(testPlayer.getNumGOOJFCards(), 1);
-	testPlayer.spendGOOJF();
+	testPlayer.spendGOOJF(gui);
 	assertEquals(testPlayer.getNumGOOJFCards(), 0);
-	testPlayer.spendGOOJF(); // Make sure we can't get a negative # of cards.
+	testPlayer.spendGOOJF(gui); // Make sure we can't get a negative # of cards.
 	// TODO: Test this when the person's not in jail. Ideally the button AND the
 	// functionality should be disabled when we're not currently in jail.
 	assertEquals(testPlayer.getNumGOOJFCards(), 0);

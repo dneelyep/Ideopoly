@@ -141,12 +141,43 @@ public class Player {
 
     /** Give this player a new property. */
     public void addProperty(BoardCell property) {
-	//TODO: Implement this. add the property, and increment number of properties owned.
+	// TODO: Implement this. add the property, and increment number of properties owned.
+	// TODO: Below are some thoughts, implement if they'll work well.
+	// So, the steps could be here:
+
+	// 	If player will bankrupt, don't allow
+	//      else,
+	//         make player pay for property.
+	//         set the player as the property's owner
+	//         increment the player's number of properties owned
+	//         change the property's image
+
+
+
+	// if (player1.getCell().getClass() == bAndORR.getClass()) {
+	//     Railroad r = (Railroad) player1.getCell();
+	//     getCashDistribution(r.getCost());
+	//     playerPayPlayer(r.getCost(), player1);
+	// }
+	// else if (player1.getCell().getClass() == boardwalk.getClass()) {
+	//     PropagandaOutlet pO = (PropagandaOutlet) player1.getCell();
+	//     getCashDistribution(pO.getCost());
+	//     playerPayPlayer(pO.getCost(), player1);
+	// }
+	// else if (player1.getCell().getClass() == waterWorks.getClass()) {
+	//     UtilityCell u = (UtilityCell) player1.getCell();
+	//     getCashDistribution(u.getCost());
+	//     playerPayPlayer(u.getCost(), player1);
+	// }
+	// player1.getCell().setOwner(player1);
+	// buyProperty.setEnabled(false); // Disable button after property's bought.
+
     }
 
     /** Remove a property from this player. */
     public void removeProperty(BoardCell property) {
-	//TODO: Implement this. remove the property, decrement number of properties owned.
+	//TODO: Implement this. remove the property, decrement 
+	//      number of properties owned, change image.
     }
 
     /** Have this player roll the dice. */
@@ -241,11 +272,9 @@ public class Player {
     }
 
     /** Have this player spend one of their get out of jail free cards. */
-    public void spendGOOJF() {
-	if (GOOJFCards <= 0) {
-	    // TODO: Display this--v in status message area.
-	    System.out.println("Error! You can't spend a Get Out of Jail Free card if you have 0 or less.");
-	}
+    public void spendGOOJF(IdeopolyGUI gui) {
+	if (GOOJFCards <= 0)
+	    gui.printStatusAndLog("Error! You can't spend a Get Out of Jail Free card if you have 0 or less.");
 	else {
 	    //TODO: Don't allow this when the person's not in jail.
 	    GOOJFCards--;
