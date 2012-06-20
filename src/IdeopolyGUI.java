@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
+import java.io.*;
 
 // TODO: Add in Chance and Comm. Chest images.
 // TODO: Use the native look and feel for the program.
@@ -42,9 +43,9 @@ public class IdeopolyGUI implements ActionListener {
 
     /** Array used to store the values of each type of bill a Player
      *  should pay after requiring a payment. */
-    private int[]   paymentAmounts = {0, 0, 0, 0, 0, 0, 0};
-    private JFrame  frame			= new JFrame("Ideopoly | Main game");
-    private JButton continueButton		= new JButton("Continue");//new ImageIcon("images/continueButton.jpg"));
+    private int[]   paymentAmounts   = {0, 0, 0, 0, 0, 0, 0};
+    private JFrame  frame	     = new JFrame("Ideopoly | Main game");
+    private JButton continueButton   = new JButton("Continue");//new ImageIcon("images/continueButton.jpg"));
     // TODO: Would be good to list the property name, such as "Buy property (Mediterranean Avenue)"
     private JButton buyProperty	     = new JButton("Buy property");
     private JButton buyHouse	     = new JButton("Buy house");
@@ -55,6 +56,11 @@ public class IdeopolyGUI implements ActionListener {
     // class is currently the only outside class that changes its state.
     public  JButton useGOOJFCard     = new JButton("Use get out of jail free card");
     private JLabel  status           = new JLabel ("Status:");
+    /** An area of text where we can display messages to the player. */
+    // TODO: When the game starts, have something like "Welcome to Ideopoly!
+    //       To start playing, press "Continue". Use the other buttons to
+    //       buy properties, sell properties, etc. Good luck!" on messages.
+    private JTextArea messages = new JTextArea("Welcome to Ideopoly!\nTo start playing, press \"Continue\". \nUse the other buttons to buy properties, sell properties, etc. \nGood luck!", 6, 1);
 
     // Create the game board.
     // TODO: Remove unneeded image templates.
@@ -63,11 +69,11 @@ public class IdeopolyGUI implements ActionListener {
     private ChanceOrCommChestCell commChestBottom = new ChanceOrCommChestCell("Community Chest", "bottCommChest.jpg", 33, 41);
     private PropagandaOutlet balticAv        = new PropagandaOutlet("Baltic Av.", "purpleTemplate.jpg", 60, 4, 20, 60, 180, 320, 450, 50, 29, 41);
     private SpecialCell	     incomeTax       = new SpecialCell("Income Tax", "incomeTax.jpg", 25, 41);    // TODO: Redo this image. Just re-download the version
-              // from email and add border. Had resized it incorrectly.
+                       // from email and add border. Had resized it incorrectly.
     // TODO: Bigger font size (~80) for the text on railroads - hard to read currently.
     private Railroad	     readingRR       = new Railroad("Reading RR", "readingRR.jpg", 21, 41);
     private PropagandaOutlet orientalAv      = new PropagandaOutlet("Oriental Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, 17, 41);
-    private ChanceOrCommChestCell chanceBottom    = new ChanceOrCommChestCell("Chance", "botChance.jpg", 13, 41);
+    private ChanceOrCommChestCell chanceBottom = new ChanceOrCommChestCell("Chance", "botChance.jpg", 13, 41);
     private PropagandaOutlet vermontAv       = new PropagandaOutlet("Vermont Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, 9, 41);
     private PropagandaOutlet connecticutAv   = new PropagandaOutlet("Connecticut Av.", "lightBlueTemplate.jpg", 120, 8, 40, 100, 300, 450, 600, 50, 5, 41);
     private SpecialCell	     jail	     = new SpecialCell("Jail", "jail.jpg", 1, 41);
@@ -82,7 +88,7 @@ public class IdeopolyGUI implements ActionListener {
     private PropagandaOutlet newYorkAv       = new PropagandaOutlet("New York Av.", "orangeTemplate.jpg", 200, 16, 80, 220, 600, 800, 1000, 100, 1, 5);
     private SpecialCell      freeParking     = new SpecialCell("Free Parking", "freeParking.jpg", 1, 1);
     private PropagandaOutlet kentuckyAv      = new PropagandaOutlet("Kentucky Av.", "properties/kentuckyAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, 5, 1);
-    private ChanceOrCommChestCell chanceTop       = new ChanceOrCommChestCell("Chance", "topChance.jpg", 9, 1);
+    private ChanceOrCommChestCell chanceTop  = new ChanceOrCommChestCell("Chance", "topChance.jpg", 9, 1);
     private PropagandaOutlet indianaAv	     = new PropagandaOutlet("Indiana Av.", "properties/indianaAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, 13, 1);
     private PropagandaOutlet illinoisAv      = new PropagandaOutlet("Illinois Av.", "properties/illinoisAv.jpg", 240, 20, 100, 300, 750, 925, 1100, 150, 17, 1);
     private Railroad	     bAndORR	     = new Railroad("B & O RR", "bAndORR.jpg", 21, 1);
@@ -96,7 +102,7 @@ public class IdeopolyGUI implements ActionListener {
     private ChanceOrCommChestCell commChestRight  = new ChanceOrCommChestCell("Community Chest", "rightCommChest.jpg", 41, 13);
     private PropagandaOutlet pennsylvaniaAv  = new PropagandaOutlet("Pennsylvania Av.", "greenTemplate.jpg", 320, 28, 150, 450, 1000, 1200, 1400, 200, 41, 17);
     private Railroad         shortLineRR     = new Railroad("Short Line RR", "shortLineRR.jpg", 41, 21);
-    private ChanceOrCommChestCell chanceRight     = new ChanceOrCommChestCell("Chance", "rightChance.jpg", 41, 25);
+    private ChanceOrCommChestCell chanceRight = new ChanceOrCommChestCell("Chance", "rightChance.jpg", 41, 25);
     private PropagandaOutlet parkPlace       = new PropagandaOutlet("Park Place", "darkBlueTemplate.jpg", 350, 35, 175, 500, 1100, 1300, 1500, 200, 41, 29);
     private SpecialCell      luxuryTax       = new SpecialCell("Luxury Tax", "luxuryTax.jpg", 41, 33);
     private PropagandaOutlet boardwalk       = new PropagandaOutlet("Boardwalk", "darkBlueTemplate.jpg", 400, 50, 200, 600, 1400, 1700, 2000, 200, 41, 37);
@@ -293,13 +299,13 @@ public class IdeopolyGUI implements ActionListener {
 	c.gridx      = 51;
 	c.gridheight = 4;
 	c.gridwidth  = 10;
-	JTextArea messages = new JTextArea("LEFTOFFHERE: Now that this text pane's implemented, I need to output all status messages to it, when relevant. Could start by, for example, displaying player roll values or something. Or the Player x pays Player y bits.", 3, 1);
+
 	JScrollPane messagesPane = new JScrollPane(messages);
-	// TODO: Can do a messages.setEditable(false) if desired.
 	messages.setLineWrap(true);
 	messages.setColumns(50);
 	frame.add(messagesPane, c);
 
+	// TODO: Make a single Random object and re-use it?
 	Random generator = new Random();
 
 	// Make a large stack of cards to use for the game.
@@ -545,8 +551,7 @@ public class IdeopolyGUI implements ActionListener {
 			
 		    // A player owns the property.
 		    else {
-			// TODO: Add this message to status buffer?
-			System.out.println( p.getName() + " pays " + p.getCell().getOwner().getName() + "$" + Integer.toString(p.getCell().getRent()));
+			printStatusAndLog( "\n" + p.getName() + " pays " + p.getCell().getOwner().getName() + "$" + Integer.toString(p.getCell().getRent()) );
 
 			// Disable button when the human player lands on an owned property.
 			if (p == player1)
@@ -787,5 +792,12 @@ public class IdeopolyGUI implements ActionListener {
 	    p.spreadCash(500);
 	    p.addCash("fiveHundreds", - paymentAmounts[6]);
 	}
+    }
+
+    /** Given some text, output that text into the messages pane
+     *  and append that message to the log file, with a time stamp. */
+    // TODO: This isn't logging the stuff currently...
+    public void printStatusAndLog(String text) {
+	messages.append(text);
     }
 }

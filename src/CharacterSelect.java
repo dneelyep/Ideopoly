@@ -13,15 +13,16 @@ public class CharacterSelect implements ActionListener {
     private String selectedPlayer = "null";
 
     /** Buttons to represent the various characters players can pick. */
-    // TODO: Represent these buttons as sexy pictures that highlight when selected.
-    private JButton stallmanButton  = new JButton(new ImageIcon("images/Richard_Stallman.jpg"));
+    // TODO: Add a highlighting effect when moused-over and selected.
+    // TODO: Make the stallman photo a jpg, or all png, or whatever for consistency.
+    private JButton stallmanButton  = new JButton(new ImageIcon("images/Richard_Stallman.png"));
     private JButton thatcherButton  = new JButton(new ImageIcon("images/Margaret_Thatcher.jpg"));
     private JButton marxButton      = new JButton(new ImageIcon("images/Karl_Marx.jpg"));
     private JButton gandhiButton    = new JButton(new ImageIcon("images/Mahatma_Gandhi.jpg"));
     private JButton kropotkinButton = new JButton(new ImageIcon("images/Peter_Kropotkin.jpg"));
     private JButton bismarckButton  = new JButton(new ImageIcon("images/Otto_von_Bismarck.jpg"));
     // LEFTOFFHERE: Added these images to CharacterSelect. Now I need to fix the part where, after
-    //  running the program, I get "You picked" rather than "You picked Richard Stallman".
+    // running the program, I get "You picked" rather than "You picked Richard Stallman".
 
     /** An array full of the token buttons. */
     // TODO: Move this to the constructor?
@@ -58,7 +59,7 @@ public class CharacterSelect implements ActionListener {
 	c.fill = GridBagConstraints.HORIZONTAL;
 
 	// TODO: Center this text across the row. And make it sexy artwork rather than bland text.
-	JLabel chooseCharacter = new JLabel("Choose your character below:");
+	JLabel chooseCharacter = new JLabel(new ImageIcon("images/chooseLeader.png"));// "Choose your character below:");
 
 	// Add all buttons to the character select screen.
 	c.gridx = 0;
