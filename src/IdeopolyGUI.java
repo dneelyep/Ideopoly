@@ -183,7 +183,9 @@ public class IdeopolyGUI implements ActionListener {
 	// TODO: Rename this propaganda outlets rather than properties? Confusing?
 	// TODO: Can I fix the icons to remove duplicate code?
 
+	// ====================================================
 	// === Create labels to display each player's cash. ===
+	// ====================================================
 	c.gridx = 49;
 	c.gridy = 0;
 
@@ -204,7 +206,9 @@ public class IdeopolyGUI implements ActionListener {
 	    frame.add(j, c);
 	}
 
-	// Initialize the array of labels.
+	// ==============================================================
+	// === Initialize the labels that display player cash values. ===
+	// ==============================================================
 	// TODO: Replace this with a foreach loop. Possible with the players[i] part?
 	for (int i = 0; i <= 3; i++) { // Iterate through each row.
 	    for (int j = 0; j <= 9; j++) { // And through each column.
@@ -277,7 +281,9 @@ public class IdeopolyGUI implements ActionListener {
 	c.gridy = 9;
 	frame.add(mortgageProperty, c);
 
-
+	// ==============================
+	// === Add the messages area. ===
+	// ==============================
 	c.gridx     = 50;
 	c.gridy     = 11;
 	c.gridwidth = 9;
@@ -296,6 +302,90 @@ public class IdeopolyGUI implements ActionListener {
 	// LEFTOFFHERE: Just added this status header thing and removed previous
 	// JLabel. Now to make the bottom of the textarea a bit more viewable.
 	frame.add(messagesPane, c);
+
+	// ===============================================================
+	// === Add the GUI stuff that displays detailed property info. ===
+	// ===============================================================
+
+	// LEFTOFFHERE: Implemented the BoardCellGUI sub-class. Now each BoardCell
+	// has an associated graphical representation. Now that I can pick up on
+	// mouse events, I need to enter the GUI code that displays the property info.
+	// so players can find out eg mortgage value, cost to buy, rent cost, etc.
+	// 
+	// So here I have the code to display property info. The <amt> items should be
+	// variables since they'll change depending on which property is displayed.
+	// The title of the property also. After they're converted to variables,
+	// I can make a function to change the information displayed in them, with
+	// a BoardCell as input. Then I can tie that function into BoardCell.BoardCellGUI's
+	// mouse listener events.
+	c.gridy      = 20;
+	c.gridheight = 1;
+	frame.add(new JLabel("Colorhere Colorhere Colorhere Colorhere Colorhere Colorhere Colorhere"), c);
+
+	c.gridy++;
+	// TODO: Center the title here.
+	frame.add(new JLabel("Mediterranean Avenue"), c);
+
+	// TODO: Loop this or make a function.
+	c.gridwidth = 1;
+	c.gridy++;
+	frame.add(new JLabel("Cost:"), c);
+	c.gridx += 6;
+	frame.add(new JLabel("<amt>"), c);
+
+	c.gridy++;
+	c.gridx -= 6;
+	frame.add(new JLabel("House cost:"), c);
+	c.gridx += 6;
+	frame.add(new JLabel("<amt>"), c);
+
+	c.gridy++;
+	c.gridx -= 6;
+	frame.add(new JLabel("Hotel cost:"), c);
+	c.gridx += 6;
+	frame.add(new JLabel("<amt>"), c);
+
+	c.gridy++;
+	c.gridx -= 6;
+	frame.add(new JLabel("Rent:"), c);
+	c.gridx += 6;
+	frame.add(new JLabel("<amt>"), c);
+
+	c.gridy++;
+	c.gridx -= 6;
+	frame.add(new JLabel("1 house:"), c);
+	c.gridx += 6;
+	frame.add(new JLabel("<amt>"), c);
+
+	c.gridy++;
+	c.gridx -= 6;
+	frame.add(new JLabel("2 houses:"), c);
+	c.gridx += 6;
+	frame.add(new JLabel("<amt>"), c);
+
+	c.gridy++;
+	c.gridx -= 6;
+	frame.add(new JLabel("3 houses:"), c);
+	c.gridx += 6;
+	frame.add(new JLabel("<amt>"), c);
+
+	c.gridy++;
+	c.gridx -= 6;
+	frame.add(new JLabel("4 houses:"), c);
+	c.gridx += 6;
+	frame.add(new JLabel("<amt>"), c);
+
+	c.gridy++;
+	c.gridx -= 6;
+	frame.add(new JLabel("1 hotel:"), c);
+	c.gridx += 6;
+	frame.add(new JLabel("<amt>"), c);
+
+	c.gridy++;
+	c.gridx -= 6;
+	frame.add(new JLabel("Mortgage value:"), c);
+	c.gridx += 6;
+	frame.add(new JLabel("<amt>"), c);
 
 	// TODO: Make a single Random object and re-use it?
 	Random generator = new Random();

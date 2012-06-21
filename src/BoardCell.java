@@ -140,6 +140,13 @@ public class BoardCell {
 	return 0;
     }
 
+    // TODO: So on abstract methods, the basic idea is that the superclass provides
+    // a method but no implementation, and all sub-classes provide the implementations.
+    // So then I'm able to apply the method to a collection of the superclass, and be
+    // sure it works correctly for each subclass. That fits exactly my problem here.
+    // This would simplify things, as I wouldn't have to cast to Railroad/SpecialCell/
+    // PropagandaOutlet/etc. - I could call the method on a BoardCell and know it works.
+
     /** Get the BoardCellGUI that represents this BoardCell. */
     public BoardCellGUI getGraphicalRepresentation() {
 	return graphicalRepresentation;
@@ -157,12 +164,6 @@ public class BoardCell {
 	else if (p == gui.player4)
 	    p4Pos.setImage(i);
     }
-
-
-    // LEFTOFFHERE: Implemented this BoardCellGUI sub-class. Now each BoardCell
-    // has an associated graphical representation. Now that I can pick up on
-    // mouse events, I need to enter the GUI code that displays the property info.
-    // so players can find out eg mortgage value, cost to buy, rent cost, etc.
 
     // TODO: Add tests for this nested class.
     /** BoardCellGUI - The graphical representation of any BoardCell object.
