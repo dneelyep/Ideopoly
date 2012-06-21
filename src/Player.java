@@ -457,7 +457,7 @@ public class Player {
 
 	// TODO: There's probably a better way of doing this whole thing.
 	// TODO: Add tests and things for this. Haven't made sure it works yet.
-	if (name == "Player 1 (H)")
+	if      (name == "Player 1 (H)")
 	    gui.playerRowLabels[0].setForeground(Color.red);
 	else if (name == "Player 2 (C)")
 	    gui.playerRowLabels[1].setForeground(Color.red);

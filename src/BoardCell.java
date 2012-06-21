@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.event.*;
 
 /** A BoardCell represents any of the cells running along the 
  *  outside edge of the game board. Since there are different types
@@ -49,6 +50,9 @@ public class BoardCell {
     public BoardPosition p3Pos;
     public BoardPosition p4Pos;
 
+    /** The graphical representation of this BoardCell. */
+    private BoardCellGUI graphicalRepresentation;
+
     /** Creates a BoardCell object, with the specified name, image path, coordinates, and 
      *  player standing positions. Does not have an owner. There are no players standing 
      *  on this object. */
@@ -87,6 +91,8 @@ public class BoardCell {
 	    p3Pos = new BoardPosition(45, cellY + 1);
 	    p4Pos = new BoardPosition(45, cellY);
 	}
+
+	graphicalRepresentation = new BoardCellGUI(image);
     }
 
     /** Get the name of this property. */
@@ -134,6 +140,11 @@ public class BoardCell {
 	return 0;
     }
 
+    /** Get the BoardCellGUI that represents this BoardCell. */
+    public BoardCellGUI getGraphicalRepresentation() {
+	return graphicalRepresentation;
+    }
+
     /** Given a Player p, set the image i for the BoardPosition associated 
      *  with p on this cell. */
     public void setPositionImage(Player p, Icon i, IdeopolyGUI gui) {
@@ -147,12 +158,55 @@ public class BoardCell {
 	    p4Pos.setImage(i);
     }
 
+
+    // LEFTOFFHERE: Implemented this BoardCellGUI sub-class. Now each BoardCell
+    // has an associated graphical representation. Now that I can pick up on
+    // mouse events, I need to enter the GUI code that displays the property info.
+    // so players can find out eg mortgage value, cost to buy, rent cost, etc.
+
+    // TODO: Add tests for this nested class.
+    /** BoardCellGUI - The graphical representation of any BoardCell object.
+     *  We extend JPanels to allow them to receieve mouse events. That way, we can
+     *  tell when and how the user mouses over, clicks on, etc. the panels.
+     *
+     * @author Daniel Neel */
+    private class BoardCellGUI extends JPanel implements MouseListener { 
+	// TODO: Several files have this 42L thing. What is it? Why do I need it? Will 
+	// the same value in all cases cause errors?
+	// v--- This gets rid of some compiler errors.
+	private static final long serialVersionUID = 42L;
+
+	public BoardCellGUI(Icon image) {
+	    add(new JLabel((ImageIcon) image));
+	    addMouseListener(this);
+	}
+
+	public void mousePressed(MouseEvent e) {
+	    System.out.println("Mouse pressed " + name);
+	}
+
+	public void mouseReleased(MouseEvent e) {
+	    System.out.println("Mouse released " + name);
+	}
+
+	public void mouseEntered(MouseEvent e) {
+	    System.out.println("Mouse entered " + name);
+	}
+
+	public void mouseExited(MouseEvent e) {
+	    System.out.println("Mouse exited " + name);
+	}
+
+	public void mouseClicked(MouseEvent e) {
+	    System.out.println("Mouse clicked " + name);
+	}
+    }
+
     // TODO: Setters needed?
 
     // Start with these, add more if/where needed. Add specifics in inherited classes.
     // TODO: Note that subclasses inherit public and protected, not private members.
     // TODO: Implement those extra classes.
-
 
     /*
 * Cell group
@@ -170,7 +224,7 @@ TODO: Add an owner field to state that a person owns all sub-properties?
 ** fields
 ** methods
 *** onLand()
-n**** Send the player directly to jail. Set the player's currently in jail value to the correct value.
+**** Send the player directly to jail. Set the player's currently in jail value to the correct value.
 * Jail // TODO: Make creative alternatives to jail/free parking
 ** Fields
 ** Methods

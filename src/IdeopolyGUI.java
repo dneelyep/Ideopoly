@@ -54,7 +54,7 @@ public class IdeopolyGUI implements ActionListener {
     public  JButton useGOOJFCard     = new JButton("Use get out of jail free card");
     private JLabel  status           = new JLabel ("Status:");
     /** An area of text where we can display messages to the player. */
-    private JTextArea messages = new JTextArea("Welcome to Ideopoly!\nTo start playing, press \"Continue\". \nUse the other buttons to buy properties, sell properties, etc. \nGood luck!", 6, 1);
+    private JTextArea messages = new JTextArea("Welcome to Ideopoly!\nTo start playing, press \"Continue\". \nUse the other buttons to buy properties, sell properties, etc. \nGood luck!", 7, 1);
 
     // Create the game board.
     // TODO: Remove unneeded image templates.
@@ -62,8 +62,7 @@ public class IdeopolyGUI implements ActionListener {
     private PropagandaOutlet mediterraneanAv = new PropagandaOutlet("Mediterranean Av.", "purpleTemplate.jpg", 60, 2, 10, 30, 90, 160, 250, 50, 37, 41);
     private ChanceOrCommChestCell commChestBottom = new ChanceOrCommChestCell("Community Chest", "bottCommChest.jpg", 33, 41);
     private PropagandaOutlet balticAv        = new PropagandaOutlet("Baltic Av.", "purpleTemplate.jpg", 60, 4, 20, 60, 180, 320, 450, 50, 29, 41);
-    private SpecialCell	     incomeTax       = new SpecialCell("Income Tax", "incomeTax.jpg", 25, 41);    // TODO: Redo this image. Just re-download the version
-                       // from email and add border. Had resized it incorrectly.
+    private SpecialCell	     incomeTax       = new SpecialCell("Income Tax", "incomeTax.jpg", 25, 41);
     // TODO: Bigger font size (~80) for the text on railroads - hard to read currently.
     private Railroad	     readingRR       = new Railroad("Reading RR", "readingRR.jpg", 21, 41);
     private PropagandaOutlet orientalAv      = new PropagandaOutlet("Oriental Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, 17, 41);
@@ -146,14 +145,14 @@ public class IdeopolyGUI implements ActionListener {
 	c.gridwidth  = 4;
 	c.gridheight = 4;
 
-	// For every cell on the board, add its image.
+	// ===================================================
+	// === For every cell on the board, add its image. ===
+	// ===================================================
 	for (BoardCell cell : boardProperties) {
 	    c.gridx = cell.getX();
 	    c.gridy = cell.getY();
-	    JPanel panel = new JPanel();
-	    panel.add(new JLabel(cell.getImage()));
-	    
-	    frame.add(panel, c);
+
+	    frame.add(cell.getGraphicalRepresentation(), c);
 	}
 
 	c.gridwidth  = 1;
@@ -284,20 +283,18 @@ public class IdeopolyGUI implements ActionListener {
 	c.gridwidth = 9;
 	frame.add(useGOOJFCard, c);
 
-	// Status bar.
-	c.gridx       = 50;
-	c.gridy       = 43;
-	c.gridwidth   = 1;
-	frame.add(status, c);
-
-	c.gridx      = 51;
+	c.gridx      = 50;
+	c.gridy      = 39;
 	c.gridheight = 4;
-	c.gridwidth  = 10;
+	c.gridwidth  = 11;
 
 	JScrollPane messagesPane = new JScrollPane(messages);
 	messagesPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 	messages.setLineWrap(true);
 	messages.setColumns(50);
+	messagesPane.setColumnHeaderView(new JLabel("Status"));
+	// LEFTOFFHERE: Just added this status header thing and removed previous
+	// JLabel. Now to make the bottom of the textarea a bit more viewable.
 	frame.add(messagesPane, c);
 
 	// TODO: Make a single Random object and re-use it?
@@ -436,6 +433,8 @@ public class IdeopolyGUI implements ActionListener {
 		    p.putInJail(this);
 
 		// Player lands on a Community Chest card.
+		// TODO: For Chance and CommChest, do I need to have the Player
+		//       changeCell() before popping the card off?
 		else if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33)
 		    commChestCards.pop().doActions(p, this, p2, p3, p4);
 	    
@@ -712,7 +711,6 @@ public class IdeopolyGUI implements ActionListener {
 
 	// Then, for each bill, transfer the correct amount from p1 to p2.
 	// TODO: Loop this?
-
 	p1.spreadCash(1);
 	p1.addCash("ones", - paymentAmounts[0]);
 	p2.addCash("ones", paymentAmounts[0]);
