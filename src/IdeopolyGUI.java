@@ -137,16 +137,16 @@ public class IdeopolyGUI implements ActionListener {
     // TODO: Make these private and include a method/methods for changing their state?
     // TODO: Better, more descriptive variable names.
     public JLabel guiColor     = new JLabel("Colorhere Colorhere Colorhere Colorhere Colorhere Colorhere Colorhere");
-    public JLabel guiName      = new JLabel("<propertyname>");
-    public JLabel guiCost      = new JLabel("<costtobuy>");
-    public JLabel guiHouseHotelCost = new JLabel("<costperhouse/hotel>");
-    public JLabel guiRent      = new JLabel("<unimprovedrentcost>");
-    public JLabel gui1House    = new JLabel("<rent1house>");
-    public JLabel gui2House    = new JLabel("<rent2houses>");
-    public JLabel gui3House    = new JLabel("<rent3houses>");
-    public JLabel gui4House    = new JLabel("<rent4houses>");
-    public JLabel guiHotel     = new JLabel("<renthotel>");
-    public JLabel guiMortgage  = new JLabel("<mortgageprice>");
+    public JLabel guiName     = new JLabel("-");
+    public JLabel guiCost     = new JLabel("-");
+    public JLabel guiHouseHotelCost = new JLabel("-");
+    public JLabel guiRent     = new JLabel("-");
+    public JLabel gui1House   = new JLabel("-");
+    public JLabel gui2House   = new JLabel("-");
+    public JLabel gui3House   = new JLabel("-");
+    public JLabel gui4House   = new JLabel("-");
+    public JLabel guiHotel    = new JLabel("-");
+    public JLabel guiMortgage = new JLabel("-");
 
     /** Constructor creates the GUI, sets up parts of it, etc. */
     public IdeopolyGUI(String playerCharacter) { // TODO: Split up the functions logically.

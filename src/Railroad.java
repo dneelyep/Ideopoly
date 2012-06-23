@@ -11,6 +11,9 @@ public class Railroad extends BoardCell {
     /** The rent for this cell, with no other Railroads owned. */
     private static final int initialRent = 25;
 
+    /** How much money a player can mortgage this Railroad for. */
+    private static final int mortgageValue = 100;
+
     // TODO: A better solution: Make an interface that declares my constants,
     //       and make use of that interface in various files so I can re-use the
     //       constants.
@@ -35,5 +38,11 @@ public class Railroad extends BoardCell {
      *  lands on this property, when it's unimproved. */
     public int getInitialRent() {
 	return initialRent;
+    }
+
+    /** Returns the value this Railroad can be
+     *  mortgaged for. */
+    public int getMortgageValue() {
+	return mortgageValue;
     }
 }

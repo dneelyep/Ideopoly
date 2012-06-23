@@ -203,12 +203,12 @@ public class BoardCell {
 		// TODO: Change the gui text to 1RR/2RRs/etc. maybe 
 		//       where houses would be displayed.
 		gui.guiRent.setText("$" + Integer.toString(r.getInitialRent()));
-		gui.gui1House.setText("<blah>");
-		gui.gui2House.setText("<blah>");
-		gui.gui3House.setText("<blah>");
-		gui.gui4House.setText("<blah>");
-		gui.guiHotel.setText("<blah>");
-		gui.guiMortgage.setText("<blah>");
+		gui.gui1House.setText("Can't buy houses");
+		gui.gui2House.setText("Can't buy houses");
+		gui.gui3House.setText("Can't buy houses");
+		gui.gui4House.setText("Can't buy houses");
+		gui.guiHotel.setText("Can't buy hotels");
+		gui.guiMortgage.setText("$" + Integer.toString(r.getMortgageValue()));
 	    }
 	    else if (BoardCell.this.getClass() == gui.boardProperties[39].getClass()) { // Boardwalk
 		PropagandaOutlet p = (PropagandaOutlet) BoardCell.this;
@@ -225,21 +225,35 @@ public class BoardCell {
 		gui.guiHotel.setText ("$" + Integer.toString(p.getRent1Hotel()));
 		gui.guiMortgage.setText("$" + Integer.toString(p.getMortgageValue()));
 	    }
-	    // else if (this.getClass() == gui.waterWorks.getClass()) {
-	    // }
-	    // else if (specialCell)
+	    else if (BoardCell.this.getClass() == gui.boardProperties[12].getClass()) { // Utility
+		UtilityCell u = (UtilityCell) BoardCell.this;
 
-	    //	    gui.guiColor.setText();
+		gui.guiCost.setText  ("$" + Integer.toString(u.getCost()));
+		// gui.HouseHotelCost.setText("$" + Integer.toString(u.getHouseOrHotelCost()));
+		// gui.guiRent.setText  ("$" + Integer.toString(u.getInitialRent()));
+		// gui.gui1House.setText("$" + Integer.toString(u.getRent1House()));
+		// gui.gui2House.setText("$" + Integer.toString(u.getRent2House()));
+		// gui.gui3House.setText("$" + Integer.toString(u.getRent3House()));
+		// gui.gui4House.setText("$" + Integer.toString(u.getRent4House()));
+		// gui.guiHotel.setText ("$" + Integer.toString(u.getRent1Hotel()));
+		// gui.guiMortgage.setText("$" + Integer.toString(u.getMortgageValue()));
+	    }
+	    else if (BoardCell.this.getClass() == gui.boardProperties[0].getClass()
+		  || BoardCell.this.getClass() == gui.boardProperties[7].getClass()) { // Non-ownable
+		// TODO: Remove the labels when we mouse over an un-ownable property?
+		//  gui.guiColor.setText("");
+		gui.guiCost.setText("Un-ownable");
+		gui.guiHouseHotelCost.setText("Un-ownable");
+		gui.guiRent.setText("Un-ownable");
+		gui.gui1House.setText("Un-ownable");
+		gui.gui2House.setText("Un-ownable");
+		gui.gui3House.setText("Un-ownable");
+		gui.gui4House.setText("Un-ownable");
+		gui.guiHotel.setText("Un-ownable");
+		gui.guiMortgage.setText("Un-ownable");
+	    }
+
 	    gui.guiName.setText(name);
-	    // gui.guiHouseCost.setText();
-	    // gui.guiHotelCost.setText();
-	    // gui.guiRent.setText();
-	    // gui.gui1House.setText();
-	    // gui.gui2House.setText();
-	    // gui.gui3House.setText();
-	    // gui.gui4House.setText();
-	    // gui.guiHotel.setText();
-	    // gui.guiMortgage.setText();
 	}
 
 	public void mouseExited(MouseEvent e) {
