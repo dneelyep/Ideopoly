@@ -24,8 +24,8 @@ public class IdeopolyGUI implements ActionListener {
     private int gameWon = 0;
 
     // TODO: Try to reduce usage of this players array. Is useless and confusing except when looping.
-    private String   cashValues[] = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
-    private String   titles[] = { "Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail" };
+    private String cashValues[] = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
+    private String titles[] = { "Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail" };
     // TODO: Come up with a better solution than making this public.
     public JLabel[] playerRowLabels = { new JLabel("Player 1"), 
 					new JLabel("Player 2"), 
@@ -58,47 +58,47 @@ public class IdeopolyGUI implements ActionListener {
 
     // Create the game board.
     // TODO: Remove unneeded image templates.
-    private SpecialCell	     go              = new SpecialCell("Go", "go.jpg", 41, 41);
-    private PropagandaOutlet mediterraneanAv = new PropagandaOutlet("Mediterranean Av.", "purpleTemplate.jpg", 60, 2, 10, 30, 90, 160, 250, 50, 37, 41);
-    private ChanceOrCommChestCell commChestBottom = new ChanceOrCommChestCell("Community Chest", "bottCommChest.jpg", 33, 41);
-    private PropagandaOutlet balticAv        = new PropagandaOutlet("Baltic Av.", "purpleTemplate.jpg", 60, 4, 20, 60, 180, 320, 450, 50, 29, 41);
-    private SpecialCell	     incomeTax       = new SpecialCell("Income Tax", "incomeTax.jpg", 25, 41);
+    private SpecialCell	     go              = new SpecialCell("Go", "go.jpg", 41, 41, this);
+    private PropagandaOutlet mediterraneanAv = new PropagandaOutlet("Mediterranean Av.", "purpleTemplate.jpg", 60, 2, 10, 30, 90, 160, 250, 50, 37, 41, this);
+    private ChanceOrCommChestCell commChestBottom = new ChanceOrCommChestCell("Community Chest", "bottCommChest.jpg", 33, 41, this);
+    private PropagandaOutlet balticAv        = new PropagandaOutlet("Baltic Av.", "purpleTemplate.jpg", 60, 4, 20, 60, 180, 320, 450, 50, 29, 41, this);
+    private SpecialCell	     incomeTax       = new SpecialCell("Income Tax", "incomeTax.jpg", 25, 41, this);
     // TODO: Bigger font size (~80) for the text on railroads - hard to read currently.
-    private Railroad	     readingRR       = new Railroad("Reading RR", "readingRR.jpg", 21, 41);
-    private PropagandaOutlet orientalAv      = new PropagandaOutlet("Oriental Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, 17, 41);
-    private ChanceOrCommChestCell chanceBottom = new ChanceOrCommChestCell("Chance", "botChance.jpg", 13, 41);
-    private PropagandaOutlet vermontAv       = new PropagandaOutlet("Vermont Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, 9, 41);
-    private PropagandaOutlet connecticutAv   = new PropagandaOutlet("Connecticut Av.", "lightBlueTemplate.jpg", 120, 8, 40, 100, 300, 450, 600, 50, 5, 41);
-    private SpecialCell	     jail	     = new SpecialCell("Jail", "jail.jpg", 1, 41);
-    private PropagandaOutlet stCharles       = new PropagandaOutlet("St. Charles Place", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, 1, 37);
-    private UtilityCell	     electricCompany = new UtilityCell("Electric Co.", "electricCo.jpg", 1, 33);
-    private PropagandaOutlet statesAv	     = new PropagandaOutlet("States Av.", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, 1, 29);
-    private PropagandaOutlet virginiaAv      = new PropagandaOutlet("Virginia Av.", "pinkTemplate.jpg", 160, 12, 60, 180, 500, 700, 900, 100, 1, 25);
-    private Railroad	     pennsylvaniaRR  = new Railroad("Pennsylvania RR", "pennsylvaniaRR.jpg", 1, 21);
-    private PropagandaOutlet stJames         = new PropagandaOutlet("St. James", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, 1, 17);
-    private ChanceOrCommChestCell commChestLeft = new ChanceOrCommChestCell("Community Chest", "leftCommChest.jpg", 1, 13);
-    private PropagandaOutlet tennesseeAv     = new PropagandaOutlet("Tennessee Av.", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, 1, 9);
-    private PropagandaOutlet newYorkAv       = new PropagandaOutlet("New York Av.", "orangeTemplate.jpg", 200, 16, 80, 220, 600, 800, 1000, 100, 1, 5);
-    private SpecialCell      freeParking     = new SpecialCell("Free Parking", "freeParking.jpg", 1, 1);
-    private PropagandaOutlet kentuckyAv      = new PropagandaOutlet("Kentucky Av.", "properties/kentuckyAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, 5, 1);
-    private ChanceOrCommChestCell chanceTop  = new ChanceOrCommChestCell("Chance", "topChance.jpg", 9, 1);
-    private PropagandaOutlet indianaAv	     = new PropagandaOutlet("Indiana Av.", "properties/indianaAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, 13, 1);
-    private PropagandaOutlet illinoisAv      = new PropagandaOutlet("Illinois Av.", "properties/illinoisAv.jpg", 240, 20, 100, 300, 750, 925, 1100, 150, 17, 1);
-    private Railroad	     bAndORR	     = new Railroad("B & O RR", "bAndORR.jpg", 21, 1);
-    private PropagandaOutlet atlanticAv      = new PropagandaOutlet("Atlantic Av.", "properties/atlanticAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 1, 25, 1);
-    private PropagandaOutlet ventnorAv	     = new PropagandaOutlet("Ventnor Av.", "properties/ventnorAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 150, 29, 1);
-    private UtilityCell	     waterWorks      = new UtilityCell("Water Works", "waterWorks.jpg", 33, 1);
-    private PropagandaOutlet marvinGardens   = new PropagandaOutlet("Marvin Gardens", "properties/marvinGardens.jpg", 280, 24, 120, 360, 850, 1025, 1200, 150, 37, 1);
-    private SpecialCell      goToJail        = new SpecialCell("Go to Jail", "goToJail.jpg", 41, 1);
-    private PropagandaOutlet pacificAv	     = new PropagandaOutlet("Pacific Av.", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 5);
-    private PropagandaOutlet nCarolinaAv     = new PropagandaOutlet("nCarolinaAv", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 9);
-    private ChanceOrCommChestCell commChestRight  = new ChanceOrCommChestCell("Community Chest", "rightCommChest.jpg", 41, 13);
-    private PropagandaOutlet pennsylvaniaAv  = new PropagandaOutlet("Pennsylvania Av.", "greenTemplate.jpg", 320, 28, 150, 450, 1000, 1200, 1400, 200, 41, 17);
-    private Railroad         shortLineRR     = new Railroad("Short Line RR", "shortLineRR.jpg", 41, 21);
-    private ChanceOrCommChestCell chanceRight = new ChanceOrCommChestCell("Chance", "rightChance.jpg", 41, 25);
-    private PropagandaOutlet parkPlace       = new PropagandaOutlet("Park Place", "darkBlueTemplate.jpg", 350, 35, 175, 500, 1100, 1300, 1500, 200, 41, 29);
-    private SpecialCell      luxuryTax       = new SpecialCell("Luxury Tax", "luxuryTax.jpg", 41, 33);
-    private PropagandaOutlet boardwalk       = new PropagandaOutlet("Boardwalk", "darkBlueTemplate.jpg", 400, 50, 200, 600, 1400, 1700, 2000, 200, 41, 37);
+    private Railroad	     readingRR       = new Railroad("Reading RR", "readingRR.jpg", 21, 41, this);
+    private PropagandaOutlet orientalAv      = new PropagandaOutlet("Oriental Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, 17, 41, this);
+    private ChanceOrCommChestCell chanceBottom = new ChanceOrCommChestCell("Chance", "botChance.jpg", 13, 41, this);
+    private PropagandaOutlet vermontAv       = new PropagandaOutlet("Vermont Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, 9, 41, this);
+    private PropagandaOutlet connecticutAv   = new PropagandaOutlet("Connecticut Av.", "lightBlueTemplate.jpg", 120, 8, 40, 100, 300, 450, 600, 50, 5, 41, this);
+    private SpecialCell	     jail	     = new SpecialCell("Jail", "jail.jpg", 1, 41, this);
+    private PropagandaOutlet stCharles       = new PropagandaOutlet("St. Charles Place", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, 1, 37, this);
+    private UtilityCell	     electricCompany = new UtilityCell("Electric Co.", "electricCo.jpg", 1, 33, this);
+    private PropagandaOutlet statesAv	     = new PropagandaOutlet("States Av.", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, 1, 29, this);
+    private PropagandaOutlet virginiaAv      = new PropagandaOutlet("Virginia Av.", "pinkTemplate.jpg", 160, 12, 60, 180, 500, 700, 900, 100, 1, 25, this);
+    private Railroad	     pennsylvaniaRR  = new Railroad("Pennsylvania RR", "pennsylvaniaRR.jpg", 1, 21, this);
+    private PropagandaOutlet stJames         = new PropagandaOutlet("St. James", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, 1, 17, this);
+    private ChanceOrCommChestCell commChestLeft = new ChanceOrCommChestCell("Community Chest", "leftCommChest.jpg", 1, 13, this);
+    private PropagandaOutlet tennesseeAv     = new PropagandaOutlet("Tennessee Av.", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, 1, 9, this);
+    private PropagandaOutlet newYorkAv       = new PropagandaOutlet("New York Av.", "orangeTemplate.jpg", 200, 16, 80, 220, 600, 800, 1000, 100, 1, 5, this);
+    private SpecialCell      freeParking     = new SpecialCell("Free Parking", "freeParking.jpg", 1, 1, this);
+    private PropagandaOutlet kentuckyAv      = new PropagandaOutlet("Kentucky Av.", "properties/kentuckyAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, 5, 1, this);
+    private ChanceOrCommChestCell chanceTop  = new ChanceOrCommChestCell("Chance", "topChance.jpg", 9, 1, this);
+    private PropagandaOutlet indianaAv	     = new PropagandaOutlet("Indiana Av.", "properties/indianaAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, 13, 1, this);
+    private PropagandaOutlet illinoisAv      = new PropagandaOutlet("Illinois Av.", "properties/illinoisAv.jpg", 240, 20, 100, 300, 750, 925, 1100, 150, 17, 1, this);
+    private Railroad	     bAndORR	     = new Railroad("B & O RR", "bAndORR.jpg", 21, 1, this);
+    private PropagandaOutlet atlanticAv      = new PropagandaOutlet("Atlantic Av.", "properties/atlanticAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 1, 25, 1, this);
+    private PropagandaOutlet ventnorAv	     = new PropagandaOutlet("Ventnor Av.", "properties/ventnorAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 150, 29, 1, this);
+    private UtilityCell	     waterWorks      = new UtilityCell("Water Works", "waterWorks.jpg", 33, 1, this);
+    private PropagandaOutlet marvinGardens   = new PropagandaOutlet("Marvin Gardens", "properties/marvinGardens.jpg", 280, 24, 120, 360, 850, 1025, 1200, 150, 37, 1, this);
+    private SpecialCell      goToJail        = new SpecialCell("Go to Jail", "goToJail.jpg", 41, 1, this);
+    private PropagandaOutlet pacificAv	     = new PropagandaOutlet("Pacific Av.", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 5, this);
+    private PropagandaOutlet nCarolinaAv     = new PropagandaOutlet("nCarolinaAv", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 9, this);
+    private ChanceOrCommChestCell commChestRight  = new ChanceOrCommChestCell("Community Chest", "rightCommChest.jpg", 41, 13, this);
+    private PropagandaOutlet pennsylvaniaAv  = new PropagandaOutlet("Pennsylvania Av.", "greenTemplate.jpg", 320, 28, 150, 450, 1000, 1200, 1400, 200, 41, 17, this);
+    private Railroad         shortLineRR     = new Railroad("Short Line RR", "shortLineRR.jpg", 41, 21, this);
+    private ChanceOrCommChestCell chanceRight = new ChanceOrCommChestCell("Chance", "rightChance.jpg", 41, 25, this);
+    private PropagandaOutlet parkPlace       = new PropagandaOutlet("Park Place", "darkBlueTemplate.jpg", 350, 35, 175, 500, 1100, 1300, 1500, 200, 41, 29, this);
+    private SpecialCell      luxuryTax       = new SpecialCell("Luxury Tax", "luxuryTax.jpg", 41, 33, this);
+    private PropagandaOutlet boardwalk       = new PropagandaOutlet("Boardwalk", "darkBlueTemplate.jpg", 400, 50, 200, 600, 1400, 1700, 2000, 200, 41, 37, this);
 
     // TODO: Make this a vector, or similar, so I can insert multiple types of objects. 
     // This will solve the later problem of not being able to use getCashDistribution. 
@@ -114,6 +114,7 @@ public class IdeopolyGUI implements ActionListener {
     // TODO: Also, see file:///home/daniel/Desktop/aaa-TIJ3-distribution/TIJ3.htm and then
     //       "Downcasting vs. templates/generics" for how to get the original class back out
     //       of this array. This should help solve some problems I was having before. See above TODO.
+    // TODO: Add an access specifier here.
     final BoardCell boardProperties[] = { go, mediterraneanAv, commChestBottom, balticAv, incomeTax, readingRR, orientalAv, chanceBottom, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChestLeft, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chanceTop, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChestRight, pennsylvaniaAv, shortLineRR, chanceRight, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
 
     /** Represents the player whose turn it currently is to roll. 0-3. */
@@ -130,6 +131,22 @@ public class IdeopolyGUI implements ActionListener {
 
     /** The stack of Community Chest cards. */
     private Stack<CommunityChest> commChestCards = new Stack<CommunityChest>();
+
+
+    /** Various fields that display detailed property information. */
+    // TODO: Make these private and include a method/methods for changing their state?
+    // TODO: Better, more descriptive variable names.
+    public JLabel guiColor     = new JLabel("Colorhere Colorhere Colorhere Colorhere Colorhere Colorhere Colorhere");
+    public JLabel guiName      = new JLabel("<propertyname>");
+    public JLabel guiCost      = new JLabel("<costtobuy>");
+    public JLabel guiHouseHotelCost = new JLabel("<costperhouse/hotel>");
+    public JLabel guiRent      = new JLabel("<unimprovedrentcost>");
+    public JLabel gui1House    = new JLabel("<rent1house>");
+    public JLabel gui2House    = new JLabel("<rent2houses>");
+    public JLabel gui3House    = new JLabel("<rent3houses>");
+    public JLabel gui4House    = new JLabel("<rent4houses>");
+    public JLabel guiHotel     = new JLabel("<renthotel>");
+    public JLabel guiMortgage  = new JLabel("<mortgageprice>");
 
     /** Constructor creates the GUI, sets up parts of it, etc. */
     public IdeopolyGUI(String playerCharacter) { // TODO: Split up the functions logically.
@@ -301,6 +318,8 @@ public class IdeopolyGUI implements ActionListener {
 	messagesPane.setColumnHeaderView(new JLabel("Status"));
 	// LEFTOFFHERE: Just added this status header thing and removed previous
 	// JLabel. Now to make the bottom of the textarea a bit more viewable.
+	// TODO: Implement formatted text here. For example, bold the Player names
+	// in messages.
 	frame.add(messagesPane, c);
 
 	// ===============================================================
@@ -318,74 +337,70 @@ public class IdeopolyGUI implements ActionListener {
 	// I can make a function to change the information displayed in them, with
 	// a BoardCell as input. Then I can tie that function into BoardCell.BoardCellGUI's
 	// mouse listener events.
+	//
+	// Can use JLabel.setText()
 	c.gridy      = 20;
 	c.gridheight = 1;
-	frame.add(new JLabel("Colorhere Colorhere Colorhere Colorhere Colorhere Colorhere Colorhere"), c);
+	frame.add(guiColor, c);
 
 	c.gridy++;
 	// TODO: Center the title here.
-	frame.add(new JLabel("Mediterranean Avenue"), c);
+	frame.add(guiName, c);
 
 	// TODO: Loop this or make a function.
-	c.gridwidth = 1;
+	c.gridwidth = 4;
 	c.gridy++;
 	frame.add(new JLabel("Cost:"), c);
 	c.gridx += 6;
-	frame.add(new JLabel("<amt>"), c);
+	frame.add(guiCost, c);
 
 	c.gridy++;
 	c.gridx -= 6;
-	frame.add(new JLabel("House cost:"), c);
+	frame.add(new JLabel("House/Hotel cost:"), c);
 	c.gridx += 6;
-	frame.add(new JLabel("<amt>"), c);
-
-	c.gridy++;
-	c.gridx -= 6;
-	frame.add(new JLabel("Hotel cost:"), c);
-	c.gridx += 6;
-	frame.add(new JLabel("<amt>"), c);
+	frame.add(guiHouseHotelCost, c);
 
 	c.gridy++;
 	c.gridx -= 6;
 	frame.add(new JLabel("Rent:"), c);
 	c.gridx += 6;
-	frame.add(new JLabel("<amt>"), c);
+	frame.add(guiRent, c);
 
 	c.gridy++;
 	c.gridx -= 6;
 	frame.add(new JLabel("1 house:"), c);
 	c.gridx += 6;
-	frame.add(new JLabel("<amt>"), c);
+	frame.add(gui1House, c);
 
 	c.gridy++;
 	c.gridx -= 6;
 	frame.add(new JLabel("2 houses:"), c);
 	c.gridx += 6;
-	frame.add(new JLabel("<amt>"), c);
+	frame.add(gui2House, c);
 
 	c.gridy++;
 	c.gridx -= 6;
 	frame.add(new JLabel("3 houses:"), c);
 	c.gridx += 6;
-	frame.add(new JLabel("<amt>"), c);
+	frame.add(gui3House, c);
 
 	c.gridy++;
 	c.gridx -= 6;
 	frame.add(new JLabel("4 houses:"), c);
 	c.gridx += 6;
-	frame.add(new JLabel("<amt>"), c);
+	frame.add(gui4House, c);
 
 	c.gridy++;
 	c.gridx -= 6;
 	frame.add(new JLabel("1 hotel:"), c);
 	c.gridx += 6;
-	frame.add(new JLabel("<amt>"), c);
+	frame.add(guiHotel, c);
 
 	c.gridy++;
 	c.gridx -= 6;
 	frame.add(new JLabel("Mortgage value:"), c);
 	c.gridx += 6;
-	frame.add(new JLabel("<amt>"), c);
+	frame.add(guiMortgage, c);
 
 	// TODO: Make a single Random object and re-use it?
 	Random generator = new Random();

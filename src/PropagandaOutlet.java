@@ -53,9 +53,9 @@ public class PropagandaOutlet extends BoardCell {
     // TODO: Should we accept an array instead maybe?
     // TODO: Accept an array for rent values rather than separate variables?
     // TODO: camelCase variable names here.
-    public PropagandaOutlet(String newName, String imagePath, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, int xPos, int yPos) {
+    public PropagandaOutlet(String newName, String imagePath, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, int xPos, int yPos, IdeopolyGUI gui) {
 	// TODO: Better, less ambiguous variable names here.
-	super(newName, imagePath, xPos, yPos); // Use the BoardCell class' constructor.
+	super(newName, imagePath, xPos, yPos, gui); // Use the BoardCell class' constructor.
 	numHouses	    = 0;
 	numHotels	    = 0;
 	cost                = newCost;
@@ -102,6 +102,41 @@ public class PropagandaOutlet extends BoardCell {
     public int getCost() {
 	return cost;
     }
+
+    // TODO: Javadocs for these.
+    public int getMortgageValue() {
+	return mortgageValue;
+    }
+
+    public int getInitialRent() {
+	return initialRent;
+    }
+
+    public int getRent1House() {
+	return rent1House;
+    }
+
+    public int getRent2House() {
+	return rent2House;
+    }
+
+    public int getRent3House() {
+	return rent3House;
+    }
+
+    public int getRent4House() {
+	return rent4House;
+    }
+
+    public int getRent1Hotel() {
+	return rent1Hotel;
+    }
+
+    public int getHouseOrHotelCost() {
+	return houseOrHotelCost;
+    }
+
+
 }
 
 

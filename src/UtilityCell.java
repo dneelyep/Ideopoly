@@ -7,8 +7,8 @@ public class UtilityCell extends BoardCell {
 
     /** Create a new UtilityCell with a given name,
      *  image, and x/y coordinates on the board.*/
-    public UtilityCell(String newName, String imagePath, int xPos, int yPos) {
-	super(newName, imagePath, xPos, yPos); // Use the BoardCell class' constructor.
+    public UtilityCell(String newName, String imagePath, int xPos, int yPos, IdeopolyGUI gui) {
+	super(newName, imagePath, xPos, yPos, gui); // Use the BoardCell class' constructor.
     }
 
     /** Returns the cost for a Player to buy this 

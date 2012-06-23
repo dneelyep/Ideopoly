@@ -14,7 +14,7 @@ public class BoardCellTester extends TestCase {
 	Player  aPlayer = new Player(1, gui);
 
 	// TODO: Should have deleted this file.
-	BoardCell testCell = new BoardCell("name", "images/orangeTemplate.jpg", 4, 10);
+	BoardCell testCell = new BoardCell("name", "images/orangeTemplate.jpg", 4, 10, gui);
 
 	// Test basic, not out-of-the-ordinary cases.
 	assertEquals(testCell.getName(), "name");

@@ -53,19 +53,23 @@ public class BoardCell {
     /** The graphical representation of this BoardCell. */
     private BoardCellGUI graphicalRepresentation;
 
+    /** The GUI associated with this BoardCell. */
+    IdeopolyGUI gui;
+
     /** Creates a BoardCell object, with the specified name, image path, coordinates, and 
      *  player standing positions. Does not have an owner. There are no players standing 
      *  on this object. */
     // TODO: Need to test BoardPositions to make sure we get out correct x and 
     //       y values (should be doable visually).
 
-    public BoardCell(String newName, String imagePath, int xPos, int yPos) {
-	name	    = newName;
-	ownedBy     = null;
-	image	    = new ImageIcon("images/" + imagePath); // Use the path to generate the image.
+    public BoardCell(String newName, String imagePath, int xPos, int yPos, IdeopolyGUI g) {
+	name    = newName;
+	ownedBy = null;
+	image   = new ImageIcon("images/" + imagePath); // Use the path to generate the image.
 	// TODO: Make the "images/" prefix automatic here?
-	cellX	    = xPos;
-	cellY       = yPos;
+	cellX   = xPos;
+	cellY   = yPos;
+	gui     = g;
 
 	if (xPos >= 1 && xPos <= 41 && yPos == 1) {       // Top row.
 	    p1Pos = new BoardPosition(cellX + 3, 0);
@@ -191,7 +195,51 @@ public class BoardCell {
 	}
 
 	public void mouseEntered(MouseEvent e) {
-	    System.out.println("Mouse entered " + name);
+	    // TODO: Tests for this stuff.
+	    if (BoardCell.this.getClass() == gui.boardProperties[5].getClass()) { // Railroad
+		Railroad r = (Railroad) BoardCell.this;
+		//	    gui.guiColor.setText();
+		gui.guiCost.setText("$" + Integer.toString(r.getCost()));
+		// TODO: Change the gui text to 1RR/2RRs/etc. maybe 
+		//       where houses would be displayed.
+		gui.guiRent.setText("$" + Integer.toString(r.getInitialRent()));
+		gui.gui1House.setText("<blah>");
+		gui.gui2House.setText("<blah>");
+		gui.gui3House.setText("<blah>");
+		gui.gui4House.setText("<blah>");
+		gui.guiHotel.setText("<blah>");
+		gui.guiMortgage.setText("<blah>");
+	    }
+	    else if (BoardCell.this.getClass() == gui.boardProperties[39].getClass()) { // Boardwalk
+		PropagandaOutlet p = (PropagandaOutlet) BoardCell.this;
+
+		// TODO: Find a way to prepend the $ automatically.
+		//	    gui.guiColor.setText();x
+		gui.guiCost.setText  ("$" + Integer.toString(p.getCost()));
+		gui.guiHouseHotelCost.setText("$" + Integer.toString(p.getHouseOrHotelCost()));
+		gui.guiRent.setText  ("$" + Integer.toString(p.getInitialRent()));
+		gui.gui1House.setText("$" + Integer.toString(p.getRent1House()));
+		gui.gui2House.setText("$" + Integer.toString(p.getRent2House()));
+		gui.gui3House.setText("$" + Integer.toString(p.getRent3House()));
+		gui.gui4House.setText("$" + Integer.toString(p.getRent4House()));
+		gui.guiHotel.setText ("$" + Integer.toString(p.getRent1Hotel()));
+		gui.guiMortgage.setText("$" + Integer.toString(p.getMortgageValue()));
+	    }
+	    // else if (this.getClass() == gui.waterWorks.getClass()) {
+	    // }
+	    // else if (specialCell)
+
+	    //	    gui.guiColor.setText();
+	    gui.guiName.setText(name);
+	    // gui.guiHouseCost.setText();
+	    // gui.guiHotelCost.setText();
+	    // gui.guiRent.setText();
+	    // gui.gui1House.setText();
+	    // gui.gui2House.setText();
+	    // gui.gui3House.setText();
+	    // gui.gui4House.setText();
+	    // gui.guiHotel.setText();
+	    // gui.guiMortgage.setText();
 	}
 
 	public void mouseExited(MouseEvent e) {
