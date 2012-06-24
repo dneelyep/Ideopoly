@@ -1,5 +1,6 @@
 import junit.framework.TestCase;
 import org.junit.*;
+import java.awt.*;
 
 /** Class to test all methods inside the PropagandaOutlet class.
  *
@@ -11,7 +12,7 @@ public class PropagandaOutletTester extends TestCase {
 	IdeopolyGUI gui = new IdeopolyGUI("TestGUI");
 
 	// TODO: Removed this image
-	PropagandaOutlet testPropOutlet = new PropagandaOutlet("testPropOutlet", "images/yellow_template.jpg", 40, 10, 60, 180, 350, 630, 800, 100, 18, 18, gui);
+	PropagandaOutlet testPropOutlet = new PropagandaOutlet("testPropOutlet", "images/yellow_template.jpg", 40, 10, 60, 180, 350, 630, 800, 100, 18, 18, gui, Color.YELLOW);
 
 	assertEquals(testPropOutlet.getName(), "testPropOutlet");
 	//	    TODO: Test the image assigned during creation.

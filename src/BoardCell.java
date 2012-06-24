@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.*;
 
 /** A BoardCell represents any of the cells running along the 
  *  outside edge of the game board. Since there are different types
@@ -198,7 +199,7 @@ public class BoardCell {
 	    // TODO: Tests for this stuff.
 	    if (BoardCell.this.getClass() == gui.boardProperties[5].getClass()) { // Railroad
 		Railroad r = (Railroad) BoardCell.this;
-		//	    gui.guiColor.setText();
+		gui.guiColor.setBackground(Color.BLACK);
 		gui.guiCost.setText("$" + Integer.toString(r.getCost()));
 		// TODO: Change the gui text to 1RR/2RRs/etc. maybe 
 		//       where houses would be displayed.
@@ -210,11 +211,11 @@ public class BoardCell {
 		gui.guiHotel.setText("Can't buy hotels");
 		gui.guiMortgage.setText("$" + Integer.toString(r.getMortgageValue()));
 	    }
-	    else if (BoardCell.this.getClass() == gui.boardProperties[39].getClass()) { // Boardwalk
+	    else if (BoardCell.this.getClass() == gui.boardProperties[39].getClass()) { // Boardwalk (any PropagandaOutlet)
 		PropagandaOutlet p = (PropagandaOutlet) BoardCell.this;
 
+		gui.guiColor.setBackground(p.getColor());
 		// TODO: Find a way to prepend the $ automatically.
-		//	    gui.guiColor.setText();x
 		gui.guiCost.setText  ("$" + Integer.toString(p.getCost()));
 		gui.guiHouseHotelCost.setText("$" + Integer.toString(p.getHouseOrHotelCost()));
 		gui.guiRent.setText  ("$" + Integer.toString(p.getInitialRent()));
@@ -228,6 +229,7 @@ public class BoardCell {
 	    else if (BoardCell.this.getClass() == gui.boardProperties[12].getClass()) { // Utility
 		UtilityCell u = (UtilityCell) BoardCell.this;
 
+		gui.guiColor.setBackground(Color.GRAY);
 		gui.guiCost.setText  ("$" + Integer.toString(u.getCost()));
 		// gui.HouseHotelCost.setText("$" + Integer.toString(u.getHouseOrHotelCost()));
 		// gui.guiRent.setText  ("$" + Integer.toString(u.getInitialRent()));
@@ -241,7 +243,7 @@ public class BoardCell {
 	    else if (BoardCell.this.getClass() == gui.boardProperties[0].getClass()
 		  || BoardCell.this.getClass() == gui.boardProperties[7].getClass()) { // Non-ownable
 		// TODO: Remove the labels when we mouse over an un-ownable property?
-		//  gui.guiColor.setText("");
+		gui.guiColor.setBackground(Color.WHITE);
 		gui.guiCost.setText("Un-ownable");
 		gui.guiHouseHotelCost.setText("Un-ownable");
 		gui.guiRent.setText("Un-ownable");

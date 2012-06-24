@@ -1,3 +1,5 @@
+import java.awt.*;
+
 /** Class to represent a given propaganda outlet.
  *  Extends a generic BoardCell to also include properties 
  *  such as number of houses/hotels present, cost of rent, etc.
@@ -5,6 +7,10 @@
  *  @author Daniel Neel */
 public class PropagandaOutlet extends BoardCell {
     // TODO: Should these be more than just numbers, so that we can specify who owns each? Maybe number of player 1/2/3/4 houses/hotels? Nevermind, since ya have to own all the color group, and since ownedBy determines who owns the property, we can use those to detrmine who owns the houses.
+
+    /** The Color associated with this PropagandaOutlet. Purple for 
+     *  Mediterranean/Baltic, Blue for Boardwalk, etc. */
+    private Color color;
 
     // TODO: Make these items constants, so they can't be screwed with accidentally?
     /** Price for the player to buy this property unimproved. */
@@ -53,7 +59,7 @@ public class PropagandaOutlet extends BoardCell {
     // TODO: Should we accept an array instead maybe?
     // TODO: Accept an array for rent values rather than separate variables?
     // TODO: camelCase variable names here.
-    public PropagandaOutlet(String newName, String imagePath, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, int xPos, int yPos, IdeopolyGUI gui) {
+    public PropagandaOutlet(String newName, String imagePath, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, int xPos, int yPos, IdeopolyGUI gui, Color c) {
 	// TODO: Better, less ambiguous variable names here.
 	super(newName, imagePath, xPos, yPos, gui); // Use the BoardCell class' constructor.
 	numHouses	    = 0;
@@ -67,6 +73,7 @@ public class PropagandaOutlet extends BoardCell {
 	rent4House	    = newRent4House;
 	rent1Hotel	    = newRent1Hotel;
 	houseOrHotelCost    = newHouseOrHotelCost;
+	color               = c;
     }
 
     /** Return the amount of rent that a Player landing here has to pay. */
@@ -136,7 +143,10 @@ public class PropagandaOutlet extends BoardCell {
 	return houseOrHotelCost;
     }
 
-
+    /** Return the Color associated with this PropagandaOutlet. */
+    public Color getColor() {
+	return color;
+    }
 }
 
 

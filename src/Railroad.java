@@ -6,13 +6,13 @@
  *  @author Daniel Neel */
 public class Railroad extends BoardCell {
     /** The cost to buy this cell, unimproved. */
-    private static final int cost = 200;
+    private static final int COST = 200;
 
     /** The rent for this cell, with no other Railroads owned. */
-    private static final int initialRent = 25;
+    private static final int INITIALRENT = 25;
 
     /** How much money a player can mortgage this Railroad for. */
-    private static final int mortgageValue = 100;
+    private static final int MORTGAGEVALUE = 100;
 
     // TODO: A better solution: Make an interface that declares my constants,
     //       and make use of that interface in various files so I can re-use the
@@ -31,18 +31,18 @@ public class Railroad extends BoardCell {
     /** Returns the cost for a Player to buy this 
      *  property, unimproved. */
     public int getCost() {
-	return cost;
+	return COST;
     }
 
     /** Returns the rent charged to a Player who
      *  lands on this property, when it's unimproved. */
     public int getInitialRent() {
-	return initialRent;
+	return INITIALRENT;
     }
 
     /** Returns the value this Railroad can be
      *  mortgaged for. */
     public int getMortgageValue() {
-	return mortgageValue;
+	return MORTGAGEVALUE;
     }
 }
