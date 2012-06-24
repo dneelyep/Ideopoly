@@ -57,7 +57,7 @@ public class IdeopolyGUI implements ActionListener {
 
     // Create the game board.
     // TODO: Remove unneeded image templates.
-    // TODO: Go through the colors I added, and convert, unsuited colors to useful RGB ones.
+    // TODO: Go thruogh the colors I added, and convert, unsuited colors to useful RGB ones.
     //       See the one for Oriental Av, for example.
     private SpecialCell	     go              = new SpecialCell("Go", "go.jpg", 41, 41, this);
     private PropagandaOutlet mediterraneanAv = new PropagandaOutlet("Mediterranean Av.", "purpleTemplate.jpg", 60, 2, 10, 30, 90, 160, 250, 50, 37, 41, this, Color.MAGENTA);
@@ -92,7 +92,7 @@ public class IdeopolyGUI implements ActionListener {
     private PropagandaOutlet marvinGardens   = new PropagandaOutlet("Marvin Gardens", "properties/marvinGardens.jpg", 280, 24, 120, 360, 850, 1025, 1200, 150, 37, 1, this, Color.YELLOW);
     private SpecialCell      goToJail        = new SpecialCell("Go to Jail", "goToJail.jpg", 41, 1, this);
     private PropagandaOutlet pacificAv	     = new PropagandaOutlet("Pacific Av.", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 5, this, Color.GREEN);
-    private PropagandaOutlet nCarolinaAv     = new PropagandaOutlet("nCarolinaAv", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 9, this, Color.GREEN);
+    private PropagandaOutlet nCarolinaAv     = new PropagandaOutlet("N. Carolina Av.", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 9, this, Color.GREEN);
     private ChanceOrCommChestCell commChestRight = new ChanceOrCommChestCell("Community Chest", "rightCommChest.jpg", 41, 13, this);
     private PropagandaOutlet pennsylvaniaAv  = new PropagandaOutlet("Pennsylvania Av.", "greenTemplate.jpg", 320, 28, 150, 450, 1000, 1200, 1400, 200, 41, 17, this, Color.GREEN);
     private Railroad         shortLineRR     = new Railroad("Short Line RR", "shortLineRR.jpg", 41, 21, this);
@@ -106,9 +106,6 @@ public class IdeopolyGUI implements ActionListener {
     // That method can only be called on PropagandaOutlets, but this situation turns all
     // Prop Outlets into BoardCells. => if I solve this problem, that one should disappear. And
     // hundreds more should surface.
-
-    // TODO: Get actionlisteners implemented for the properties, so that I can
-    //  mouseover them and have a picture of the property card pop up in the middle of the board.
 
     // TODO: Consider making this an enum. Enumerations are apparently a fixed list of constants,
     //       and that's what this array is.
@@ -329,7 +326,6 @@ public class IdeopolyGUI implements ActionListener {
 	// ===============================================================
 	// === Add the GUI stuff that displays detailed property info. ===
 	// ===============================================================
-	// Can use JLabel.setText()
 	c.gridy      = 20;
 	c.gridwidth  = 9;
 	c.gridheight = 1;
@@ -341,8 +337,6 @@ public class IdeopolyGUI implements ActionListener {
 	// TODO: Center the title here.
 	frame.add(guiName, c);
 
-	// TODO: Loop this or make a function.
-	// TODO: Auto-append the : ?
 	String[] labels = {"House/Hotel cost", "Rent", "1 house", "2 houses", "3 houses", "4 houses", "1 hotel", "Mortgage value"};
 	JLabel[] labelValues = {guiHouseHotelCost, guiRent, gui1House, gui2House, gui3House, gui4House, guiHotel, guiMortgage};
 

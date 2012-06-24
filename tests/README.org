@@ -58,6 +58,7 @@ per regular class in the src/ directory.
 **** DONE Card 14
 **** DONE Card 15
 **** DONE Card 16
+** ChanceOrCommChestCell [/]
 ** CharacterSelect [0/2]
 *** TODO CharacterSelect()
 *** TODO actionPerformed()
@@ -126,6 +127,7 @@ per regular class in the src/ directory.
 *** TODO PropagandaOutlet()
 *** TODO getRent()
 *** TODO getCost()
+** SpecialCell [/]
 ** Railroad [0/1]
 *** TODO Railroad()
 ** TestHelper
@@ -134,6 +136,7 @@ per regular class in the src/ directory.
 *** TODO assertSameCash()
 *** TODO changeCellAllPlayers()
 *** TODO assertSameCell()
+** UtilityCell [/]
 * Potential future tests
 ** Check that every single cell in the board is initialized, with the correct values etc. IE for a property, that all rent values are correct.
 ** Make sure that a person who passes go and lands on the community chest that then passes them back to go is payed twice accordingly.
