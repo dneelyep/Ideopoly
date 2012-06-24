@@ -342,59 +342,23 @@ public class IdeopolyGUI implements ActionListener {
 	frame.add(guiName, c);
 
 	// TODO: Loop this or make a function.
+	// TODO: Auto-append the : ?
+	String[] labels = {"House/Hotel cost", "Rent", "1 house", "2 houses", "3 houses", "4 houses", "1 hotel", "Mortgage value"};
+	JLabel[] labelValues = {guiHouseHotelCost, guiRent, gui1House, gui2House, gui3House, gui4House, guiHotel, guiMortgage};
+
 	c.gridwidth = 4;
 	c.gridy++;
 	frame.add(new JLabel("Cost:"), c);
 	c.gridx += 6;
 	frame.add(guiCost, c);
 
-	c.gridy++;
-	c.gridx -= 6;
-	frame.add(new JLabel("House/Hotel cost:"), c);
-	c.gridx += 6;
-	frame.add(guiHouseHotelCost, c);
-
-	c.gridy++;
-	c.gridx -= 6;
-	frame.add(new JLabel("Rent:"), c);
-	c.gridx += 6;
-	frame.add(guiRent, c);
-
-	c.gridy++;
-	c.gridx -= 6;
-	frame.add(new JLabel("1 house:"), c);
-	c.gridx += 6;
-	frame.add(gui1House, c);
-
-	c.gridy++;
-	c.gridx -= 6;
-	frame.add(new JLabel("2 houses:"), c);
-	c.gridx += 6;
-	frame.add(gui2House, c);
-
-	c.gridy++;
-	c.gridx -= 6;
-	frame.add(new JLabel("3 houses:"), c);
-	c.gridx += 6;
-	frame.add(gui3House, c);
-
-	c.gridy++;
-	c.gridx -= 6;
-	frame.add(new JLabel("4 houses:"), c);
-	c.gridx += 6;
-	frame.add(gui4House, c);
-
-	c.gridy++;
-	c.gridx -= 6;
-	frame.add(new JLabel("1 hotel:"), c);
-	c.gridx += 6;
-	frame.add(guiHotel, c);
-
-	c.gridy++;
-	c.gridx -= 6;
-	frame.add(new JLabel("Mortgage value:"), c);
-	c.gridx += 6;
-	frame.add(guiMortgage, c);
+	for (int i = 0; i < labels.length; i++) {
+	    c.gridy++;
+	    c.gridx -= 6;
+	    frame.add(new JLabel(labels[i] + ":"), c);
+	    c.gridx += 6;
+	    frame.add(labelValues[i], c);
+	}
 
 	// TODO: Make a single Random object and re-use it?
 	Random generator = new Random();
