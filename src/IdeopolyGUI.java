@@ -58,46 +58,46 @@ public class IdeopolyGUI implements ActionListener {
     // Create the game board.
     // TODO: Remove unneeded image templates.
     private SpecialCell	     go              = new SpecialCell("Go", "go.jpg", 41, 41, this);
-    private PropagandaOutlet mediterraneanAv = new PropagandaOutlet("Mediterranean Av.", "purpleTemplate.jpg", 60, 2, 10, 30, 90, 160, 250, 50, 37, 41, this, 0.47, 0.0, 0.85);
+    private PropagandaOutlet mediterraneanAv = new PropagandaOutlet("Mediterranean Av.", "purpleTemplate.jpg", 60, 2, 10, 30, 90, 160, 250, 50, 37, 41, this, 120, 1, 217);
     private ChanceOrCommChestCell commChestBottom = new ChanceOrCommChestCell("Community Chest", "bottCommChest.jpg", 33, 41, this);
-    private PropagandaOutlet balticAv        = new PropagandaOutlet("Baltic Av.", "purpleTemplate.jpg", 60, 4, 20, 60, 180, 320, 450, 50, 29, 41, this, 0.47, 0.0, 0.85);
+    private PropagandaOutlet balticAv        = new PropagandaOutlet("Baltic Av.", "purpleTemplate.jpg", 60, 4, 20, 60, 180, 320, 450, 50, 29, 41, this, 120, 1, 217);
     private SpecialCell	     incomeTax       = new SpecialCell("Income Tax", "incomeTax.jpg", 25, 41, this);
     // TODO: Bigger font size (~80) for the text on railroads - hard to read currently.
     private Railroad	     readingRR       = new Railroad("Reading RR", "readingRR.jpg", 21, 41, this);
-    private PropagandaOutlet orientalAv      = new PropagandaOutlet("Oriental Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, 17, 41, this, 0.68, 0.94, 1.00);
+    private PropagandaOutlet orientalAv      = new PropagandaOutlet("Oriental Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, 17, 41, this, 174, 239, 255);
     private ChanceOrCommChestCell chanceBottom = new ChanceOrCommChestCell("Chance", "botChance.jpg", 13, 41, this);
-    private PropagandaOutlet vermontAv       = new PropagandaOutlet("Vermont Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, 9, 41, this, 0.68, 0.94, 1.00);
-    private PropagandaOutlet connecticutAv   = new PropagandaOutlet("Connecticut Av.", "lightBlueTemplate.jpg", 120, 8, 40, 100, 300, 450, 600, 50, 5, 41, this, 0.68, 0.94, 1.00);
+    private PropagandaOutlet vermontAv       = new PropagandaOutlet("Vermont Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, 9, 41, this, 174, 239, 255);
+    private PropagandaOutlet connecticutAv   = new PropagandaOutlet("Connecticut Av.", "lightBlueTemplate.jpg", 120, 8, 40, 100, 300, 450, 600, 50, 5, 41, this, 174, 239, 255);
     private SpecialCell	     jail	     = new SpecialCell("Jail", "jail.jpg", 1, 41, this);
-    private PropagandaOutlet stCharles       = new PropagandaOutlet("St. Charles Place", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, 1, 37, this, 1.0, 0.01, 0.59);
+    private PropagandaOutlet stCharles       = new PropagandaOutlet("St. Charles Place", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, 1, 37, this, 254, 2, 151);
     private UtilityCell	     electricCompany = new UtilityCell("Electric Co.", "electricCo.jpg", 1, 33, this);
-    private PropagandaOutlet statesAv	     = new PropagandaOutlet("States Av.", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, 1, 29, this, 1.0, 0.01, 0.59);
-    private PropagandaOutlet virginiaAv      = new PropagandaOutlet("Virginia Av.", "pinkTemplate.jpg", 160, 12, 60, 180, 500, 700, 900, 100, 1, 25, this, 1.0, 0.01, 0.59);
+    private PropagandaOutlet statesAv	     = new PropagandaOutlet("States Av.", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, 1, 29, this, 254, 2, 151);
+    private PropagandaOutlet virginiaAv      = new PropagandaOutlet("Virginia Av.", "pinkTemplate.jpg", 160, 12, 60, 180, 500, 700, 900, 100, 1, 25, this, 254, 2, 151);
     private Railroad	     pennsylvaniaRR  = new Railroad("Pennsylvania RR", "pennsylvaniaRR.jpg", 1, 21, this);
-    private PropagandaOutlet stJames         = new PropagandaOutlet("St. James", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, 1, 17, this, 1.00, 0.74, 0.02);
+    private PropagandaOutlet stJames         = new PropagandaOutlet("St. James", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, 1, 17, this, 255, 188, 6);
     private ChanceOrCommChestCell commChestLeft = new ChanceOrCommChestCell("Community Chest", "leftCommChest.jpg", 1, 13, this);
-    private PropagandaOutlet tennesseeAv     = new PropagandaOutlet("Tennessee Av.", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, 1, 9, this, 1.00, 0.74, 0.02);
-    private PropagandaOutlet newYorkAv       = new PropagandaOutlet("New York Av.", "orangeTemplate.jpg", 200, 16, 80, 220, 600, 800, 1000, 100, 1, 5, this, 1.00, 0.74, 0.02);
+    private PropagandaOutlet tennesseeAv     = new PropagandaOutlet("Tennessee Av.", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, 1, 9, this, 255, 188, 6);
+    private PropagandaOutlet newYorkAv       = new PropagandaOutlet("New York Av.", "orangeTemplate.jpg", 200, 16, 80, 220, 600, 800, 1000, 100, 1, 5, this, 255, 188, 6);
     private SpecialCell      freeParking     = new SpecialCell("Free Parking", "freeParking.jpg", 1, 1, this);
-    private PropagandaOutlet kentuckyAv      = new PropagandaOutlet("Kentucky Av.", "properties/kentuckyAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, 5, 1, this, 1.0, 0, 0.0);
+    private PropagandaOutlet kentuckyAv      = new PropagandaOutlet("Kentucky Av.", "properties/kentuckyAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, 5, 1, this, 255, 0, 0);
     private ChanceOrCommChestCell chanceTop  = new ChanceOrCommChestCell("Chance", "topChance.jpg", 9, 1, this);
-    private PropagandaOutlet indianaAv	     = new PropagandaOutlet("Indiana Av.", "properties/indianaAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, 13, 1, this, 1.0, 0, 0.0);
-    private PropagandaOutlet illinoisAv      = new PropagandaOutlet("Illinois Av.", "properties/illinoisAv.jpg", 240, 20, 100, 300, 750, 925, 1100, 150, 17, 1, this, 1.0, 0, 0.0);
+    private PropagandaOutlet indianaAv	     = new PropagandaOutlet("Indiana Av.", "properties/indianaAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, 13, 1, this, 255, 0, 0);
+    private PropagandaOutlet illinoisAv      = new PropagandaOutlet("Illinois Av.", "properties/illinoisAv.jpg", 240, 20, 100, 300, 750, 925, 1100, 150, 17, 1, this, 255, 0, 0);
     private Railroad	     bAndORR	     = new Railroad("B & O RR", "bAndORR.jpg", 21, 1, this);
-    private PropagandaOutlet atlanticAv      = new PropagandaOutlet("Atlantic Av.", "properties/atlanticAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 1, 25, 1, this, 0.99, 1.0, 0.0);
-    private PropagandaOutlet ventnorAv	     = new PropagandaOutlet("Ventnor Av.", "properties/ventnorAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 150, 29, 1, this, 0.99, 1.0, 0.0);
+    private PropagandaOutlet atlanticAv      = new PropagandaOutlet("Atlantic Av.", "properties/atlanticAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 1, 25, 1, this, 252, 255, 0);
+    private PropagandaOutlet ventnorAv	     = new PropagandaOutlet("Ventnor Av.", "properties/ventnorAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 150, 29, 1, this, 252, 255, 0);
     private UtilityCell	     waterWorks      = new UtilityCell("Water Works", "waterWorks.jpg", 33, 1, this);
-    private PropagandaOutlet marvinGardens   = new PropagandaOutlet("Marvin Gardens", "properties/marvinGardens.jpg", 280, 24, 120, 360, 850, 1025, 1200, 150, 37, 1, this, 0.99, 1.0, 0.0);
+    private PropagandaOutlet marvinGardens   = new PropagandaOutlet("Marvin Gardens", "properties/marvinGardens.jpg", 280, 24, 120, 360, 850, 1025, 1200, 150, 37, 1, this, 252, 255, 0);
     private SpecialCell      goToJail        = new SpecialCell("Go to Jail", "goToJail.jpg", 41, 1, this);
-    private PropagandaOutlet pacificAv	     = new PropagandaOutlet("Pacific Av.", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 5, this, 0.0, 0.77, 0.0);
-    private PropagandaOutlet nCarolinaAv     = new PropagandaOutlet("N. Carolina Av.", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 9, this, 0.0, 0.77, 0.0);
+    private PropagandaOutlet pacificAv	     = new PropagandaOutlet("Pacific Av.", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 5, this, 0, 196, 0);
+    private PropagandaOutlet nCarolinaAv     = new PropagandaOutlet("N. Carolina Av.", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, 41, 9, this, 0, 196, 0);
     private ChanceOrCommChestCell commChestRight = new ChanceOrCommChestCell("Community Chest", "rightCommChest.jpg", 41, 13, this);
-    private PropagandaOutlet pennsylvaniaAv  = new PropagandaOutlet("Pennsylvania Av.", "greenTemplate.jpg", 320, 28, 150, 450, 1000, 1200, 1400, 200, 41, 17, this, 0.0, 0.77, 0.0);
+    private PropagandaOutlet pennsylvaniaAv  = new PropagandaOutlet("Pennsylvania Av.", "greenTemplate.jpg", 320, 28, 150, 450, 1000, 1200, 1400, 200, 41, 17, this, 0, 196, 0);
     private Railroad         shortLineRR     = new Railroad("Short Line RR", "shortLineRR.jpg", 41, 21, this);
     private ChanceOrCommChestCell chanceRight = new ChanceOrCommChestCell("Chance", "rightChance.jpg", 41, 25, this);
-    private PropagandaOutlet parkPlace       = new PropagandaOutlet("Park Place", "darkBlueTemplate.jpg", 350, 35, 175, 500, 1100, 1300, 1500, 200, 41, 29, this, 0.0, 0.03, 0.99);
+    private PropagandaOutlet parkPlace       = new PropagandaOutlet("Park Place", "darkBlueTemplate.jpg", 350, 35, 175, 500, 1100, 1300, 1500, 200, 41, 29, this, 0, 8, 253);
     private SpecialCell      luxuryTax       = new SpecialCell("Luxury Tax", "luxuryTax.jpg", 41, 33, this);
-    private PropagandaOutlet boardwalk       = new PropagandaOutlet("Boardwalk", "darkBlueTemplate.jpg", 400, 50, 200, 600, 1400, 1700, 2000, 200, 41, 37, this, 0.0, 0.03, 0.99);
+    private PropagandaOutlet boardwalk       = new PropagandaOutlet("Boardwalk", "darkBlueTemplate.jpg", 400, 50, 200, 600, 1400, 1700, 2000, 200, 41, 37, this, 0, 8, 253);
 
     // TODO: Make this a vector, or similar, so I can insert multiple types of objects. 
     // This will solve the later problem of not being able to use getCashDistribution. 

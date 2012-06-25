@@ -59,7 +59,7 @@ public class PropagandaOutlet extends BoardCell {
     // TODO: Should we accept an array instead maybe?
     // TODO: Accept an array for rent values rather than separate variables?
     // TODO: camelCase variable names here.
-    public PropagandaOutlet(String newName, String imagePath, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, int xPos, int yPos, IdeopolyGUI gui, double r, double g, double b) {
+    public PropagandaOutlet(String newName, String imagePath, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, int xPos, int yPos, IdeopolyGUI gui, int r, int g, int b) {
 	// TODO: Better, less ambiguous variable names here.
 	super(newName, imagePath, xPos, yPos, gui); // Use the BoardCell class' constructor.
 	numHouses	    = 0;
@@ -73,7 +73,7 @@ public class PropagandaOutlet extends BoardCell {
 	rent4House	    = newRent4House;
 	rent1Hotel	    = newRent1Hotel;
 	houseOrHotelCost    = newHouseOrHotelCost;
-	color               = new Color((float) r, (float) g, (float) b);
+	color               = new Color(r, g, b);
     }
 
     /** Return the amount of rent that a Player landing here has to pay. */
