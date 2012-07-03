@@ -14,8 +14,8 @@ public class CharacterSelect implements ActionListener {
     private String selectedPlayer = "null";
 
     /** Buttons to represent the various characters players can pick. */
-    // TODO: Add a highlighting effect when moused-over and selected.
-    // TODO: Make the stallman photo a jpg, or all png, or whatever for consistency.
+    // TODO: Make the stallman photo a jpeg, or all png, or whatever for consistency.
+    //       Currently, I run into errors when the image is a jpeg.
     private JButton stallmanButton  = new JButton(new ImageIcon("images/Richard_Stallman.png"));
     private JButton thatcherButton  = new JButton(new ImageIcon("images/Margaret_Thatcher.jpg"));
     private JButton marxButton      = new JButton(new ImageIcon("images/Karl_Marx.jpg"));
@@ -41,8 +41,6 @@ public class CharacterSelect implements ActionListener {
     // TODO: Review other constructors - should their stuff be fields?
     public CharacterSelect() {
 	// TODO: Should this be set above? Outside the constructor that is.
-
-
 	Container pane       = frame.getContentPane();
 	pane.setLayout(new GridBagLayout());
 	GridBagConstraints c = new GridBagConstraints();
@@ -54,13 +52,28 @@ public class CharacterSelect implements ActionListener {
 	    button.addActionListener(this);
 	}
 
+	// Set roll-over icons for each character.
+	stallmanButton.setRolloverIcon(new ImageIcon("images/Richard_Stallman_rollover.png"));
+	thatcherButton.setRolloverIcon(new ImageIcon("images/Margaret_Thatcher_rollover.png"));
+	marxButton.setRolloverIcon(new ImageIcon("images/Karl_Marx_rollover.png"));
+	gandhiButton.setRolloverIcon(new ImageIcon("images/Mahatma_Gandhi_rollover.png"));
+	kropotkinButton.setRolloverIcon(new ImageIcon("images/Peter_Kropotkin_rollover.png"));
+	bismarckButton.setRolloverIcon(new ImageIcon("images/Otto_von_Bismarck_rollover.png"));
+
+	// And set icons for when a character is selected.
+	stallmanButton.setSelectedIcon(new ImageIcon("images/Richard_Stallman_selected.png"));
+	thatcherButton.setSelectedIcon(new ImageIcon("images/Margaret_Thatcher_selected.png"));
+	marxButton.setSelectedIcon(new ImageIcon("images/Karl_Marx_selected.png"));
+	gandhiButton.setSelectedIcon(new ImageIcon("images/Mahatma_Gandhi_selected.png"));
+	kropotkinButton.setSelectedIcon(new ImageIcon("images/Peter_Kropotkin_selected.png"));
+	bismarckButton.setSelectedIcon(new ImageIcon("images/Otto_von_Bismarck_selected.png"));
+
 	continueButton.addActionListener(this);
 	backButton.addActionListener(this);
 
 	c.fill = GridBagConstraints.HORIZONTAL;
 
-	// TODO: Center this text across the row. And make it sexy artwork rather than bland text.
-	JLabel chooseCharacter = new JLabel(new ImageIcon("images/chooseLeader.png"));// "Choose your character below:");
+	JLabel chooseCharacter = new JLabel(new ImageIcon("images/chooseLeader.png"));
 
 	// Add all buttons to the character select screen.
 	c.gridx = 0;
@@ -110,5 +123,28 @@ public class CharacterSelect implements ActionListener {
 	}
 	else
 	    selectedPlayer = actionSource;
+
+	JButton src = (JButton) e.getSource();
+
+	// Deselect all buttons, then select only the selected button.
+	stallmanButton.setSelected(false);
+	thatcherButton.setSelected(false);
+	marxButton.setSelected(false);
+	gandhiButton.setSelected(false);
+	kropotkinButton.setSelected(false);
+	bismarckButton.setSelected(false);
+
+	if (src.getIcon() == stallmanButton.getIcon())
+	    stallmanButton.setSelected(true);
+	else if (src.getIcon() == thatcherButton.getIcon())
+	    thatcherButton.setSelected(true);
+	else if (src.getIcon() == marxButton.getIcon())
+	    marxButton.setSelected(true);
+	else if (src.getIcon() == gandhiButton.getIcon())
+	    gandhiButton.setSelected(true);
+	else if (src.getIcon() == kropotkinButton.getIcon())
+	    kropotkinButton.setSelected(true);
+	else if (src.getIcon() == bismarckButton.getIcon())
+	    bismarckButton.setSelected(true);
     }
 }
