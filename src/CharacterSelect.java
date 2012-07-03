@@ -44,7 +44,6 @@ public class CharacterSelect implements ActionListener {
 	Container pane       = frame.getContentPane();
 	pane.setLayout(new GridBagLayout());
 	GridBagConstraints c = new GridBagConstraints();
-
 	continueButton.setEnabled(false); // Disable at first, since a character hasn't been picked.
 
 	// Make all character token buttons listen for actions.

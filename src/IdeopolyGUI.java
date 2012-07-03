@@ -314,8 +314,6 @@ public class IdeopolyGUI implements ActionListener {
 	messages.setLineWrap(true);
 	messages.setColumns(50);
 	messagesPane.setColumnHeaderView(new JLabel("Status"));
-	// LEFTOFFHERE: Just added this status header thing and removed previous
-	// JLabel. Now to make the bottom of the textarea a bit more viewable.
 	// TODO: Implement formatted text here. For example, bold the Player names
 	// in messages.
 	frame.add(messagesPane, c);
@@ -844,7 +842,10 @@ public class IdeopolyGUI implements ActionListener {
     // ...although that might not work on Windows...
     public void printStatusAndLog(String text) {
 	messages.append("\n" + text);
-	// fout.append(text);	
+	// Setting the caret position is required to make the messages pane scroll.
+	// See https://tips4java.wordpress.com/2008/10/22/text-area-scrolling/
+	messages.setCaretPosition(messages.getDocument().getLength());
+	// fout.append(text);
 	// fout.close();
 
 	//	fout = new FileWriter("log.txt");
