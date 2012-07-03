@@ -29,8 +29,6 @@ public class Menu implements ActionListener {
  	mainMenu.getContentPane().add(box);
 
 	// TODO: Try to loop this? [Very small gains WRT less LOC.]
-	// TODO: Clean up the edges on the image, make it look a bit better.
-	// TODO: Consider making the background transparent also so it blends with the GUI.
 	JLabel logo = new JLabel(new ImageIcon("images/logo.png"));
 	logo.setAlignmentX(Component.CENTER_ALIGNMENT);
 	box.add(logo);
