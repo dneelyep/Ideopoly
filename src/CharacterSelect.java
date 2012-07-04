@@ -125,8 +125,9 @@ public class CharacterSelect implements ActionListener {
 
 	JButton src = (JButton) e.getSource();
 
-	// Deselect all buttons, then select only the selected button.
+	// Deselect all buttons, then selcet only the selected button.
 	stallmanButton.setSelected(false);
+	// TODO: Consider replacing with Ronald Reagan/Republican symbol.
 	thatcherButton.setSelected(false);
 	marxButton.setSelected(false);
 	gandhiButton.setSelected(false);

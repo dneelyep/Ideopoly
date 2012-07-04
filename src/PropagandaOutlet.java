@@ -120,6 +120,7 @@ public class PropagandaOutlet extends BoardCell {
 	return initialRent;
     }
 
+    // TODO: Remove these? They're kind of covered by getRent().
     public int getRent1House() {
 	return rent1House;
     }

@@ -12,12 +12,11 @@ import java.awt.*;
 // TODO: Need to implement the whole idea of an onLand() method. Should simplify
 // things considerably.
 
-// TODO: Review all methods, implement camelcase variable names and such for consistency.
 // TODO: Have the subclasses only implement the MouseListener, since not all subclasses need to be listened to? IE: Go to jail.
 // TODO: On go to jail, on land do a funny animation.
 
 
-abstract public class BoardCell {
+public abstract class BoardCell {
     // TODO: Add a field indicating whether or not a player is present 
     //       on this cell? And a method to set that.
     // TODO: Do I need this name field?
@@ -111,10 +110,6 @@ abstract public class BoardCell {
 	return image;
     }
 
-    public void setImage(Icon newImage) {
-	image = newImage;
-    }
-
     /** Get this cell's x position. */
     // TODO: Rename these for consistency between these and the getXCoord() method elsewhere?
     public int getX() {
@@ -129,10 +124,8 @@ abstract public class BoardCell {
     // TODO: Look into abstract methods and classes for this part. It looks like those techniques
     // might help me solve this problem.
     // See this: http://www.cafeaulait.org/javafaq.html#xtocid2672631t
-    /** Dummy method. Used so I can access getRent() from the derived class PropagandaOutlet. */
-    abstract public int getRent();// {
-	//	return 0;
-    //    }
+    /** Get the amount of rent charged for landing on this cell. */
+    public abstract int getRent();
 
     // TODO: So on abstract methods, the basic idea is that the superclass provides
     // a method but no implementation, and all sub-classes provide the implementations.
@@ -191,17 +184,11 @@ abstract public class BoardCell {
 	    addMouseListener(this);
 	}
 
-	public void mousePressed(MouseEvent e) {
-	    System.out.println("Mouse pressed " + name);
-	}
-
-	public void mouseReleased(MouseEvent e) {
-	    System.out.println("Mouse released " + name);
-	}
-
+	/** When the mouse hovers over a property, display relevant
+	 *  information in the detailed property info. GUI section. */
 	public void mouseEntered(MouseEvent e) {
 	    // TODO: Tests for this stuff.
-	    if (BoardCell.this.getClass() == gui.boardProperties[5].getClass()) { // Railroad
+	    if (BoardCell.this.getClass().getName() == "Railroad") {
 		Railroad r = (Railroad) BoardCell.this;
 		gui.setGUIColor(Color.BLACK);
 		gui.setGUICost("$" + Integer.toString(r.getCost()));
@@ -216,7 +203,7 @@ abstract public class BoardCell {
 		gui.setGUIHotel("Can't buy hotels");
 		gui.setGUIMortgage("$" + Integer.toString(r.getMortgageValue()));
 	    }
-	    else if (BoardCell.this.getClass() == gui.boardProperties[39].getClass()) { // Boardwalk (any PropagandaOutlet)
+	    else if (BoardCell.this.getClass().getName() == "PropagandaOutlet") {
 		PropagandaOutlet p = (PropagandaOutlet) BoardCell.this;
 
 		gui.setGUIColor(p.getColor());
@@ -231,7 +218,7 @@ abstract public class BoardCell {
 		gui.setGUIHotel("$" + Integer.toString(p.getRent1Hotel()));
 		gui.setGUIMortgage("$" + Integer.toString(p.getMortgageValue()));
 	    }
-	    else if (BoardCell.this.getClass() == gui.boardProperties[12].getClass()) { // Utility
+	    else if (BoardCell.this.getClass().getName() == "UtilityCell") {
 		UtilityCell u = (UtilityCell) BoardCell.this;
 
 		gui.setGUIColor(Color.GRAY);
@@ -244,10 +231,10 @@ abstract public class BoardCell {
 		// gui.gui3House.setText("$" + Integer.toString(u.getRent3House()));
 		// gui.gui4House.setText("$" + Integer.toString(u.getRent4House()));
 		// gui.guiHotel.setText ("$" + Integer.toString(u.getRent1Hotel()));
-		// gui.guiMortgage.setText("$" + Integer.toString(u.getMortgageValue()));
+		// gui.guiMortgage.set Text("$" + Integer.toString(u.getMortgageValue()));
 	    }
-	    else if (BoardCell.this.getClass() == gui.boardProperties[0].getClass()
-		  || BoardCell.this.getClass() == gui.boardProperties[7].getClass()) { // Non-ownable
+	    else if (BoardCell.this.getClass().getName() == "SpecialCell"
+	          || BoardCell.this.getClass().getName() == "ChanceOrCommChestCell") {
 		// TODO: Remove the labels when we mouse over an un-ownable property?
 		gui.setGUIColor(Color.WHITE);
 		gui.setGUICost("Un-ownable");
@@ -263,67 +250,17 @@ abstract public class BoardCell {
 
 	    gui.setGUIName(name);
 	}
-
-	public void mouseExited(MouseEvent e) {
-	    System.out.println("Mouse exited " + name);
-	}
-
-	public void mouseClicked(MouseEvent e) {
-	    System.out.println("Mouse clicked " + name);
-	}
+	// TODO: Is there a better way to do this?
+	public void mouseExited(MouseEvent e) {	}	
+	public void mouseClicked(MouseEvent e) { }
+	public void mousePressed(MouseEvent e) { }
+	public void mouseReleased(MouseEvent e) { }
     }
-
-    // TODO: Setters needed?
 
     // Start with these, add more if/where needed. Add specifics in inherited classes.
     // TODO: Note that subclasses inherit public and protected, not private members.
     // TODO: Implement those extra classes.
-
-    /*
-* Cell group
-Represents a group of related properties.
-** Fields
-*** Id    // A unique identifier of the group. // TODO This needed?
-*** Color // The color displayed for each property in this group.
-TODO: Add an owner field to state that a person owns all sub-properties?
-*** Owner // If a person owns all properties in the cell group, this is a player object referring to them.
-*** Number_of_properties // The number of properties belonging to this cell group.
-*** Vector/array Child_properties // A list of all sub-properties in this cell group.
-** Methods
-
-* Go to jail
-** fields
-** methods
-*** onLand()
-**** Send the player directly to jail. Set the player's currently in jail value to the correct value.
-* Jail // TODO: Make creative alternatives to jail/free parking
-** Fields
-** Methods
-*** onLand()
-**** Is the player just visiting?
-**** Is player.numberofgetoutofjailcards > 0? // TODO: Should this go here?
-******* Yes
-******** Let player use it if they want
-******* No
-******** Do nothing.
-* Free parking //TODO: Save this in a separate planning file in the assignment directory.
-** Fields
-** Methods
-*** onLand()
-Nothing happens when the player lands here.
-* Scandalous tv show [Electric company]
-** Fields
-*** Owned_by
-* Scandalous newspaper [water works]
-** Owned_by
-* Go
-** Fields
-** Methods
-***** onLand(player) [Overload[?] the parent function] // When a player lands on the cell, give them two Glenn Becks ($200)
-* Income tax
-** Fields
-** Methods
-*** onLand()
-**** Ask player whether they want to pay 10% or $200 bucks to the bank. Depending on which they pick, charge them the correct amount.
-**** TODO Add a timer so they don't have time to add up their money? */
+    // TODO: Add an owner field to state that a person owns all sub-properties?
+    // TODO: Make creative alternatives to jail/free parking
+    // TODO: Add a timer so they don't have time to add up their money?
 } 

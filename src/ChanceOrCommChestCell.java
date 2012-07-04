@@ -8,4 +8,13 @@ public class ChanceOrCommChestCell extends BoardCell {
     public ChanceOrCommChestCell(String newName, String imagePath, int xPos, int yPos, IdeopolyGUI gui) {
 	super(newName, imagePath, xPos, yPos, gui); // Use the BoardCell class' constructor.
     }
+
+    // TODO: Handle this better than returning a 0 value. Un-elegant.
+    /** Get the amount of rent charged for landing on this cell.
+     *  Since the Player is not charged for landing on Chance/CommChest
+     *  cells, we return 0 for the amount. */
+    @Override
+    public int getRent() {
+	return 0;
+    }
 }
