@@ -24,7 +24,7 @@ public class IdeopolyGUI implements ActionListener {
     private int gameWon = 0;
 
     private String cashValues[] = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
-    private String titles[] = { "Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail" };
+    private String cashHeadings[] = { "Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail" };
     // TODO: Come up with a better solution than making this public.
     public JLabel[] playerRowLabels = { new JLabel("Player 1"), 
 					new JLabel("Player 2"), 
@@ -113,15 +113,19 @@ public class IdeopolyGUI implements ActionListener {
     // TODO: Add an access specifier here.
     // TODO: Note that this might be better represented by a Set collection. I don't have any
     //       duplicate items, and operating on a collection could be handy possibly.
+    // TODO: Rename this propaganda outlets rather than properties? Confusing?
     final BoardCell boardProperties[] = { go, mediterraneanAv, commChestBottom, balticAv, incomeTax, readingRR, orientalAv, chanceBottom, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChestLeft, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chanceTop, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChestRight, pennsylvaniaAv, shortLineRR, chanceRight, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
 
     /** Represents the player whose turn it currently is to roll. 0-3. */
+    // TODO: There should be a more elegant way of doing this than storing
+    //       the player as an int. For example, make current player status
+    //       a boolean field that belongs to each player.
     private int currentPlayer = 0;
 
-    public  Player player1   = new Player(1, this);
-    public  Player player2   = new Player(2, this);
-    public  Player player3   = new Player(3, this);
-    public  Player player4   = new Player(4, this);
+    public Player player1   = new Player(1, this);
+    public Player player2   = new Player(2, this);
+    public Player player3   = new Player(3, this);
+    public Player player4   = new Player(4, this);
     // TODO: Try to reduce usage of this players array. Is useless and confusing except when looping.
     private Player players[] = {player1, player2, player3, player4};
 
@@ -132,19 +136,18 @@ public class IdeopolyGUI implements ActionListener {
     private Stack<CommunityChest> commChestCards = new Stack<CommunityChest>();
 
     /** Various fields that display detailed property information. */
-    // TODO: Make these private and include a method/methods for changing their state?
-    // TODO: Better, more descriptive variable names.
-    public JLabel guiColor    = new JLabel(" ");
-    public JLabel guiName     = new JLabel("-");
-    public JLabel guiCost     = new JLabel("-");
-    public JLabel guiHouseHotelCost = new JLabel("-");
-    public JLabel guiRent     = new JLabel("-");
-    public JLabel gui1House   = new JLabel("-");
-    public JLabel gui2House   = new JLabel("-");
-    public JLabel gui3House   = new JLabel("-");
-    public JLabel gui4House   = new JLabel("-");
-    public JLabel guiHotel    = new JLabel("-");
-    public JLabel guiMortgage = new JLabel("-");
+    // TODO: Better, more descriptive variable names. eg, detailedPropColor, etc.
+    private JLabel guiColor    = new JLabel(" ");
+    private JLabel guiName     = new JLabel("-");
+    private JLabel guiCost     = new JLabel("-");
+    private JLabel guiHouseHotelCost = new JLabel("-");
+    private JLabel guiRent     = new JLabel("-");
+    private JLabel gui1House   = new JLabel("-");
+    private JLabel gui2House   = new JLabel("-");
+    private JLabel gui3House   = new JLabel("-");
+    private JLabel gui4House   = new JLabel("-");
+    private JLabel guiHotel    = new JLabel("-");
+    private JLabel guiMortgage = new JLabel("-");
 
     /** Constructor creates the GUI, sets up parts of it, etc. */
     public IdeopolyGUI(String playerCharacter) { // TODO: Split up the functions logically.
@@ -154,15 +157,15 @@ public class IdeopolyGUI implements ActionListener {
 	// TODO: Use multiple instances of GridBagConstraints?
 	frame.setLayout(new GridBagLayout());
 	GridBagConstraints c = new GridBagConstraints();
-	// Align all components in the "top-right" of its display area.
+	// Align all components in the "top-right" of their display area.
 	c.anchor = GridBagConstraints.FIRST_LINE_START;
-
-	c.gridwidth  = 4;
-	c.gridheight = 4;
 
 	// ===================================================
 	// === For every cell on the board, add its image. ===
 	// ===================================================
+	c.gridwidth  = 4;
+	c.gridheight = 4;
+
 	for (BoardCell cell : boardProperties) {
 	    c.gridx = cell.getX();
 	    c.gridy = cell.getY();
@@ -170,47 +173,37 @@ public class IdeopolyGUI implements ActionListener {
 	    frame.add(cell.getGraphicalRepresentation(), c);
 	}
 
-	c.gridwidth  = 1;
-	c.gridheight = 1;
-
 	// ================================================================
 	// === Add the standing positions around the edge of the board. ===
 	// ================================================================
+	c.gridwidth  = 1;
+	c.gridheight = 1;
+
 	for (BoardCell property : boardProperties) {
-	    // TODO: Should be loopable.
-	    c.gridx = property.p1Pos.getXCoord();
-	    c.gridy = property.p1Pos.getYCoord();
-	    frame.add(property.p1Pos, c);
+	    BoardPosition[] cellPositions = {property.p1Pos,
+					     property.p2Pos,
+					     property.p3Pos,
+					     property.p4Pos};
 
-	    c.gridx = property.p2Pos.getXCoord();
-	    c.gridy = property.p2Pos.getYCoord();
-	    frame.add(property.p2Pos, c);
-
-	    c.gridx = property.p3Pos.getXCoord();
-	    c.gridy = property.p3Pos.getYCoord();
-	    frame.add(property.p3Pos, c);
-
-	    c.gridx = property.p4Pos.getXCoord();
-	    c.gridy = property.p4Pos.getYCoord();
-	    frame.add(property.p4Pos, c);
+	    for (BoardPosition p : cellPositions) {
+		c.gridx = p.getXCoord();
+		c.gridy = p.getYCoord();
+		frame.add(p, c);
+	    }
 	}
-
-	// TODO: Rename this propaganda outlets rather than properties? Confusing?
-	// TODO: Can I fix the icons to remove duplicate code?
 
 	// ====================================================
 	// === Create labels to display each player's cash. ===
 	// ====================================================
-	c.gridx = 49;
+	c.gridx = 50;
 	c.gridy = 0;
-
 
 	// TODO: Would be good if I just used a 2D array to store all this, rather
 	// than the separate titles, playerRowLabels, and for loop parts.
 	// Display the column titles.
-	for (String s : titles) {
-	    c.gridx++;
+	for (String s : cashHeadings) {
 	    frame.add(new JLabel(s), c);
+	    c.gridx++;
 	}
 
 	// Display Player 1/2/3/4: to the left of the rows.
@@ -230,9 +223,9 @@ public class IdeopolyGUI implements ActionListener {
 		// Add get out of jail free cards, rather than cash, in the 8th column.
 		// TODO: I should be able to reduce the code in this block a bit. A little tricky, doable.
 		if (j == 9)
-		    cashLabels[i][j] = new CashCell(51 + j, 1 + i, Integer.toString(players[i].getJailStatus()) );
+		    cashLabels[i][j] = new CashCell(60, 1 + i, Integer.toString(players[i].getJailStatus()));
 		else if (j == 8)
-		    cashLabels[i][j] = new CashCell(51 + j, 1 + i, Integer.toString(players[i].getNumGOOJFCards()) );
+		    cashLabels[i][j] = new CashCell(59, 1 + i, Integer.toString(players[i].getNumGOOJFCards()));
 		else
 		    cashLabels[i][j] = new CashCell(51 + j, 1 + i, Integer.toString(players[i].getCash(cashValues[j])));
 	    }
@@ -254,7 +247,9 @@ public class IdeopolyGUI implements ActionListener {
 	c.gridy      = 22;
 	frame.add(continueButton, c);
 
-	// Add all other buttons to the right side of the board.
+	// ======================================================================
+	// === Add buttons (buy houses, etc.) to the right side of the board. ===
+	// ======================================================================
 	c.fill = GridBagConstraints.HORIZONTAL;
 
 	// Disable currently unusable buttons.
@@ -296,27 +291,10 @@ public class IdeopolyGUI implements ActionListener {
 	c.gridy = 9;
 	frame.add(mortgageProperty, c);
 
-	// ==============================
-	// === Add the messages area. ===
-	// ==============================
 	c.gridx     = 50;
 	c.gridy     = 11;
 	c.gridwidth = 9;
 	frame.add(useGOOJFCard, c);
-
-	c.gridx      = 50;
-	c.gridy      = 37;
-	c.gridheight = 8;
-	c.gridwidth  = 11;
-
-	JScrollPane messagesPane = new JScrollPane(messages);
-	messagesPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-	messages.setLineWrap(true);
-	messages.setColumns(50);
-	messagesPane.setColumnHeaderView(new JLabel("Status"));
-	// TODO: Implement formatted text here. For example, bold the Player names
-	// in messages.
-	frame.add(messagesPane, c);
 
 	// ===============================================================
 	// === Add the GUI stuff that displays detailed property info. ===
@@ -348,6 +326,26 @@ public class IdeopolyGUI implements ActionListener {
 	    c.gridx += 6;
 	    frame.add(labelValues[i], c);
 	}
+
+	// ==============================
+	// === Add the messages area. ===
+	// ==============================
+	c.gridx      = 50;
+	c.gridy      = 37;
+	c.gridheight = 8;
+	c.gridwidth  = 11;
+
+	JScrollPane messagesPane = new JScrollPane(messages);
+	messagesPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+	messages.setLineWrap(true);
+	messages.setColumns(50);
+	messagesPane.setColumnHeaderView(new JLabel("Status"));
+
+	// TODO: Implement formatted text here. For example, bold the Player names
+	// in messages.
+	// If I want this, it looks like I'll need to switch messages from a JTextArea
+	// to a JTextPane. docs.oracle.com/javase/tutorial/uiswing/components/editorpane.html
+	frame.add(messagesPane, c);
 
 	// TODO: Make a single Random object and re-use it?
 	Random generator = new Random();
@@ -457,11 +455,11 @@ public class IdeopolyGUI implements ActionListener {
 	    if (p.getJailStatus() != 0) {
 		// TODO: Implement all this stuff. See notes file for ideas.
 
-		// /** Player's jail status.
-		//  *  0 = not in jail.
-		//  *  1 = last week in jail.
-		//  *  2 = second week in jail.
-		//  *  3 = first week in jail. */
+		/* Player's jail status.
+		   0 = not in jail.
+		   1 = last week in jail.
+		   2 = second week in jail.
+		   3 = first week in jail. */
 	    }
 
 	    else { // Player's not in jail, so they're free to move around.
@@ -473,6 +471,7 @@ public class IdeopolyGUI implements ActionListener {
 		// The player is about to land on/overshoot Go.
 		// TODO: Test to ensure that this is the correct cell. I think it's right but not positive.
 		// TODO: Could I just remove p.getIndex() >= 34 and have the same thing?
+		// Here the player will overshoot Boardwalk.
 		if (landingSpot > 39) {
 		    // TODO: Try to clarify what's happening here. Could probably simplify it.
 		    // TODO: If circular linked list works, this conditional should be unneeded.
@@ -487,8 +486,10 @@ public class IdeopolyGUI implements ActionListener {
 		// Player lands on a Community Chest card.
 		// TODO: For Chance and CommChest, do I need to have the Player
 		//       changeCell() before popping the card off?
-		else if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33)
+
+		else if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33) {
 		    commChestCards.pop().doActions(p, this, p2, p3, p4);
+		}
 	    
 		// Player lands on a Chance card.
 		else if (landingSpot == 7 || landingSpot == 22 || landingSpot == 36)
@@ -561,25 +562,27 @@ public class IdeopolyGUI implements ActionListener {
 				p.getCell().setOwner(p);
 
 				// TODO: Refactor more if possible.
-				if (p.getCell().getClass() == bAndORR.getClass()) {
+				// TODO: See about making a BoardCell, and then casting that
+				//       BoardCell to a more specific type. Then operating on that
+				//       BoardCell after it has been casted to.
+				if (p.getCellClassName() == "Railroad") {
 				    Railroad r = (Railroad) p.getCell();
 				    getCashDistribution(r.getCost());
 				    printStatusAndLog(p.getName() + " bought " + r.getName() + " for $" +  r.getCost() + ".");
-				    // TODO: Test to make sure ALL THREE CONDITIONS HERE are working. 
-				    //       Have not yet tested
-				    //       playerPayPlayer on a null Player input.
-				    //       Also test this later on where the player buys a property
-				    //       - apparently it's not working.
+				    /* TODO: Test to make sure ALL THREE CONDITIONS HERE are working. 
+				       Have not yet tested playerPayPlayer on a null Player input.
+				       Also test this later on where the player buys a property
+				       - apparently it's not working. */
 				    playerPayPlayer(r.getRent(), p);
 				}
-				else if (p.getCell().getClass() == boardwalk.getClass()) {
+				else if (p.getCellClassName() == "PropagandaOutlet") {
 				    PropagandaOutlet pO = (PropagandaOutlet) p.getCell();
 				    getCashDistribution(pO.getCost());
 				    printStatusAndLog(p.getName() + " bought " + pO.getName() + " for $" +  pO.getCost() + ".");
 				    System.out.println(pO.getCost());
 				    playerPayPlayer(pO.getRent(), p);
 				}
-				else if (p.getCell().getClass() == waterWorks.getClass()) {
+				else if (p.getCellClassName() == "UtilityCell") {
 				    UtilityCell u = (UtilityCell) p.getCell();
 				    getCashDistribution(u.getCost());
 				    printStatusAndLog(p.getName() + " bought " + u.getName() + " for $" +  u.getCost() + ".");
@@ -850,5 +853,54 @@ public class IdeopolyGUI implements ActionListener {
 
 	//	fout = new FileWriter("log.txt");
 	//    private FileWriter fout;
+    }
+
+
+
+    // TODO: Better, more descriptive names for these methods, 
+    // and the corresponding variables.
+    /** Set the background color for detailed property info. */
+    public void setGUIColor(Color c) {
+	guiColor.setBackground(c);
+    }
+    /** Set the text for detailed property info. */
+    public void setGUIName(String t) {
+	guiName.setText(t);
+    }
+    /** Set the cost text for detailed property info. */
+    public void setGUICost(String t) {
+	guiCost.setText(t);
+    }
+    /** Set the house/hotel cost text for detailed property info. */
+    public void setGUIHouseHotelCost(String t) {
+	guiHouseHotelCost.setText(t);
+    }
+    /** Set the rent text for detailed property info. */
+    public void setGUIRent(String t) {
+	guiRent.setText(t);
+    }
+    /** Set the 1 house cost text for detailed property info. */
+    public void setGUI1House(String t) {
+	gui1House.setText(t);
+    }
+    /** Set the 2 houses cost text for detailed property info. */
+    public void setGUI2House(String t) {
+	gui2House.setText(t);
+    }
+    /** Set the 3 houses cost text for detailed property info. */
+    public void setGUI3House(String t) {
+	gui3House.setText(t);
+    }
+    /** Set the 4 houses cost text for detailed property info. */
+    public void setGUI4House(String t) {
+	gui4House.setText(t);
+    }
+    /** Set the hotel cost text for detailed property info. */
+    public void setGUIHotel(String t) {
+	guiHotel.setText(t);
+    }
+    /** Set the mortgage value for detailed property info. */
+    public void setGUIMortgage(String t) {
+	guiMortgage.setText(t);
     }
 }

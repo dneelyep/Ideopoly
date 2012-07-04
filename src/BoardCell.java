@@ -199,40 +199,42 @@ public class BoardCell {
 	    // TODO: Tests for this stuff.
 	    if (BoardCell.this.getClass() == gui.boardProperties[5].getClass()) { // Railroad
 		Railroad r = (Railroad) BoardCell.this;
-		gui.guiColor.setBackground(Color.BLACK);
-		gui.guiCost.setText("$" + Integer.toString(r.getCost()));
+		gui.setGUIColor(Color.BLACK);
+		gui.setGUICost("$" + Integer.toString(r.getCost()));
 		// TODO: Change the gui text to 1RR/2RRs/etc. maybe 
 		//       where houses would be displayed.
-		gui.guiRent.setText("$" + Integer.toString(r.getInitialRent()));
-		gui.gui1House.setText("Can't buy houses");
-		gui.gui2House.setText("Can't buy houses");
-		gui.gui3House.setText("Can't buy houses");
-		gui.gui4House.setText("Can't buy houses");
-		gui.guiHotel.setText("Can't buy hotels");
-		gui.guiMortgage.setText("$" + Integer.toString(r.getMortgageValue()));
+		gui.setGUIRent("$" + Integer.toString(r.getInitialRent()));
+		// TODO: Combine the unownable/can't buy parts? Reduce a bit of duplication.
+		gui.setGUI1House("Can't buy houses");
+		gui.setGUI2House("Can't buy houses");
+		gui.setGUI3House("Can't buy houses");
+		gui.setGUI4House("Can't buy houses");
+		gui.setGUIHotel("Can't buy hotels");
+		gui.setGUIMortgage("$" + Integer.toString(r.getMortgageValue()));
 	    }
 	    else if (BoardCell.this.getClass() == gui.boardProperties[39].getClass()) { // Boardwalk (any PropagandaOutlet)
 		PropagandaOutlet p = (PropagandaOutlet) BoardCell.this;
 
-		gui.guiColor.setBackground(p.getColor());
+		gui.setGUIColor(p.getColor());
 		// TODO: Find a way to prepend the $ automatically.
-		gui.guiCost.setText  ("$" + Integer.toString(p.getCost()));
-		gui.guiHouseHotelCost.setText("$" + Integer.toString(p.getHouseOrHotelCost()));
-		gui.guiRent.setText  ("$" + Integer.toString(p.getInitialRent()));
-		gui.gui1House.setText("$" + Integer.toString(p.getRent1House()));
-		gui.gui2House.setText("$" + Integer.toString(p.getRent2House()));
-		gui.gui3House.setText("$" + Integer.toString(p.getRent3House()));
-		gui.gui4House.setText("$" + Integer.toString(p.getRent4House()));
-		gui.guiHotel.setText ("$" + Integer.toString(p.getRent1Hotel()));
-		gui.guiMortgage.setText("$" + Integer.toString(p.getMortgageValue()));
+		gui.setGUICost("$" + Integer.toString(p.getCost()));
+		gui.setGUIHouseHotelCost("$" + Integer.toString(p.getHouseOrHotelCost()));
+		gui.setGUIRent("$" + Integer.toString(p.getInitialRent()));
+		gui.setGUI1House("$" + Integer.toString(p.getRent1House()));
+		gui.setGUI2House("$" + Integer.toString(p.getRent2House()));
+		gui.setGUI3House("$" + Integer.toString(p.getRent3House()));
+		gui.setGUI4House("$" + Integer.toString(p.getRent4House()));
+		gui.setGUIHotel("$" + Integer.toString(p.getRent1Hotel()));
+		gui.setGUIMortgage("$" + Integer.toString(p.getMortgageValue()));
 	    }
 	    else if (BoardCell.this.getClass() == gui.boardProperties[12].getClass()) { // Utility
 		UtilityCell u = (UtilityCell) BoardCell.this;
 
-		gui.guiColor.setBackground(Color.GRAY);
-		gui.guiCost.setText  ("$" + Integer.toString(u.getCost()));
-		// gui.HouseHotelCost.setText("$" + Integer.toString(u.getHouseOrHotelCost()));
-		// gui.guiRent.setText  ("$" + Integer.toString(u.getInitialRent()));
+		gui.setGUIColor(Color.GRAY);
+		gui.setGUICost("$" + Integer.toString(u.getCost()));
+		// TODO: Fill in these things.
+		// gui.setGUIHouseHotelCost.setText("$" + Integer.toString(u.getHouseOrHotelCost()));
+		// gui.setGUIRent.setText("$" + Integer.toString(u.getInitialRent()));
 		// gui.gui1House.setText("$" + Integer.toString(u.getRent1House()));
 		// gui.gui2House.setText("$" + Integer.toString(u.getRent2House()));
 		// gui.gui3House.setText("$" + Integer.toString(u.getRent3House()));
@@ -243,19 +245,19 @@ public class BoardCell {
 	    else if (BoardCell.this.getClass() == gui.boardProperties[0].getClass()
 		  || BoardCell.this.getClass() == gui.boardProperties[7].getClass()) { // Non-ownable
 		// TODO: Remove the labels when we mouse over an un-ownable property?
-		gui.guiColor.setBackground(Color.WHITE);
-		gui.guiCost.setText("Un-ownable");
-		gui.guiHouseHotelCost.setText("Un-ownable");
-		gui.guiRent.setText("Un-ownable");
-		gui.gui1House.setText("Un-ownable");
-		gui.gui2House.setText("Un-ownable");
-		gui.gui3House.setText("Un-ownable");
-		gui.gui4House.setText("Un-ownable");
-		gui.guiHotel.setText("Un-ownable");
-		gui.guiMortgage.setText("Un-ownable");
+		gui.setGUIColor(Color.WHITE);
+		gui.setGUICost("Un-ownable");
+		gui.setGUIHouseHotelCost("Un-ownable");
+		gui.setGUIRent("Un-ownable");
+		gui.setGUI1House("Un-ownable");
+		gui.setGUI2House("Un-ownable");
+		gui.setGUI3House("Un-ownable");
+		gui.setGUI4House("Un-ownable");
+		gui.setGUIHotel("Un-ownable");
+		gui.setGUIMortgage("Un-ownable");
 	    }
 
-	    gui.guiName.setText(name);
+	    gui.setGUIName(name);
 	}
 
 	public void mouseExited(MouseEvent e) {

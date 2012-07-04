@@ -150,6 +150,12 @@ public class Player {
 	return currentCell;
     }
 
+    // TODO: Do I need this really?
+    /** Helper function. Return the name of this Player's currentCell's class's name. */
+    public String getCellClassName() {
+	return currentCell.getClass().getName();
+    }
+
     /** Set this Player's currency of type t to a given amount a.*/
     // TODO: With this, is addCash() now obsolete? For example, 
     //       I could setCash("x", p.getCash("x") + 5)
