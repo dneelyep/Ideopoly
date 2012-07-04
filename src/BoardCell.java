@@ -11,21 +11,15 @@ import java.awt.*;
 
 // TODO: Need to implement the whole idea of an onLand() method. Should simplify
 // things considerably.
-// TODO: BIG CHANCE FOR IMPROVEMENT: Rather than keeping the GUI representation separate from the
-// BoardCell object, store for example the JLabels inside this class with appropriate coordinates.
-// Should make things much clearer and clean up a lot of unneeded code.
 
 // TODO: Review all methods, implement camelcase variable names and such for consistency.
-// TODO: Make BoardCell implement ActionListener, like Menu.java, so I can get mouseover events on cells.
-// TODO: Also, just have the subclasses implement the listener, since not all subclasses need to be listened to? IE: Go to jail.
-// TODO: On go to jail, on land do a funny animation?
+// TODO: Have the subclasses only implement the MouseListener, since not all subclasses need to be listened to? IE: Go to jail.
+// TODO: On go to jail, on land do a funny animation.
 
 
-// LEFTOFFHERE: About to go ahead with this idea. Should help things make more sense I think.
-// TODO: Consider making this an abstract class. I don't think I actually create any BoardCell
-//       objects, just the sub-classes.
-public class BoardCell {
-    // TODO: Add a field indicating whether or not a player is present on this cell? And a method to set that.
+abstract public class BoardCell {
+    // TODO: Add a field indicating whether or not a player is present 
+    //       on this cell? And a method to set that.
     // TODO: Do I need this name field?
     /** A unique name that identifies this cell.
      *  For example, the "Park Place" property would have that name. */
@@ -45,29 +39,24 @@ public class BoardCell {
     private int cellY;
 
     /** A set of four positions that players stand on, that refer to this BoardCell. */
-    // TODO: Should I have these be private and get them through accessors?
-    public BoardPosition p1Pos;
-    public BoardPosition p2Pos;
-    public BoardPosition p3Pos;
-    public BoardPosition p4Pos;
+    private BoardPosition p1Pos;
+    private BoardPosition p2Pos;
+    private BoardPosition p3Pos;
+    private BoardPosition p4Pos;
 
     /** The graphical representation of this BoardCell. */
     private BoardCellGUI graphicalRepresentation;
 
     /** The GUI associated with this BoardCell. */
-    IdeopolyGUI gui;
+    public IdeopolyGUI gui;
 
     /** Creates a BoardCell object, with the specified name, image path, coordinates, and 
      *  player standing positions. Does not have an owner. There are no players standing 
      *  on this object. */
-    // TODO: Need to test BoardPositions to make sure we get out correct x and 
-    //       y values (should be doable visually).
-
     public BoardCell(String newName, String imagePath, int xPos, int yPos, IdeopolyGUI g) {
 	name    = newName;
 	ownedBy = null;
-	image   = new ImageIcon("images/" + imagePath); // Use the path to generate the image.
-	// TODO: Make the "images/" prefix automatic here?
+	image   = new ImageIcon("images/" + imagePath);
 	cellX   = xPos;
 	cellY   = yPos;
 	gui     = g;
@@ -84,13 +73,13 @@ public class BoardCell {
 	    p3Pos = new BoardPosition(cellX + 2, 45);
 	    p4Pos = new BoardPosition(cellX + 3, 45);
 	}
-	else if (yPos >= 2 && yPos <= 40 && xPos == 1) {  // Left column  (excluding top/bottom cells).
+	else if (yPos >= 2 && yPos <= 40 && xPos == 1) {  // Left column  (except top/bottom cells).
 	    p1Pos = new BoardPosition(0, cellY);
 	    p2Pos = new BoardPosition(0, cellY + 1);
 	    p3Pos = new BoardPosition(0, cellY + 2);
 	    p4Pos = new BoardPosition(0, cellY + 3);
 	}
-	else if (yPos >= 2 && yPos <= 40 && xPos == 41) { // Right column (excluding top/bottom cells).
+	else if (yPos >= 2 && yPos <= 40 && xPos == 41) { // Right column (except top/bottom cells).
 	    p1Pos = new BoardPosition(45, cellY + 3);
 	    p2Pos = new BoardPosition(45, cellY + 2);
 	    p3Pos = new BoardPosition(45, cellY + 1);
@@ -141,9 +130,9 @@ public class BoardCell {
     // might help me solve this problem.
     // See this: http://www.cafeaulait.org/javafaq.html#xtocid2672631t
     /** Dummy method. Used so I can access getRent() from the derived class PropagandaOutlet. */
-    public int getRent() {
-	return 0;
-    }
+    abstract public int getRent();// {
+	//	return 0;
+    //    }
 
     // TODO: So on abstract methods, the basic idea is that the superclass provides
     // a method but no implementation, and all sub-classes provide the implementations.
@@ -168,6 +157,21 @@ public class BoardCell {
 	    p3Pos.setImage(i);
 	else if (p == gui.player4)
 	    p4Pos.setImage(i);
+    }
+
+    /** Returns the BoardPosition associated with Player p. For example,
+     *  if p is 2, we return player 2's BoardPosition.*/
+    public BoardPosition getPosition(int p) {
+	if (p == 1)
+	    return p1Pos;
+	else if (p == 2)
+	    return p2Pos;
+	else if (p == 3)
+	    return p3Pos;
+	else // if (p == 4)
+	    return p4Pos;
+	// else // TODO: Make this an exception or similar?
+	//     System.out.println("Error! Ya tried to get the position of a non-existant Player.");
     }
 
     // TODO: Add tests for this nested class.
@@ -203,7 +207,7 @@ public class BoardCell {
 		gui.setGUICost("$" + Integer.toString(r.getCost()));
 		// TODO: Change the gui text to 1RR/2RRs/etc. maybe 
 		//       where houses would be displayed.
-		gui.setGUIRent("$" + Integer.toString(r.getInitialRent()));
+		gui.setGUIRent("$" + Integer.toString(r.getRent()));
 		// TODO: Combine the unownable/can't buy parts? Reduce a bit of duplication.
 		gui.setGUI1House("Can't buy houses");
 		gui.setGUI2House("Can't buy houses");

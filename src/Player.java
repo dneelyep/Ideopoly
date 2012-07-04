@@ -254,6 +254,8 @@ public class Player {
 	//         set the player as the property's owner
 	//         increment the player's number of properties owned
 	//         change the property's image
+	//
+	//  Look into BoardCell.setOwner whenever.
 
 
 

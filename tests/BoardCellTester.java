@@ -14,21 +14,21 @@ public class BoardCellTester extends TestCase {
 	Player  aPlayer = new Player(1, gui);
 
 	// TODO: Should have deleted this file.
-	BoardCell testCell = new BoardCell("name", "images/orangeTemplate.jpg", 4, 10, gui);
+	//	BoardCell testCell = new BoardCell("name", "images/orangeTemplate.jpg", 4, 10, gui);
 
 	// Test basic, not out-of-the-ordinary cases.
-	assertEquals(testCell.getName(), "name");
-	assertEquals(testCell.getOwner(), null);
+	//	assertEquals(testCell.getName(), "name");
+	//	assertEquals(testCell.getOwner(), null);
 
-	testCell.setOwner(aPlayer);
-	assertEquals(testCell.getOwner(), aPlayer);
+	//	testCell.setOwner(aPlayer);
+	//	assertEquals(testCell.getOwner(), aPlayer);
 
 	//	assertEquals(testCell.getImage(), new ImageIcon("images/orangeTemplate.jpg"));
 	//	testCell.setImage(new ImageIcon("images/greenTemplate.jpg"));
 	//	assertEquals(testCell.getImage(), new ImageIcon("images/greenTemplate.jpg"));
 
-	assertEquals(testCell.getX(), 4);
-	assertEquals(testCell.getY(), 10);
+	//	assertEquals(testCell.getX(), 4);
+	//	assertEquals(testCell.getY(), 10);
 
 	// TODO: What should these return? This screams for a better design, since I think they're just dummy methods.
 	//	assertEquals(testCell.getRent(), );

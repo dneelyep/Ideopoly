@@ -13,4 +13,4 @@ all: $(SRC) $(CLASS)
 
 	java -cp $(CLASSPATH) -jar /home/daniel/findbugs-2.0.0/lib/findbugs.jar -textui -emacs $(CLASS)                                                           # Check for static analysis bugs.
 docs: # Regenerate my javadoc stuff.
-	javadoc -d javadoc -author -classpath $(CLASSPATH) $(SRC)
+	javadoc -d javadoc -author -classpath $(CLASSPATH) $(SRC) -d ../etc/

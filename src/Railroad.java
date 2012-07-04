@@ -34,9 +34,12 @@ public class Railroad extends BoardCell {
 	return COST;
     }
 
-    /** Returns the rent charged to a Player who
-     *  lands on this property, when it's unimproved. */
-    public int getInitialRent() {
+    /** Returns the rent charged to a Player who lands
+     *  on this property, depending on how many Railroads are owned. */
+    @Override
+    public int getRent() {
+	// TODO: This is not correct. This should return different values depending
+	// on the # of railroads owned.
 	return INITIALRENT;
     }
 

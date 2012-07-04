@@ -180,10 +180,10 @@ public class IdeopolyGUI implements ActionListener {
 	c.gridheight = 1;
 
 	for (BoardCell property : boardProperties) {
-	    BoardPosition[] cellPositions = {property.p1Pos,
-					     property.p2Pos,
-					     property.p3Pos,
-					     property.p4Pos};
+	    BoardPosition[] cellPositions = {property.getPosition(1),
+					     property.getPosition(2),
+					     property.getPosition(3),
+					     property.getPosition(4)};
 
 	    for (BoardPosition p : cellPositions) {
 		c.gridx = p.getXCoord();
@@ -357,10 +357,10 @@ public class IdeopolyGUI implements ActionListener {
 	    commChestCards.push(new CommunityChest(generator.nextInt(17) + 1));
 	}
 
-	boardProperties[0].p1Pos.setImage(player1.getImage());
-	boardProperties[0].p2Pos.setImage(player2.getImage());
-	boardProperties[0].p3Pos.setImage(player3.getImage());
-	boardProperties[0].p4Pos.setImage(player4.getImage());
+	boardProperties[0].getPosition(1).setImage(player1.getImage());
+	boardProperties[0].getPosition(2).setImage(player2.getImage());
+	boardProperties[0].getPosition(3).setImage(player3.getImage());
+	boardProperties[0].getPosition(4).setImage(player4.getImage());
 
 	frame.pack();
 	frame.setVisible(true);
