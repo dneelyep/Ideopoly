@@ -184,7 +184,6 @@ public class Chance {
     	    break;
     	case 12: // "Take a trip to Reading Railroad – if you pass Go, collect $200"
     	    // If the player's position is on or after Oriental avenue, give em $200.
-    	    // TODO: Test this to make sure it works.
     	    if (p.getIndex() >= 6)
     		p.addCash("hundreds", 2);
 

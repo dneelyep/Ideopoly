@@ -79,8 +79,7 @@ public class Player {
 	fifties	      = 2;
 	hundreds      = 2;
 	fiveHundreds  = 2;
-	totalMoney    = (ones + (fives * 5) + (tens * 10) + (twenties * 20)
-	                + (fifties * 50) + (hundreds * 100) + (fiveHundreds * 500) );
+	updateTotalMoney();
 
 	totalPropertiesOwned = 0;
 	totalHousesOwned     = 0;
@@ -180,8 +179,11 @@ public class Player {
 	    break;
 	}
 
-	// After money total changes, update the totalMoney field accordingly.
-	// TODO: Make a method for this? Is reused a bit. updateTotalMoney() ?
+	updateTotalMoney();
+    }
+
+    /** Update this Player's totalMoney value. */
+    private void updateTotalMoney() {
 	totalMoney = ( ones + (fives * 5) + (tens * 10) + (twenties * 20) + (fifties * 50) + (hundreds * 100) + (fiveHundreds * 500) );
     }
 
@@ -242,6 +244,7 @@ public class Player {
     /** Give this player a new property. */
     public void addProperty(BoardCell property) {
 	// TODO: Implement this. add the property, and increment number of properties owned.
+	// TODO: Rename buyProperty() ?
 	// TODO: Below are some thoughts, implement if they'll work well.
 	// So, the steps could be here:
 
@@ -254,19 +257,16 @@ public class Player {
 
 
 
-	// if (player1.getCell().getClass() == bAndORR.getClass()) {
+	// if (player1.getCellClassName() == "Railroad") {
 	//     Railroad r = (Railroad) player1.getCell();
-	//     getCashDistribution(r.getCost());
 	//     playerPayPlayer(r.getCost(), player1);
 	// }
-	// else if (player1.getCell().getClass() == boardwalk.getClass()) {
+	// else if (player1.getCellClassName() == "PropagandaOutlet") {
 	//     PropagandaOutlet pO = (PropagandaOutlet) player1.getCell();
-	//     getCashDistribution(pO.getCost());
 	//     playerPayPlayer(pO.getCost(), player1);
 	// }
-	// else if (player1.getCell().getClass() == waterWorks.getClass()) {
+	// else if (player1.getCellClassName() == "UtilityCell") {
 	//     UtilityCell u = (UtilityCell) player1.getCell();
-	//     getCashDistribution(u.getCost());
 	//     playerPayPlayer(u.getCost(), player1);
 	// }
 	// player1.getCell().setOwner(player1);
@@ -285,17 +285,17 @@ public class Player {
 	// TODO: Implement this
     }
 
-    /** Move this player to a given position q. q refers to the cell the Player wants 
+    /** Move this player to a given position p. p refers to the cell the Player wants 
      *  to move to. For example, changePosition(3) will move any player to the 4th
      *  BoardCell on the board. */
-    public void changeCell(int index, IdeopolyGUI gui) { // TODO: Better function name.
+    public void changeCell(int p, IdeopolyGUI gui) { // TODO: Better function name.
 	// Only allow valid indexes.
-	if (index < 0 || index > 39) {
+	if (p < 0 || p > 39) {
 	    System.out.println("Error! That cell is outside the bounds of valid cells!");
 	}
 	else {
-	    currentCell = gui.boardProperties[index];
-	    cellIndex = index;
+	    currentCell = gui.boardProperties[p];
+	    cellIndex = p;
 	}
     }
 
@@ -322,14 +322,12 @@ public class Player {
 	    break;
 	}
 
-	// After money total changes, update the totalMoney field accordingly.
-	totalMoney = ( ones + (fives * 5) + (tens * 10) + (twenties * 20) + (fifties * 50) + (hundreds * 100) + (fiveHundreds * 500) );
-
+	updateTotalMoney();
     }
 
     /** Give this player a get out of jail free card. */
     public void giveGOOJF() {
-	GOOJFCards++;
+ 	GOOJFCards++;
     }
 
     /** Have this player spend one of their get out of jail free cards. */
@@ -458,7 +456,7 @@ public class Player {
 	fifties	     = 0;
 	hundreds     = 0;
 	fiveHundreds = 0;
-	totalMoney   = 0;
+	updateTotalMoney();
 	image = null;
 
 	// TODO: There's probably a better way of doing this whole thing.

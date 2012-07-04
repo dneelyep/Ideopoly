@@ -632,23 +632,15 @@ public class IdeopolyGUI implements ActionListener {
 		    cashLabels[i][j].setText(Integer.toString(players[i].getCash(cashValues[j])));
 	    }
 
-	    if (currentPlayer == 0) {
-		playerRowLabels[3].setForeground(Color.GREEN);
-		playerRowLabels[2].setForeground(Color.BLACK);
-	    }
-	    else if (currentPlayer == 1) {
-		playerRowLabels[0].setForeground(Color.GREEN);
-		playerRowLabels[3].setForeground(Color.BLACK);
-	    }
-	    else if (currentPlayer == 2) {
-		playerRowLabels[1].setForeground(Color.GREEN);
-		playerRowLabels[0].setForeground(Color.BLACK);
-	    }
-	    else if (currentPlayer == 3) {
-		playerRowLabels[2].setForeground(Color.GREEN);
-		playerRowLabels[1].setForeground(Color.BLACK);
-	    }
+	    // Set all player labels to black
+	    playerRowLabels[i].setForeground(Color.BLACK);
 	}
+
+	// ...then set the current player to green.
+	if (currentPlayer >= 1 && currentPlayer <= 3)
+	    playerRowLabels[currentPlayer - 1].setForeground(Color.GREEN);
+	else if (currentPlayer == 0)
+	    playerRowLabels[3].setForeground(Color.GREEN);
     }
 
     /** Perform actions depending on GUI events. */
@@ -663,19 +655,17 @@ public class IdeopolyGUI implements ActionListener {
             //       Also add plenty of tests for this.
 	    case "Buy property":
 		// LEFTOFFHERE: Just fixed this stuff. Made a $200 price for all RailRoads.
-		if (player1.getCell().getClass() == bAndORR.getClass()) {
+		// TODO: This style of thing is done elsewhere. Can simplify it?
+		if (player1.getCellClassName() == "RailRoad") {
 		    Railroad r = (Railroad) player1.getCell();
-		    getCashDistribution(r.getCost());
 		    playerPayPlayer(r.getCost(), player1);
 		}
-		else if (player1.getCell().getClass() == boardwalk.getClass()) {
+		else if (player1.getCellClassName() == "PropagandaOutlet") {
 		    PropagandaOutlet pO = (PropagandaOutlet) player1.getCell();
-		    getCashDistribution(pO.getCost());
 		    playerPayPlayer(pO.getCost(), player1);
 		}
-		else if (player1.getCell().getClass() == waterWorks.getClass()) {
+		else if (player1.getCellClassName() == "UtilityCell") {
 		    UtilityCell u = (UtilityCell) player1.getCell();
-		    getCashDistribution(u.getCost());
 		    playerPayPlayer(u.getCost(), player1);
 		}
 		// TODO: ^-- That should take care of all cases, uncertain though. Needs tests.
@@ -709,40 +699,42 @@ public class IdeopolyGUI implements ActionListener {
     // TODO: Can/should this be public? And this seems like it should maybe be associated with
     //       a Player object instead? Or similar?
     public int[] getCashDistribution(int total) {
-	// TODO: This functionality seems so generic that it should be in a library somewhere...
-	// TODO: This is almost working, but I think BoardCell's getCost() function
-	// is not being overwritten by PropagandaOutlet's => since BoardCell always returns 
-	// 0, I get this case where total = 0, which screws up gameplay.
+	/* TODO: This functionality seems so generic that it should be in a library somewhere...
+	   TODO: This is almost working, but I think BoardCell's getCost() function
+	   is not being overwritten by PropagandaOutlet's => since BoardCell always returns 
+	   0, I get this case where total = 0, which screws up gameplay. */
 	if (total <= 0) {
 	    printStatusAndLog("Can't break up 0 or negative dollars!");
 
-	    // Since we can't break up this amount of money, the amount for each bill is 0.
+	    // Since we can't break up this amount of money, the amount of each bill to pay is 0.
 	    // TODO: Convert this to a for-each loop or similar.
-	    for (int i = 0; i <= 6; i++) {
+	    for (int i = 0; i <= 6; i++)
 	    	paymentAmounts[i] = 0;
-	    }
 	}
 
 	else {
-	    // We keep the arrays in reverse order here. This way, when we iterate
-	    // through them, we start with the highest dollar amount, which leads to
-	    // less dividing up the player's money into (eg) hundreds of little bills.
-	    // TODO: Ambiguous, confusing names here.
-	    int[] billValues  = {500, 100, 50, 20, 10, 5, 1}; // billValues is the amount, in dollars, of bills that go into a given bill type.
-	    int[] billTotals  = {0, 0, 0, 0, 0, 0, 0};        // And billTotals is the number of each bill type I have.
+	    /* We keep the arrays in reverse order here. This way, when we iterate
+	       through them, we start with the highest dollar amount, which leads to
+	       less dividing up the player's money into (eg) hundreds of little bills.
+	       TODO: Ambiguous, confusing names here. */
+	    /** billValues is the amount, in dollars, of bills that go into a given bill type. */
+	    int[] billValues  = {500, 100, 50, 20, 10, 5, 1};
+
+	    /** billTotals is the number of each bill type I have. */
+	    int[] billTotals  = {0, 0, 0, 0, 0, 0, 0};
 	    // TODO: Do I need this billTotals array? Could I just store values 
 	    //       directly in paymentAmounts[] instead?
 	    int i = 0;
 
-	    for (int bill : billValues) {
-	    	if (total / bill != 0) {
-	    	    billTotals[i] = total / bill;
-	    	    total -= (bill * billTotals[i]);
+	    for (int amount : billValues) {
+	    	if (total / amount != 0) {
+	    	    billTotals[i] = total / amount;
+	    	    total -= (amount * billTotals[i]);
 	    	}
 	    	i++;
 	    }
 
-	    //Then have the player pay each of the amounts
+	    // Then have the player pay each of the amounts
 	    // TODO: Again, replace with a for each loop.
 	    for (int j = 0; j <= 6; j++)
 		paymentAmounts[j] = billTotals[6 - j];
@@ -764,8 +756,12 @@ public class IdeopolyGUI implements ActionListener {
 	// First, get a distribution of what bills to pay.
 	getCashDistribution(a);
 
+	// TODO: I should be able to refactor this. Take a look at the cashValues array.
+	//       Could loop through that array.
+
 	// Then, for each bill, transfer the correct amount from p1 to p2.
 	// TODO: Loop this?
+
 	p1.spreadCash(1);
 	p1.addCash("ones", - paymentAmounts[0]);
 	p2.addCash("ones", paymentAmounts[0]);
