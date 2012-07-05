@@ -552,7 +552,8 @@ public class IdeopolyGUI implements ActionListener {
 			if (p == player1) {
 			    // TODO: This is nice to have, but it screws up 
 			    // my later switch statement.
-			    // buyProperty.setText("Buy property (" + getCurrentLocation(players[currentPlayer]).getName() + ")");
+			    //
+			    buyProperty.setText("Buy property (" + players[currentPlayer].getCell().getName() + ")");
 			    buyProperty.setEnabled(true);
 			}
 
@@ -568,7 +569,7 @@ public class IdeopolyGUI implements ActionListener {
 				if (p.getCellClassName() == "Railroad") {
 				    Railroad r = (Railroad) p.getCell();
 				    getCashDistribution(r.getCost());
-				    printStatusAndLog(p.getName() + " bought " + r.getName() + " for $" +  r.getCost() + ".");
+				    printStatusAndLog(p.getName() + " bought " + r.getName() + " for $" + r.getCost() + ".");
 				    /* TODO: Test to make sure ALL THREE CONDITIONS HERE are working. 
 				       Have not yet tested playerPayPlayer on a null Player input.
 				       Also test this later on where the player buys a property
@@ -578,15 +579,13 @@ public class IdeopolyGUI implements ActionListener {
 				else if (p.getCellClassName() == "PropagandaOutlet") {
 				    PropagandaOutlet pO = (PropagandaOutlet) p.getCell();
 				    getCashDistribution(pO.getCost());
-				    printStatusAndLog(p.getName() + " bought " + pO.getName() + " for $" +  pO.getCost() + ".");
-				    System.out.println(pO.getCost());
+				    printStatusAndLog(p.getName() + " bought " + pO.getName() + " for $" + pO.getCost() + ".");
 				    playerPayPlayer(pO.getRent(), p);
 				}
 				else if (p.getCellClassName() == "UtilityCell") {
 				    UtilityCell u = (UtilityCell) p.getCell();
 				    getCashDistribution(u.getCost());
-				    printStatusAndLog(p.getName() + " bought " + u.getName() + " for $" +  u.getCost() + ".");
-				    System.out.println(u.getCost());
+				    printStatusAndLog(p.getName() + " bought " + u.getName() + " for $" + u.getCost() + ".");
 				    playerPayPlayer(u.getRent(), p);
 				}
 			    }
@@ -655,7 +654,8 @@ public class IdeopolyGUI implements ActionListener {
             //       Also add plenty of tests for this.
 	    case "Buy property":
 		// LEFTOFFHERE: Just fixed this stuff. Made a $200 price for all RailRoads.
-		// TODO: This style of thing is done elsewhere. Can simplify it?
+		// TODO: This style of thing (the casting to specific types) is done elsewhere.
+		//       Can simplify it?
 		if (player1.getCellClassName() == "RailRoad") {
 		    Railroad r = (Railroad) player1.getCell();
 		    playerPayPlayer(r.getCost(), player1);
@@ -745,7 +745,7 @@ public class IdeopolyGUI implements ActionListener {
 
     /** Transfer money amount a from player p1 to player p2.*/
     // TODO: This is a little misleading. This provides a general way to split bills correctly and
-    // pay for any task. I think. Better method name would be good.
+    //       pay for any task. I think. Better method name would be good.
     // TODO: Better function name. chargePlayer() maybe? less of a tongue-twister, 
     //       easier to type.
     public void playerPayPlayer(int a, Player p1, Player p2) {
@@ -756,39 +756,13 @@ public class IdeopolyGUI implements ActionListener {
 	// First, get a distribution of what bills to pay.
 	getCashDistribution(a);
 
-	// TODO: I should be able to refactor this. Take a look at the cashValues array.
-	//       Could loop through that array.
-
 	// Then, for each bill, transfer the correct amount from p1 to p2.
-	// TODO: Loop this?
-
-	p1.spreadCash(1);
-	p1.addCash("ones", - paymentAmounts[0]);
-	p2.addCash("ones", paymentAmounts[0]);
-
-	p1.spreadCash(5);
-	p1.addCash("fives", - paymentAmounts[1]);
-	p2.addCash("fives", paymentAmounts[1]);
-
-	p1.spreadCash(10);
-	p1.addCash("tens", - paymentAmounts[2]);
-	p2.addCash("tens", paymentAmounts[2]);
-
-	p1.spreadCash(20);
-	p1.addCash("twenties", - paymentAmounts[3]);
-	p2.addCash("twenties", paymentAmounts[3]);
-
-	p1.spreadCash(50);
-	p1.addCash("fifties", - paymentAmounts[4]);
-	p2.addCash("fifties", paymentAmounts[4]);
-
-	p1.spreadCash(100);
-	p1.addCash("hundreds", - paymentAmounts[5]);
-	p2.addCash("hundreds", paymentAmounts[5]);
-
-	p1.spreadCash(500);
- 	p1.addCash("fiveHundreds", - paymentAmounts[6]);
-	p2.addCash("fiveHundreds", paymentAmounts[6]);
+	int[] billInt = {1, 5, 10, 20, 50, 100, 500}; // TODO: Better array name here.
+	for (int i = 0; i <= 6; i++) {
+	    p1.spreadCash(billInt[i]);
+	    p1.addCash(cashValues[i], - paymentAmounts[i]);
+	    p2.addCash(cashValues[i], paymentAmounts[i]);
+	}
 
 	// And set cash back to sensible values.
 	p2.spreadCash(500);
@@ -798,34 +772,17 @@ public class IdeopolyGUI implements ActionListener {
     public void playerPayPlayer(int a, Player p) {
 	// Player will be bankrupt.
 	// TODO: Should this check be in the other playerPayPlayer?
-	if (a > p.getCash("total")) {
+	if (a > p.getCash("total"))
 	    p.bankruptPlayer(this);
-	}
 	// Amount is ok.
 	else {
 	    getCashDistribution(a);
 
-	    // TODO: Duplicate code from above function.
-	    p.spreadCash(1);
-	    p.addCash("ones", - paymentAmounts[0]);
-
-	    p.spreadCash(5);
-	    p.addCash("fives", - paymentAmounts[1]);
-
-	    p.spreadCash(10);
-	    p.addCash("tens", - paymentAmounts[2]);
-
-	    p.spreadCash(20);
-	    p.addCash("twenties", - paymentAmounts[3]);
-
-	    p.spreadCash(50);
-	    p.addCash("fifties", - paymentAmounts[4]);
-
-	    p.spreadCash(100);
-	    p.addCash("hundreds", - paymentAmounts[5]);
-
-	    p.spreadCash(500);
-	    p.addCash("fiveHundreds", - paymentAmounts[6]);
+	    int[] billInt = {1, 5, 10, 20, 50, 100, 500};
+	    for (int i = 0; i <= 6; i++) {
+		p.spreadCash(billInt[i]);
+		p.addCash(cashValues[i], - paymentAmounts[i]);
+	    }
 	}
     }
 

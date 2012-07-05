@@ -14,8 +14,6 @@ import java.awt.*;
 
 // TODO: Have the subclasses only implement the MouseListener, since not all subclasses need to be listened to? IE: Go to jail.
 // TODO: On go to jail, on land do a funny animation.
-
-
 public abstract class BoardCell {
     // TODO: Add a field indicating whether or not a player is present 
     //       on this cell? And a method to set that.
@@ -237,15 +235,15 @@ public abstract class BoardCell {
 	          || BoardCell.this.getClass().getName() == "ChanceOrCommChestCell") {
 		// TODO: Remove the labels when we mouse over an un-ownable property?
 		gui.setGUIColor(Color.WHITE);
-		gui.setGUICost("Un-ownable");
-		gui.setGUIHouseHotelCost("Un-ownable");
-		gui.setGUIRent("Un-ownable");
-		gui.setGUI1House("Un-ownable");
-		gui.setGUI2House("Un-ownable");
-		gui.setGUI3House("Un-ownable");
-		gui.setGUI4House("Un-ownable");
-		gui.setGUIHotel("Un-ownable");
-		gui.setGUIMortgage("Un-ownable");
+		gui.setGUICost("-");
+		gui.setGUIHouseHotelCost("-");
+		gui.setGUIRent("-");
+		gui.setGUI1House("-");
+		gui.setGUI2House("-");
+		gui.setGUI3House("-");
+		gui.setGUI4House("-");
+		gui.setGUIHotel("-");
+		gui.setGUIMortgage("-");
 	    }
 
 	    gui.setGUIName(name);

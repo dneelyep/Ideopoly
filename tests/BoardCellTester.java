@@ -14,11 +14,13 @@ public class BoardCellTester extends TestCase {
 	Player  aPlayer = new Player(1, gui);
 
 	// TODO: Should have deleted this file.
+	//       I think I want to do this because BoardCells are abstract, so I can't 
+	//       instantiate them. Makes 'em harder to test.
 	//	BoardCell testCell = new BoardCell("name", "images/orangeTemplate.jpg", 4, 10, gui);
 
 	// Test basic, not out-of-the-ordinary cases.
-	//	assertEquals(testCell.getName(), "name");
-	//	assertEquals(testCell.getOwner(), null);
+	// assertEquals(testCell.getName(), "name");
+	// assertEquals(testCell.getOwner(), null);
 
 	//	testCell.setOwner(aPlayer);
 	//	assertEquals(testCell.getOwner(), aPlayer);
