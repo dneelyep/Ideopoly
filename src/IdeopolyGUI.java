@@ -114,6 +114,8 @@ public class IdeopolyGUI implements ActionListener {
     // TODO: Note that this might be better represented by a Set collection. I don't have any
     //       duplicate items, and operating on a collection could be handy possibly.
     // TODO: Rename this propaganda outlets rather than properties? Confusing?
+    // TODO: It would be cool if I could handle these similar to colors. IE, similar to 
+    //       Color.GREEN, I could have IdeopolyGUI.TENNESSEE for referring to the items.
     final BoardCell boardProperties[] = { go, mediterraneanAv, commChestBottom, balticAv, incomeTax, readingRR, orientalAv, chanceBottom, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChestLeft, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chanceTop, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChestRight, pennsylvaniaAv, shortLineRR, chanceRight, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
 
     /** Represents the player whose turn it currently is to roll. 0-3. */
@@ -601,10 +603,7 @@ public class IdeopolyGUI implements ActionListener {
 			    buyProperty.setEnabled(false);
 			    
 			// Charge the player appropriately.
-			if (p.willBankrupt(boardProperties[landingSpot].getRent()))
-			    p.bankruptPlayer(this);
-			else
-			    playerPayPlayer(p.getCell().getRent(), p, p.getCell().getOwner());
+			playerPayPlayer(p.getCell().getRent(), p, p.getCell().getOwner());
 		    }
 
 		    // TODO: Make BoardCells and such clickable. That way, I can easily implement
@@ -724,6 +723,7 @@ public class IdeopolyGUI implements ActionListener {
 	    int[] billTotals  = {0, 0, 0, 0, 0, 0, 0};
 	    // TODO: Do I need this billTotals array? Could I just store values 
 	    //       directly in paymentAmounts[] instead?
+
 	    int i = 0;
 
 	    for (int amount : billValues) {
@@ -749,35 +749,35 @@ public class IdeopolyGUI implements ActionListener {
     // TODO: Better function name. chargePlayer() maybe? less of a tongue-twister, 
     //       easier to type.
     public void playerPayPlayer(int a, Player p1, Player p2) {
-	// TODO: Before each call of this, make sure the player won't go bankrupt.
-	//       This will allow me to remove bankruptcy checking everywhere this method's called.
-	// TODO: Move that step of checking for bankruptcy status to the method rather than
-	// spreading it out everywhere across the file. Less duplication.
 	// First, get a distribution of what bills to pay.
-	getCashDistribution(a);
+	if (p1.willBankrupt(a))
+	    p1.bankruptPlayer(this);
+	else {
+	    getCashDistribution(a);
 
-	// Then, for each bill, transfer the correct amount from p1 to p2.
-	int[] billInt = {1, 5, 10, 20, 50, 100, 500}; // TODO: Better array name here.
-	for (int i = 0; i <= 6; i++) {
-	    p1.spreadCash(billInt[i]);
-	    p1.addCash(cashValues[i], - paymentAmounts[i]);
-	    p2.addCash(cashValues[i], paymentAmounts[i]);
+	    // Then, for each bill, transfer the correct amount from p1 to p2.
+	    int[] billInt = {1, 5, 10, 20, 50, 100, 500}; // TODO: Better array name here.
+	    for (int i = 0; i <= 6; i++) {
+		p1.spreadCash(billInt[i]);
+		p1.addCash(cashValues[i], - paymentAmounts[i]);
+		p2.addCash(cashValues[i], paymentAmounts[i]);
+	    }
+
+	    // And set cash back to sensible values.
+	    p2.spreadCash(500);
 	}
-
-	// And set cash back to sensible values.
-	p2.spreadCash(500);
     }
 
     /** Transfer money amount a from Player p to the "bank". */
     public void playerPayPlayer(int a, Player p) {
 	// Player will be bankrupt.
-	// TODO: Should this check be in the other playerPayPlayer?
-	if (a > p.getCash("total"))
+	if (p.willBankrupt(a))
 	    p.bankruptPlayer(this);
 	// Amount is ok.
 	else {
 	    getCashDistribution(a);
 
+	    // TODO: Make this array shared between the two methods somehow?
 	    int[] billInt = {1, 5, 10, 20, 50, 100, 500};
 	    for (int i = 0; i <= 6; i++) {
 		p.spreadCash(billInt[i]);

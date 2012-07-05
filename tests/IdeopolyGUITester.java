@@ -282,6 +282,8 @@ public class IdeopolyGUITester extends TestCase{
 	testGUI.playerPayPlayer(1500, p2, p1);
 	testGUI.playerPayPlayer(1500, p2, p1);
 	assertEquals(p2.getCash("total"), 0);
+	// TODO: Is this correct behavior? Player shouldn't be allowed to give money after
+	//       they're bankrupt...
 	assertEquals(p1.getCash("total"), 6000);
 
 	// Will bankrupt first player.

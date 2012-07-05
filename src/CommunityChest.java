@@ -165,12 +165,7 @@ public class CommunityChest {
 		break;
 	    case 13:  // "You are assessed for street repairs – $40 per house, $115 per hotel"
 		int chargeAmount = (p.getNumHouses() * 40) + (p.getNumHotels() * 115);
-
-		if (p.willBankrupt(chargeAmount))
-		    p.bankruptPlayer(gui);
-		else
-		    gui.playerPayPlayer(chargeAmount, p);
-
+		gui.playerPayPlayer(chargeAmount, p);
 		break;
 	    case 14: p.addCash("tens", 1);     // "You have won second prize in a beauty contest– collect $10"
 		break;
@@ -184,8 +179,6 @@ public class CommunityChest {
     	    default: System.out.println("Wrong Community Chest value!");
 		break;
 	}
-	// 	// TODO: Redirect this out to a GUI status element thing.
-	// 	System.out.println(card.getText());
-	// }
+ 	gui.printStatusAndLog(p.getName() + ": " + text);
     }
 }

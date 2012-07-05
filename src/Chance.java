@@ -91,6 +91,7 @@ public class Chance {
     	    break;
     	case 3:  // "Advance token to nearest Utility. If unowned, you may buy it from the 
 	         //  Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
+	    // TODO: I could also make use of p.getCell() instead. Could simplify things maybe.
 	    if (p.getCell() == gui.boardProperties[7]) { // Bottom Chance
 		p.changeCell(12, gui); // move to Electric Co.
 
