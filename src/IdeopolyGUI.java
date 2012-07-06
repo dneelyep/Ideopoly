@@ -4,6 +4,13 @@ import java.util.*;
 import java.awt.event.*;
 import java.io.*;
 
+/* LEFTOFFHERE: So, packages. I need Ideopoly.bin, Ideopoly.src, Ideopoly.tests packages.
+                What are the naming conventions for an individual developer?
+		We'll go with com.ideopoly.x; Should work well enough - can fix later if needed.*/
+
+
+
+
 // TODO: Add in Chance and Comm. Chest images.
 // TODO: Use the native look and feel for the program.
 // TODO: Get rid of the spacing between cells.
@@ -116,6 +123,8 @@ public class IdeopolyGUI implements ActionListener {
     // TODO: Rename this propaganda outlets rather than properties? Confusing?
     // TODO: It would be cool if I could handle these similar to colors. IE, similar to 
     //       Color.GREEN, I could have IdeopolyGUI.TENNESSEE for referring to the items.
+    //       ^-- I'm pretty sure I can do that with enums. See http://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
+    // And while I'm at it, static imports look worthwhile: http://docs.oracle.com/javase/tutorial/java/package/usepkgs.html
     final BoardCell boardProperties[] = { go, mediterraneanAv, commChestBottom, balticAv, incomeTax, readingRR, orientalAv, chanceBottom, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChestLeft, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chanceTop, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChestRight, pennsylvaniaAv, shortLineRR, chanceRight, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
 
     /** Represents the player whose turn it currently is to roll. 0-3. */
@@ -564,7 +573,7 @@ public class IdeopolyGUI implements ActionListener {
 			    if (p.getCash("total") >= 500) {
 				p.getCell().setOwner(p);
 
-				// TODO: Refactor more if possible.
+				// TODO: Refactor more.
 				// TODO: See about making a BoardCell, and then casting that
 				//       BoardCell to a more specific type. Then operating on that
 				//       BoardCell after it has been casted to.
@@ -646,6 +655,7 @@ public class IdeopolyGUI implements ActionListener {
 	String eventSource = e.getActionCommand();
 
 	switch (eventSource) {
+	    // TODO: See http://docs.oracle.com/javase/6/docs/api/java/lang/String.html#substring%28int,%20int%29
 	    case "Continue": doTurn(frame, players[currentPlayer]);
 		break;
 	    // TODO: Make sure I don't need a bankruptcy check for this event.

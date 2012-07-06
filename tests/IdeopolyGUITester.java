@@ -4,7 +4,7 @@ import org.junit.*;
 /** Class to test all methods inside the IdeopolyGUI class.
  *
  *  @author Daniel Neel */
-public class IdeopolyGUITester extends TestCase{
+public class IdeopolyGUITester extends TestCase {
     /** A generic GUI we use for the below tests. */
     private IdeopolyGUI testGUI;
 

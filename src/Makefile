@@ -7,10 +7,14 @@ CLASS      = ../bin/*.class
 CLASSPATH  = ~/Programming/Java/Ideopoly/bin:/home/daniel/.junit/junit4.10/junit-4.10.jar:.
 
 all: $(SRC) $(CLASS)
-	javac -cp $(CLASSPATH) $(JFLAGS) -d ../bin $(SRC) # Compile source files.
+        # Compile source files.
+	javac -cp $(CLASSPATH) $(JFLAGS) -d ../bin $(SRC) 
 
-	java -cp $(CLASSPATH) org.junit.runner.JUnitCore BoardCellTester BoardPositionTester CashCellTester ChanceTester CharacterSelectTester CommunityChestTester IdeopolyGUITester MenuTester PlayerTester PropagandaOutletTester RailroadTester # Run tests.
+        # Run tests.
+	java -cp $(CLASSPATH) org.junit.runner.JUnitCore BoardCellTester BoardPositionTester CashCellTester ChanceTester CharacterSelectTester CommunityChestTester IdeopolyGUITester MenuTester PlayerTester PropagandaOutletTester RailroadTester
 
-	java -cp $(CLASSPATH) -jar /home/daniel/findbugs-2.0.0/lib/findbugs.jar -textui -emacs $(CLASS)                                                           # Check for static analysis bugs.
+        # Check for static analysis bugs.
+	java -cp $(CLASSPATH) -jar /home/daniel/findbugs-2.0.0/lib/findbugs.jar -textui -emacs $(CLASS)
+
 docs: # Regenerate my javadoc stuff.
 	javadoc -d javadoc -author -classpath $(CLASSPATH) $(SRC) -d ../etc/
