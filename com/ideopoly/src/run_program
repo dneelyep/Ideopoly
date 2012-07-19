@@ -2,4 +2,4 @@
 
 # Quick script so that I don't have to manually type out this
 # command each time I want to run the program.
-java -cp ~/Programming/Java/Ideopoly/bin/ Menu
+java -cp ../bin/ Menu
