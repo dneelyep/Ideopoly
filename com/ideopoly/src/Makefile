@@ -3,8 +3,8 @@ JFLAGS=-Xlint:cast -Xlint:classfile -Xlint:deprecation -Xlint:dep-ann -Xlint:div
 #TODO: Install JUnit from Arch repos?
 
 SRC        = ../src/*.java ../tests/*.java
-CLASS      = ../bin/*.class
-CLASSPATH  = ~/Programming/Java/Ideopoly/com/ideopoly/bin:/home/daniel/.junit/junit4.10/junit-4.10.jar:.
+CLASS      = ../bin/com/ideopoly/src/*.class ../bin/com/ideopoly/tests/*.class
+CLASSPATH  = ~/Programming/Java/Ideopoly/:../bin/com/ideopoly/tests/:/home/daniel/.junit/junit4.10/junit-4.10.jar:.
 
 all: $(SRC) $(CLASS)
         # Compile source files.
@@ -14,7 +14,7 @@ all: $(SRC) $(CLASS)
 	java -cp $(CLASSPATH) org.junit.runner.JUnitCore BoardCellTester BoardPositionTester CashCellTester ChanceTester CharacterSelectTester CommunityChestTester IdeopolyGUITester MenuTester PlayerTester PropagandaOutletTester RailroadTester
 
         # Check for static analysis bugs.
-	java -cp $(CLASSPATH) -jar /home/daniel/findbugs-2.0.0/lib/findbugs.jar -textui -emacs $(CLASS)
+	java -cp $(CLASSPATH) -jar ~/findbugs-2.0.0/lib/findbugs.jar -textui -emacs $(CLASS)
 
 docs: # Regenerate my javadoc stuff.
 	javadoc -d javadoc -author -classpath $(CLASSPATH) $(SRC) -d ../etc/docs/

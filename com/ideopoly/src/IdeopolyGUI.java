@@ -5,10 +5,10 @@ import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.regex.*;
 
+// TODO: Re-organize directories and packages to make more sense. Great ideas at https://www.ibm.com/developerworks/library/j-classpath-unix/
 // TODO: com as a package name start doesn't make much sense. I don't own a domain name.
-// TODO: Add a package level comment. Create a package.html page. See oracle's javadoc guidelines.
-
 // TODO: Add in Chance and Comm. Chest images.
 // TODO: Use the native look and feel for the program.
 // TODO: Get rid of the spacing between cells.
@@ -28,10 +28,10 @@ public class IdeopolyGUI implements ActionListener {
      *  this switches to another value. */
     private int gameWon = 0;
 
-    private String cashValues[] = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
-    private String cashHeadings[] = { "Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail" };
+    private final String cashValues[] = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
+    private final String cashHeadings[] = { "Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail" };
     // TODO: Come up with a better solution than making this public.
-    public JLabel[] playerRowLabels = { new JLabel("Player 1"), 
+    public final JLabel[] playerRowLabels = { new JLabel("Player 1"), 
 					new JLabel("Player 2"), 
 					new JLabel("Player 3"), 
 					new JLabel("Player 4") };
@@ -44,7 +44,7 @@ public class IdeopolyGUI implements ActionListener {
 
     /** Array used to store the values of each type of bill a Player
      *  should pay after requiring a payment. */
-    private int[]   paymentAmounts   = {0, 0, 0, 0, 0, 0, 0};
+    private final int[]   paymentAmounts   = {0, 0, 0, 0, 0, 0, 0};
     private JFrame  frame	     = new JFrame("Ideopoly | Main game");
     private JButton continueButton   = new JButton("Continue");//new ImageIcon("images/continueButton.jpg"));
     // TODO: Would be good to list the property name, such as "Buy property (Mediterranean Avenue)"
@@ -182,7 +182,7 @@ public class IdeopolyGUI implements ActionListener {
 
 	    frame.add(cell.getGraphicalRepresentation(), c);
 	}
-
+	
 	// ================================================================
 	// === Add the standing positions around the edge of the board. ===
 	// ================================================================
@@ -562,7 +562,6 @@ public class IdeopolyGUI implements ActionListener {
 			if (p == player1) {
 			    // TODO: This is nice to have, but it screws up 
 			    // my later switch statement.
-			    //
 			    buyProperty.setText("Buy property (" + players[currentPlayer].getCell().getName() + ")");
 			    buyProperty.setEnabled(true);
 			}
@@ -698,7 +697,13 @@ public class IdeopolyGUI implements ActionListener {
 		break;
 
 	    default:
-		System.out.println("Received an action from an unknown source.");
+		System.out.println(eventSource);
+		//		System.out.println("Received an action from an unknown source.");
+		Pattern p = Pattern.compile("Buy property.*");
+		Matcher m = p.matcher(eventSource);
+  //  boolean b = m.matches();
+		if (m.matches())
+		    System.out.println("Got it!");
 	}
 	updateDisplay();
     }
