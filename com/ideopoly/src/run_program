@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# Quick script so that I don't have to manually type out this
-# command each time I want to run the program.
-java -cp ~/Programming/Java/Ideopoly/:/home/daniel/Programming/Java/Ideopoly/com/ideopoly/bin/:/home/daniel/.junit/junit4.10/junit-4.10.jar:. Menu
- 
