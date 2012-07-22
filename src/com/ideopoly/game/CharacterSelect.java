@@ -17,14 +17,13 @@ public class CharacterSelect implements ActionListener {
     /** Buttons to represent the various characters players can pick. */
     // TODO: Make the stallman photo a jpeg, or all png, or whatever for consistency.
     //       Currently, I run into errors when the image is a jpeg.
-    private final JButton stallmanButton  = new JButton(new ImageIcon("images/Richard_Stallman.png"));
-    private final JButton thatcherButton  = new JButton(new ImageIcon("images/Margaret_Thatcher.jpg"));
-    private final JButton marxButton      = new JButton(new ImageIcon("images/Karl_Marx.jpg"));
-    private final JButton gandhiButton    = new JButton(new ImageIcon("images/Mahatma_Gandhi.jpg"));
-    private final JButton kropotkinButton = new JButton(new ImageIcon("images/Peter_Kropotkin.jpg"));
-    private final JButton bismarckButton  = new JButton(new ImageIcon("images/Otto_von_Bismarck.jpg"));
-    // LEFTOFFHERE: Added these images to CharacterSelect. Now I need to fix the part where, after
-    // running the program, I get "You picked" rather than "You picked Richard Stallman".
+    private final JButton stallmanButton  = new JButton(new ImageIcon("images/Richard_Stallman.png", "Richard Stallman"));
+    // TODO: Consider changing Thatcher to Reagan.
+    private final JButton thatcherButton  = new JButton(new ImageIcon("images/Margaret_Thatcher.jpg", "Margaret Thatcher"));
+    private final JButton marxButton      = new JButton(new ImageIcon("images/Karl_Marx.jpg", "Karl Marx"));
+    private final JButton gandhiButton    = new JButton(new ImageIcon("images/Mahatma_Gandhi.jpg", "Mahatma Gandhi"));
+    private final JButton kropotkinButton = new JButton(new ImageIcon("images/Peter_Kropotkin.jpg", "Peter Kropotkin"));
+    private final JButton bismarckButton  = new JButton(new ImageIcon("images/Otto_von_Bismarck.jpg", "Otto von Bismarck"));
 
     /** An array full of the token buttons. */
     // TODO: Move this to the constructor?
@@ -59,6 +58,7 @@ public class CharacterSelect implements ActionListener {
 	gandhiButton.setRolloverIcon(new ImageIcon("images/Mahatma_Gandhi_rollover.png"));
 	kropotkinButton.setRolloverIcon(new ImageIcon("images/Peter_Kropotkin_rollover.png"));
 	bismarckButton.setRolloverIcon(new ImageIcon("images/Otto_von_Bismarck_rollover.png"));
+
 
 	// And set icons for when a character is selected.
 	stallmanButton.setSelectedIcon(new ImageIcon("images/Richard_Stallman_selected.png"));
@@ -111,42 +111,30 @@ public class CharacterSelect implements ActionListener {
      *  click Back, head back to the main menu. */
     // TODO: Add @Override annotation here?
     public void actionPerformed(ActionEvent e) {
-	String actionSource = e.getActionCommand();
+	JButton sourceButton = (JButton) e.getSource();
 	continueButton.setEnabled(true);
 
-	if (actionSource == "Continue") {
+	if (e.getActionCommand() == "Continue") {
 	    new IdeopolyGUI(selectedPlayer);
 	    frame.dispose();
 	}
-	else if (actionSource == "Back") {
+	else if (e.getActionCommand() == "Back") {
 	    new Menu();
 	    frame.dispose();
 	}
-	else
-	    selectedPlayer = actionSource;
+	else {
+	    ImageIcon sourceIcon = (ImageIcon) sourceButton.getIcon();
+	    selectedPlayer = sourceIcon.getDescription();
+	}
 
-	JButton src = (JButton) e.getSource();
-
-	// Deselect all buttons, then selcet only the selected button.
+	// Deselect all buttons, then select only the selected button.
 	stallmanButton.setSelected(false);
-	// TODO: Consider replacing with Ronald Reagan/Republican symbol.
 	thatcherButton.setSelected(false);
 	marxButton.setSelected(false);
 	gandhiButton.setSelected(false);
 	kropotkinButton.setSelected(false);
 	bismarckButton.setSelected(false);
 
-	if (src.getIcon() == stallmanButton.getIcon())
-	    stallmanButton.setSelected(true);
-	else if (src.getIcon() == thatcherButton.getIcon())
-	    thatcherButton.setSelected(true);
-	else if (src.getIcon() == marxButton.getIcon())
-	    marxButton.setSelected(true);
-	else if (src.getIcon() == gandhiButton.getIcon())
-	    gandhiButton.setSelected(true);
-	else if (src.getIcon() == kropotkinButton.getIcon())
-	    kropotkinButton.setSelected(true);
-	else if (src.getIcon() == bismarckButton.getIcon())
-	    bismarckButton.setSelected(true);
+	sourceButton.setSelected(true);
     }
 }

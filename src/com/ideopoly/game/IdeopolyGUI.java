@@ -653,59 +653,64 @@ public class IdeopolyGUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 	String eventSource = e.getActionCommand();
 
-	switch (eventSource) {
-	    // TODO: See http://docs.oracle.com/javase/6/docs/api/java/lang/String.html#substring%28int,%20int%29
-	    case "Continue": doTurn(frame, players[currentPlayer]);
-		break;
+	if (eventSource == "Continue") {
+	    doTurn(frame, players[currentPlayer]);
 	    // TODO: Make sure I don't need a bankruptcy check for this event.
             //       Shouldn't, because button's only highlighted when the Player can buy.
             //       Also add plenty of tests for this.
-	    case "Buy property":
-		// LEFTOFFHERE: Just fixed this stuff. Made a $200 price for all RailRoads.
-		// TODO: This style of thing (the casting to specific types) is done elsewhere.
-		//       Can simplify it?
-		if (player1.getCellClassName() == "RailRoad") {
-		    Railroad r = (Railroad) player1.getCell();
-		    playerPayPlayer(r.getCost(), player1);
-		}
-		else if (player1.getCellClassName() == "PropagandaOutlet") {
-		    PropagandaOutlet pO = (PropagandaOutlet) player1.getCell();
-		    playerPayPlayer(pO.getCost(), player1);
-		}
-		else if (player1.getCellClassName() == "UtilityCell") {
-		    UtilityCell u = (UtilityCell) player1.getCell();
-		    playerPayPlayer(u.getCost(), player1);
-		}
-		// TODO: ^-- That should take care of all cases, uncertain though. Needs tests.
-		player1.getCell().setOwner(player1);
-		buyProperty.setEnabled(false); // Disable button after property's bought.
-		break;
-	    case "Buy house": System.out.println("Testing buy house.");
-		break;
-	    case "Buy hotel": System.out.println("Testing buy hotel.");
-		break;
-	    case "Sell property": System.out.println("Testing sell property.");
-		break;
-	    case "Mortgage property": System.out.println("Testing mortgage property.");
-		break;
-
-            // Use a card and take the main player out of jail.
-	    // TODO: Disable this when the player's not on a jail cell.
-	    case "Use get out of jail free card":
-		player1.spendGOOJF(this);
-		useGOOJFCard.setEnabled(false);
-		updateDisplay();
-		break;
-
-	    default:
-		System.out.println(eventSource);
-		//		System.out.println("Received an action from an unknown source.");
-		Pattern p = Pattern.compile("Buy property.*");
-		Matcher m = p.matcher(eventSource);
-  //  boolean b = m.matches();
-		if (m.matches())
-		    System.out.println("Got it!");
 	}
+
+	else if (eventSource.substring(0, 12).equals("Buy property")) {
+	    // LEFTOFFHERE: Just fixed this stuff. Made a $200 price for all RailRoads.
+	    // TODO: This style of thing (the casting to specific types) is done elsewhere.
+	    //       Can simplify it?
+	    // TODO: It looks like this currently is not charging player1.
+	    if (player1.getCellClassName() == "RailRoad") {
+		Railroad r = (Railroad) player1.getCell();
+		playerPayPlayer(r.getCost(), player1);
+	    }
+
+	    else if (player1.getCellClassName() == "PropagandaOutlet") {
+		PropagandaOutlet pO = (PropagandaOutlet) player1.getCell();
+		playerPayPlayer(pO.getCost(), player1);
+	    }
+
+	    else if (player1.getCellClassName() == "UtilityCell") {
+		UtilityCell u = (UtilityCell) player1.getCell();
+		playerPayPlayer(u.getCost(), player1);
+	    }
+
+	    // TODO: ^-- That should take care of all cases, uncertain though. Needs tests.
+	    player1.getCell().setOwner(player1);
+	    buyProperty.setEnabled(false); // Disable button after property's bought.
+	}
+
+	else if (eventSource == "Buy house") {
+	    System.out.println("Testing buy house.");
+	}
+
+	else if (eventSource == "Buy hotel") {
+	    System.out.println("Testing buy hotel.");
+	}
+
+	else if (eventSource == "Sell property") {
+	    System.out.println("Testing sell property.");
+	}
+
+	else if (eventSource == "Mortgage property") {
+	    System.out.println("Testing mortgage property.");
+	}
+
+	else if (eventSource == "Use get out of jail free card") {
+	    player1.spendGOOJF(this);
+	    useGOOJFCard.setEnabled(false);
+	    updateDisplay();
+	}
+
+	else {
+	    System.out.println("Received an action from an unknown source.");
+	}
+
 	updateDisplay();
     }
 
