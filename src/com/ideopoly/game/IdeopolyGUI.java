@@ -135,7 +135,9 @@ public class IdeopolyGUI implements ActionListener {
     public Player player3   = new Player(3, this);
     public Player player4   = new Player(4, this);
     // TODO: Try to reduce usage of this players array. Is useless and confusing except when looping.
-    private Player players[] = {player1, player2, player3, player4};
+    // TODO: Does this need to be public?
+    // TODO: Since it's public, javadocs for the field.
+    public Player players[] = {player1, player2, player3, player4};
 
     /** The stack of Chance cards. */
     private Stack<Chance> chanceCards = new Stack<Chance>();
@@ -382,6 +384,7 @@ public class IdeopolyGUI implements ActionListener {
     private void doTurn(JFrame frame, Player p) {
 	Random rollGenerator = new Random();
 	int roll = rollGenerator.nextInt(6) + 1; // Roll a new random number between 1 and 6.
+	printStatusAndLog(players[currentPlayer].getName() + " rolls " + roll + ".");
 
 	// First or second week in jail.
 	if (p.getJailStatus() == 3 || p.getJailStatus() == 2) {
@@ -500,8 +503,10 @@ public class IdeopolyGUI implements ActionListener {
 		}
 	    
 		// Player lands on a Chance card.
+		// TODO: On chanceCards, I reduced the number of arguments to get rid of p2/p3/p4.
+		//       Do I still need them here?
 		else if (landingSpot == 7 || landingSpot == 22 || landingSpot == 36)
-		    chanceCards.pop().doActions(p, this, p2, p3, p4);
+		    chanceCards.pop().doActions(p, this);
 
 		// TODO: Allow the Player to choose 10% or $200, or do the cheapest automatically.
 		// Player lands on Income Tax.

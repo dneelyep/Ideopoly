@@ -2,12 +2,11 @@ This directory contains all the tests for this project. Currently, there is one 
 per regular class in the src/ directory.
 
 * Some TODOS for all tests
-** TODO: Add all the relevant below test cases.
-** TODO: Make sure order of arguments is correct on assertEquals().
-** TODO: Split the individual test files into multiple methods per file. 
+** TODO Add all the relevant below test cases.
+** TODO Make sure order of arguments is correct on assertEquals().
+** TODO Split the individual test files into multiple methods per file. 
    For example, if Chance.java has 5 methods, ChanceTester.java could test each of those 5 methods separately.
    This should help pinpoint errors a little more quickly.
-
 * TODO For large sections of items that aren't done, it would be helpful to split test files into separate methods to make this process easier.
 * TODO Write an emacs lisp script that can automatically generate the below overall progress tree.
 * Overall Test Progress - by tested methods. [43/107]

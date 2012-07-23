@@ -11,10 +11,10 @@ public class TestHelper extends TestCase {
     //       argument to be of type Chance or CommunityChest.
     public static void doActionsAllPlayers(Chance card, IdeopolyGUI gui, Player p1, Player p2, Player p3, Player p4) {
 	// TODO: Do I need the two arguments? They're the same for each time I call them here.
-	card.doActions(p1, gui, p2, p3, p4);
-	card.doActions(p2, gui, p1, p3, p4);
-	card.doActions(p3, gui, p1, p2, p4);
-	card.doActions(p4, gui, p1, p2, p3);
+	card.doActions(p1, gui);
+	card.doActions(p2, gui);
+	card.doActions(p3, gui);
+	card.doActions(p4, gui);
     }
 
     public static void doActionsAllPlayers(CommunityChest card, IdeopolyGUI gui, Player p1, Player p2, Player p3, Player p4) {

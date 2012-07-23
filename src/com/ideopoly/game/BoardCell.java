@@ -13,8 +13,6 @@ import java.awt.*;
 
 // TODO: Need to implement the whole idea of an onLand() method. Should simplify
 // things considerably.
-
-// TODO: Have the subclasses only implement the MouseListener, since not all subclasses need to be listened to? IE: Go to jail.
 // TODO: On go to jail, on land do a funny animation.
 public abstract class BoardCell {
     // TODO: Add a field indicating whether or not a player is present 
@@ -191,9 +189,7 @@ public abstract class BoardCell {
 	@Override 
 	public void mouseEntered(MouseEvent e) {
 	    // TODO: Tests for this stuff.
-	    // TODO: Use substring for these to shorten the conditional.
-
-	    if (BoardCell.this.getClass().getName() == "com.ideopoly.game.Railroad") {
+	   if (BoardCell.this.getClass().getName() == "com.ideopoly.game.Railroad") {
 		Railroad r = (Railroad) BoardCell.this;
 		gui.setGUIColor(Color.BLACK);
 		gui.setGUICost("$" + Integer.toString(r.getCost()));
@@ -267,7 +263,6 @@ public abstract class BoardCell {
     }
 
     // Start with these, add more if/where needed. Add specifics in inherited classes.
-    // TODO: Add an owner field to state that a person owns all sub-properties?
     // TODO: Make creative alternatives to jail/free parking
     // TODO: Add a timer so they don't have time to add up their money?
 } 

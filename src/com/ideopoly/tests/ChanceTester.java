@@ -336,23 +336,23 @@ public class ChanceTester extends TestCase {
 	assertEquals(chanceCard.getText(), "Take a trip to Reading Railroad – if you pass Go, collect $200");
 
 	player1.changeCell(0, gui);  // Test when we start on Go.
-	chanceCard.doActions(player1, gui, player2, player3, player4);
+	chanceCard.doActions(player1, gui);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), 1500);
 
 	player1.changeCell(3, gui); // Test when we start before Reading RR (Baltic Av. here).
-	chanceCard.doActions(player1, gui, player2, player3, player4);
+	chanceCard.doActions(player1, gui);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), 1500);
 
 	player1.changeCell(5, gui); // Test when we start on Reading RR.
-	chanceCard.doActions(player1, gui, player2, player3, player4);
+	chanceCard.doActions(player1, gui);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), 1500); // TODO: Should this count as passing
 	// Go? Even though doing this is impossible by the game's rules...
 
 	player1.changeCell(6, gui); // Test when we start after Reading RR.
-	chanceCard.doActions(player1, gui, player2, player3, player4);
+	chanceCard.doActions(player1, gui);
 	assertEquals(player1.getCell(), gui.boardProperties[5]);
 	assertEquals(player1.getCash("total"), 1700);
     }
@@ -374,25 +374,20 @@ public class ChanceTester extends TestCase {
 	assertEquals(chanceCard.getType(), 14);
 	assertEquals(chanceCard.getText(), "You have been elected chairman of the board – pay each player $50");
 	// First we test when players will not be bankrupt by this card, so make some new Players.
-	player1 = new Player(1, gui);
-	player2 = new Player(2, gui);
-	player3 = new Player(3, gui);
-	player4 = new Player(4, gui);
-	// TODO: I think the problem here is that Chance.java's doActions() is referring to and 
-	// doing actions on the players associated with the GUI. The players I create here are
-	// not the same Players as player1/2/3/4 in gui.
-	// Fix this problem and then re-enable the tests.
-	chanceCard.doActions(player1, gui, player2, player3, player4);
-	TestHelper.assertCash(1350, 1550, 1550, 1550, player1, player2, player3, player4);
+	IdeopolyGUI newGUI = new IdeopolyGUI("Ayn Rand");
 
-	chanceCard.doActions(player2, gui, player1, player3, player4);
-	TestHelper.assertCash(1400, 1400, 1600, 1600, player1, player2, player3, player4);
+	chanceCard.doActions(newGUI.player1, newGUI);
+	// TODO: See if I can reduce the # of arguments in assertCash.
+	TestHelper.assertCash(1350, 1550, 1550, 1550, newGUI.player1, newGUI.player2, newGUI.player3, newGUI.player4);
 
-	chanceCard.doActions(player3, gui, player1, player2, player4);
-	TestHelper.assertCash(1450, 1450, 1450, 1650, player1, player2, player3, player4);
+	chanceCard.doActions(newGUI.player2, newGUI);
+	TestHelper.assertCash(1400, 1400, 1600, 1600, newGUI.player1, newGUI.player2, newGUI.player3, newGUI.player4);
 
-	chanceCard.doActions(player4, gui, player1, player2, player3);
-	TestHelper.assertCash(1500, player1, player2, player3, player4);
+	chanceCard.doActions(newGUI.player3, newGUI);
+	TestHelper.assertCash(1450, 1450, 1450, 1650, newGUI.player1, newGUI.player2, newGUI.player3, newGUI.player4);
+
+	chanceCard.doActions(newGUI.player4, newGUI);
+	TestHelper.assertCash(1500, newGUI.player1, newGUI.player2, newGUI.player3, newGUI.player4);
 
 	// TODO: Then test when the main player will be bankrupt.
 	//	player1.addCash("ones", );
