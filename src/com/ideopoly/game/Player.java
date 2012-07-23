@@ -140,7 +140,6 @@ public class Player {
 	}
     }
 
-
     /** Return the image associated with this player. */
     public Icon getImage() {
 	return image;

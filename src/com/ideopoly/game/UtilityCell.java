@@ -5,7 +5,7 @@ package com.ideopoly.game;
 public class UtilityCell extends BoardCell {
     // TODO: Add a test class and tests.
     /** The cost to buy this cell, unimproved. */
-    private static final int cost = 150;
+    private final int COST = 150;
 
     /** Create a new UtilityCell with a given name,
      *  image, and x/y coordinates on the board.*/
@@ -16,7 +16,7 @@ public class UtilityCell extends BoardCell {
     /** Returns the cost for a Player to buy this 
      *  property, unimproved. */
     public int getCost() {
-	return cost;
+	return COST;
     }
 
     // TODO: Handle this better than returning a 0 value. Un-elegant.

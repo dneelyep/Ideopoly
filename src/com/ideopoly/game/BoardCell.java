@@ -101,8 +101,8 @@ public abstract class BoardCell {
     /** Make player p the owner of this property. */
     public void setOwner(Player p) {
 	ownedBy = p;
-	// TODO: Have this function also set the relevant image for the property to indicate ownership.
-	// Can use player.getImage()
+	// TODO: Have this function also set the relevant image for 
+	// the property to indicate ownership.
     }
 
     /** Get the image associated with this property. */
@@ -154,6 +154,8 @@ public abstract class BoardCell {
 
     /** Returns the BoardPosition associated with Player p. For example,
      *  if p is 2, we return player 2's BoardPosition.*/
+    // TODO: I could make an array of positions, so it would be easy to do, for example,
+    //       for (BoardPosition b : boardcell)
     public BoardPosition getPosition(int p) {
 	if (p == 1)
 	    return p1Pos;
@@ -180,18 +182,18 @@ public abstract class BoardCell {
 	private static final long serialVersionUID = 42L;
 
 	public BoardCellGUI(Icon image) {
-	    // TODO: Make sure what I did here works fine (removing the cast).
-	    //	    add(new JLabel((ImageIcon) image));
 	    add(new JLabel(image));
 	    addMouseListener(this);
 	}
 
 	/** When the mouse hovers over a property, display relevant
 	 *  information in the detailed property info. GUI section. */
-	// TODO: Add @Override annotation here?
+	@Override 
 	public void mouseEntered(MouseEvent e) {
 	    // TODO: Tests for this stuff.
-	    if (BoardCell.this.getClass().getName() == "Railroad") {
+	    // TODO: Use substring for these to shorten the conditional.
+
+	    if (BoardCell.this.getClass().getName() == "com.ideopoly.game.Railroad") {
 		Railroad r = (Railroad) BoardCell.this;
 		gui.setGUIColor(Color.BLACK);
 		gui.setGUICost("$" + Integer.toString(r.getCost()));
@@ -199,14 +201,14 @@ public abstract class BoardCell {
 		//       where houses would be displayed.
 		gui.setGUIRent("$" + Integer.toString(r.getRent()));
 		// TODO: Combine the unownable/can't buy parts? Reduce a bit of duplication.
-		gui.setGUI1House("Can't buy houses");
-		gui.setGUI2House("Can't buy houses");
-		gui.setGUI3House("Can't buy houses");
-		gui.setGUI4House("Can't buy houses");
-		gui.setGUIHotel("Can't buy hotels");
+		gui.setGUI1House("-");
+		gui.setGUI2House("-");
+		gui.setGUI3House("-");
+		gui.setGUI4House("-");
+		gui.setGUIHotel("-");
 		gui.setGUIMortgage("$" + Integer.toString(r.getMortgageValue()));
 	    }
-	    else if (BoardCell.this.getClass().getName() == "PropagandaOutlet") {
+	    else if (BoardCell.this.getClass().getName() == "com.ideopoly.game.PropagandaOutlet") {
 		PropagandaOutlet p = (PropagandaOutlet) BoardCell.this;
 
 		gui.setGUIColor(p.getColor());
@@ -221,23 +223,23 @@ public abstract class BoardCell {
 		gui.setGUIHotel("$" + Integer.toString(p.getRent1Hotel()));
 		gui.setGUIMortgage("$" + Integer.toString(p.getMortgageValue()));
 	    }
-	    else if (BoardCell.this.getClass().getName() == "UtilityCell") {
+	    else if (BoardCell.this.getClass().getName() == "com.ideopoly.game.UtilityCell") {
 		UtilityCell u = (UtilityCell) BoardCell.this;
 
 		gui.setGUIColor(Color.GRAY);
 		gui.setGUICost("$" + Integer.toString(u.getCost()));
 		// TODO: Fill in these things.
 		// gui.setGUIHouseHotelCost.setText("$" + Integer.toString(u.getHouseOrHotelCost()));
-		// gui.setGUIRent.setText("$" + Integer.toString(u.getInitialRent()));
-		// gui.gui1House.setText("$" + Integer.toString(u.getRent1House()));
-		// gui.gui2House.setText("$" + Integer.toString(u.getRent2House()));
-		// gui.gui3House.setText("$" + Integer.toString(u.getRent3House()));
-		// gui.gui4House.setText("$" + Integer.toString(u.getRent4House()));
-		// gui.guiHotel.setText ("$" + Integer.toString(u.getRent1Hotel()));
-		// gui.guiMortgage.set Text("$" + Integer.toString(u.getMortgageValue()));
+		// gui.setGUIRent("$" + Integer.toString(u.getInitialRent()));
+		// gui.setGUI1House.setText("$" + Integer.toString(u.getRent1House()));
+		// gui.setGUI2House.setText("$" + Integer.toString(u.getRent2House()));
+		// gui.setGUI3House.setText("$" + Integer.toString(u.getRent3House()));
+		// gui.setGUI4House.setText("$" + Integer.toString(u.getRent4House()));
+		// gui.setGUIHotel.setText ("$" + Integer.toString(u.getRent1Hotel()));
+		gui.setGUIMortgage("$75");
 	    }
-	    else if (BoardCell.this.getClass().getName() == "SpecialCell"
-	          || BoardCell.this.getClass().getName() == "ChanceOrCommChestCell") {
+	    else if (BoardCell.this.getClass().getName() == "com.ideopoly.game.SpecialCell"
+	          || BoardCell.this.getClass().getName() == "com.ideopoly.game.ChanceOrCommChestCell") {
 		// TODO: Remove the labels when we mouse over an un-ownable property?
 		gui.setGUIColor(Color.WHITE);
 		gui.setGUICost("-");
@@ -254,16 +256,17 @@ public abstract class BoardCell {
 	    gui.setGUIName(name);
 	}
 	// TODO: Is there a better way to do this?
-	// TODO: Add @Override annotations for each?
+	@Override
 	public void mouseExited(MouseEvent e) {	}
+	@Override
 	public void mouseClicked(MouseEvent e) { }
+	@Override
 	public void mousePressed(MouseEvent e) { }
+	@Override
 	public void mouseReleased(MouseEvent e) { }
     }
 
     // Start with these, add more if/where needed. Add specifics in inherited classes.
-    // TODO: Note that subclasses inherit public and protected, not private members.
-    // TODO: Implement those extra classes.
     // TODO: Add an owner field to state that a person owns all sub-properties?
     // TODO: Make creative alternatives to jail/free parking
     // TODO: Add a timer so they don't have time to add up their money?

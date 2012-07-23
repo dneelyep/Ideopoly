@@ -7,7 +7,6 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.regex.*;
 
-// TODO: Re-organize directories and packages to make more sense. Great ideas at https://www.ibm.com/developerworks/library/j-classpath-unix/
 // TODO: com as a package name start doesn't make much sense. I don't own a domain name.
 // TODO: Add in Chance and Comm. Chest images.
 // TODO: Use the native look and feel for the program.
@@ -20,7 +19,6 @@ import java.util.regex.*;
  *  can play the game.
  *
  *  @author Daniel Neel */
-
 public class IdeopolyGUI implements ActionListener {
     // TODO: Make some of these arrays, etc., final/static when they're constant. Also see
     // if it's possible to get rid of some of them.
@@ -828,52 +826,50 @@ public class IdeopolyGUI implements ActionListener {
 	//    private FileWriter fout;
     }
 
-
-
     // TODO: Better, more descriptive names for these methods, 
     // and the corresponding variables.
     /** Set the background color for detailed property info. */
     public void setGUIColor(Color c) {
-	guiColor.setBackground(c);
+    	guiColor.setBackground(c);
     }
     /** Set the text for detailed property info. */
     public void setGUIName(String t) {
-	guiName.setText(t);
+    	guiName.setText(t);
     }
     /** Set the cost text for detailed property info. */
     public void setGUICost(String t) {
-	guiCost.setText(t);
+    	guiCost.setText(t);
     }
     /** Set the house/hotel cost text for detailed property info. */
     public void setGUIHouseHotelCost(String t) {
-	guiHouseHotelCost.setText(t);
+    	guiHouseHotelCost.setText(t);
     }
     /** Set the rent text for detailed property info. */
     public void setGUIRent(String t) {
-	guiRent.setText(t);
+    	guiRent.setText(t);
     }
     /** Set the 1 house cost text for detailed property info. */
     public void setGUI1House(String t) {
-	gui1House.setText(t);
+    	gui1House.setText(t);
     }
     /** Set the 2 houses cost text for detailed property info. */
     public void setGUI2House(String t) {
-	gui2House.setText(t);
+    	gui2House.setText(t);
     }
     /** Set the 3 houses cost text for detailed property info. */
     public void setGUI3House(String t) {
-	gui3House.setText(t);
+    	gui3House.setText(t);
     }
     /** Set the 4 houses cost text for detailed property info. */
     public void setGUI4House(String t) {
-	gui4House.setText(t);
+    	gui4House.setText(t);
     }
     /** Set the hotel cost text for detailed property info. */
     public void setGUIHotel(String t) {
-	guiHotel.setText(t);
+    	guiHotel.setText(t);
     }
     /** Set the mortgage value for detailed property info. */
     public void setGUIMortgage(String t) {
-	guiMortgage.setText(t);
+    	guiMortgage.setText(t);
     }
 }
