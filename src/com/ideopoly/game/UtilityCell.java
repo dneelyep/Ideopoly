@@ -20,6 +20,7 @@ public class UtilityCell extends BoardCell {
     }
 
     // TODO: Handle this better than returning a 0 value. Un-elegant.
+    // TODO: That's the case for SpecialCells, but not UtilityCells. Fix it.
     /** Get the amount of rent charged for landing on this cell.
      *  Since the Player is not charged for landing on any SpecialCells,
      *  we return 0 for the amount. */

@@ -652,7 +652,7 @@ public class IdeopolyGUI implements ActionListener {
     }
 
     /** Perform actions depending on GUI events. */
-    // TODO: Add @Override annotation here?
+    @Override
     public void actionPerformed(ActionEvent e) {
 	String eventSource = e.getActionCommand();
 

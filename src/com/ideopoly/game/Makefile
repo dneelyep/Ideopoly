@@ -6,7 +6,7 @@ SRC        = ./*.java ../tests/*.java
 CLASS      = ../../../../bin/
 CLASSPATH  = ~/Programming/Java/Ideopoly/bin:/home/daniel/.junit/junit4.10/junit-4.10.jar
 SRCPATH    = ../../../
-TESTS      = com.ideopoly.tests.BoardCellTester com.ideopoly.tests.BoardPositionTester com.ideopoly.tests.CashCellTester com.ideopoly.tests.ChanceTester com.ideopoly.tests.CharacterSelectTester com.ideopoly.tests.CommunityChestTester com.ideopoly.tests.IdeopolyGUITester com.ideopoly.tests.MenuTester com.ideopoly.tests.PlayerTester com.ideopoly.tests.PropagandaOutletTester com.ideopoly.tests.RailroadTester
+TESTS      = com.ideopoly.tests.BoardCellTester com.ideopoly.tests.BoardPositionTester com.ideopoly.tests.CashCellTester com.ideopoly.tests.ChanceTester com.ideopoly.tests.CharacterSelectTester com.ideopoly.tests.CommunityChestTester com.ideopoly.tests.IdeopolyGUITester com.ideopoly.tests.MenuTester com.ideopoly.tests.PlayerTester com.ideopoly.tests.PropagandaOutletTester com.ideopoly.tests.RailroadTester com.ideopoly.tests.UtilityCellTester
 
 all: $(SRC) $(CLASS)
         # Compile source files.
