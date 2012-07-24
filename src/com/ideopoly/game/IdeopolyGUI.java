@@ -5,7 +5,6 @@ import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.regex.*;
 
 // TODO: com as a package name start doesn't make much sense. I don't own a domain name.
 // TODO: Add in Chance and Comm. Chest images.
@@ -45,7 +44,6 @@ public class IdeopolyGUI implements ActionListener {
     private final int[]   paymentAmounts   = {0, 0, 0, 0, 0, 0, 0};
     private JFrame  frame	     = new JFrame("Ideopoly | Main game");
     private JButton continueButton   = new JButton("Continue");//new ImageIcon("images/continueButton.jpg"));
-    // TODO: Would be good to list the property name, such as "Buy property (Mediterranean Avenue)"
     private JButton buyProperty	     = new JButton("Buy property");
     private JButton buyHouse	     = new JButton("Buy house");
     private JButton buyHotel	     = new JButton("Buy hotel");
@@ -177,9 +175,7 @@ public class IdeopolyGUI implements ActionListener {
 	c.gridheight = 4;
 
 	for (BoardCell cell : boardProperties) {
-	    c.gridx = cell.getX();
-	    c.gridy = cell.getY();
-
+	    setConstraintsXY(c, cell.getX(), cell.getY());
 	    frame.add(cell.getGraphicalRepresentation(), c);
 	}
 	
@@ -196,8 +192,7 @@ public class IdeopolyGUI implements ActionListener {
 					     property.getPosition(4)};
 
 	    for (BoardPosition p : cellPositions) {
-		c.gridx = p.getXCoord();
-		c.gridy = p.getYCoord();
+		setConstraintsXY(c, p.getXCoord(), p.getYCoord());
 		frame.add(p, c);
 	    }
 	}
@@ -205,8 +200,7 @@ public class IdeopolyGUI implements ActionListener {
 	// ====================================================
 	// === Create labels to display each player's cash. ===
 	// ====================================================
-	c.gridx = 50;
-	c.gridy = 0;
+	setConstraintsXY(c, 50, 0);
 
 	// TODO: Would be good if I just used a 2D array to store all this, rather
 	// than the separate titles, playerRowLabels, and for loop parts.
@@ -232,11 +226,11 @@ public class IdeopolyGUI implements ActionListener {
 	    for (int j = 0; j <= 9; j++) { // And through each column.
 		// Add get out of jail free cards, rather than cash, in the 8th column.
 		// TODO: I should be able to reduce the code in this block a bit. A little tricky, doable.
-		if (j == 9)
+		if (j == 9)      // Jail status.
 		    cashLabels[i][j] = new CashCell(60, 1 + i, Integer.toString(players[i].getJailStatus()));
-		else if (j == 8)
+		else if (j == 8) // Get out of jail free cards.
 		    cashLabels[i][j] = new CashCell(59, 1 + i, Integer.toString(players[i].getNumGOOJFCards()));
-		else
+		else             // Cash amounts.
 		    cashLabels[i][j] = new CashCell(51 + j, 1 + i, Integer.toString(players[i].getCash(cashValues[j])));
 	    }
 	}
@@ -244,8 +238,7 @@ public class IdeopolyGUI implements ActionListener {
 	// Then add all the labels to the board.
 	for (CashCell[] outer : cashLabels) {
 	    for (CashCell cc : outer) {
-		c.gridx = cc.getXCoord();
-		c.gridy = cc.getYCoord();
+		setConstraintsXY(c, cc.getXCoord(), cc.getYCoord());
 		frame.add(cc, c);
 	    }
 	}
@@ -253,8 +246,7 @@ public class IdeopolyGUI implements ActionListener {
 	// Add a Continue button in the middle of the board.
 	c.gridwidth  = 7;
 	c.gridheight = 2;
-	c.gridx      = 22;
-	c.gridy      = 22;
+	setConstraintsXY(c, 22, 22);
 	frame.add(continueButton, c);
 
 	// ======================================================================
@@ -280,8 +272,7 @@ public class IdeopolyGUI implements ActionListener {
 	useGOOJFCard.addActionListener(this);
 
 	// Left column.
-	c.gridx     = 50;
-	c.gridy     = 6;
+	setConstraintsXY(c, 50, 6);
 	c.gridwidth = 9;
 	frame.add(buyProperty, c);
 
@@ -294,15 +285,13 @@ public class IdeopolyGUI implements ActionListener {
 
 	// Right column.
 	c.gridwidth = 4;
-	c.gridy	    = 8;
-	c.gridx     = 55;
+	setConstraintsXY(c, 55, 8);
 	frame.add(sellProperty, c);
 
 	c.gridy = 9;
 	frame.add(mortgageProperty, c);
 
-	c.gridx     = 50;
-	c.gridy     = 11;
+	setConstraintsXY(c, 50, 11);
 	c.gridwidth = 9;
 	frame.add(useGOOJFCard, c);
 
@@ -312,7 +301,7 @@ public class IdeopolyGUI implements ActionListener {
 	c.gridy      = 20;
 	c.gridwidth  = 9;
 	c.gridheight = 1;
-	guiColor.setOpaque(true); // Make sure we paint the background with colors.
+	guiColor.setOpaque(true);
 	// TODO: Add a thin black border around the color.
 	frame.add(guiColor, c);
 
@@ -340,8 +329,7 @@ public class IdeopolyGUI implements ActionListener {
 	// ==============================
 	// === Add the messages area. ===
 	// ==============================
-	c.gridx      = 50;
-	c.gridy      = 37;
+	setConstraintsXY(c, 50, 37);
 	c.gridheight = 8;
 	c.gridwidth  = 11;
 
@@ -563,8 +551,13 @@ public class IdeopolyGUI implements ActionListener {
 
 			// Allow player to buy the property.
 			if (p == player1) {
-			    // TODO: This is nice to have, but it screws up 
-			    // my later switch statement.
+			    // TODO: Write an elisp function for making a new TODO, bind to C-c C-t.
+			    // TODO: Have buyProperty disable itself after the player presses "Continue",
+			    //       so they can't buy the property when it's not their turn?
+			    //       Also, if I don't want to do that, disable it if another player buys
+			    //       it or lands on the cell.
+			    //       Also, have the text for the property name disappear when the button
+			    //       is disabled.
 			    buyProperty.setText("Buy property (" + players[currentPlayer].getCell().getName() + ")");
 			    buyProperty.setEnabled(true);
 			}
@@ -664,26 +657,25 @@ public class IdeopolyGUI implements ActionListener {
 	}
 
 	else if (eventSource.substring(0, 12).equals("Buy property")) {
-	    // LEFTOFFHERE: Just fixed this stuff. Made a $200 price for all RailRoads.
 	    // TODO: This style of thing (the casting to specific types) is done elsewhere.
 	    //       Can simplify it?
-	    // TODO: It looks like this currently is not charging player1.
-	    if (player1.getCellClassName() == "RailRoad") {
+	    if (player1.getCellClassName() == "com.ideopoly.game.Railroad") {
 		Railroad r = (Railroad) player1.getCell();
 		playerPayPlayer(r.getCost(), player1);
 	    }
 
-	    else if (player1.getCellClassName() == "PropagandaOutlet") {
+	    else if (player1.getCellClassName() == "com.ideopoly.game.PropagandaOutlet") {
 		PropagandaOutlet pO = (PropagandaOutlet) player1.getCell();
 		playerPayPlayer(pO.getCost(), player1);
 	    }
 
-	    else if (player1.getCellClassName() == "UtilityCell") {
+	    else if (player1.getCellClassName() == "com.ideopoly.game.UtilityCell") {
 		UtilityCell u = (UtilityCell) player1.getCell();
 		playerPayPlayer(u.getCost(), player1);
 	    }
 
 	    // TODO: ^-- That should take care of all cases, uncertain though. Needs tests.
+	    //       SpecialCells? Chance/CommChests?
 	    player1.getCell().setOwner(player1);
 	    buyProperty.setEnabled(false); // Disable button after property's bought.
 	}
@@ -876,5 +868,13 @@ public class IdeopolyGUI implements ActionListener {
     /** Set the mortgage value for detailed property info. */
     public void setGUIMortgage(String t) {
     	guiMortgage.setText(t);
+    }
+
+    /** Helper method to, given a GridBagConstraints object gbc, 
+     *  set its gridx and gridx values to x and y. */
+    // TODO: Add the step of adding the stuff to the frame here?
+    private void setConstraintsXY(GridBagConstraints gbc, int x, int y) {
+	gbc.gridx = x;
+	gbc.gridy = y;
     }
 }

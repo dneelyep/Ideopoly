@@ -20,4 +20,4 @@ all: $(SRC) $(CLASS)
 	java -cp $(CLASSPATH) -jar ~/findbugs-2.0.0/lib/findbugs.jar -textui -emacs $(CLASS)
 
 docs: # Regenerate my javadoc stuff.
-	javadoc -d javadoc -author -classpath $(CLASSPATH) $(SRC) -d ../../../../etc/docs/
+	javadoc -author -classpath $(CLASSPATH) $(SRC) -d ../../../../etc/docs/
