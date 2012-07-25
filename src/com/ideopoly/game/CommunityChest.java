@@ -81,14 +81,7 @@ public class CommunityChest {
             case 2: p.addCash("hundreds", 2); // "Bank error in your favor – collect $200"
 		break;
 	    case 3:   // "Doctor's fees – Pay $50"
-		if (p.willBankrupt(50)) {
-		    p.bankruptPlayer(gui); // TODO: Update this code to do more relevant stuff.
-		}
-		else {
-		    p.spreadCash(50);  // Shuffle money around to get 50s.
-		    p.addCash("fifties", -1);
-		    p.spreadCash(500); // Then shuffle back to a more reasonable amount.
-		}
+		gui.playerPayBank(50, p);
 		break;
 	    case 4: p.giveGOOJF();    // "Get Out of Jail Free – this card may be kept until needed, or sold.
 		break;
@@ -143,31 +136,17 @@ public class CommunityChest {
 	    case 9: p.addCash("hundreds", 1); // "Life Insurance Matures – collect $100"
 		break;
 	    case 10:  // "Pay Hospital Fees of $100"
-		if (p.willBankrupt(100)) {
-		    p.bankruptPlayer(gui);
-		}
-		else {
-		    p.spreadCash(100);
-		    p.addCash("hundreds", -1);
-		    p.spreadCash(500);
-		}
+		gui.playerPayBank(100, p);
 		break;
 	    case 11:  // "Pay School Fees of $50"
-		if (p.willBankrupt(50)) {
-		    p.bankruptPlayer(gui);
-		}
-		else {
-		    p.spreadCash(50);
-		    p.addCash("fifties", -1);
-		    p.spreadCash(500);
-		}
+		gui.playerPayBank(50, p);
 		break;
 	    case 12: p.addCash("twenties", 1); // "Receive $25 Consultancy Fee"
 		p.addCash("fives", 1);
 		break;
 	    case 13:  // "You are assessed for street repairs – $40 per house, $115 per hotel"
 		int chargeAmount = (p.getNumHouses() * 40) + (p.getNumHotels() * 115);
-		gui.playerPayPlayer(chargeAmount, p);
+		gui.playerPayBank(chargeAmount, p);
 		break;
 	    case 14: p.addCash("tens", 1);     // "You have won second prize in a beauty contest– collect $10"
 		break;

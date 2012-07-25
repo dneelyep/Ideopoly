@@ -294,14 +294,14 @@ public class IdeopolyGUITester extends TestCase {
 	p2 = new Player(2, testGUI);
 	p3 = new Player(3, testGUI);
 	p4 = new Player(4, testGUI);
-	testGUI.playerPayPlayer(1501, p1);
+	testGUI.playerPayBank(1501, p1);
 	assertEquals(p1.getCash("total"), 0);
 	// TODO: Should have a better method for these cases. IE, isBankrupt()
-	testGUI.playerPayPlayer(1570, p2);
+	testGUI.playerPayBank(1570, p2);
 	assertEquals(p1.getCash("total"), 0);
-	testGUI.playerPayPlayer(1600, p3);
+	testGUI.playerPayBank(1600, p3);
 	assertEquals(p1.getCash("total"), 0);
-	testGUI.playerPayPlayer(20000, p4);
+	testGUI.playerPayBank(20000, p4);
 	assertEquals(p1.getCash("total"), 0);
 
 
@@ -356,13 +356,13 @@ public class IdeopolyGUITester extends TestCase {
 
 	// And now test transferring from a player to the bank.
 	// For all 4 players
-	testGUI.playerPayPlayer(1500, p1);
+	testGUI.playerPayBank(1500, p1);
 	assertEquals(p1.getCash("total"), 0);
-	testGUI.playerPayPlayer(1430, p2);
+	testGUI.playerPayBank(1430, p2);
 	assertEquals(p2.getCash("total"), 70);
-	testGUI.playerPayPlayer(10, p3);
+	testGUI.playerPayBank(10, p3);
 	assertEquals(p3.getCash("total"), 1490);
-	testGUI.playerPayPlayer(500, p4);
+	testGUI.playerPayBank(500, p4);
 	assertEquals(p4.getCash("total"), 1000);
     }
 

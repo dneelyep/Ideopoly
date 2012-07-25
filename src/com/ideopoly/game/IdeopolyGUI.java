@@ -44,7 +44,7 @@ public class IdeopolyGUI implements ActionListener {
 
     /** Array used to store the values of each type of bill a Player
      *  should pay after requiring a payment. */
-    private final int[]   paymentAmounts   = {0, 0, 0, 0, 0, 0, 0};
+    private int[]   paymentAmounts   = {0, 0, 0, 0, 0, 0, 0};
     private JFrame  frame	     = new JFrame("Ideopoly | Main game");
     private JButton continueButton   = new JButton("Continue");//new ImageIcon("images/continueButton.jpg"));
     private JButton buyProperty	     = new JButton("Buy property");
@@ -384,7 +384,7 @@ public class IdeopolyGUI implements ActionListener {
 
 	// Last week in jail. Player gets charged $50, then moves forward.
 	else if ( p.getJailStatus() == 1 ) {
-	    playerPayPlayer(50, p);
+	    playerPayBank(50, p);
 	    p.setJailStatus(0);
 	    movePlayer(p, roll);
 	}
@@ -459,9 +459,8 @@ public class IdeopolyGUI implements ActionListener {
 		// Player lands on a Community Chest card.
 		// TODO: For Chance and CommChest, do I need to have the Player
 		//       changeCell() before popping the card off?
-		else if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33) {
+		else if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33)
 		    commChestCards.pop().doActions(p, this);
-		}
 	    
 		// Player lands on a Chance card.
 		else if (landingSpot == 7 || landingSpot == 22 || landingSpot == 36)
@@ -469,32 +468,14 @@ public class IdeopolyGUI implements ActionListener {
 
 		// TODO: Allow the Player to choose 10% or $200, or do the cheapest automatically.
 		// Player lands on Income Tax.
-		else if (landingSpot == 4) {
-		    if (p.willBankrupt(200))
-			p.bankruptPlayer(this);
-		    else {
-			p.spreadCash(100);
-			p.addCash("hundreds", -2);
-			p.spreadCash(500);
-		    }
-		    // TODO: Make a method for this "if (p.willBankrupt())" form?
-		}
+		// TODO: Test to make sure this works.
+		else if (landingSpot == 4)
+		    playerPayBank(200, p);
 
 		// Luxury tax.
-		else if (landingSpot == 38) {
-		    if (p.willBankrupt(75))
-			p.bankruptPlayer(this);
-		    else {
-			p.spreadCash(50);
-			p.addCash("fifties", -1);
-			p.spreadCash(20);
-			p.addCash("twenties", -1);
-			p.spreadCash(5);
-			p.addCash("fives", -1);
-
-			p.spreadCash(500);
-		    }
-		}
+		// TODO: Test to make sure this works.
+		else if (landingSpot == 38)
+		    playerPayBank(75, p);
 
 		// TODO: Possibly redo this to take advantage of p.getCell().getClass()
 		// rather than using landingSpot numbers.
@@ -550,19 +531,19 @@ public class IdeopolyGUI implements ActionListener {
 				       Have not yet tested playerPayPlayer on a null Player input.
 				       Also test this later on where the player buys a property
 				       - apparently it's not working. */
-				    playerPayPlayer(r.getRent(), p);
+				    playerPayBank(r.getRent(), p);
 				}
 				else if (p.getCellClassName() == "PropagandaOutlet") {
 				    PropagandaOutlet pO = (PropagandaOutlet) p.getCell();
 				    getCashDistribution(pO.getCost());
 				    printStatusAndLog(p.getName() + " bought " + pO.getName() + " for $" + pO.getCost() + ".");
-				    playerPayPlayer(pO.getRent(), p);
+				    playerPayBank(pO.getRent(), p);
 				}
 				else if (p.getCellClassName() == "UtilityCell") {
 				    UtilityCell u = (UtilityCell) p.getCell();
 				    getCashDistribution(u.getCost());
 				    printStatusAndLog(p.getName() + " bought " + u.getName() + " for $" + u.getCost() + ".");
-				    playerPayPlayer(u.getRent(), p);
+				    playerPayBank(u.getRent(), p);
 				}
 			    }
 			}
@@ -633,17 +614,17 @@ public class IdeopolyGUI implements ActionListener {
 	    // The class name includes the package name in front, so we cut that off with substring.
 	    if (player1.getCellClassName().substring(18).equals("Railroad")) {
 		Railroad r = (Railroad) player1.getCell();
-		playerPayPlayer(r.getCost(), player1);
+		playerPayBank(r.getCost(), player1);
 	    }
 
 	    else if (player1.getCellClassName().substring(18).equals("PropagandaOutlet")) {
 		PropagandaOutlet pO = (PropagandaOutlet) player1.getCell();
-		playerPayPlayer(pO.getCost(), player1);
+		playerPayBank(pO.getCost(), player1);
 	    }
 
 	    else if (player1.getCellClassName().substring(18).equals("UtilityCell")) {
 		UtilityCell u = (UtilityCell) player1.getCell();
-		playerPayPlayer(u.getCost(), player1);
+		playerPayBank(u.getCost(), player1);
 	    }
 	    // TODO: ^-- That should take care of all cases, uncertain though. Needs tests.
 	    //       SpecialCells? Chance/CommChests?
@@ -754,7 +735,9 @@ public class IdeopolyGUI implements ActionListener {
     }
 
     /** Transfer money amount a from Player p to the "bank". */
-    public void playerPayPlayer(int a, Player p) {
+    // TODO: Move this to the Player class maybe?
+    // TODO: Search for all occurences of willBankrupt(, see if can find stuff to use these methods.
+    public void playerPayBank(int a, Player p) {
 	// Player will be bankrupt.
 	if (p.willBankrupt(a))
 	    p.bankruptPlayer(this);
