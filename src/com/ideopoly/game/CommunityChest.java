@@ -89,7 +89,7 @@ public class CommunityChest {
 		break;
 	    case 6:   // "It is your birthday - Collect $10 from each player"
 		// TODO: This code is basically repeated in case 7. Make a method?
-		// TODO: Subtle bug(?) in these. If a player bankrupts, the main player still 
+		// TODO: Bug in these. If a player bankrupts, the main player still 
 		// gets their money. Should this be allowed? Add relevant tests.
 
 		/* The number of Players being taken from that are not bankrupt. If a player will

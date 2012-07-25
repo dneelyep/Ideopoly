@@ -159,6 +159,8 @@ public class Chance {
                  //  for each hotel $100"
     	    // If the payment will bankrupt the Player, do x.
     	    // TODO: Haven't tested this yet, to make sure I get correct values out of parseInt().
+	    // TODO: Once this is working, make sure to use playerPayBank() rather than manually
+	    //       including if (p.willBankrupt()), etc.
     	    int payment = (p.getNumHouses() * 25) + (p.getNumHotels() * 100);
 
     	    if ( p.willBankrupt(payment) ) {
@@ -169,17 +171,7 @@ public class Chance {
     	    }
     	    break;
     	case 11: // "Pay poor tax of $15"
-
-    	    if (p.willBankrupt(15)) {
-    		p.bankruptPlayer(gui);
-    	    }
-    	    else {
-    		p.spreadCash(10);
-    		p.addCash("tens", -1);
-    		p.spreadCash(5);
-    		p.addCash("fives", -1);
-    		p.spreadCash(500);
-    	    }    
+	    gui.playerPayBank(15, p);
     	    break;
     	case 12: // "Take a trip to Reading Railroad – if you pass Go, collect $200"
     	    // If the player's position is on or after Oriental avenue, give em $200.
@@ -195,21 +187,12 @@ public class Chance {
     	    //TODO: And then call the onland function for boardwalk.
     	    break;
     	case 14: // "You have been elected chairman of the board – pay each player $50"
-    	    if (p.willBankrupt(150)) {
-    		p.bankruptPlayer(gui);
-    		// TODO: Should this still give the other players 50 bucks each?
-    	    }
-    	    else {
-    		p.spreadCash(50);
-
-		// Pay every player, and subtract the amount paid from the paying player.
-		// TODO: Better variable name.
-		for (Player player : gui.players)
+	    for (Player player : gui.players) {
+		if (player != p)
 		    player.addCash("fifties", 1);
-
-    		p.addCash("fifties", -4);
-    		p.spreadCash(500);
-    	    }
+	    }
+	    // TODO: This won't be 150 when one or more other players are bankrupt.
+	    gui.playerPayBank(150, p);
     	    break;
     	case 15: // "Your building loan matures – collect $150"
     	    p.addCash("hundreds", 1);

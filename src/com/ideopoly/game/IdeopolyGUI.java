@@ -736,7 +736,6 @@ public class IdeopolyGUI implements ActionListener {
 
     /** Transfer money amount a from Player p to the "bank". */
     // TODO: Move this to the Player class maybe?
-    // TODO: Search for all occurences of willBankrupt(, see if can find stuff to use these methods.
     public void playerPayBank(int a, Player p) {
 	// Player will be bankrupt.
 	if (p.willBankrupt(a))
