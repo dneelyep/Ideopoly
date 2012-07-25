@@ -21,7 +21,6 @@ public class CommunityChestTester extends TestCase {
 	commChestCard = new CommunityChest(1);
 	assertEquals(commChestCard.getType(), 1);
 	assertEquals(commChestCard.getText(), "Advance to Go (Collect $200)");
-
 	// Ensure that this method works properly on all three Comm. Chest spots and for all Players.
 	TestHelper.changeCellAllPlayers(2, gui, p1, p2, p3, p4);
 	TestHelper.doActionsAllPlayers(commChestCard, gui, p1, p2, p3, p4);
@@ -95,7 +94,7 @@ public class CommunityChestTester extends TestCase {
 	p1.setCash("fifties",      0);
 	p1.setCash("hundreds",     0);
 	p1.setCash("fiveHundreds", 0);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 
 	assertEquals(p1.getCash("total"),        0);
 	assertEquals(p1.getCash("ones"),         0);
@@ -159,61 +158,73 @@ public class CommunityChestTester extends TestCase {
 
     @Test
     public void testCommChest6() {
+	gui = new IdeopolyGUI("Test GUI");
+	p1 = gui.player1;
+	p2 = gui.player2;
+	p3 = gui.player3;
+	p4 = gui.player4;
+
 	commChestCard = new CommunityChest(6);
 	assertEquals(commChestCard.getType(), 6);
 	assertEquals(commChestCard.getText(), "It is your birthday - Collect $10 from each player");
 
 	// Test when no players are bankrupt.
 	TestHelper.changeCellAllPlayers(2, gui, p1, p2, p3, p4);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	TestHelper.assertSameCell(2, gui, p1, p2, p3, p4);
 	TestHelper.assertCash(1530, 1490, 1490, 1490, p1, p2, p3, p4);
 
 	TestHelper.changeCellAllPlayers(17, gui, p1, p2, p3, p4);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	TestHelper.assertSameCell(17, gui, p1, p2, p3, p4);
 	TestHelper.assertCash(1560, 1480, 1480, 1480, p1, p2, p3, p4);
 
 	TestHelper.changeCellAllPlayers(33, gui, p1, p2, p3, p4);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	TestHelper.assertSameCell(33, gui, p1, p2, p3, p4);
 	TestHelper.assertCash(1590, 1470, 1470, 1470, p1, p2, p3, p4);
 
 	// And test when 1, 2, and 3 other players are bankrupt.
 	p1 = new Player(1, gui);
 	p2.bankruptPlayer(gui);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	TestHelper.assertCash(1520, 0, 1460, 1460, p1, p2, p3, p4);
 
 	p3.bankruptPlayer(gui);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	TestHelper.assertCash(1530, 0, 0, 1450, p1, p2, p3, p4);
 
 	p4.bankruptPlayer(gui);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	TestHelper.assertCash(1530, 0, 0, 0, p1, p2, p3, p4);
     }
 
     @Test
     public void testCommChest7() {
+	gui = new IdeopolyGUI("Test GUI");
+	p1 = gui.player1;
+	p2 = gui.player2;
+	p3 = gui.player3;
+	p4 = gui.player4;
+
 	commChestCard = new CommunityChest(7);
 	assertEquals(commChestCard.getType(), 7);
 	assertEquals(commChestCard.getText(), "Grand Opera Night – collect $50 from every player for opening night seats");
 
 	// Test when no players are bankrupt.
 	TestHelper.changeCellAllPlayers(2, gui, p1, p2, p3, p4);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	TestHelper.assertSameCell(2, gui, p1, p2, p3, p4);
 
 	TestHelper.assertCash(1650, 1450, 1450, 1450, p1, p2, p3, p4);
 
 	TestHelper.changeCellAllPlayers(17, gui, p1, p2, p3, p4);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	TestHelper.assertSameCell(17, gui, p1, p2, p3, p4);
 	TestHelper.assertCash(1800, 1400, 1400, 1400, p1, p2, p3, p4);
 
 	TestHelper.changeCellAllPlayers(33, gui, p1, p2, p3, p4);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	TestHelper.assertSameCell(33, gui, p1, p2, p3, p4);
 	// TODO: A method for asserting arbitrary total cash values?
 	TestHelper.assertCash(1950, 1350, 1350, 1350, p1, p2, p3, p4);
@@ -221,15 +232,15 @@ public class CommunityChestTester extends TestCase {
 	// And then when 1, 2, and 3 other players are bankrupt.
 	p1 = new Player(1, gui);
 	p2.bankruptPlayer(gui);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	TestHelper.assertCash(1600, 0, 1300, 1300, p1, p2, p3, p4);
 
 	p3.bankruptPlayer(gui);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	TestHelper.assertCash(1650, 0, 0, 1250, p1, p2, p3, p4);
 
 	p4.bankruptPlayer(gui);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	TestHelper.assertCash(1650, 0, 0, 0, p1, p2, p3, p4);
     }
 
@@ -312,7 +323,7 @@ public class CommunityChestTester extends TestCase {
 	p1.setCash("fifties",      0);
 	p1.setCash("hundreds",     0);
 	p1.setCash("fiveHundreds", 0);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 
 	assertEquals(p1.getCash("total"),        0);
 	assertEquals(p1.getCash("ones"),         0);
@@ -332,7 +343,7 @@ public class CommunityChestTester extends TestCase {
 	p1.setCash("fifties",      0);
 	p1.setCash("hundreds",     1);
 	p1.setCash("fiveHundreds", 0);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 
 	assertEquals(p1.getCash("total"),        0);
 	assertEquals(p1.getCash("ones"),         0);
@@ -375,7 +386,7 @@ public class CommunityChestTester extends TestCase {
 	p1.setCash("fifties",      0);
 	p1.setCash("hundreds",     0);
 	p1.setCash("fiveHundreds", 0);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 
 	assertEquals(p1.getCash("total"),        0);
 	assertEquals(p1.getCash("ones"),         0);
@@ -395,7 +406,7 @@ public class CommunityChestTester extends TestCase {
 	p1.setCash("fifties",      1);
 	p1.setCash("hundreds",     0);
 	p1.setCash("fiveHundreds", 0);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 
 	assertEquals(p1.getCash("total"),        0);
 	assertEquals(p1.getCash("ones"),         0);
@@ -441,49 +452,49 @@ public class CommunityChestTester extends TestCase {
 	assertEquals(commChestCard.getText(), "You are assessed for street repairs – $40 per house, $115 per hotel");
 
 	// Test when the player has no property.
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	assertEquals(p1.getCash("total"), 1500);
 
 	// Then when the player has 1 house.
 	p1.setNumHouses(1);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	assertEquals(p1.getCash("total"), 1460);
 
 	// Then when the player has 2 houses.
 	p1.setNumHouses(2);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	assertEquals(p1.getCash("total"), 1380);
 
 	// Then when the player has 3 houses.
 	p1.setNumHouses(3);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	assertEquals(p1.getCash("total"), 1260);
 
 	// Then when the player has 4 houses.
 	p1.setNumHouses(4);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	assertEquals(p1.getCash("total"), 1100);
 
 	// Then when the player has 5 houses.
 	p1.setNumHouses(5);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	assertEquals(p1.getCash("total"), 900);
 
 	// Then when the player has 1 hotel.
 	p1.setNumHouses(0);
 	p1.setNumHotels(1);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	assertEquals(p1.getCash("total"), 785);
 
 	// Then when the player has 2 hotels.
 	p1.setNumHotels(2);
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	assertEquals(p1.getCash("total"), 555);
 
 	// And lastly when the player will be bankrupt by this.
 	p1.setNumHouses(10); // $400
 	p1.setNumHotels(2);  // $300
-	commChestCard.doActions(p1, gui, p2, p3, p4);
+	commChestCard.doActions(p1, gui);
 	assertEquals(p1.getCash("total"), 0);
     }
 

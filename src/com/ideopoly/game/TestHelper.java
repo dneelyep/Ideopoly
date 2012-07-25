@@ -21,10 +21,11 @@ public class TestHelper extends TestCase {
 	// TODO: Is there a way to allow the first argument to have a variable type, so I don't have to
 	//       make two separate methods for it?
 	// TODO: Do I need the two arguments? They're the same for each time I call them here.
-	card.doActions(p1, gui, p2, p3, p4);
-	card.doActions(p2, gui, p1, p3, p4);
-	card.doActions(p3, gui, p1, p2, p4);
-	card.doActions(p4, gui, p1, p2, p3);
+	// TODO: Can I get rid of the Player arguments, and derive them from gui?
+	card.doActions(p1, gui);
+	card.doActions(p2, gui);
+	card.doActions(p3, gui);
+	card.doActions(p4, gui);
     }
 
     /** Check that the total cash value v is the same for every Player.*/

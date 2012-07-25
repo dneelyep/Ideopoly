@@ -11,6 +11,9 @@ import java.io.*;
 // TODO: Use the native look and feel for the program.
 // TODO: Get rid of the spacing between cells.
 // TODO: Make text on cells readable.
+// TODO: Review usage of == for String comparison. See http://www.javapractices.com/topic/TopicAction.do;jsessionid=C1B6B905C6F4CC6B91E98376A9194A3B?Id=18
+// TODO: Look into replacing arrays with ArrayLists. Could be useful, not sure.
+// TODO: Is the Ideopoly- prefix for the class name needed? Wouldn't GUI/similar work just as well and be shorter?
 
 /** Class to contain the GUI of the game board. A new instance of the class
  *  creates the GUI and sets up various things in it. The game takes place mostly
@@ -52,7 +55,6 @@ public class IdeopolyGUI implements ActionListener {
     // TODO: Should I make this private, and include a function to set its enable-ability? The Player
     // class is currently the only outside class that changes its state.
     public  JButton useGOOJFCard     = new JButton("Use get out of jail free card");
-    private JLabel  status           = new JLabel ("Status:");
     /** An area of text where we can display messages to the player. */
     private JTextArea messages = new JTextArea("Welcome to Ideopoly!\nTo start playing, press \"Continue\". \nUse the other buttons to buy properties, sell properties, etc. \nGood luck!", 7, 1);
 
@@ -126,6 +128,8 @@ public class IdeopolyGUI implements ActionListener {
     // TODO: There should be a more elegant way of doing this than storing
     //       the player as an int. For example, make current player status
     //       a boolean field that belongs to each player.
+    //    One idea would be just to make a function that checks the field for each player
+    //    and returns the correct player.
     private int currentPlayer = 0;
 
     public Player player1   = new Player(1, this);
@@ -363,55 +367,31 @@ public class IdeopolyGUI implements ActionListener {
 	frame.pack();
 	frame.setVisible(true);
 
-	System.out.println("You picked " + playerCharacter);
+	System.out.println("You picked " + playerCharacter + ".");
     }
 
     /** Do a turn's worth of gameplay. First the player p rolls/moves. 
      *  Then cash is exchanged. Then players can buy/trade, etc.
      *  Return a 0 if nobody has won yet, or a 1 if someone won the game. */
     private void doTurn(JFrame frame, Player p) {
-	Random rollGenerator = new Random();
-	int roll = rollGenerator.nextInt(6) + 1; // Roll a new random number between 1 and 6.
+	int roll = new Random().nextInt(6) + 1; // Roll a new random number between 1 and 6.
 	printStatusAndLog(players[currentPlayer].getName() + " rolls " + roll + ".");
 
-	// First or second week in jail.
+	// First or second week in jail - player can't do anything but sit and wait.
 	if (p.getJailStatus() == 3 || p.getJailStatus() == 2) {
 	    p.setJailStatus(p.getJailStatus() - 1);
 	}
 
 	// Last week in jail. Player gets charged $50, then moves forward.
 	else if ( p.getJailStatus() == 1 ) {
-	    if (p.willBankrupt(50))
-		p.bankruptPlayer(this);
-	    else {
-		p.spreadCash(50);
-		p.addCash("fifties", -1);
-		p.spreadCash(500);
-		p.setJailStatus(0);
-
-		if (p == player1)
-		    movePlayer(player1, player2, player3, player4, roll);
-		else if (p == player2)
-		    movePlayer(player2, player1, player3, player4, roll);
-		else if (p == player3)
-		    movePlayer(player3, player2, player1, player4, roll);
-		else if (p == player4)
-		    movePlayer(player4, player2, player3, player1, roll);
-	    }
+	    playerPayPlayer(50, p);
+	    p.setJailStatus(0);
+	    movePlayer(p, roll);
 	}
 
 	// Not in jail, so move the player as normal.
-	else {
-	    // TODO: This is repeated right above.
-	    if (p == player1)
-		movePlayer(player1, player2, player3, player4, roll);
-	    else if (p == player2)
-		movePlayer(player2, player1, player3, player4, roll);
-	    else if (p == player3)
-		movePlayer(player3, player2, player1, player4, roll);
-	    else if (p == player4)
-		movePlayer(player4, player2, player3, player1, roll);
-	}
+	else
+	    movePlayer(p, roll);
 
 	// Now move on to the next player.
 	if (p == player4)
@@ -423,12 +403,7 @@ public class IdeopolyGUI implements ActionListener {
     }
 
     /** Move the given Player p forward numCells (where numCells is # of 
-     *  board cells, not # of positions) on the list positions ON THE GUI.
-     *  Also include players p2/3/4, because it's possible to affect them
-     *  by moving a player. */
-    // TODO: Do I need the extra arguments here? Should be able to just provide p1 
-    // and derive the rest later
-
+     *  board cells, not # of positions) on the list positions ON THE GUI. */
     // TODO: This logic should be moved into the Player class. This stuff has nothing to 
     //       do with the GUI. When the player moves, I need to check where (s)he wants to
     //       move and do actions accordingly. Currently, I'm just blindly moving the Player 
@@ -436,7 +411,7 @@ public class IdeopolyGUI implements ActionListener {
 
     // TODO: A lot of this method could be replaced by the whole onLand() method idea for
     //       BoardCells.
-    public void movePlayer(Player p, Player p2, Player p3, Player p4, int numCells) {
+    public void movePlayer(Player p, int numCells) {
 	int landingSpot = p.getIndex() + numCells;
 
 	// Check for valid input first.
@@ -469,7 +444,6 @@ public class IdeopolyGUI implements ActionListener {
 
 		// The player is about to land on/overshoot Go.
 		// TODO: Test to ensure that this is the correct cell. I think it's right but not positive.
-		// TODO: Could I just remove p.getIndex() >= 34 and have the same thing?
 		// Here the player will overshoot Boardwalk.
 		if (landingSpot > 39) {
 		    // TODO: Try to clarify what's happening here. Could probably simplify it.
@@ -485,14 +459,11 @@ public class IdeopolyGUI implements ActionListener {
 		// Player lands on a Community Chest card.
 		// TODO: For Chance and CommChest, do I need to have the Player
 		//       changeCell() before popping the card off?
-
 		else if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33) {
-		    commChestCards.pop().doActions(p, this, p2, p3, p4);
+		    commChestCards.pop().doActions(p, this);
 		}
 	    
 		// Player lands on a Chance card.
-		// TODO: On chanceCards, I reduced the number of arguments to get rid of p2/p3/p4.
-		//       Do I still need them here?
 		else if (landingSpot == 7 || landingSpot == 22 || landingSpot == 36)
 		    chanceCards.pop().doActions(p, this);
 
@@ -659,21 +630,21 @@ public class IdeopolyGUI implements ActionListener {
 	else if (eventSource.substring(0, 12).equals("Buy property")) {
 	    // TODO: This style of thing (the casting to specific types) is done elsewhere.
 	    //       Can simplify it?
-	    if (player1.getCellClassName() == "com.ideopoly.game.Railroad") {
+	    // The class name includes the package name in front, so we cut that off with substring.
+	    if (player1.getCellClassName().substring(18).equals("Railroad")) {
 		Railroad r = (Railroad) player1.getCell();
 		playerPayPlayer(r.getCost(), player1);
 	    }
 
-	    else if (player1.getCellClassName() == "com.ideopoly.game.PropagandaOutlet") {
+	    else if (player1.getCellClassName().substring(18).equals("PropagandaOutlet")) {
 		PropagandaOutlet pO = (PropagandaOutlet) player1.getCell();
 		playerPayPlayer(pO.getCost(), player1);
 	    }
 
-	    else if (player1.getCellClassName() == "com.ideopoly.game.UtilityCell") {
+	    else if (player1.getCellClassName().substring(18).equals("UtilityCell")) {
 		UtilityCell u = (UtilityCell) player1.getCell();
 		playerPayPlayer(u.getCost(), player1);
 	    }
-
 	    // TODO: ^-- That should take care of all cases, uncertain though. Needs tests.
 	    //       SpecialCells? Chance/CommChests?
 	    player1.getCell().setOwner(player1);
@@ -740,7 +711,6 @@ public class IdeopolyGUI implements ActionListener {
 	    //       directly in paymentAmounts[] instead?
 
 	    int i = 0;
-
 	    for (int amount : billValues) {
 	    	if (total / amount != 0) {
 	    	    billTotals[i] = total / amount;
@@ -873,8 +843,10 @@ public class IdeopolyGUI implements ActionListener {
     /** Helper method to, given a GridBagConstraints object gbc, 
      *  set its gridx and gridx values to x and y. */
     // TODO: Add the step of adding the stuff to the frame here?
+    // TODO: Add tests.
     private void setConstraintsXY(GridBagConstraints gbc, int x, int y) {
 	gbc.gridx = x;
 	gbc.gridy = y;
     }
+
 }

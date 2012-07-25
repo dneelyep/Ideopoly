@@ -73,7 +73,7 @@ public class CommunityChest {
 
     /** Have the Player p carry out actions associated with 
      *  a Community Chest card of this type. */
-    public void doActions(Player p, IdeopolyGUI gui, Player p2, Player p3, Player p4) { // TODO: Rename this to drawCard() or something better.
+    public void doActions(Player p, IdeopolyGUI gui) { // TODO: Rename this to drawCard() or something better.
 	switch (this.cardType) {
 	    case 1: p.changeCell(0, gui); // "Advance to Go (Collect $200)"
 		p.addCash("hundreds", 2);
@@ -95,44 +95,44 @@ public class CommunityChest {
 	    case 5: p.putInJail(gui); // "Go to Jail – go directly to jail – Do not pass Go, do not collect $200");
 		break;
 	    case 6:   // "It is your birthday - Collect $10 from each player"
-		// TODO: Repeated also.
+		// TODO: This code is basically repeated in case 7. Make a method?
 		// TODO: Subtle bug(?) in these. If a player bankrupts, the main player still 
 		// gets their money. Should this be allowed? Add relevant tests.
-		Player[] otherPlayers;
 
-		/** The number of Players being taken from that are not bankrupt. For each one
-		 *  of these players that are bankrupt, the receiving Player gets $10 less. */
+		/* The number of Players being taken from that are not bankrupt. If a player will
+		 *  become bankrupt, Player p gets $10 less. */
 		int numNotBankrupt = 3;
 
-		otherPlayers = new Player[] { p2, p3, p4 }; // TODO: Is this conditional redundant?
-
-		for (Player iterPlayer : otherPlayers) {
-		    if (iterPlayer.willBankrupt(10)) {
-			iterPlayer.bankruptPlayer(gui);
-			numNotBankrupt--;
-		    }
-		    else {
-			iterPlayer.spreadCash(10);
-			iterPlayer.addCash("tens", -1);
-			iterPlayer.spreadCash(500);
+		for (Player player : gui.players) {
+		    if (player != p) { // Don't collect money from p.
+			if (player.willBankrupt(10)) {
+			    player.bankruptPlayer(gui);
+			    numNotBankrupt--;
+			}
+			else {
+			    player.spreadCash(10);
+			    player.addCash("tens", -1);
+			    player.spreadCash(500);
+			}
 		    }
 		}
 
 		p.addCash("tens", numNotBankrupt);
 		break;
 	    case 7:   // "Grand Opera Night – collect $50 from every player for opening night seats"
-		Player[] extraPlayers = new Player[] {p2, p3, p4}; // TODO: Just use otherPlayers instead?
 		numNotBankrupt = 3;
 
-		for (Player iterPlayer : extraPlayers) {
-		    if (iterPlayer.willBankrupt(50)) {
-			iterPlayer.bankruptPlayer(gui);
-			numNotBankrupt--;
-		    }
-		    else {
-			iterPlayer.spreadCash(50);
-			iterPlayer.addCash("fifties", -1);
-			iterPlayer.spreadCash(500);
+		for (Player player : gui.players) {
+		    if (player != p) { // Don't collect money from p.
+			if (player.willBankrupt(50)) {
+			    player.bankruptPlayer(gui);
+			    numNotBankrupt--;
+			}
+			else {
+			    player.spreadCash(50);
+			    player.addCash("fifties", -1);
+			    player.spreadCash(500);
+			}
 		    }
 		}
 
