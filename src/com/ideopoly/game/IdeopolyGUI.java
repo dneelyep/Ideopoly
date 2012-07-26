@@ -6,6 +6,7 @@ import java.util.*;
 import java.awt.event.*;
 import java.io.*;
 
+// TODO: Write an elisp function for making a new TODO, bind to C-c C-t.
 // TODO: com as a package name start doesn't make much sense. I don't own a domain name.
 // TODO: Add in Chance and Comm. Chest images.
 // TODO: Use the native look and feel for the program.
@@ -28,7 +29,8 @@ public class IdeopolyGUI implements ActionListener {
      *  this switches to another value. */
     private int gameWon = 0;
 
-    private final String cashValues[] = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
+    // TODO: Can I make this private?
+    public final String cashValues[] = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
     private final String cashHeadings[] = { "Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail" };
     // TODO: Come up with a better solution than making this public.
     public final JLabel[] playerRowLabels = { new JLabel("Player 1"), 
@@ -44,7 +46,8 @@ public class IdeopolyGUI implements ActionListener {
 
     /** Array used to store the values of each type of bill a Player
      *  should pay after requiring a payment. */
-    private int[]   paymentAmounts   = {0, 0, 0, 0, 0, 0, 0};
+    // TODO: Can I make this private?
+    public int[]   paymentAmounts   = {0, 0, 0, 0, 0, 0, 0};
     private JFrame  frame	     = new JFrame("Ideopoly | Main game");
     private JButton continueButton   = new JButton("Continue");//new ImageIcon("images/continueButton.jpg"));
     private JButton buyProperty	     = new JButton("Buy property");
@@ -113,7 +116,6 @@ public class IdeopolyGUI implements ActionListener {
     // TODO: Also, see file:///home/daniel/Desktop/aaa-TIJ3-distribution/TIJ3.htm and then
     //       "Downcasting vs. templates/generics" for how to get the original class back out
     //       of this array. This should help solve some problems I was having before. See above TODO.
-    // TODO: Add an access specifier here.
     // TODO: Note that this might be better represented by a Set collection. I don't have any
     //       duplicate items, and operating on a collection could be handy possibly.
     // TODO: Rename this propaganda outlets rather than properties? Confusing?
@@ -139,6 +141,8 @@ public class IdeopolyGUI implements ActionListener {
     // TODO: Try to reduce usage of this players array. Is useless and confusing except when looping.
     // TODO: Does this need to be public?
     // TODO: Since it's public, javadocs for the field.
+    /** An array of the four players who will be playing in this game. player1
+     *  is the human player, the rest are computer players. */
     public Player players[] = {player1, player2, player3, player4};
 
     /** The stack of Chance cards. */
@@ -384,7 +388,7 @@ public class IdeopolyGUI implements ActionListener {
 
 	// Last week in jail. Player gets charged $50, then moves forward.
 	else if ( p.getJailStatus() == 1 ) {
-	    playerPayBank(50, p);
+	    p.payBank(50, this);
 	    p.setJailStatus(0);
 	    movePlayer(p, roll);
 	}
@@ -411,6 +415,9 @@ public class IdeopolyGUI implements ActionListener {
 
     // TODO: A lot of this method could be replaced by the whole onLand() method idea for
     //       BoardCells.
+    // TODO: Review usage of setCell() in all files. In several cases I seem to be manually
+    //       moving the player with that, rather than calling this method and having the details
+    //       figured out.
     public void movePlayer(Player p, int numCells) {
 	int landingSpot = p.getIndex() + numCells;
 
@@ -425,145 +432,132 @@ public class IdeopolyGUI implements ActionListener {
 	}
 
 	else {
-	    // Is the player currently in jail? If so, do a different execution path.
-	    if (p.getJailStatus() != 0) {
-		// TODO: Implement all this stuff. See notes file for ideas.
+	    // Here the Player is moving, so set the label at p's
+	    // current position to no player present.
+	    p.getCell().setPositionImage(p, new ImageIcon("images/noPlayerPresent.jpg"), this);
 
-		/* Player's jail status.
-		   0 = not in jail.
-		   1 = last week in jail.
-		   2 = second week in jail.
-		   3 = first week in jail. */
+	    // The player is about to land on/overshoot Go.
+	    if (landingSpot > 39) {
+		// TODO: Try to clarify what's happening here. Could probably simplify it.
+		// TODO: If circular linked list works, this conditional should be unneeded.
+		p.setCell((landingSpot - 40), this);
+		p.addCash("hundreds", 2); // Give 200 bucks for passing Go.
 	    }
 
-	    else { // Player's not in jail, so they're free to move around.
+	    // Player lands on Go to Jail.
+	    else if (landingSpot == 30)
+		p.putInJail(this);
 
-		// Here we're moving the player, so set the label at p's
-		// current position to no player present.
-		p.getCell().setPositionImage(p, new ImageIcon("images/noPlayerPresent.jpg"), this);
-
-		// The player is about to land on/overshoot Go.
-		// TODO: Test to ensure that this is the correct cell. I think it's right but not positive.
-		// Here the player will overshoot Boardwalk.
-		if (landingSpot > 39) {
-		    // TODO: Try to clarify what's happening here. Could probably simplify it.
-		    // TODO: If circular linked list works, this conditional should be unneeded.
-		    p.changeCell((landingSpot - 40), this);
-		    p.addCash("hundreds", 2); // Give 200 bucks for passing Go.
-		}
-
-		// Player lands on Go to Jail.
-		else if (landingSpot == 30)
-		    p.putInJail(this);
-
-		// Player lands on a Community Chest card.
-		// TODO: For Chance and CommChest, do I need to have the Player
-		//       changeCell() before popping the card off?
-		else if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33)
-		    commChestCards.pop().doActions(p, this);
+	    // Player lands on a Community Chest card.
+	    // TODO: For Chance and CommChest, do I need to have the Player
+	    //       changeCell() before popping the card off?
+	    else if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33)
+		commChestCards.pop().doActions(p, this);
 	    
-		// Player lands on a Chance card.
-		else if (landingSpot == 7 || landingSpot == 22 || landingSpot == 36)
-		    chanceCards.pop().doActions(p, this);
+	    // Player lands on a Chance card.
+	    else if (landingSpot == 7 || landingSpot == 22 || landingSpot == 36)
+		chanceCards.pop().doActions(p, this);
 
-		// TODO: Allow the Player to choose 10% or $200, or do the cheapest automatically.
-		// Player lands on Income Tax.
-		// TODO: Test to make sure this works.
-		else if (landingSpot == 4)
-		    playerPayBank(200, p);
+	    // TODO: Allow the Player to choose 10% or $200, or do the cheapest automatically.
+	    // Player lands on Income Tax.
+	    // TODO: Test to make sure this works.
+	    else if (landingSpot == 4)
+		p.payBank(200, this);
 
-		// Luxury tax.
-		// TODO: Test to make sure this works.
-		else if (landingSpot == 38)
-		    playerPayBank(75, p);
+	    // Luxury tax.
+	    // TODO: Test to make sure this works.
+	    else if (landingSpot == 38)
+		p.payBank(75, this);
 
-		// TODO: Possibly redo this to take advantage of p.getCell().getClass()
-		// rather than using landingSpot numbers.
+	    // TODO: Possibly redo this to take advantage of p.getCell().getClass()
+	    // rather than using landingSpot numbers.
 
-		// Free parking
-		else if (landingSpot == 20) {
-		    if (p == player1) 
-			printStatusAndLog("Free parking!");
-		}
+	    // Free parking
+	    else if (landingSpot == 20) {
+		if (p == player1) 
+		    printStatusAndLog("Free parking!");
+	    }
 
-		// In jail (just visiting)
-		else if (landingSpot == 10) {
-		    if (p == player1)
-			printStatusAndLog("In jail - but just visiting!");
-		}
+	    // In jail (just visiting)
+	    else if (landingSpot == 10) {
+		if (p == player1)
+		    printStatusAndLog("In jail - but just visiting!");
+	    }
 
-		// Regular move. Here the Player should have not overshot Go or landed on any
-		// position-changing cells (Go to Jail, Chance, etc.). The Player has landed on
-		// an ownable BoardCell.
-		else {
-		    p.changeCell(landingSpot, this);
+	    // Regular move. Here the Player should have not overshot Go or landed on any
+	    // position-changing cells (Go to Jail, Chance, etc.). The Player has landed on
+	    // an ownable BoardCell.
+	    else {
+		p.setCell(landingSpot, this);
 
-		    // No player currently owns the property.			
-		    if (boardProperties[landingSpot].getOwner() == null ) {
+		// TODO: The below block of stuff looks like things to do post-moving a player to a cell.
+		//       Move it all into a new method?
+		// No player currently owns the property.			
+		if (boardProperties[landingSpot].getOwner() == null ) {
 
-			// Allow player to buy the property.
-			if (p == player1) {
-			    // TODO: Write an elisp function for making a new TODO, bind to C-c C-t.
-			    // TODO: Have buyProperty disable itself after the player presses "Continue",
-			    //       so they can't buy the property when it's not their turn?
-			    //       Also, if I don't want to do that, disable it if another player buys
-			    //       it or lands on the cell.
-			    //       Also, have the text for the property name disappear when the button
-			    //       is disabled.
-			    buyProperty.setText("Buy property (" + players[currentPlayer].getCell().getName() + ")");
-			    buyProperty.setEnabled(true);
-			}
+		    // Allow player to buy the property.
+		    if (p == player1) {
+			// TODO: Have buyProperty disable itself after the player presses "Continue",
+			//       so they can't buy the property when it's not their turn?
+			//       Also, if I don't want to do that, disable it if another player buys
+			//       it or lands on the cell.
+			//       Also, have the text for the property name disappear when the button
+			//       is disabled.
+			buyProperty.setText("Buy property (" + boardProperties[landingSpot].getName() + ")");  
+			buyProperty.setEnabled(true);
+		    }
 
-			// Have the AI buy the property if it has more than $500.
-			else {
-			    if (p.getCash("total") >= 500) {
-				p.getCell().setOwner(p);
+		    // Have the AI buy the property if it has more than $500.
+		    else {
+			if (p.getCash("total") >= 500) {
+			    p.getCell().setOwner(p);
 
-				// TODO: Refactor more.
-				// TODO: See about making a BoardCell, and then casting that
-				//       BoardCell to a more specific type. Then operating on that
-				//       BoardCell after it has been casted to.
-				if (p.getCellClassName() == "Railroad") {
-				    Railroad r = (Railroad) p.getCell();
-				    getCashDistribution(r.getCost());
-				    printStatusAndLog(p.getName() + " bought " + r.getName() + " for $" + r.getCost() + ".");
-				    /* TODO: Test to make sure ALL THREE CONDITIONS HERE are working. 
-				       Have not yet tested playerPayPlayer on a null Player input.
-				       Also test this later on where the player buys a property
-				       - apparently it's not working. */
-				    playerPayBank(r.getRent(), p);
-				}
-				else if (p.getCellClassName() == "PropagandaOutlet") {
-				    PropagandaOutlet pO = (PropagandaOutlet) p.getCell();
-				    getCashDistribution(pO.getCost());
-				    printStatusAndLog(p.getName() + " bought " + pO.getName() + " for $" + pO.getCost() + ".");
-				    playerPayBank(pO.getRent(), p);
-				}
-				else if (p.getCellClassName() == "UtilityCell") {
-				    UtilityCell u = (UtilityCell) p.getCell();
-				    getCashDistribution(u.getCost());
-				    printStatusAndLog(p.getName() + " bought " + u.getName() + " for $" + u.getCost() + ".");
-				    playerPayBank(u.getRent(), p);
-				}
+			    // TODO: Refactor more.
+			    // TODO: See about making a BoardCell, and then casting that
+			    //       BoardCell to a more specific type. Then operating on that
+			    //       BoardCell after it has been casted to.
+			    if (p.getCellClassName() == "Railroad") {
+				//	return player.getCell().getClass().getName();
+				Railroad r = (Railroad) p.getCell();
+				getCashDistribution(r.getCost());
+				printStatusAndLog(p.getName() + " bought " + r.getName() + " for $" + r.getCost() + ".");
+				/* TODO: Test to make sure ALL THREE CONDITIONS HERE are working. 
+				   Have not yet tested playerPayPlayer on a null Player input.
+				   Also test this later on where the player buys a property
+				   - apparently it's not working. */
+				p.payBank(r.getRent(), this);
+			    }
+			    else if (p.getCellClassName() == "PropagandaOutlet") {
+				PropagandaOutlet pO = (PropagandaOutlet) p.getCell();
+				getCashDistribution(pO.getCost());
+				printStatusAndLog(p.getName() + " bought " + pO.getName() + " for $" + pO.getCost() + ".");
+				p.payBank(pO.getRent(), this);
+			    }
+			    else if (p.getCellClassName() == "UtilityCell") {
+				UtilityCell u = (UtilityCell) p.getCell();
+				getCashDistribution(u.getCost());
+				printStatusAndLog(p.getName() + " bought " + u.getName() + " for $" + u.getCost() + ".");
+				p.payBank(u.getRent(), this);
 			    }
 			}
 		    }
-			
-		    // A player owns the property.
-		    else {
-			printStatusAndLog(p.getName() + " pays " + p.getCell().getOwner().getName() + "$" + Integer.toString(p.getCell().getRent()));
-
-			// Disable button when the human player lands on an owned property.
-			if (p == player1)
-			    buyProperty.setEnabled(false);
-			    
-			// Charge the player appropriately.
-			playerPayPlayer(p.getCell().getRent(), p, p.getCell().getOwner());
-		    }
-
-		    // TODO: Make BoardCells and such clickable. That way, I can easily implement
-		    // property selling, mortgaging, house/hotel buying.
 		}
+			
+		// A player owns the property.
+		else {
+		    printStatusAndLog(p.getName() + " pays " + p.getCell().getOwner().getName() + "$" + Integer.toString(p.getCell().getRent()));
+
+		    // Disable button when the human player lands on an owned property.
+		    if (p == player1)
+			buyProperty.setEnabled(false);
+			    
+		    // Charge the player appropriately.
+		    // TODO: Can I use landingSpot rather than p.getCell().getOwner() ?
+		    p.payPlayer(p.getCell().getOwner(), p.getCell().getRent(), this);
+		}
+
+		// TODO: Make BoardCells and such clickable. That way, I can easily implement
+		// property selling, mortgaging, house/hotel buying.
 	    }
 
 	    p.getCell().setPositionImage(p, p.getImage(), this);
@@ -614,17 +608,17 @@ public class IdeopolyGUI implements ActionListener {
 	    // The class name includes the package name in front, so we cut that off with substring.
 	    if (player1.getCellClassName().substring(18).equals("Railroad")) {
 		Railroad r = (Railroad) player1.getCell();
-		playerPayBank(r.getCost(), player1);
+		player1.payBank(r.getCost(), this);
 	    }
 
 	    else if (player1.getCellClassName().substring(18).equals("PropagandaOutlet")) {
 		PropagandaOutlet pO = (PropagandaOutlet) player1.getCell();
-		playerPayBank(pO.getCost(), player1);
+		player1.payBank(pO.getCost(), this);
 	    }
 
 	    else if (player1.getCellClassName().substring(18).equals("UtilityCell")) {
 		UtilityCell u = (UtilityCell) player1.getCell();
-		playerPayBank(u.getCost(), player1);
+		player1.payBank(u.getCost(), this);
 	    }
 	    // TODO: ^-- That should take care of all cases, uncertain though. Needs tests.
 	    //       SpecialCells? Chance/CommChests?
@@ -707,50 +701,6 @@ public class IdeopolyGUI implements ActionListener {
 	}
 
 	return paymentAmounts;
-    }
-
-    /** Transfer money amount a from player p1 to player p2.*/
-    // TODO: This is a little misleading. This provides a general way to split bills correctly and
-    //       pay for any task. I think. Better method name would be good.
-    // TODO: Better function name. chargePlayer() maybe? less of a tongue-twister, 
-    //       easier to type.
-    public void playerPayPlayer(int a, Player p1, Player p2) {
-	// First, get a distribution of what bills to pay.
-	if (p1.willBankrupt(a))
-	    p1.bankruptPlayer(this);
-	else {
-	    getCashDistribution(a);
-
-	    // Then, for each bill, transfer the correct amount from p1 to p2.
-	    int[] billInt = {1, 5, 10, 20, 50, 100, 500}; // TODO: Better array name here.
-	    for (int i = 0; i <= 6; i++) {
-		p1.spreadCash(billInt[i]);
-		p1.addCash(cashValues[i], - paymentAmounts[i]);
-		p2.addCash(cashValues[i], paymentAmounts[i]);
-	    }
-
-	    // And set cash back to sensible values.
-	    p2.spreadCash(500);
-	}
-    }
-
-    /** Transfer money amount a from Player p to the "bank". */
-    // TODO: Move this to the Player class maybe?
-    public void playerPayBank(int a, Player p) {
-	// Player will be bankrupt.
-	if (p.willBankrupt(a))
-	    p.bankruptPlayer(this);
-	// Amount is ok.
-	else {
-	    getCashDistribution(a);
-
-	    // TODO: Make this array shared between the two methods somehow?
-	    int[] billInt = {1, 5, 10, 20, 50, 100, 500};
-	    for (int i = 0; i <= 6; i++) {
-		p.spreadCash(billInt[i]);
-		p.addCash(cashValues[i], - paymentAmounts[i]);
-	    }
-	}
     }
 
     /** Given some text, output that text into the messages pane

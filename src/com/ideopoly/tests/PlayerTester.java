@@ -250,28 +250,28 @@ public class PlayerTester extends TestCase {
 	// === Test changeCell() ===
 	// TODO: Make sure to thoroughly test this function.
 	// Make sure a few normal cases work fine.
-	testPlayer.changeCell(0,  gui);
-	testPlayer2.changeCell(0, gui);
-	testPlayer3.changeCell(0, gui);
-	testPlayer4.changeCell(0, gui);
+	testPlayer.setCell(0,  gui);
+	testPlayer2.setCell(0, gui);
+	testPlayer3.setCell(0, gui);
+	testPlayer4.setCell(0, gui);
 	assertEquals(testPlayer.getCell(),  gui.boardProperties[0]);
 	assertEquals(testPlayer2.getCell(), gui.boardProperties[0]);
 	assertEquals(testPlayer3.getCell(), gui.boardProperties[0]);
 	assertEquals(testPlayer4.getCell(), gui.boardProperties[0]);
 
-	testPlayer.changeCell(1,  gui);
-	testPlayer2.changeCell(1, gui);
-	testPlayer3.changeCell(1, gui);
-	testPlayer4.changeCell(1, gui);
+	testPlayer.setCell(1,  gui);
+	testPlayer2.setCell(1, gui);
+	testPlayer3.setCell(1, gui);
+	testPlayer4.setCell(1, gui);
 	assertEquals(testPlayer.getCell(),  gui.boardProperties[1]);
 	assertEquals(testPlayer2.getCell(), gui.boardProperties[1]);
 	assertEquals(testPlayer3.getCell(), gui.boardProperties[1]);
 	assertEquals(testPlayer4.getCell(), gui.boardProperties[1]);
 
-	testPlayer.changeCell(2,  gui);
-	testPlayer2.changeCell(2, gui);
-	testPlayer3.changeCell(2, gui);
-	testPlayer4.changeCell(2, gui);
+	testPlayer.setCell(2,  gui);
+	testPlayer2.setCell(2, gui);
+	testPlayer3.setCell(2, gui);
+	testPlayer4.setCell(2, gui);
 	assertEquals(testPlayer.getCell(),  gui.boardProperties[2]);
 	assertEquals(testPlayer2.getCell(), gui.boardProperties[2]);
 	assertEquals(testPlayer3.getCell(), gui.boardProperties[2]);
@@ -286,38 +286,38 @@ public class PlayerTester extends TestCase {
 	// Then try incorrect cases.
 
 	// Don't allow negative BoardCell arguments.
-	testPlayer.changeCell(-1, gui);
-	testPlayer.changeCell(-1, gui);
-	testPlayer.changeCell(-1, gui);
-	testPlayer.changeCell(-1, gui);
+	testPlayer.setCell(-1, gui);
+	testPlayer.setCell(-1, gui);
+	testPlayer.setCell(-1, gui);
+	testPlayer.setCell(-1, gui);
 	assertEquals(testPlayer.getCell(),  gui.boardProperties[2]);
 	assertEquals(testPlayer2.getCell(), gui.boardProperties[2]);
 	assertEquals(testPlayer3.getCell(), gui.boardProperties[2]);
 	assertEquals(testPlayer4.getCell(), gui.boardProperties[2]);
 
-	testPlayer.changeCell(-5, gui);
-	testPlayer.changeCell(-5, gui);
-	testPlayer.changeCell(-5, gui);
-	testPlayer.changeCell(-5, gui);
+	testPlayer.setCell(-5, gui);
+	testPlayer.setCell(-5, gui);
+	testPlayer.setCell(-5, gui);
+	testPlayer.setCell(-5, gui);
 	assertEquals(testPlayer.getCell(),  gui.boardProperties[2]);
 	assertEquals(testPlayer2.getCell(), gui.boardProperties[2]);
 	assertEquals(testPlayer3.getCell(), gui.boardProperties[2]);
 	assertEquals(testPlayer4.getCell(), gui.boardProperties[2]);
 
 	// And check to make sure we can't move beyond the edge of the board.
-	testPlayer.changeCell(40, gui);
-	testPlayer.changeCell(40, gui);
-	testPlayer.changeCell(40, gui);
-	testPlayer.changeCell(40, gui);
+	testPlayer.setCell(40, gui);
+	testPlayer.setCell(40, gui);
+	testPlayer.setCell(40, gui);
+	testPlayer.setCell(40, gui);
 	assertEquals(testPlayer.getCell(),  gui.boardProperties[2]);
 	assertEquals(testPlayer2.getCell(), gui.boardProperties[2]);
 	assertEquals(testPlayer3.getCell(), gui.boardProperties[2]);
 	assertEquals(testPlayer4.getCell(), gui.boardProperties[2]);
 
-	testPlayer.changeCell(55, gui);
-	testPlayer.changeCell(55, gui);
-	testPlayer.changeCell(55, gui);
-	testPlayer.changeCell(55, gui);
+	testPlayer.setCell(55, gui);
+	testPlayer.setCell(55, gui);
+	testPlayer.setCell(55, gui);
+	testPlayer.setCell(55, gui);
 	assertEquals(testPlayer.getCell(),  gui.boardProperties[2]);
 	assertEquals(testPlayer2.getCell(), gui.boardProperties[2]);
 	assertEquals(testPlayer3.getCell(), gui.boardProperties[2]);

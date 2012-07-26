@@ -131,6 +131,10 @@ public abstract class BoardCell {
     // sure it works correctly for each subclass. That fits exactly my problem here.
     // This would simplify things, as I wouldn't have to cast to Railroad/SpecialCell/
     // PropagandaOutlet/etc. - I could call the method on a BoardCell and know it works.
+    //
+    // So it would be useful to have getCost(), getName(), getRent() as abstract methods.
+    //
+    // Or maybe I could use interfaces, such as, for example, Buyable.
 
     /** Get the BoardCellGUI that represents this BoardCell. */
     public BoardCellGUI getGraphicalRepresentation() {

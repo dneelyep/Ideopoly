@@ -75,13 +75,13 @@ public class CommunityChest {
      *  a Community Chest card of this type. */
     public void doActions(Player p, IdeopolyGUI gui) { // TODO: Rename this to drawCard() or something better.
 	switch (this.cardType) {
-	    case 1: p.changeCell(0, gui); // "Advance to Go (Collect $200)"
+	    case 1: p.setCell(0, gui); // "Advance to Go (Collect $200)"
 		p.addCash("hundreds", 2);
 		break;
             case 2: p.addCash("hundreds", 2); // "Bank error in your favor – collect $200"
 		break;
 	    case 3:   // "Doctor's fees – Pay $50"
-		gui.playerPayBank(50, p);
+		p.payBank(50, gui);
 		break;
 	    case 4: p.giveGOOJF();    // "Get Out of Jail Free – this card may be kept until needed, or sold.
 		break;
@@ -136,17 +136,17 @@ public class CommunityChest {
 	    case 9: p.addCash("hundreds", 1); // "Life Insurance Matures – collect $100"
 		break;
 	    case 10:  // "Pay Hospital Fees of $100"
-		gui.playerPayBank(100, p);
+		p.payBank(100, gui);
 		break;
 	    case 11:  // "Pay School Fees of $50"
-		gui.playerPayBank(50, p);
+		p.payBank(50, gui);
 		break;
 	    case 12: p.addCash("twenties", 1); // "Receive $25 Consultancy Fee"
 		p.addCash("fives", 1);
 		break;
 	    case 13:  // "You are assessed for street repairs – $40 per house, $115 per hotel"
 		int chargeAmount = (p.getNumHouses() * 40) + (p.getNumHotels() * 115);
-		gui.playerPayBank(chargeAmount, p);
+		p.payBank(chargeAmount, gui);
 		break;
 	    case 14: p.addCash("tens", 1);     // "You have won second prize in a beauty contest– collect $10"
 		break;

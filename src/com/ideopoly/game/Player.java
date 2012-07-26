@@ -183,6 +183,9 @@ public class Player {
 	updateTotalMoney();
     }
 
+    // TODO: Get rid of this method. Also get rid of the totalMoney field. When I want the total,
+    //       all I should have to do is call getCash("total"), and the ones + (fives * 5), etc. should
+    //       be returned.
     /** Update this Player's totalMoney value. */
     private void updateTotalMoney() {
 	totalMoney = ( ones + (fives * 5) + (tens * 10) + (twenties * 20) + (fifties * 50) + (hundreds * 100) + (fiveHundreds * 500) );
@@ -291,7 +294,7 @@ public class Player {
     /** Move this player to a given position p. p refers to the cell the Player wants 
      *  to move to. For example, changePosition(3) will move any player to the 4th
      *  BoardCell on the board. */
-    public void changeCell(int p, IdeopolyGUI gui) { // TODO: Better function name.
+    public void setCell(int p, IdeopolyGUI gui) { // TODO: Better function name.
 	// Only allow valid indexes.
 	if (p < 0 || p > 39) {
 	    System.out.println("Error! That cell is outside the bounds of valid cells!");
@@ -486,7 +489,51 @@ public class Player {
 	    gui.useGOOJFCard.setEnabled(true);
 	}
 
-	changeCell(10, gui);
+	setCell(10, gui);
 	setJailStatus(3);
+    }
+
+    /** Have this Player pay the bank amount dollars.
+     *  The Player will bankrupt if charged an amount higher than
+     *  his/her totalMoney value. */
+    public void payBank(int amount, IdeopolyGUI gui) {
+	// Player will be bankrupt.
+	if (this.willBankrupt(amount))
+	    this.bankruptPlayer(gui);
+	// Amount is ok.
+	else {
+	    gui.getCashDistribution(amount);
+
+	    // TODO: Make this array shared between the two methods somehow?
+	    int[] billInt = {1, 5, 10, 20, 50, 100, 500};
+	    for (int i = 0; i <= 6; i++) {
+		this.spreadCash(billInt[i]);
+		this.addCash(gui.cashValues[i], - gui.paymentAmounts[i]);
+	    }
+	}
+    }
+
+    /** Have this Player pay player p amount dollars. This Player
+     *  will bankrupt if amount is larger than this Player's totalMoney
+     *  value. */
+    // TODO: Have any tests transferred over to these new methods.
+    public void payPlayer(Player p, int amount, IdeopolyGUI gui) {
+	if (this.willBankrupt(amount))
+	    this.bankruptPlayer(gui);
+	else {
+	    // First, get a distribution of what bills to pay.
+	    gui.getCashDistribution(amount);
+
+	    // Then, for each bill, transfer the correct amount from this Player to p.
+	    int[] billInt = {1, 5, 10, 20, 50, 100, 500}; // TODO: Better array name here.
+	    for (int i = 0; i <= 6; i++) {
+		this.spreadCash(billInt[i]);
+		this.addCash(gui.cashValues[i], - gui.paymentAmounts[i]);
+		p.addCash(gui.cashValues[i], gui.paymentAmounts[i]);
+	    }
+
+	    // And set cash back to sensible values.
+	    p.spreadCash(500);
+	}
     }
 }

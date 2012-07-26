@@ -48,10 +48,10 @@ public class TestHelper extends TestCase {
 
     /** Move all players to the same BoardCell on the gui. */
     public static void changeCellAllPlayers(int cell, IdeopolyGUI gui, Player p1, Player p2, Player p3, Player p4) {
-	p1.changeCell(cell, gui);
-	p2.changeCell(cell, gui);
-	p3.changeCell(cell, gui);
-	p4.changeCell(cell, gui);
+	p1.setCell(cell, gui);
+	p2.setCell(cell, gui);
+	p3.setCell(cell, gui);
+	p4.setCell(cell, gui);
     }
 
     /** Ensure that all four players are standing on the same cell. */

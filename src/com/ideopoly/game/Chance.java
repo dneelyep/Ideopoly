@@ -73,7 +73,7 @@ public class Chance {
     public void doActions(Player p, IdeopolyGUI gui) { // TODO: Rename this to drawCard() or something better.
     	switch (cardType) {
     	case 1:  // "Advance to Go (Collect $200)"
-    	    p.changeCell(0, gui);
+    	    p.setCell(0, gui);
     	    p.addCash("hundreds", 2);
     	    break;
     	case 2:  // "Advance to Illinois Ave - if you pass Go, collect $200"
@@ -85,29 +85,29 @@ public class Chance {
     	    if (p.getIndex() >= 24)
     		p.addCash("hundreds", 2);
 
-    	    p.changeCell(24, gui);
+    	    p.setCell(24, gui);
     	    break;
     	case 3:  // "Advance token to nearest Utility. If unowned, you may buy it from the 
 	         //  Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
 	    // TODO: I could also make use of p.getCell() instead. Could simplify things maybe.
 	    if (p.getCell() == gui.boardProperties[7]) { // Bottom Chance
-		p.changeCell(12, gui); // move to Electric Co.
+		p.setCell(12, gui); // move to Electric Co.
 
 		// TODO: Would be good if I could remove the duplication here.
 		if (gui.boardProperties[12].getOwner() != null) {
 		    // TODO: Add handling for bankruptcy here. Or build that into playerPayPlayer?
 		    Random rollGenerator = new Random();
 		    int roll = rollGenerator.nextInt(6) + 1;
-		    gui.playerPayPlayer(roll * 10, p, gui.boardProperties[12].getOwner());
+		    p.payPlayer(gui.boardProperties[12].getOwner(), roll * 10, gui);
 		}
 	    }
 	    else if (p.getCell() == gui.boardProperties[22] || p.getCell() == gui.boardProperties[36]) { // Top or Right Chance
-		p.changeCell(28, gui); // move to Water Works.
+		p.setCell(28, gui); // move to Water Works.
 
 		if (gui.boardProperties[28].getOwner() != null) {
 		    Random rollGenerator = new Random();
 		    int roll = rollGenerator.nextInt(6) + 1;
-		    gui.playerPayPlayer(roll * 10, p, gui.boardProperties[28].getOwner());
+		    p.payPlayer(gui.boardProperties[28].getOwner(), roll * 10, gui);
 		}
 	    }
 	    else {
@@ -119,13 +119,13 @@ public class Chance {
 	         // you may buy it from the Bank. (There are two of these.)"
     	    // TODO: Implement this.
 	    if (p.getCell() == gui.boardProperties[7]) {
-		p.changeCell(5, gui);
+		p.setCell(5, gui);
 	    }
 	    else if (p.getCell() == gui.boardProperties[22]) {
-		p.changeCell(25, gui);
+		p.setCell(25, gui);
 	    }
 	    else if (p.getCell() == gui.boardProperties[36]) {
-		p.changeCell(35, gui);
+		p.setCell(35, gui);
 	    }
 	    else
 		System.out.println("Error! Apparently you tried to do actions on a Chance card 3, but you weren't standing on a Chance space to begin with.");
@@ -136,7 +136,7 @@ public class Chance {
     	    if (p.getIndex() >= 12)
     		p.addCash("hundreds", 2);
 
-    	    p.changeCell(11, gui);
+    	    p.setCell(11, gui);
     	    break;
 
     	case 6:  // "Bank pays you dividend of $50"
@@ -147,7 +147,7 @@ public class Chance {
     	    break;
     	case 8:  // "Go back 3 spaces"
 	    // TODO: This should take charge the Player for landing on Income Tax.
-    	    p.changeCell((p.getIndex() - 3), gui);
+    	    p.setCell((p.getIndex() - 3), gui);
     	    // TODO: Then call onland function.
     	    // TODO: Or just call movePlayer() ?
 	    // TODO: Should I use changePosition() instead for some reason?
@@ -171,19 +171,19 @@ public class Chance {
     	    }
     	    break;
     	case 11: // "Pay poor tax of $15"
-	    gui.playerPayBank(15, p);
+	    p.payBank(15, gui);
     	    break;
     	case 12: // "Take a trip to Reading Railroad – if you pass Go, collect $200"
     	    // If the player's position is on or after Oriental avenue, give em $200.
     	    if (p.getIndex() >= 6)
     		p.addCash("hundreds", 2);
 
-    	    p.changeCell(5, gui);
+    	    p.setCell(5, gui);
     	    // TODO: And then onland function.
     	    break;
 
     	case 13: // "Take a walk on the Boardwalk – advance token to Boardwalk"
-    	    p.changeCell(39, gui);
+    	    p.setCell(39, gui);
     	    //TODO: And then call the onland function for boardwalk.
     	    break;
     	case 14: // "You have been elected chairman of the board – pay each player $50"
@@ -192,7 +192,7 @@ public class Chance {
 		    player.addCash("fifties", 1);
 	    }
 	    // TODO: This won't be 150 when one or more other players are bankrupt.
-	    gui.playerPayBank(150, p);
+	    p.payBank(150, gui);
     	    break;
     	case 15: // "Your building loan matures – collect $150"
     	    p.addCash("hundreds", 1);
