@@ -162,22 +162,22 @@ public class Player {
     public void setCash(String t, int a) {
 	// TODO: Make sure this handles negative values appropriately.
 	switch (t) {
-	case "ones":         ones  = a;
-	    break;
-	case "fives":        fives = a;
-	    break;
-	case "tens":         tens  = a;
-	    break;
-	case "twenties":     twenties = a;
-	    break;
-	case "fifties":      fifties  = a;
-	    break;
-	case "hundreds":     hundreds = a;
-	    break;
-	case "fiveHundreds": fiveHundreds = a;
-	    break;
-	default: System.out.println("Invalid currency amount.");
-	    break;
+	    case "ones":         ones  = a;
+	        break;
+	    case "fives":        fives = a;
+	        break;
+	    case "tens":         tens  = a;
+	        break;
+	    case "twenties":     twenties = a;
+	        break;
+	    case "fifties":      fifties  = a;
+	        break;
+	    case "hundreds":     hundreds = a;
+	        break;
+	    case "fiveHundreds": fiveHundreds = a;
+	        break;
+	    default: System.out.println("Invalid currency amount.");
+	        break;
 	}
 
 	updateTotalMoney();
@@ -239,47 +239,15 @@ public class Player {
 	return totalPropertiesOwned;
     }
 
+    /** Set the number of properties owned by this Player to n. */
+    public void setNumOwnedProperties(int n) {
+	totalPropertiesOwned = n;
+    }
+
     /** Get the index of the BoardCell in boardProperties[] this Player 
      *  is standing on. */
     public int getIndex() {
 	return cellIndex;
-    }
-
-    /** Give this player a new property. */
-    public void addProperty(BoardCell property) {
-	// TODO: Implemented this in classes implement the Ownable interface. See if I can get
-	//       ideas from here.
-	// TODO: Implement this. add the property, and increment number of properties owned.
-	// TODO: Rename buyProperty() ?
-	// TODO: Below are some thoughts, implement if they'll work well.
-	// So, the steps could be here:
-
-	// 	If player will bankrupt, don't allow
-	//      else,
-	//         make player pay for property.
-	//         set the player as the property's owner
-	//         increment the player's number of properties owned
-	//         change the property's image
-	//
-	//  Look into BoardCell.setOwner whenever.
-
-
-
-	// if (player1.getCellClassName() == "Railroad") {
-	//     Railroad r = (Railroad) player1.getCell();
-	//     playerPayPlayer(r.getCost(), player1);
-	// }
-	// else if (player1.getCellClassName() == "PropagandaOutlet") {
-	//     PropagandaOutlet pO = (PropagandaOutlet) player1.getCell();
-	//     playerPayPlayer(pO.getCost(), player1);
-	// }
-	// else if (player1.getCellClassName() == "UtilityCell") {
-	//     UtilityCell u = (UtilityCell) player1.getCell();
-	//     playerPayPlayer(u.getCost(), player1);
-	// }
-	// player1.getCell().setOwner(player1);
-	// buyProperty.setEnabled(false); // Disable button after property's bought.
-
     }
 
     /** Remove a property from this player. */
@@ -298,9 +266,8 @@ public class Player {
      *  BoardCell on the board. */
     public void setCell(int p, IdeopolyGUI gui) { // TODO: Better function name.
 	// Only allow valid indexes.
-	if (p < 0 || p > 39) {
+	if (p < 0 || p > 39)
 	    System.out.println("Error! That cell is outside the bounds of valid cells!");
-	}
 	else {
 	    currentCell = gui.boardProperties[p];
 	    cellIndex = p;
@@ -515,7 +482,7 @@ public class Player {
 	}
     }
 
-    /** Have this Player pay player p amount dollars. This Player
+    /** Have this Player pay Player p amount dollars. This Player
      *  will bankrupt if amount is larger than this Player's totalMoney
      *  value. */
     // TODO: Have any tests transferred over to these new methods.

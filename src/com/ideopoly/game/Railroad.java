@@ -57,7 +57,9 @@ public class Railroad extends BoardCell implements Ownable {
 	// bankrupt in payBank(). That should not be allowed.
 	p.payBank(this.getCost(), gui);
 	this.setOwner(p);
+	p.setNumOwnedProperties(p.getNumOwnedProperties() + 1);
 	gui.printStatusAndLog(p.getName() + " bought " + this.getName() + " for $" + COST + ".");
+	// TODO: And then change the property's image.
     }
 
     /** Return whether or not this UtilityCell is 

@@ -180,8 +180,6 @@ public abstract class BoardCell {
      *  is used to determine whether to display the image upright, at 90 degrees, etc. */
     // LEFTOFFHERE: Implementing this SVG generation method. Just now added a color field to all
     //              Players, so I can use that for the playerColor method here.
-    //              ALSO, big win: See the instanceof operator. Allows me to say if (p instance Player) {do this}.
-    //              Much better than my convoluted "if (p.getCellClassName() == "Railroad")"
     // TODO: Do I need the Player argument? Can't I use this.getOwner() or similar instead?
     public void generateImage(String name, Color playerColor, Color barColor, String orientation) {
 	try {
