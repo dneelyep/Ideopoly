@@ -1,6 +1,7 @@
 package com.ideopoly.tests;
 
 import junit.framework.TestCase;
+import java.awt.*;
 import org.junit.*;
 import com.ideopoly.game.*;
 
@@ -14,10 +15,11 @@ public class PlayerTester extends TestCase {
 	IdeopolyGUI gui = new IdeopolyGUI("Richard Stallman");
 
 	// TODO: Test with a non-standard player number.
-	Player testPlayer  = new Player(1, gui);
-	Player testPlayer2 = new Player(2, gui);
-	Player testPlayer3 = new Player(3, gui);
-	Player testPlayer4 = new Player(4, gui);
+	Player testPlayer = new Player(1, new Color(1, 238, 0) , gui);
+	Player testPlayer2 = new Player(2, new Color(223, 254, 10), gui);
+	Player testPlayer3 = new Player(3, new Color(253, 186, 17), gui);
+	Player testPlayer4 = new Player(4, new Color(19, 214, 242), gui);
+
 	assertEquals(testPlayer.getJailStatus(),         0);
 	assertEquals(testPlayer.getCash("ones"),         5);
 	assertEquals(testPlayer.getCash("fives"),        5);

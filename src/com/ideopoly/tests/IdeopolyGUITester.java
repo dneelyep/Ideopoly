@@ -2,6 +2,7 @@ package com.ideopoly.tests;
 
 import junit.framework.TestCase;
 import org.junit.*;
+import java.awt.*;
 import com.ideopoly.game.*;
 
 /** Class to test all methods inside the IdeopolyGUI class.
@@ -24,10 +25,10 @@ public class IdeopolyGUITester extends TestCase {
 	// LEFTOFFHERE: To enable these, make a new IdeopolyGUI object.
 	// TODO: Test, after creation of the GUI, the isEnabled() statuses for all the buttons.
 	// TODO: These Players have to have a gui to pass in. 
-	p1 = new Player(1, testGUI);
-	p2 = new Player(2, testGUI);
-	p3 = new Player(3, testGUI);
-	p4 = new Player(4, testGUI);
+	p1 = new Player(1, new Color(1, 238, 0) , testGUI);
+	p2 = new Player(2, new Color(223, 254, 10), testGUI);
+	p3 = new Player(3, new Color(253, 186, 17), testGUI);
+	p4 = new Player(4, new Color(19, 214, 242), testGUI);
 	assertEquals(p1.getCell(), testGUI.boardProperties[0]);
 	assertEquals(p2.getCell(), testGUI.boardProperties[0]);
 	assertEquals(p3.getCell(), testGUI.boardProperties[0]);
@@ -40,10 +41,10 @@ public class IdeopolyGUITester extends TestCase {
     public void testGetCashDistribution() {
 	testGUI = new IdeopolyGUI("Test GUI");
 
-	p1  = new Player(1, testGUI);
-	p2  = new Player(2, testGUI);
-	p3  = new Player(3, testGUI);
-	p4  = new Player(4, testGUI);
+	p1 = new Player(1, new Color(1, 238, 0) , testGUI);
+	p2 = new Player(2, new Color(223, 254, 10), testGUI);
+	p3 = new Player(3, new Color(253, 186, 17), testGUI);
+	p4 = new Player(4, new Color(19, 214, 242), testGUI);
 
 	// TODO: This long assertEquals looks like an opportunity for a helper method.
 	int[] cashDistribution = testGUI.getCashDistribution(2000);
@@ -171,10 +172,10 @@ public class IdeopolyGUITester extends TestCase {
     public void testPlayerPayPlayer() {
 	// First test with a variety of sensible values being transferred.
 	testGUI = new IdeopolyGUI("Test player");
-	p1 = new Player(1, testGUI);
-	p2 = new Player(2, testGUI);
-	p3 = new Player(3, testGUI);
-	p4 = new Player(4, testGUI);
+	p1 = new Player(1, new Color(1, 238, 0) , testGUI);
+	p2 = new Player(2, new Color(223, 254, 10), testGUI);
+	p3 = new Player(3, new Color(253, 186, 17), testGUI);
+	p4 = new Player(4, new Color(19, 214, 242), testGUI);
 
 	// TODO: Loop relevant stuff in this method.
 	p1.payPlayer(p2, 500, testGUI); // between all 4 players
@@ -290,10 +291,10 @@ public class IdeopolyGUITester extends TestCase {
 	assertEquals(p1.getCash("total"), 6000);
 
 	// Will bankrupt first player.
-	p1 = new Player(1, testGUI);
-	p2 = new Player(2, testGUI);
-	p3 = new Player(3, testGUI);
-	p4 = new Player(4, testGUI);
+	p1 = new Player(1, new Color(1, 238, 0) , testGUI);
+	p2 = new Player(2, new Color(223, 254, 10), testGUI);
+	p3 = new Player(3, new Color(253, 186, 17), testGUI);
+	p4 = new Player(4, new Color(19, 214, 242), testGUI);
 	p1.payBank(1501, testGUI);
 	assertEquals(p1.getCash("total"), 0);
 	// TODO: Should have a better method for these cases. IE, isBankrupt()
@@ -306,10 +307,10 @@ public class IdeopolyGUITester extends TestCase {
 
 
 	// Now test with un-sensible values being transferred.
-	p1 = new Player(1, testGUI);
-	p2 = new Player(2, testGUI);
-	p3 = new Player(3, testGUI);
-	p4 = new Player(4, testGUI);
+	p1 = new Player(1, new Color(1, 238, 0) , testGUI);
+	p2 = new Player(2, new Color(223, 254, 10), testGUI);
+	p3 = new Player(3, new Color(253, 186, 17), testGUI);
+	p4 = new Player(4, new Color(19, 214, 242), testGUI);
 
 	// TODO: Test a player paying themself.
 	// Negative values. These aren't allowed, so cash totals 

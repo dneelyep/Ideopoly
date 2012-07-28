@@ -3,6 +3,8 @@ package com.ideopoly.game;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.io.*;
+import java.util.*;
 
 /** A BoardCell represents any of the cells running along the 
  *  outside edge of the game board. Since there are different types
@@ -171,7 +173,41 @@ public abstract class BoardCell {
 	//     System.out.println("Error! Ya tried to get the position of a non-existant Player.");
     }
 
+    /** Using the supplied parameters, generate an image of this BoardCell. name is used for
+     *  the property name, which is displayed at the "top" of the image. The Player p is used to
+     *  set the background color of the image, which indicates who owns the property. Color c is
+     *  used to set the color of the horizontal bar at the "top" of the image. And orientation
+     *  is used to determine whether to display the image upright, at 90 degrees, etc. */
+    // LEFTOFFHERE: Implementing this SVG generation method. Just now added a color field to all
+    //              Players, so I can use that for the playerColor method here.
+    //              ALSO, big win: See the instanceof operator. Allows me to say if (p instance Player) {do this}.
+    //              Much better than my convoluted "if (p.getCellClassName() == "Railroad")"
+    // TODO: Do I need the Player argument? Can't I use this.getOwner() or similar instead?
+    public void generateImage(String name, Color playerColor, Color barColor, String orientation) {
+	try {
+	    // TODO: Set the correct locale for Formatter? Getting a findbugs error.
+	    Formatter file = new Formatter("temp.svg");
+	    // TODO: Mediterranean Av., along with some other property, is the longest name I
+	    //       should expect to receive. Can use that to make sure the text fits.
+	    file.format("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n"
+			+ "  <rect width=\"50\" height=\"80\" style=\"fill:rgb(" + playerColor.getRed() + "," + playerColor.getGreen() + "," + playerColor.getBlue() + "); stroke-width:1; stroke:rgb(0,0,0)\" />\n"
+			+ "  <rect width=\"50\" height=\"20\" style=\"fill:rgb(" + barColor.getRed() + "," + barColor.getGreen() + "," + barColor.getBlue() + "); stroke-width:1; stroke:rgb(0,0,0)\" />\n"
+			+ "  <g style=\"font-size: 7pt\">\n"
+			+ "    <text x=\"5\"  y=\"10\">" + name + "</text>\n"
+			+ "  </g>\n"
+			+ "</svg>\n");
+	    file.close();
+	    // TODO: And after we're done, delete the file.
+	} catch (Exception e) {
+	    System.out.println("Exception: " + e);
+	}
+    }
+
+
     // TODO: Add tests for this nested class.
+    // TODO: Better class name. BoardCellGUI implies that this is the picture displayed for
+    //       the cell around the edge of the board, where this is really the detailed property
+    //       information on the right side of the screen.
     /** BoardCellGUI - The graphical representation of any BoardCell object.
      *  We extend JPanels to allow them to receieve mouse events. That way, we can
      *  tell when and how the user mouses over, clicks on, etc. the panels.
@@ -193,6 +229,7 @@ public abstract class BoardCell {
 	@Override 
 	public void mouseEntered(MouseEvent e) {
 	    // TODO: Tests for this stuff.
+	    // TODO: Replace this with instanceof operator.
 	   if (BoardCell.this.getClass().getName() == "com.ideopoly.game.Railroad") {
 		Railroad r = (Railroad) BoardCell.this;
 		gui.setGUIColor(Color.BLACK);

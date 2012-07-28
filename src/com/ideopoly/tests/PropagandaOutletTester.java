@@ -34,7 +34,7 @@ public class PropagandaOutletTester extends TestCase {
 	//       Need out of the ordinary cases, though.
 	assertEquals(testPropOutlet.getOwner(), null);
 
-	Player testPropOutletPlayer = new Player(2, gui);
+	Player testPropOutletPlayer = new Player(2, new Color(223, 254, 10), gui);
 	testPropOutlet.setOwner(testPropOutletPlayer);
 	assertEquals(testPropOutlet.getOwner(), testPropOutletPlayer);
     }

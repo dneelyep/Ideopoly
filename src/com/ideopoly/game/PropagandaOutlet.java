@@ -7,7 +7,7 @@ import java.awt.*;
  *  such as number of houses/hotels present, cost of rent, etc.
  *
  *  @author Daniel Neel */
-public class PropagandaOutlet extends BoardCell {
+public class PropagandaOutlet extends BoardCell implements Ownable {
     // TODO: Should these be more than just numbers, so that we can specify who owns each? Maybe number of player 1/2/3/4 houses/hotels? Nevermind, since ya have to own all the color group, and since ownedBy determines who owns the property, we can use those to detrmine who owns the houses.
 
     /** The Color associated with this PropagandaOutlet. Purple for 
@@ -52,6 +52,9 @@ public class PropagandaOutlet extends BoardCell {
      *  houses and hotels always cost the same, we just need one variable. */
     private int houseOrHotelCost;
 
+    /** Status of this PropagandaOutlet's ownership. If true, a Player owns the property. */
+    private boolean owned;
+
     /** Create a new propaganda outlet with a given name, image, no owner,
      *  no houses/hotels and the given rent per no house, 1/2/3/4 houses/hotels,
      *  mortgage value, cost per house/hotel, x/y coordinates.
@@ -68,6 +71,8 @@ public class PropagandaOutlet extends BoardCell {
 	numHotels	    = 0;
 	cost                = newCost;
 	mortgageValue	    = newCost / 2; // Mortgage prices are half the price to buy the property.
+	owned = false;
+
 	initialRent	    = newInitialRent;
 	rent1House	    = newRent1House;
 	rent2House	    = newRent2House;
@@ -105,6 +110,22 @@ public class PropagandaOutlet extends BoardCell {
 
 	else // Error state.
 	    return -1;
+    }
+
+    /** Set Player p as the owner of this PropagandaOutlet, and charge
+     *  them the correct amount of money. */
+    @Override
+    public void buy(Player p, IdeopolyGUI gui) {
+	p.payBank(this.getCost(), gui);
+	this.setOwner(p);
+	gui.printStatusAndLog(p.getName() + " bought " + this.getName() + " for $" + cost + ".");
+    }
+
+    /** Return whether or not this UtilityCell is 
+     *  currently owned by a Player. */
+    @Override
+    public boolean isOwned() {
+	return ((owned == true) ? true : false);
     }
 
     /** Returns the cost for a Player to buy this 

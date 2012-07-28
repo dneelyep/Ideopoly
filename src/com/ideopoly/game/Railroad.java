@@ -6,7 +6,7 @@ package com.ideopoly.game;
 /** Represents any of the four railroads. Is a sub-class of BoardCell.
  *
  *  @author Daniel Neel */
-public class Railroad extends BoardCell {
+public class Railroad extends BoardCell implements Ownable {
     /** The cost to buy this cell, unimproved. */
     private static final int COST = 200;
 
@@ -15,6 +15,9 @@ public class Railroad extends BoardCell {
 
     /** How much money a player can mortgage this Railroad for. */
     private static final int MORTGAGEVALUE = 100;
+
+    /** Status of this Railroad's ownership. If true, a Player owns the property. */
+    private boolean owned;
 
     // TODO: A better solution: Make an interface that declares my constants,
     //       and make use of that interface in various files so I can re-use the
@@ -28,6 +31,7 @@ public class Railroad extends BoardCell {
     /** Create a new Railroad with a given name, image, and no owner. */
     public Railroad(String newName, String imagePath, int xPos, int yPos, IdeopolyGUI gui) {
 	super(newName, imagePath, xPos, yPos, gui); // Use the BoardCell class' constructor.
+	owned = false;
     }
 
     /** Returns the cost for a Player to buy this 
@@ -45,9 +49,28 @@ public class Railroad extends BoardCell {
 	return INITIALRENT;
     }
 
+    /** Set Player p as the owner of this Railroad, and charge
+     *  them the correct amount of money. */
+    @Override
+    public void buy(Player p, IdeopolyGUI gui) {
+	// TODO: This (and the other buy methods) will continue even if the Player becomes
+	// bankrupt in payBank(). That should not be allowed.
+	p.payBank(this.getCost(), gui);
+	this.setOwner(p);
+	gui.printStatusAndLog(p.getName() + " bought " + this.getName() + " for $" + COST + ".");
+    }
+
+    /** Return whether or not this UtilityCell is 
+     *  currently owned by a Player. */
+    @Override
+    public boolean isOwned() {
+	return ((owned == true) ? true : false);
+    }
+
     /** Returns the value this Railroad can be
      *  mortgaged for. */
     public int getMortgageValue() {
 	return MORTGAGEVALUE;
     }
 }
+ 

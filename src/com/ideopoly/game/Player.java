@@ -64,12 +64,16 @@ public class Player {
     /** An index that represents which element of BoardProperties[] this Player is standing on. */
     private int cellIndex;
 
+    /** Color associated with this Player. Player1 = green, 2 = yellow, 
+     *  3 = orange, 4 = blue. */
+    private Color color;
+
     // TODO: Make add/remove functions for ownedOutlets. Use something other than an array for ease?
 
     /** Actions to take when a player object is initially created. Players
      *  are only created at the start of the game. Different players start
      *  at different positions on the board (Same cell, different walking space.) */
-    public Player(int playerNumber, IdeopolyGUI gui) {
+    public Player(int playerNumber, Color c, IdeopolyGUI gui) {
 
 	inJail = 0; // TODO: This needed? Couldn't I just use board position?
 
@@ -86,6 +90,8 @@ public class Player {
 	totalPropertiesOwned = 0;
 	totalHousesOwned     = 0;
 	totalHotelsOwned     = 0;
+
+	this.color = c;
 
 	// TODO: Create an empty array? Or is it already created?
 	//	ownedOutlets[] = ;
@@ -148,12 +154,6 @@ public class Player {
     /** Get this player's current position. */
     public BoardCell getCell() {
 	return currentCell;
-    }
-
-    // TODO: Do I need this really?
-    /** Helper function. Return the name of this Player's currentCell's class's name. */
-    public String getCellClassName() {
-	return currentCell.getClass().getName();
     }
 
     /** Set this Player's currency of type t to a given amount a.*/
@@ -247,6 +247,8 @@ public class Player {
 
     /** Give this player a new property. */
     public void addProperty(BoardCell property) {
+	// TODO: Implemented this in classes implement the Ownable interface. See if I can get
+	//       ideas from here.
 	// TODO: Implement this. add the property, and increment number of properties owned.
 	// TODO: Rename buyProperty() ?
 	// TODO: Below are some thoughts, implement if they'll work well.
@@ -535,5 +537,10 @@ public class Player {
 	    // And set cash back to sensible values.
 	    p.spreadCash(500);
 	}
+    }
+
+    /** Get the Color object associated with this Player. */
+    public Color getColor() {
+	return this.color;
     }
 }

@@ -3,6 +3,7 @@ package com.ideopoly.tests;
 import junit.framework.TestCase;
 import org.junit.*;
 import java.io.*;
+import java.awt.*;
 import com.ideopoly.game.*;
 
 /** Class to test all methods inside the BoardCell class.
@@ -14,8 +15,7 @@ public class BoardCellTester extends TestCase {
     @Test
     public void testBoardCell() {
 	IdeopolyGUI gui = new IdeopolyGUI("TestGUI");
-	Player  aPlayer = new Player(1, gui);
-
+	Player  aPlayer = new Player(1, new Color(1, 238, 0), gui);
 	// TODO: Should have deleted this file.
 	//       I think I want to do this because BoardCells are abstract, so I can't 
 	//       instantiate them. Makes 'em harder to test.

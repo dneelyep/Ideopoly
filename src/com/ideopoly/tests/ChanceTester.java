@@ -2,6 +2,7 @@ package com.ideopoly.tests;
 
 import junit.framework.TestCase;
 import org.junit.*;
+import java.awt.*;
 import com.ideopoly.game.*;
 
 /** Class to test all methods inside the Chance class.
@@ -180,10 +181,10 @@ public class ChanceTester extends TestCase {
 	assertEquals(chanceCard.getText(), "Advance to St. Charles Place – if you pass Go, collect $200");
 	// Start with clean Players.
 	// TODO: Do I need these start with clean players things where I have them? If not, remove.
-	player1 = new Player(1, gui);
-	player2 = new Player(2, gui);
-	player3 = new Player(3, gui);
-	player4 = new Player(4, gui);
+	player1 = new Player(1, new Color(1, 238, 0), gui);
+	player2 = new Player(2, new Color(223, 254, 10), gui);
+	player3 = new Player(3, new Color(253, 186, 17), gui);
+	player4 = new Player(4, new Color(19, 214, 242), gui);
 
 	// Test when we start before/after St. Charles. Impossible to start at St. Charles (no
 	// Chance card there), so we don't test that.
@@ -249,10 +250,10 @@ public class ChanceTester extends TestCase {
 
 	// Start with some clean Players.
 	// TODO: Make a method for this(?)
-	player1 = new Player(1, gui);
-	player2 = new Player(2, gui);
-	player3 = new Player(3, gui);
-	player4 = new Player(4, gui);
+	player1 = new Player(1, new Color(1, 238, 0) , gui);
+	player2 = new Player(2, new Color(223, 254, 10), gui);
+	player3 = new Player(3, new Color(253, 186, 17), gui);
+	player4 = new Player(4, new Color(19, 214, 242), gui);
 
 	// Test on the first Chance spot.
 	TestHelper.changeCellAllPlayers(7, gui, player1, player2, player3, player4);
@@ -319,10 +320,10 @@ public class ChanceTester extends TestCase {
 	assertEquals(chanceCard.getType(), 11);
 	assertEquals(chanceCard.getText(), "Pay poor tax of $15");
 	// Make some new Players.
-	player1 = new Player(1, gui);
-	player2 = new Player(2, gui);
-	player3 = new Player(3, gui);
-	player4 = new Player(4, gui);
+	player1 = new Player(1, new Color(1, 238, 0) , gui);
+	player2 = new Player(2, new Color(223, 254, 10), gui);
+	player3 = new Player(3, new Color(253, 186, 17), gui);
+	player4 = new Player(4, new Color(19, 214, 242), gui);
 
 	TestHelper.assertCash(1500, player1, player2, player3, player4);
 	TestHelper.doActionsAllPlayers(chanceCard, gui, player1, player2, player3, player4);
@@ -404,13 +405,12 @@ public class ChanceTester extends TestCase {
 	assertEquals(chanceCard.getType(), 15);
 	assertEquals(chanceCard.getText(), "Your building loan matures – collect $150");
 	// Make some new Players.
-	player1 = new Player(1, gui);
-	player2 = new Player(2, gui);
-	player3 = new Player(3, gui);
-	player4 = new Player(4, gui);
+	player1 = new Player(1, new Color(1, 238, 0) , gui);
+	player2 = new Player(2, new Color(223, 254, 10), gui);
+	player3 = new Player(3, new Color(253, 186, 17), gui);
+	player4 = new Player(4, new Color(19, 214, 242), gui);
 
 	TestHelper.doActionsAllPlayers(chanceCard, gui, player1, player2, player3, player4);
-
 	TestHelper.assertCash(1650, player1, player2, player3, player4);
 	// TODO: Tests for when n number of players are bankrupt and they somehow draw this card.
     }
@@ -421,10 +421,10 @@ public class ChanceTester extends TestCase {
 	assertEquals(chanceCard.getType(), 16);
 	assertEquals(chanceCard.getText(), "You have won a crossword competition - collect $100.");
 	// Make some new Players.
-	player1 = new Player(1, gui);
-	player2 = new Player(2, gui);
-	player3 = new Player(3, gui);
-	player4 = new Player(4, gui);
+	player1 = new Player(1, new Color(1, 238, 0) , gui);
+	player2 = new Player(2, new Color(223, 254, 10), gui);
+	player3 = new Player(3, new Color(253, 186, 17), gui);
+	player4 = new Player(4, new Color(19, 214, 242), gui);
 
 	TestHelper.doActionsAllPlayers(chanceCard, gui, player1, player2, player3, player4);
 	TestHelper.assertCash(1600, player1, player2, player3, player4);

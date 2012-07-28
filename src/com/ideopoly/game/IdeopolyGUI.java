@@ -59,6 +59,7 @@ public class IdeopolyGUI implements ActionListener {
     // class is currently the only outside class that changes its state.
     public  JButton useGOOJFCard     = new JButton("Use get out of jail free card");
     /** An area of text where we can display messages to the player. */
+    // TODO: Make messages a little larger - would be useful so the player can see more at a time.
     private JTextArea messages = new JTextArea("Welcome to Ideopoly!\nTo start playing, press \"Continue\". \nUse the other buttons to buy properties, sell properties, etc. \nGood luck!", 7, 1);
 
     // Create the game board.
@@ -133,11 +134,10 @@ public class IdeopolyGUI implements ActionListener {
     //    One idea would be just to make a function that checks the field for each player
     //    and returns the correct player.
     private int currentPlayer = 0;
-
-    public Player player1   = new Player(1, this);
-    public Player player2   = new Player(2, this);
-    public Player player3   = new Player(3, this);
-    public Player player4   = new Player(4, this);
+    public Player player1   = new Player(1, new Color(1, 238, 0) , this);
+    public Player player2   = new Player(2, new Color(223, 254, 10), this);
+    public Player player3   = new Player(3, new Color(253, 186, 17), this);
+    public Player player4   = new Player(4, new Color(19, 214, 242), this);
     // TODO: Try to reduce usage of this players array. Is useless and confusing except when looping.
     // TODO: Does this need to be public?
     // TODO: Since it's public, javadocs for the field.
@@ -445,6 +445,11 @@ public class IdeopolyGUI implements ActionListener {
 	    }
 
 	    // Player lands on Go to Jail.
+	    // TODO: I seem to be getting a bug where, after landing on Go to Jail,
+	    //       Buy Property will light up for the property player1 would have
+	    //       landed on, if (s)he had been allowed to roll. Then I get an error,
+	    //       because I try to buy that property, which uses player1's current cell
+	    //       (which is Jail, which is a SpecialCell), and you can't buy SpecialCells.
 	    else if (landingSpot == 30)
 		p.putInJail(this);
 
@@ -510,34 +515,12 @@ public class IdeopolyGUI implements ActionListener {
 		    // Have the AI buy the property if it has more than $500.
 		    else {
 			if (p.getCash("total") >= 500) {
-			    p.getCell().setOwner(p);
-
-			    // TODO: Refactor more.
-			    // TODO: See about making a BoardCell, and then casting that
-			    //       BoardCell to a more specific type. Then operating on that
-			    //       BoardCell after it has been casted to.
-			    if (p.getCellClassName() == "Railroad") {
-				//	return player.getCell().getClass().getName();
-				Railroad r = (Railroad) p.getCell();
-				getCashDistribution(r.getCost());
-				printStatusAndLog(p.getName() + " bought " + r.getName() + " for $" + r.getCost() + ".");
-				/* TODO: Test to make sure ALL THREE CONDITIONS HERE are working. 
-				   Have not yet tested playerPayPlayer on a null Player input.
-				   Also test this later on where the player buys a property
-				   - apparently it's not working. */
-				p.payBank(r.getRent(), this);
-			    }
-			    else if (p.getCellClassName() == "PropagandaOutlet") {
-				PropagandaOutlet pO = (PropagandaOutlet) p.getCell();
-				getCashDistribution(pO.getCost());
-				printStatusAndLog(p.getName() + " bought " + pO.getName() + " for $" + pO.getCost() + ".");
-				p.payBank(pO.getRent(), this);
-			    }
-			    else if (p.getCellClassName() == "UtilityCell") {
-				UtilityCell u = (UtilityCell) p.getCell();
-				getCashDistribution(u.getCost());
-				printStatusAndLog(p.getName() + " bought " + u.getName() + " for $" + u.getCost() + ".");
-				p.payBank(u.getRent(), this);
+			    if (   (p.getCell() instanceof  PropagandaOutlet)
+			        || (p.getCell() instanceof  Railroad)
+                                || (p.getCell() instanceof  UtilityCell)) {
+				Ownable cell = (Ownable) p.getCell();
+				if (cell.isOwned() == false)
+				    cell.buy(p, this);
 			    }
 			}
 		    }
@@ -603,26 +586,9 @@ public class IdeopolyGUI implements ActionListener {
 	}
 
 	else if (eventSource.substring(0, 12).equals("Buy property")) {
-	    // TODO: This style of thing (the casting to specific types) is done elsewhere.
-	    //       Can simplify it?
-	    // The class name includes the package name in front, so we cut that off with substring.
-	    if (player1.getCellClassName().substring(18).equals("Railroad")) {
-		Railroad r = (Railroad) player1.getCell();
-		player1.payBank(r.getCost(), this);
-	    }
-
-	    else if (player1.getCellClassName().substring(18).equals("PropagandaOutlet")) {
-		PropagandaOutlet pO = (PropagandaOutlet) player1.getCell();
-		player1.payBank(pO.getCost(), this);
-	    }
-
-	    else if (player1.getCellClassName().substring(18).equals("UtilityCell")) {
-		UtilityCell u = (UtilityCell) player1.getCell();
-		player1.payBank(u.getCost(), this);
-	    }
-	    // TODO: ^-- That should take care of all cases, uncertain though. Needs tests.
-	    //       SpecialCells? Chance/CommChests?
-	    player1.getCell().setOwner(player1);
+	    // TODO: Possible to do this more cleanly?
+	    Ownable cell = (Ownable) player1.getCell();
+	    cell.buy(player1, this);
 	    buyProperty.setEnabled(false); // Disable button after property's bought.
 	}
 
@@ -780,5 +746,4 @@ public class IdeopolyGUI implements ActionListener {
 	gbc.gridx = x;
 	gbc.gridy = y;
     }
-
 }

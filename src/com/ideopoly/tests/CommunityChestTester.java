@@ -2,6 +2,7 @@ package com.ideopoly.tests;
 
 import junit.framework.TestCase;
 import org.junit.*;
+import java.awt.*;
 import com.ideopoly.game.*;
 
 /** Class to test all methods inside the CommunityChest class.
@@ -10,10 +11,10 @@ import com.ideopoly.game.*;
 public class CommunityChestTester extends TestCase {
     private CommunityChest commChestCard;
     private IdeopolyGUI    gui = new IdeopolyGUI("Test GUI");
-    private Player         p1  = new Player(1, gui);
-    private Player         p2  = new Player(2, gui);
-    private Player         p3  = new Player(3, gui);
-    private Player         p4  = new Player(4, gui);
+    private Player p1 = new Player(1, new Color(1, 238, 0) , gui);
+    private Player p2 = new Player(2, new Color(223, 254, 10), gui);
+    private Player p3 = new Player(3, new Color(253, 186, 17), gui);
+    private Player p4 = new Player(4, new Color(19, 214, 242), gui);
 
     // TODO: Javadocs for all methods here.
     @Test
@@ -185,7 +186,7 @@ public class CommunityChestTester extends TestCase {
 	TestHelper.assertCash(1590, 1470, 1470, 1470, p1, p2, p3, p4);
 
 	// And test when 1, 2, and 3 other players are bankrupt.
-	p1 = new Player(1, gui);
+	p1 = new Player(1, new Color(1, 238, 0), gui);
 	p2.bankruptPlayer(gui);
 	commChestCard.doActions(p1, gui);
 	TestHelper.assertCash(1520, 0, 1460, 1460, p1, p2, p3, p4);
@@ -230,7 +231,7 @@ public class CommunityChestTester extends TestCase {
 	TestHelper.assertCash(1950, 1350, 1350, 1350, p1, p2, p3, p4);
 
 	// And then when 1, 2, and 3 other players are bankrupt.
-	p1 = new Player(1, gui);
+	p1 = new Player(1, new Color(1, 238, 0), gui);
 	p2.bankruptPlayer(gui);
 	commChestCard.doActions(p1, gui);
 	TestHelper.assertCash(1600, 0, 1300, 1300, p1, p2, p3, p4);

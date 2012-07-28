@@ -2,15 +2,19 @@ package com.ideopoly.game;
 
 /** Represents the common behaviors of the
  *  Water Works and Electric Company cells. */
-public class UtilityCell extends BoardCell {
+public class UtilityCell extends BoardCell implements Ownable {
     // TODO: Add a test class and tests.
     /** The cost to buy this cell, unimproved. */
     private final int COST = 150;
+
+    /** Status of this UtilityCell's ownership. If true, a Player owns the property. */
+    private boolean owned;
 
     /** Create a new UtilityCell with a given name,
      *  image, and x/y coordinates on the board.*/
     public UtilityCell(String newName, String imagePath, int xPos, int yPos, IdeopolyGUI gui) {
 	super(newName, imagePath, xPos, yPos, gui); // Use the BoardCell class' constructor.
+	owned = false;
     }
 
     /** Returns the cost for a Player to buy this 
@@ -19,13 +23,28 @@ public class UtilityCell extends BoardCell {
 	return COST;
     }
 
-    // TODO: Handle this better than returning a 0 value. Un-elegant.
     // TODO: That's the case for SpecialCells, but not UtilityCells. Fix it.
+    // TODO: Better comment
     /** Get the amount of rent charged for landing on this cell.
-     *  Since the Player is not charged for landing on any SpecialCells,
-     *  we return 0 for the amount. */
+     *  This value depends on a random dice roll. */
     @Override
     public int getRent() {
 	return 0;
+    }
+
+    /** Set Player p as the owner of this UtilityCell, and charge
+     *  them the correct amount of money. */
+    @Override
+    public void buy(Player p, IdeopolyGUI gui) {
+	p.payBank(this.getCost(), gui);
+	this.setOwner(p);
+	gui.printStatusAndLog(p.getName() + " bought " + this.getName() + " for $" + COST + ".");
+    }
+
+    /** Return whether or not this UtilityCell is 
+     *  currently owned by a Player. */
+    @Override
+    public boolean isOwned() {
+	return ((owned == true) ? true : false);
     }
 }
