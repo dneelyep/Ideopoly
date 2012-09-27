@@ -2,7 +2,7 @@ package com.ideopoly.game;
 
 import javax.swing.*;
 /** Class that represents a standing position on the game board. 
- *  These are used as indicators of where players are currently
+ *  These are used as indicators of where players are currently 
  *  standing on the board. This class mainly exists so I can
  *  group coordinates and an image with a JLabel. So I can make
  *  a collection of these and say collection[x].changeimage(), etc.

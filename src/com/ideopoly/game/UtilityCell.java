@@ -1,6 +1,6 @@
 package com.ideopoly.game;
 
-/** Represents the common behaviors of the
+/** Represents the common behaviors of the 
  *  Water Works and Electric Company cells. */
 public class UtilityCell extends BoardCell implements Ownable {
     // TODO: Add a test class and tests.

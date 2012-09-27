@@ -14,7 +14,7 @@ public class CashCell extends JLabel {
 
     /** This position's y-coordinate in the GUI. */
     private final int yCoordPos;
-
+    
     /** Create this object with the given x and y coordinates. */
     public CashCell(int newXPos, int newYPos, String text) {
 	    xCoordPos = newXPos;
