@@ -30,7 +30,7 @@ public class IdeopolyGUI implements ActionListener {
     private int gameWon = 0;
 
     // TODO: Can I make this private?
-    private final String cashValues[] = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
+    public final String cashValues[] = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
     private final String cashHeadings[] = { "Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail" };
     // TODO: Come up with a better solution than making this public.
     public final JLabel[] playerRowLabels = { new JLabel("Player 1"), 
@@ -366,7 +366,7 @@ public class IdeopolyGUI implements ActionListener {
 	frame.setVisible(true);
 
 	System.out.println("You picked " + playerCharacter + ".");
-	readingRR.generateImage("testName", player1.getColor(), Color.YELLOW, "left");
+	//	readingRR.generateImage("testName", player1.getColor(), Color.YELLOW, "left");
     }
 
     /** Do a turn's worth of gameplay. First the player p rolls/moves. 
