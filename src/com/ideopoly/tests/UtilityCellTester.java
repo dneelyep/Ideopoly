@@ -9,7 +9,7 @@ import com.ideopoly.game.*;
  * @author Daniel Neel */
 public class UtilityCellTester extends TestCase { 
    
-   private  UtilityCell testWaterWorks = new UtilityCell("Water Works", "waterWorks.jpg", 33, 1, new IdeopolyGUI("Test"));
+   private  UtilityCell testWaterWorks = new UtilityCell("Water Works", "waterWorks.jpg", 33, 1, new GameBoard("Test"));
     //    UtilityCell testElectricCo = new UtilityCell();
 
     @Test
@@ -36,7 +36,7 @@ public class UtilityCellTester extends TestCase {
 
 	// private Icon image;
 	// private BoardCellGUI graphicalRepresentation;
-	// public IdeopolyGUI gui;
+	// public GameBoard board;
     }
 
     @Test

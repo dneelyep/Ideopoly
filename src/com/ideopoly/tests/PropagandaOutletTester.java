@@ -12,10 +12,10 @@ public class PropagandaOutletTester extends TestCase {
     /** Test all methods in the PropagandaOutlet class. */
     @Test
     public void testPropagandaOutlet() {
-	IdeopolyGUI gui = new IdeopolyGUI("TestGUI");
+	GameBoard board = new GameBoard("Test Board");
 
 	// TODO: Removed this image
-	PropagandaOutlet testPropOutlet = new PropagandaOutlet("testPropOutlet", "images/yellow_template.jpg", 40, 10, 60, 180, 350, 630, 800, 100, 18, 18, gui, 252, 255, 0);
+	PropagandaOutlet testPropOutlet = new PropagandaOutlet("testPropOutlet", "images/yellow_template.jpg", 40, 10, 60, 180, 350, 630, 800, 100, 18, 18, board, 252, 255, 0);
 
 	assertEquals(testPropOutlet.getName(), "testPropOutlet");
 	//	    TODO: Test the image assigned during creation.
@@ -34,7 +34,7 @@ public class PropagandaOutletTester extends TestCase {
 	//       Need out of the ordinary cases, though.
 	assertEquals(testPropOutlet.getOwner(), null);
 
-	Player testPropOutletPlayer = new Player(2, new Color(223, 254, 10), gui);
+	Player testPropOutletPlayer = new Player(2, new Color(223, 254, 10), board);
 	testPropOutlet.setOwner(testPropOutletPlayer);
 	assertEquals(testPropOutlet.getOwner(), testPropOutletPlayer);
     }

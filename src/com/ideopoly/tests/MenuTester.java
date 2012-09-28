@@ -25,9 +25,9 @@ public class MenuTester extends TestCase {
 
 	//     JFrame mainMenu = new JFrame("Ideopoly | Main menu");  // Initialized here so we can access it via event listeners.
 
-	//     /** Construct the GUI and make it visible. */
+	//     /** Construct the board and make it visible. */
 	//     public Menu() {
-	//  	// Create the gui
+	//  	// Create the board
 	// 	mainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	// 	Box box = Box.createVerticalBox();

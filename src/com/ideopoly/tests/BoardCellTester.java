@@ -14,12 +14,12 @@ public class BoardCellTester extends TestCase {
     /** Test all methods in the BoardCell class. */ 
     @Test
     public void testBoardCell() {
-	IdeopolyGUI gui = new IdeopolyGUI("TestGUI");
-	Player  aPlayer = new Player(1, new Color(1, 238, 0), gui);
+	GameBoard board = new GameBoard("TestGUI");
+	Player  aPlayer = new Player(1, new Color(1, 238, 0), board);
 	// TODO: Should have deleted this file.
 	//       I think I want to do this because BoardCells are abstract, so I can't 
 	//       instantiate them. Makes 'em harder to test.
-	//	BoardCell testCell = new BoardCell("name", "images/orangeTemplate.jpg", 4, 10, gui);
+	//	BoardCell testCell = new BoardCell("name", "images/orangeTemplate.jpg", 4, 10, board);
 
 	// Test basic, not out-of-the-ordinary cases.
 	// assertEquals(testCell.getName(), "name");
