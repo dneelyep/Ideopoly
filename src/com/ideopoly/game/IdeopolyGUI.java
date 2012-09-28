@@ -30,7 +30,7 @@ public class IdeopolyGUI implements ActionListener {
     private int gameWon = 0;
 
     // TODO: Can I make this private?
-    public final String cashValues[] = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
+    private final String cashValues[] = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
     private final String cashHeadings[] = { "Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail" };
     // TODO: Come up with a better solution than making this public.
     public final JLabel[] playerRowLabels = { new JLabel("Player 1"), 
@@ -47,7 +47,7 @@ public class IdeopolyGUI implements ActionListener {
     /** Array used to store the values of each type of bill a Player
      *  should pay after requiring a payment. */
     // TODO: Can I make this private?
-    public int[]   paymentAmounts   = {0, 0, 0, 0, 0, 0, 0};
+    public  int[]   paymentAmounts   = {0, 0, 0, 0, 0, 0, 0};
     private JFrame  frame	     = new JFrame("Ideopoly | Main game");
     private JButton continueButton   = new JButton("Continue");//new ImageIcon("images/continueButton.jpg"));
     private JButton buyProperty	     = new JButton("Buy property");
@@ -106,15 +106,7 @@ public class IdeopolyGUI implements ActionListener {
     private SpecialCell      luxuryTax       = new SpecialCell("Luxury Tax", "luxuryTax.jpg", 41, 33, this);
     private PropagandaOutlet boardwalk       = new PropagandaOutlet("Boardwalk", "darkBlueTemplate.jpg", 400, 50, 200, 600, 1400, 1700, 2000, 200, 41, 37, this, 0, 8, 253);
 
-    // TODO: Make this a vector, or similar, so I can insert multiple types of objects. 
-    // This will solve the later problem of not being able to use getCashDistribution. 
-    // That method can only be called on PropagandaOutlets, but this situation turns all
-    // Prop Outlets into BoardCells. => if I solve this problem, that one should disappear. And
-    // hundreds more should surface.
-
-    // TODO: Consider making this an enum. Enumerations are apparently a fixed list of constants,
-    //       and that's what this array is.
-    // TODO: Also, see file:///home/daniel/Desktop/aaa-TIJ3-distribution/TIJ3.htm and then
+    // TODO: See file:///home/daniel/Desktop/aaa-TIJ3-distribution/TIJ3.htm and then
     //       "Downcasting vs. templates/generics" for how to get the original class back out
     //       of this array. This should help solve some problems I was having before. See above TODO.
     // TODO: Note that this might be better represented by a Set collection. I don't have any
@@ -122,7 +114,7 @@ public class IdeopolyGUI implements ActionListener {
     // TODO: Rename this propaganda outlets rather than properties? Confusing?
     // TODO: It would be cool if I could handle these similar to colors. IE, similar to 
     //       Color.GREEN, I could have IdeopolyGUI.TENNESSEE for referring to the items.
-    //       ^-- I'm pretty sure I can do that with enums. See http://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
+    //       ^-- I'm pretty sure I can do that by making this a static field.
     // And while I'm at it, static imports look worthwhile: http://docs.oracle.com/javase/tutorial/java/package/usepkgs.html
     // TODO: Possible to make this not public?
     public final BoardCell boardProperties[] = { go, mediterraneanAv, commChestBottom, balticAv, incomeTax, readingRR, orientalAv, chanceBottom, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChestLeft, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chanceTop, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChestRight, pennsylvaniaAv, shortLineRR, chanceRight, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
@@ -199,9 +191,9 @@ public class IdeopolyGUI implements ActionListener {
 					     property.getPosition(3),
 					     property.getPosition(4)};
 
-	    for (BoardPosition p : cellPositions) {
-		setConstraintsXY(c, p.getXCoord(), p.getYCoord());
-		frame.add(p, c);
+	    for (BoardPosition pos : cellPositions) {
+		setConstraintsXY(c, pos.getXCoord(), pos.getYCoord());
+		frame.add(pos, c);
 	    }
 	}
 
@@ -337,6 +329,8 @@ public class IdeopolyGUI implements ActionListener {
 	// ==============================
 	// === Add the messages area. ===
 	// ==============================
+	// LEFTOFFHERE: Need to break this into multiple methods or similar.
+	//              Maybe break them up by the headings?
 	setConstraintsXY(c, 50, 37);
 	c.gridheight = 8;
 	c.gridwidth  = 11;
@@ -372,6 +366,7 @@ public class IdeopolyGUI implements ActionListener {
 	frame.setVisible(true);
 
 	System.out.println("You picked " + playerCharacter + ".");
+	readingRR.generateImage("testName", player1.getColor(), Color.YELLOW, "left");
     }
 
     /** Do a turn's worth of gameplay. First the player p rolls/moves. 
@@ -385,18 +380,15 @@ public class IdeopolyGUI implements ActionListener {
 	if (p.getJailStatus() == 3 || p.getJailStatus() == 2) {
 	    p.setJailStatus(p.getJailStatus() - 1);
 	}
-
-	// Last week in jail. Player gets charged $50, then moves forward.
-	else if ( p.getJailStatus() == 1 ) {
-	    p.payBank(50, this);
-	    p.setJailStatus(0);
+	
+	else {
+	    if (p.getJailStatus() == 1) { // Last week in jail. Player gets charged $50, then moves forward.
+		p.payBank(50, this);
+		p.setJailStatus(0);
+	    }
 	    movePlayer(p, roll);
 	}
-
-	// Not in jail, so move the player as normal.
-	else
-	    movePlayer(p, roll);
-
+	
 	// Now move on to the next player.
 	if (p == player4)
 	    currentPlayer = 0;
