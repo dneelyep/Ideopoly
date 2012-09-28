@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.awt.*;
 import java.io.*;
 import java.util.*;
+import org.apache.batik.transcoder.image.JPEGTranscoder;
 
 /** A BoardCell represents any of the cells running along the 
  *  outside edge of the game board. Since there are different types
@@ -14,8 +15,10 @@ import java.util.*;
  *  @author Daniel Neel */ // TODO: Improve that crap comment.
 
 // TODO: Need to implement the whole idea of an onLand() method. Should simplify
-// things considerably.
+//  things considerably.
 // TODO: On go to jail, on land do a funny animation.
+
+// TODO: This should extend JButton/JLabel or similar.
 public abstract class BoardCell {
     // TODO: Add a field indicating whether or not a player is present 
     //       on this cell? And a method to set that.
@@ -178,8 +181,7 @@ public abstract class BoardCell {
      *  set the background color of the image, which indicates who owns the property. Color c is
      *  used to set the color of the horizontal bar at the "top" of the image. And orientation
      *  is used to determine whether to display the image upright, at 90 degrees, etc. */
-    // LEFTOFFHERE: Implementing this SVG generation method. Just now added a color field to all
-    //              Players, so I can use that for the playerColor method here.
+    // LEFTOFFHERE: Implementing this SVG generation method.
     // TODO: Do I need the Player argument? Can't I use this.getOwner() or similar instead?
     public void generateImage(String name, Color playerColor, Color barColor, String orientation) {
 	try {
@@ -195,7 +197,18 @@ public abstract class BoardCell {
 			+ "  </g>\n"
 			+ "</svg>\n");
 	    file.close();
-	    // TODO: And after we're done, delete the file.
+
+	    // Then set image to the rasterized version.
+	    JPEGTranscoder t = new JPEGTranscoder();
+	    //	    image = ; // LEFTOFFHERE converting it.
+	    graphicalRepresentation = new BoardCellGUI(image);
+
+	    // And lastly, delete the file.
+	    File f = new File("temp.svg");
+
+	    if (f.delete() == false) {
+		System.out.println("Error: SVG file does not exist.");
+	    }
 	} catch (Exception e) {
 	    System.out.println("Exception: " + e);
 	}

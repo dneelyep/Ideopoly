@@ -36,6 +36,10 @@ public class CharacterSelect implements ActionListener {
     private final JButton backButton = new JButton("Back");
 
     /** Represents the frame. */
+    // LEFTOFFHERE: Have this CharacterSelect class extend JFrame, that way we can just say
+    // this.setTitle, etc, rather than holding a frame as a field. Also, after that's done,
+    // after we start a new game of ideopoly, this frame should be set to non-visible.
+    // See the condition below new IdeopolyGUI().
     private JFrame  frame = new JFrame("Ideopoly | Character select");
 
     // TODO: Review other constructors - should their stuff be fields?
