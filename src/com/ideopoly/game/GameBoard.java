@@ -22,7 +22,7 @@ import java.io.*;
  *  can play the game.
  *
  *  @author Daniel Neel */
-public class IdeopolyGUI implements ActionListener {
+public class GameBoard implements ActionListener {
     // TODO: Make some of these arrays, etc., final/static when they're constant. Also see
     // if it's possible to get rid of some of them.
     /** Number to represent if the game has been won. Once the game's won, 
@@ -158,7 +158,7 @@ public class IdeopolyGUI implements ActionListener {
     private JLabel guiMortgage = new JLabel("-");
 
     /** Constructor creates the GUI, sets up parts of it, etc. */
-    public IdeopolyGUI(String playerCharacter) { // TODO: Split up the functions logically.
+    public GameBoard(String playerCharacter) { // TODO: Split up the functions logically.
 	// Create the gui.
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

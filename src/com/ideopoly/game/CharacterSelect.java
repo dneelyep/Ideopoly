@@ -102,7 +102,7 @@ public class CharacterSelect extends JFrame implements ActionListener {
 	continueButton.setEnabled(true);
 
 	if (e.getActionCommand() == "Continue") {
-	    new IdeopolyGUI(selectedPlayer);
+	    new GameBoard(selectedPlayer);
 	    this.dispose();
 	}
 	else if (e.getActionCommand() == "Back") {

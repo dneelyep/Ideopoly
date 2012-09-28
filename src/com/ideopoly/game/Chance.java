@@ -70,10 +70,10 @@ public class Chance {
     }
 
     /** Have the Player p carry out actions associated with a Chance card of this type. */
-    public void doActions(Player p, IdeopolyGUI gui) { // TODO: Rename this to drawCard() or something better.
+    public void doActions(Player p, GameBoard board) { // TODO: Rename this to drawCard() or something better.
     	switch (cardType) {
     	case 1:  // "Advance to Go (Collect $200)"
-    	    p.setCell(0, gui);
+    	    p.setCell(0, board);
     	    p.addCash("hundreds", 2);
     	    break;
     	case 2:  // "Advance to Illinois Ave - if you pass Go, collect $200"
@@ -85,29 +85,29 @@ public class Chance {
     	    if (p.getIndex() >= 24)
     		p.addCash("hundreds", 2);
 
-    	    p.setCell(24, gui);
+    	    p.setCell(24, board);
     	    break;
     	case 3:  // "Advance token to nearest Utility. If unowned, you may buy it from the 
 	         //  Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
 	    // TODO: I could also make use of p.getCell() instead. Could simplify things maybe.
-	    if (p.getCell() == gui.boardProperties[7]) { // Bottom Chance
-		p.setCell(12, gui); // move to Electric Co.
+	    if (p.getCell() == board.boardProperties[7]) { // Bottom Chance
+		p.setCell(12, board); // move to Electric Co.
 
 		// TODO: Would be good if I could remove the duplication here.
-		if (gui.boardProperties[12].getOwner() != null) {
+		if (board.boardProperties[12].getOwner() != null) {
 		    // TODO: Add handling for bankruptcy here. Or build that into playerPayPlayer?
 		    Random rollGenerator = new Random();
 		    int roll = rollGenerator.nextInt(6) + 1;
-		    p.payPlayer(gui.boardProperties[12].getOwner(), roll * 10, gui);
+		    p.payPlayer(board.boardProperties[12].getOwner(), roll * 10, board);
 		}
 	    }
-	    else if (p.getCell() == gui.boardProperties[22] || p.getCell() == gui.boardProperties[36]) { // Top or Right Chance
-		p.setCell(28, gui); // move to Water Works.
+	    else if (p.getCell() == board.boardProperties[22] || p.getCell() == board.boardProperties[36]) { // Top or Right Chance
+		p.setCell(28, board); // move to Water Works.
 
-		if (gui.boardProperties[28].getOwner() != null) {
+		if (board.boardProperties[28].getOwner() != null) {
 		    Random rollGenerator = new Random();
 		    int roll = rollGenerator.nextInt(6) + 1;
-		    p.payPlayer(gui.boardProperties[28].getOwner(), roll * 10, gui);
+		    p.payPlayer(board.boardProperties[28].getOwner(), roll * 10, board);
 		}
 	    }
 	    else {
@@ -118,14 +118,14 @@ public class Chance {
 	         // rental to which he/she is otherwise entitled. If Railroad is unowned, 
 	         // you may buy it from the Bank. (There are two of these.)"
     	    // TODO: Implement this.
-	    if (p.getCell() == gui.boardProperties[7]) {
-		p.setCell(5, gui);
+	    if (p.getCell() == board.boardProperties[7]) {
+		p.setCell(5, board);
 	    }
-	    else if (p.getCell() == gui.boardProperties[22]) {
-		p.setCell(25, gui);
+	    else if (p.getCell() == board.boardProperties[22]) {
+		p.setCell(25, board);
 	    }
-	    else if (p.getCell() == gui.boardProperties[36]) {
-		p.setCell(35, gui);
+	    else if (p.getCell() == board.boardProperties[36]) {
+		p.setCell(35, board);
 	    }
 	    else
 		System.out.println("Error! Apparently you tried to do actions on a Chance card 3, but you weren't standing on a Chance space to begin with.");
@@ -136,7 +136,7 @@ public class Chance {
     	    if (p.getIndex() >= 12)
     		p.addCash("hundreds", 2);
 
-    	    p.setCell(11, gui);
+    	    p.setCell(11, board);
     	    break;
 
     	case 6:  // "Bank pays you dividend of $50"
@@ -147,13 +147,13 @@ public class Chance {
     	    break;
     	case 8:  // "Go back 3 spaces"
 	    // TODO: This should take charge the Player for landing on Income Tax.
-    	    p.setCell((p.getIndex() - 3), gui);
+    	    p.setCell((p.getIndex() - 3), board);
     	    // TODO: Then call onland function.
     	    // TODO: Or just call movePlayer() ?
 	    // TODO: Should I use changePosition() instead for some reason?
     	    break;
     	case 9:  // "Go directly to Jail – do not pass Go, do not collect $200"
-    	    p.putInJail(gui);
+    	    p.putInJail(board);
     	    break;
     	case 10: // "Make general repairs on all your property – for each house pay $25 – 
                  //  for each hotel $100"
@@ -164,35 +164,35 @@ public class Chance {
     	    int payment = (p.getNumHouses() * 25) + (p.getNumHotels() * 100);
 
     	    if ( p.willBankrupt(payment) ) {
-    		p.bankruptPlayer(gui);
+    		p.bankruptPlayer(board);
     	    }
     	    else {
     		//TODO: Remove cash here.
     	    }
     	    break;
     	case 11: // "Pay poor tax of $15"
-	    p.payBank(15, gui);
+	    p.payBank(15, board);
     	    break;
     	case 12: // "Take a trip to Reading Railroad – if you pass Go, collect $200"
     	    // If the player's position is on or after Oriental avenue, give em $200.
     	    if (p.getIndex() >= 6)
     		p.addCash("hundreds", 2);
 
-    	    p.setCell(5, gui);
+    	    p.setCell(5, board);
     	    // TODO: And then onland function.
     	    break;
 
     	case 13: // "Take a walk on the Boardwalk – advance token to Boardwalk"
-    	    p.setCell(39, gui);
+    	    p.setCell(39, board);
     	    //TODO: And then call the onland function for boardwalk.
     	    break;
     	case 14: // "You have been elected chairman of the board – pay each player $50"
-	    for (Player player : gui.players) {
+	    for (Player player : board.players) {
 		if (player != p)
 		    player.addCash("fifties", 1);
 	    }
 	    // TODO: This won't be 150 when one or more other players are bankrupt.
-	    p.payBank(150, gui);
+	    p.payBank(150, board);
     	    break;
     	case 15: // "Your building loan matures – collect $150"
     	    p.addCash("hundreds", 1);

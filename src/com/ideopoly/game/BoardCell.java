@@ -49,19 +49,19 @@ public abstract class BoardCell {
     /** The graphical representation of this BoardCell. */
     private BoardCellGUI graphicalRepresentation;
 
-    /** The GUI associated with this BoardCell. */
-    public IdeopolyGUI gui;
+    /** The board associated with this BoardCell. */
+    public GameBoard board;
 
     /** Creates a BoardCell object, with the specified name, image path, coordinates, and 
      *  player standing positions. Does not have an owner. There are no players standing 
      *  on this object. */
-    public BoardCell(String newName, String imagePath, int xPos, int yPos, IdeopolyGUI g) {
+    public BoardCell(String newName, String imagePath, int xPos, int yPos, GameBoard g) {
 	name    = newName;
 	ownedBy = null;
 	image   = new ImageIcon("images/" + imagePath);
 	cellX   = xPos;
 	cellY   = yPos;
-	gui     = g;
+	board   = g;
 
 	if (xPos >= 1 && xPos <= 41 && yPos == 1) {       // Top row.
 	    p1Pos = new BoardPosition(cellX + 3, 0);
@@ -148,14 +148,14 @@ public abstract class BoardCell {
 
     /** Given a Player p, set the image i for the BoardPosition associated 
      *  with p on this cell. */
-    public void setPositionImage(Player p, Icon i, IdeopolyGUI gui) {
-	if (p == gui.player1)
+    public void setPositionImage(Player p, Icon i, GameBoard board) {
+	if (p == board.player1)
 	    p1Pos.setImage(i);
-	else if (p == gui.player2)
+	else if (p == board.player2)
 	    p2Pos.setImage(i);
-	else if (p == gui.player3)
+	else if (p == board.player3)
 	    p3Pos.setImage(i);
-	else if (p == gui.player4)
+	else if (p == board.player4)
 	    p4Pos.setImage(i);
     }
 
@@ -243,65 +243,65 @@ public abstract class BoardCell {
 	    // TODO: Replace this with instanceof operator.
 	   if (BoardCell.this.getClass().getName() == "com.ideopoly.game.Railroad") {
 		Railroad r = (Railroad) BoardCell.this;
-		gui.setGUIColor(Color.BLACK);
-		gui.setGUICost("$" + Integer.toString(r.getCost()));
+		board.setGUIColor(Color.BLACK);
+		board.setGUICost("$" + Integer.toString(r.getCost()));
 		// TODO: Change the gui text to 1RR/2RRs/etc. maybe 
 		//       where houses would be displayed.
-		gui.setGUIRent("$" + Integer.toString(r.getRent()));
+		board.setGUIRent("$" + Integer.toString(r.getRent()));
 		// TODO: Combine the unownable/can't buy parts? Reduce a bit of duplication.
-		gui.setGUI1House("-");
-		gui.setGUI2House("-");
-		gui.setGUI3House("-");
-		gui.setGUI4House("-");
-		gui.setGUIHotel("-");
-		gui.setGUIMortgage("$" + Integer.toString(r.getMortgageValue()));
+		board.setGUI1House("-");
+		board.setGUI2House("-");
+		board.setGUI3House("-");
+		board.setGUI4House("-");
+		board.setGUIHotel("-");
+		board.setGUIMortgage("$" + Integer.toString(r.getMortgageValue()));
 	    }
 	    else if (BoardCell.this.getClass().getName() == "com.ideopoly.game.PropagandaOutlet") {
 		PropagandaOutlet p = (PropagandaOutlet) BoardCell.this;
 
-		gui.setGUIColor(p.getColor());
+		board.setGUIColor(p.getColor());
 		// TODO: Find a way to prepend the $ automatically.
-		gui.setGUICost("$" + Integer.toString(p.getCost()));
-		gui.setGUIHouseHotelCost("$" + Integer.toString(p.getHouseOrHotelCost()));
-		gui.setGUIRent("$" + Integer.toString(p.getInitialRent()));
-		gui.setGUI1House("$" + Integer.toString(p.getRent1House()));
-		gui.setGUI2House("$" + Integer.toString(p.getRent2House()));
-		gui.setGUI3House("$" + Integer.toString(p.getRent3House()));
-		gui.setGUI4House("$" + Integer.toString(p.getRent4House()));
-		gui.setGUIHotel("$" + Integer.toString(p.getRent1Hotel()));
-		gui.setGUIMortgage("$" + Integer.toString(p.getMortgageValue()));
+		board.setGUICost("$" + Integer.toString(p.getCost()));
+		board.setGUIHouseHotelCost("$" + Integer.toString(p.getHouseOrHotelCost()));
+		board.setGUIRent("$" + Integer.toString(p.getInitialRent()));
+		board.setGUI1House("$" + Integer.toString(p.getRent1House()));
+		board.setGUI2House("$" + Integer.toString(p.getRent2House()));
+		board.setGUI3House("$" + Integer.toString(p.getRent3House()));
+		board.setGUI4House("$" + Integer.toString(p.getRent4House()));
+		board.setGUIHotel("$" + Integer.toString(p.getRent1Hotel()));
+		board.setGUIMortgage("$" + Integer.toString(p.getMortgageValue()));
 	    }
 	    else if (BoardCell.this.getClass().getName() == "com.ideopoly.game.UtilityCell") {
 		UtilityCell u = (UtilityCell) BoardCell.this;
 
-		gui.setGUIColor(Color.GRAY);
-		gui.setGUICost("$" + Integer.toString(u.getCost()));
+		board.setGUIColor(Color.GRAY);
+		board.setGUICost("$" + Integer.toString(u.getCost()));
 		// TODO: Fill in these things.
-		// gui.setGUIHouseHotelCost.setText("$" + Integer.toString(u.getHouseOrHotelCost()));
-		// gui.setGUIRent("$" + Integer.toString(u.getInitialRent()));
-		// gui.setGUI1House.setText("$" + Integer.toString(u.getRent1House()));
-		// gui.setGUI2House.setText("$" + Integer.toString(u.getRent2House()));
-		// gui.setGUI3House.setText("$" + Integer.toString(u.getRent3House()));
-		// gui.setGUI4House.setText("$" + Integer.toString(u.getRent4House()));
-		// gui.setGUIHotel.setText ("$" + Integer.toString(u.getRent1Hotel()));
-		gui.setGUIMortgage("$75");
+		// board.setGUIHouseHotelCost.setText("$" + Integer.toString(u.getHouseOrHotelCost()));
+		// board.setGUIRent("$" + Integer.toString(u.getInitialRent()));
+		// board.setGUI1House.setText("$" + Integer.toString(u.getRent1House()));
+		// board.setGUI2House.setText("$" + Integer.toString(u.getRent2House()));
+		// board.setGUI3House.setText("$" + Integer.toString(u.getRent3House()));
+		// board.setGUI4House.setText("$" + Integer.toString(u.getRent4House()));
+		// board.setGUIHotel.setText ("$" + Integer.toString(u.getRent1Hotel()));
+		board.setGUIMortgage("$75");
 	    }
 	    else if (BoardCell.this.getClass().getName() == "com.ideopoly.game.SpecialCell"
 	          || BoardCell.this.getClass().getName() == "com.ideopoly.game.ChanceOrCommChestCell") {
 		// TODO: Remove the labels when we mouse over an un-ownable property?
-		gui.setGUIColor(Color.WHITE);
-		gui.setGUICost("-");
-		gui.setGUIHouseHotelCost("-");
-		gui.setGUIRent("-");
-		gui.setGUI1House("-");
-		gui.setGUI2House("-");
-		gui.setGUI3House("-");
-		gui.setGUI4House("-");
-		gui.setGUIHotel("-");
-		gui.setGUIMortgage("-");
+		board.setGUIColor(Color.WHITE);
+		board.setGUICost("-");
+		board.setGUIHouseHotelCost("-");
+		board.setGUIRent("-");
+		board.setGUI1House("-");
+		board.setGUI2House("-");
+		board.setGUI3House("-");
+		board.setGUI4House("-");
+		board.setGUIHotel("-");
+		board.setGUIMortgage("-");
 	    }
 
-	    gui.setGUIName(name);
+	    board.setGUIName(name);
 	}
 	// TODO: Is there a better way to do this?
 	@Override

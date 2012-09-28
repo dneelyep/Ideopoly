@@ -29,8 +29,8 @@ public class Railroad extends BoardCell implements Ownable {
     // }
 
     /** Create a new Railroad with a given name, image, and no owner. */
-    public Railroad(String newName, String imagePath, int xPos, int yPos, IdeopolyGUI gui) {
-	super(newName, imagePath, xPos, yPos, gui); // Use the BoardCell class' constructor.
+    public Railroad(String newName, String imagePath, int xPos, int yPos, GameBoard board) {
+	super(newName, imagePath, xPos, yPos, board); // Use the BoardCell class' constructor.
 	owned = false;
     }
 
@@ -52,13 +52,13 @@ public class Railroad extends BoardCell implements Ownable {
     /** Set Player p as the owner of this Railroad, and charge
      *  them the correct amount of money. */
     @Override
-    public void buy(Player p, IdeopolyGUI gui) {
+    public void buy(Player p, GameBoard board) {
 	// TODO: This (and the other buy methods) will continue even if the Player becomes
 	// bankrupt in payBank(). That should not be allowed.
-	p.payBank(this.getCost(), gui);
+	p.payBank(this.getCost(), board);
 	this.setOwner(p);
 	p.setNumOwnedProperties(p.getNumOwnedProperties() + 1);
-	gui.printStatusAndLog(p.getName() + " bought " + this.getName() + " for $" + COST + ".");
+	board.printStatusAndLog(p.getName() + " bought " + this.getName() + " for $" + COST + ".");
 	// TODO: And then change the property's image.
     }
 

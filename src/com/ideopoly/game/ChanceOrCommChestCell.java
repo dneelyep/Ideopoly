@@ -7,8 +7,8 @@ public class ChanceOrCommChestCell extends BoardCell {
     // TODO: Add a test class and tests.
     /** Create a new ChanceOrCommChestCell with a given
      *  name, image, and x/y coordinates on the board.*/
-    public ChanceOrCommChestCell(String newName, String imagePath, int xPos, int yPos, IdeopolyGUI gui) {
-	super(newName, imagePath, xPos, yPos, gui); // Use the BoardCell class' constructor.
+    public ChanceOrCommChestCell(String newName, String imagePath, int xPos, int yPos, GameBoard board) {
+	super(newName, imagePath, xPos, yPos, board); // Use the BoardCell class' constructor.
     }
 
     // TODO: Handle this better than returning a 0 value. Un-elegant.

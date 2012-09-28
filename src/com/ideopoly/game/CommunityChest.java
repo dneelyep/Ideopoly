@@ -73,19 +73,19 @@ public class CommunityChest {
 
     /** Have the Player p carry out actions associated with 
      *  a Community Chest card of this type. */
-    public void doActions(Player p, IdeopolyGUI gui) { // TODO: Rename this to drawCard() or something better.
+    public void doActions(Player p, GameBoard board) { // TODO: Rename this to drawCard() or something better.
 	switch (this.cardType) {
-	    case 1: p.setCell(0, gui); // "Advance to Go (Collect $200)"
+	    case 1: p.setCell(0, board); // "Advance to Go (Collect $200)"
 		p.addCash("hundreds", 2);
 		break;
             case 2: p.addCash("hundreds", 2); // "Bank error in your favor – collect $200"
 		break;
 	    case 3:   // "Doctor's fees – Pay $50"
-		p.payBank(50, gui);
+		p.payBank(50, board);
 		break;
 	    case 4: p.giveGOOJF();    // "Get Out of Jail Free – this card may be kept until needed, or sold.
 		break;
-	    case 5: p.putInJail(gui); // "Go to Jail – go directly to jail – Do not pass Go, do not collect $200");
+	    case 5: p.putInJail(board); // "Go to Jail – go directly to jail – Do not pass Go, do not collect $200");
 		break;
 	    case 6:   // "It is your birthday - Collect $10 from each player"
 		// TODO: This code is basically repeated in case 7. Make a method?
@@ -96,10 +96,10 @@ public class CommunityChest {
 		 *  become bankrupt, Player p gets $10 less. */
 		int numNotBankrupt = 3;
 
-		for (Player player : gui.players) {
+		for (Player player : board.players) {
 		    if (player != p) { // Don't collect money from p.
 			if (player.willBankrupt(10)) {
-			    player.bankruptPlayer(gui);
+			    player.bankruptPlayer(board);
 			    numNotBankrupt--;
 			}
 			else {
@@ -115,10 +115,10 @@ public class CommunityChest {
 	    case 7:   // "Grand Opera Night – collect $50 from every player for opening night seats"
 		numNotBankrupt = 3;
 
-		for (Player player : gui.players) {
+		for (Player player : board.players) {
 		    if (player != p) { // Don't collect money from p.
 			if (player.willBankrupt(50)) {
-			    player.bankruptPlayer(gui);
+			    player.bankruptPlayer(board);
 			    numNotBankrupt--;
 			}
 			else {
@@ -136,17 +136,17 @@ public class CommunityChest {
 	    case 9: p.addCash("hundreds", 1); // "Life Insurance Matures – collect $100"
 		break;
 	    case 10:  // "Pay Hospital Fees of $100"
-		p.payBank(100, gui);
+		p.payBank(100, board);
 		break;
 	    case 11:  // "Pay School Fees of $50"
-		p.payBank(50, gui);
+		p.payBank(50, board);
 		break;
 	    case 12: p.addCash("twenties", 1); // "Receive $25 Consultancy Fee"
 		p.addCash("fives", 1);
 		break;
 	    case 13:  // "You are assessed for street repairs – $40 per house, $115 per hotel"
 		int chargeAmount = (p.getNumHouses() * 40) + (p.getNumHotels() * 115);
-		p.payBank(chargeAmount, gui);
+		p.payBank(chargeAmount, board);
 		break;
 	    case 14: p.addCash("tens", 1);     // "You have won second prize in a beauty contest– collect $10"
 		break;
@@ -160,6 +160,6 @@ public class CommunityChest {
     	    default: System.out.println("Wrong Community Chest value!");
 		break;
 	}
- 	gui.printStatusAndLog(p.getName() + ": " + text);
+ 	board.printStatusAndLog(p.getName() + ": " + text);
     }
 }

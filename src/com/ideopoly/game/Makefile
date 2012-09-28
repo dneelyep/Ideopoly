@@ -7,10 +7,10 @@ CLASS      = ../../../../bin/
 CLASSPATH  = ~/Programming/Java/Ideopoly/bin:/home/daniel/.junit/junit4.10/junit-4.10.jar:/home/daniel/batik/batik-1.7/lib/batik-transcoder.jar
 #TODO: What's the point of the sourcepath?
 SRCPATH    = ../../../
-TESTS      = com.ideopoly.tests.BoardCellTester com.ideopoly.tests.BoardPositionTester com.ideopoly.tests.CashCellTester com.ideopoly.tests.ChanceTester com.ideopoly.tests.CharacterSelectTester com.ideopoly.tests.CommunityChestTester com.ideopoly.tests.IdeopolyGUITester com.ideopoly.tests.MenuTester com.ideopoly.tests.PlayerTester com.ideopoly.tests.PropagandaOutletTester com.ideopoly.tests.RailroadTester com.ideopoly.tests.UtilityCellTester
+TESTS      = com.ideopoly.tests.BoardCellTester com.ideopoly.tests.BoardPositionTester com.ideopoly.tests.CashCellTester com.ideopoly.tests.ChanceTester com.ideopoly.tests.CharacterSelectTester com.ideopoly.tests.CommunityChestTester com.ideopoly.tests.GameBoardTester com.ideopoly.tests.MenuTester com.ideopoly.tests.PlayerTester com.ideopoly.tests.PropagandaOutletTester com.ideopoly.tests.RailroadTester com.ideopoly.tests.UtilityCellTester
 BIN        = ../../../../bin/com/ideopoly/game
 
-all: $(BIN)/BoardCell.class $(BIN)/BoardPosition.class $(BIN)/CashCell.class $(BIN)/Chance.class $(BIN)/ChanceOrCommChestCell.class $(BIN)/CharacterSelect.class $(BIN)/CommunityChest.class $(BIN)/IdeopolyGUI.class $(BIN)/Menu.class $(BIN)/Ownable.class $(BIN)/Player.class $(BIN)/PropagandaOutlet.class $(BIN)/Railroad.class $(BIN)/SpecialCell.class $(BIN)/TestHelper.class $(BIN)/UtilityCell.class
+all: $(BIN)/BoardCell.class $(BIN)/BoardPosition.class $(BIN)/CashCell.class $(BIN)/Chance.class $(BIN)/ChanceOrCommChestCell.class $(BIN)/CharacterSelect.class $(BIN)/CommunityChest.class $(BIN)/GameBoard.class $(BIN)/Menu.class $(BIN)/Ownable.class $(BIN)/Player.class $(BIN)/PropagandaOutlet.class $(BIN)/Railroad.class $(BIN)/SpecialCell.class $(BIN)/TestHelper.class $(BIN)/UtilityCell.class
         # Run tests.
 	java -cp $(CLASSPATH) org.junit.runner.JUnitCore $(TESTS)
 
@@ -38,8 +38,8 @@ $(BIN)/CharacterSelect.class: CharacterSelect.java
 $(BIN)/CommunityChest.class: CommunityChest.java
 	javac -cp $(CLASSPATH) -sourcepath $(SRCPATH) $(JFLAGS) -d ../../../../bin/ CommunityChest.java
 
-$(BIN)/IdeopolyGUI.class: IdeopolyGUI.java
-	javac -cp $(CLASSPATH) -sourcepath $(SRCPATH) $(JFLAGS) -d ../../../../bin/ IdeopolyGUI.java
+$(BIN)/GameBoard.class: GameBoard.java
+	javac -cp $(CLASSPATH) -sourcepath $(SRCPATH) $(JFLAGS) -d ../../../../bin/ GameBoard.java
 
 $(BIN)/Menu.class: Menu.java
 	javac -cp $(CLASSPATH) -sourcepath $(SRCPATH) $(JFLAGS) -d ../../../../bin/ Menu.java

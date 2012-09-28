@@ -64,9 +64,9 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
     // TODO: Should we accept an array instead maybe?
     // TODO: Accept an array for rent values rather than separate variables?
     // TODO: camelCase variable names here.
-    public PropagandaOutlet(String newName, String imagePath, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, int xPos, int yPos, IdeopolyGUI gui, int r, int g, int b) {
+    public PropagandaOutlet(String newName, String imagePath, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, int xPos, int yPos, GameBoard board, int r, int g, int b) {
 	// TODO: Better, less ambiguous variable names here.
-	super(newName, imagePath, xPos, yPos, gui); // Use the BoardCell class' constructor.
+	super(newName, imagePath, xPos, yPos, board); // Use the BoardCell class' constructor.
 	numHouses	    = 0;
 	numHotels	    = 0;
 	cost                = newCost;
@@ -115,10 +115,10 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
     /** Set Player p as the owner of this PropagandaOutlet, and charge
      *  them the correct amount of money. */
     @Override
-    public void buy(Player p, IdeopolyGUI gui) {
-	p.payBank(this.getCost(), gui);
+    public void buy(Player p, GameBoard board) {
+	p.payBank(this.getCost(), board);
 	this.setOwner(p);
-	gui.printStatusAndLog(p.getName() + " bought " + this.getName() + " for $" + cost + ".");
+	board.printStatusAndLog(p.getName() + " bought " + this.getName() + " for $" + cost + ".");
     }
 
     /** Return whether or not this UtilityCell is 

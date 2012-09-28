@@ -73,7 +73,7 @@ public class Player {
     /** Actions to take when a player object is initially created. Players
      *  are only created at the start of the game. Different players start
      *  at different positions on the board (Same cell, different walking space.) */
-    public Player(int playerNumber, Color c, IdeopolyGUI gui) {
+    public Player(int playerNumber, Color c, GameBoard board) {
 
 	inJail = 0; // TODO: This needed? Couldn't I just use board position?
 
@@ -98,7 +98,7 @@ public class Player {
 
 	GOOJFCards = 0;
 
-	currentCell = gui.boardProperties[0];
+	currentCell = board.boardProperties[0];
 	cellIndex   = 0;
 	switch (playerNumber) {
 	    case 1: name = "Player 1 (H)";
@@ -264,12 +264,12 @@ public class Player {
     /** Move this player to a given position p. p refers to the cell the Player wants 
      *  to move to. For example, changePosition(3) will move any player to the 4th
      *  BoardCell on the board. */
-    public void setCell(int p, IdeopolyGUI gui) { // TODO: Better function name.
+    public void setCell(int p, GameBoard board) { // TODO: Better function name.
 	// Only allow valid indexes.
 	if (p < 0 || p > 39)
 	    System.out.println("Error! That cell is outside the bounds of valid cells!");
 	else {
-	    currentCell = gui.boardProperties[p];
+	    currentCell = board.boardProperties[p];
 	    cellIndex = p;
 	}
     }
@@ -306,9 +306,9 @@ public class Player {
     }
 
     /** Have this player spend one of their get out of jail free cards. */
-    public void spendGOOJF(IdeopolyGUI gui) {
+    public void spendGOOJF(GameBoard board) {
 	if (GOOJFCards <= 0)
-	    gui.printStatusAndLog("Error! You can't spend a Get Out of Jail Free card if you have 0 or less.");
+	    board.printStatusAndLog("Error! You can't spend a Get Out of Jail Free card if you have 0 or less.");
 	else {
 	    //TODO: Don't allow this when the person's not in jail.
 	    GOOJFCards--;
@@ -419,7 +419,7 @@ public class Player {
     }
 
     /** Bankrupt this player. */
-    public void bankruptPlayer(IdeopolyGUI gui) {
+    public void bankruptPlayer(GameBoard board) {
 	// TODO: Do more than just set cash values. The player can still 
 	// be considered alive, given money, etc. in this state.
 	// TODO: Set the player's text to red when this happens maybe also?
@@ -437,47 +437,47 @@ public class Player {
 	// TODO: There's probably a better way of doing this whole thing.
 	// TODO: Add tests and things for this. Haven't made sure it works yet.
 	if      (name == "Player 1 (H)")
-	    gui.playerRowLabels[0].setForeground(Color.red);
+	    board.playerRowLabels[0].setForeground(Color.red);
 	else if (name == "Player 2 (C)")
-	    gui.playerRowLabels[1].setForeground(Color.red);
+	    board.playerRowLabels[1].setForeground(Color.red);
 	else if (name == "Player 3 (C)")
-	    gui.playerRowLabels[2].setForeground(Color.red);
+	    board.playerRowLabels[2].setForeground(Color.red);
 	else if (name == "Player 4 (C)")
-	    gui.playerRowLabels[3].setForeground(Color.red);
+	    board.playerRowLabels[3].setForeground(Color.red);
     }
 
     /** Put the given Player p in jail, and enable the "Use get 
      *  out of jail free card" button if the Player is the human player. */
-    public void putInJail(IdeopolyGUI gui) {
+    public void putInJail(GameBoard board) {
 	// TODO: Make a visual indicator for when a person's in jail. 
 	// IE: put a little colored square on their portrait that indicates the week they're in.
 	// Or change the color of the text by their name.
 
 	// Allow the main player to use their cards.
 	if (name == "Player 1 (H)" && GOOJFCards > 0) {
-	    gui.useGOOJFCard.setEnabled(true);
+	    board.useGOOJFCard.setEnabled(true);
 	}
 
-	setCell(10, gui);
+	setCell(10, board);
 	setJailStatus(3);
     }
 
     /** Have this Player pay the bank amount dollars.
      *  The Player will bankrupt if charged an amount higher than
      *  his/her totalMoney value. */
-    public void payBank(int amount, IdeopolyGUI gui) {
+    public void payBank(int amount, GameBoard board) {
 	// Player will be bankrupt.
 	if (this.willBankrupt(amount))
-	    this.bankruptPlayer(gui);
+	    this.bankruptPlayer(board);
 	// Amount is ok.
 	else {
-	    gui.getCashDistribution(amount);
+	    board.getCashDistribution(amount);
 
 	    // TODO: Make this array shared between the two methods somehow?
 	    int[] billInt = {1, 5, 10, 20, 50, 100, 500};
 	    for (int i = 0; i <= 6; i++) {
 		this.spreadCash(billInt[i]);
-		this.addCash(gui.cashValues[i], - gui.paymentAmounts[i]);
+		this.addCash(board.cashValues[i], - board.paymentAmounts[i]);
 	    }
 	}
     }
@@ -486,19 +486,19 @@ public class Player {
      *  will bankrupt if amount is larger than this Player's totalMoney
      *  value. */
     // TODO: Have any tests transferred over to these new methods.
-    public void payPlayer(Player p, int amount, IdeopolyGUI gui) {
+    public void payPlayer(Player p, int amount, GameBoard board) {
 	if (this.willBankrupt(amount))
-	    this.bankruptPlayer(gui);
+	    this.bankruptPlayer(board);
 	else {
 	    // First, get a distribution of what bills to pay.
-	    gui.getCashDistribution(amount);
+	    board.getCashDistribution(amount);
 
 	    // Then, for each bill, transfer the correct amount from this Player to p.
 	    int[] billInt = {1, 5, 10, 20, 50, 100, 500}; // TODO: Better array name here.
 	    for (int i = 0; i <= 6; i++) {
 		this.spreadCash(billInt[i]);
-		this.addCash(gui.cashValues[i], - gui.paymentAmounts[i]);
-		p.addCash(gui.cashValues[i], gui.paymentAmounts[i]);
+		this.addCash(board.cashValues[i], - board.paymentAmounts[i]);
+		p.addCash(board.cashValues[i], board.paymentAmounts[i]);
 	    }
 
 	    // And set cash back to sensible values.

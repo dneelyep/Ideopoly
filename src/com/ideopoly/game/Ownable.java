@@ -9,7 +9,7 @@ public interface Ownable {
     // TODO: Tests? Possible for an interface?
     /** Set Player p as this property's owner, and
      *  charge them the relevant amount of money. */
-    void buy(Player p, IdeopolyGUI gui);
+    void buy(Player p, GameBoard board);
 
     /** Get the amount of rent charged to a Player
      *  landing on this property. */
