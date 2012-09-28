@@ -10,7 +10,7 @@ SRCPATH    = ../../../
 TESTS      = com.ideopoly.tests.BoardCellTester com.ideopoly.tests.BoardPositionTester com.ideopoly.tests.CashCellTester com.ideopoly.tests.ChanceTester com.ideopoly.tests.CharacterSelectTester com.ideopoly.tests.CommunityChestTester com.ideopoly.tests.GameBoardTester com.ideopoly.tests.MenuTester com.ideopoly.tests.PlayerTester com.ideopoly.tests.PropagandaOutletTester com.ideopoly.tests.RailroadTester com.ideopoly.tests.UtilityCellTester
 BIN        = ../../../../bin/com/ideopoly/game
 
-all: $(BIN)/BoardCell.class $(BIN)/BoardPosition.class $(BIN)/CashCell.class $(BIN)/Chance.class $(BIN)/ChanceOrCommChestCell.class $(BIN)/CharacterSelect.class $(BIN)/CommunityChest.class $(BIN)/GameBoard.class $(BIN)/Menu.class $(BIN)/Ownable.class $(BIN)/Player.class $(BIN)/PropagandaOutlet.class $(BIN)/Railroad.class $(BIN)/SpecialCell.class $(BIN)/TestHelper.class $(BIN)/UtilityCell.class
+all: $(BIN)/BoardCell.class $(BIN)/BoardPosition.class $(BIN)/CashCell.class $(BIN)/Chance.class $(BIN)/ChanceOrCommChestCell.class $(BIN)/CharacterSelect.class $(BIN)/CommunityChest.class $(BIN)/GameBoard.class $(BIN)/Menu.class $(BIN)/Ownable.class $(BIN)/Player.class $(BIN)/PropagandaOutlet.class $(BIN)/Railroad.class $(BIN)/SpecialCell.class $(BIN)/TestHelper.class $(BIN)/UtilityCell.class $(TESTS)
         # Run tests.
 	java -cp $(CLASSPATH) org.junit.runner.JUnitCore $(TESTS)
 
@@ -65,6 +65,20 @@ $(BIN)/TestHelper.class: TestHelper.java
 $(BIN)/UtilityCell.class: UtilityCell.java
 	javac -cp $(CLASSPATH) -sourcepath $(SRCPATH) $(JFLAGS) -d ../../../../bin/ UtilityCell.java
 
+
+# Test rules
+../../../../bin/com/ideopoly/tests/BoardCellTester.class: ../tests/BoardCellTester.java
+../../../../bin/com/ideopoly/tests/BoardPositionTester.class: ../tests/BoardPositionTester.java
+../../../../bin/com/ideopoly/tests/CashCellTester.class: ../tests/CashCellTester.java
+../../../../bin/com/ideopoly/tests/ChanceTester.class: ../tests/ChanceTester.java
+../../../../bin/com/ideopoly/tests/CharacterSelectTester.class: ../tests/CharacterSelectTester.java
+../../../../bin/com/ideopoly/tests/CommunityChestTester.class: ../tests/CommunityChestTester.java
+../../../../bin/com/ideopoly/tests/GameBoardTester.class: ../tests/GameBoardTester.java
+../../../../bin/com/ideopoly/tests/MenuTester.class: ../tests/MenuTester.java
+../../../../bin/com/ideopoly/tests/PlayerTester.class: ../tests/PlayerTester.java
+../../../../bin/com/ideopoly/tests/PropagandaOutletTester.class: ../tests/PropagandaOutletTester.java
+../../../../bin/com/ideopoly/tests/RailroadTester.classn: ../tests/RailroadTester.java
+../../../../bin/com/ideopoly/tests/UtilityCellTester.class: ../tests/UtilityCellTester.java
 
 docs: # Regenerate my javadoc stuff.
 	javadoc -author -classpath $(CLASSPATH) $(SRC) -d ../../../../etc/docs/
