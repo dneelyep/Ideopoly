@@ -19,6 +19,7 @@ public class Player {
      *  Other values not allowed. */
     private int inJail; // TODO: This needed? Couldn't I just use board position?
 
+    // TODO Add these money values into a map. Will make it much easier to access them, will clean up later switch statements.
     /** Amount of one dollar bills this player has. */
     private int ones;
 
