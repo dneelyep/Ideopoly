@@ -34,14 +34,13 @@ public class Menu implements ActionListener {
 	box.add(logo);
 
  	JButton startButton = new JButton("Start");
-	startButton.setAlignmentX(Component.CENTER_ALIGNMENT); 
-	startButton.addActionListener(this);
-	box.add(startButton);
-
  	JButton quitButton = new JButton("Quit");
-	quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-	quitButton.addActionListener(this);
-	box.add(quitButton);
+
+	for (JButton j : Arrays.asList(startButton, endButton) {
+                j.setAlignmentX(Component.CENTER_ALIGNMENT);
+                j.addActionListener(this);
+                box.add(j);
+	}
 	
 	mainMenu.pack();
 	mainMenu.setVisible(true);
