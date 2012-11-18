@@ -65,117 +65,117 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
     // TODO: Accept an array for rent values rather than separate variables?
     // TODO: camelCase variable names here.
     public PropagandaOutlet(String newName, String imagePath, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, int xPos, int yPos, GameBoard board, int r, int g, int b) {
-	// TODO: Better, less ambiguous variable names here.
-	super(newName, imagePath, xPos, yPos, board); // Use the BoardCell class' constructor.
-	numHouses	    = 0;
-	numHotels	    = 0;
-	cost                = newCost;
-	mortgageValue	    = newCost / 2; // Mortgage prices are half the price to buy the property.
-	owned = false;
+        // TODO: Better, less ambiguous variable names here.
+        super(newName, imagePath, xPos, yPos, board); // Use the BoardCell class' constructor.
+        numHouses	    = 0;
+        numHotels	    = 0;
+        cost                = newCost;
+        mortgageValue	    = newCost / 2; // Mortgage prices are half the price to buy the property.
+        owned = false;
 
-	initialRent	    = newInitialRent;
-	rent1House	    = newRent1House;
-	rent2House	    = newRent2House;
-	rent3House	    = newRent3House;
-	rent4House	    = newRent4House;
-	rent1Hotel	    = newRent1Hotel;
-	houseOrHotelCost    = newHouseOrHotelCost;
-	color               = new Color(r, g, b);
+        initialRent	    = newInitialRent;
+        rent1House	    = newRent1House;
+        rent2House	    = newRent2House;
+        rent3House	    = newRent3House;
+        rent4House	    = newRent4House;
+        rent1Hotel	    = newRent1Hotel;
+        houseOrHotelCost    = newHouseOrHotelCost;
+        color               = new Color(r, g, b);
     }
 
     /** Return the amount of rent that a Player landing here has to pay. */
     @Override
     public int getRent() {
-	// TODO: Make checks so ya can't buy a hotel without 4 houses.
-	// TODO: Also checks so ya can't buy more than 1 hotel.
-	// Unimproved property.
-	if (numHouses == 0) // TODO: Not all props in group owned.
-	    return initialRent;
+        // TODO: Make checks so ya can't buy a hotel without 4 houses.
+        // TODO: Also checks so ya can't buy more than 1 hotel.
+        // Unimproved property.
+        if (numHouses == 0) // TODO: Not all props in group owned.
+            return initialRent;
 
-	// TODO: else if (are owned in a group, no houses) {}
-	else if (numHouses == 1)
-	    return rent1House;
+            // TODO: else if (are owned in a group, no houses) {}
+        else if (numHouses == 1)
+            return rent1House;
 
-	else if (numHouses == 2)
-	    return rent2House;
+        else if (numHouses == 2)
+            return rent2House;
 
-	else if (numHouses == 3)
-	    return rent3House;
+        else if (numHouses == 3)
+            return rent3House;
 
-	else if (numHouses == 4)
-	    return rent4House;
+        else if (numHouses == 4)
+            return rent4House;
 
-	else if (numHotels == 1)
-	    return rent1Hotel;
+        else if (numHotels == 1)
+            return rent1Hotel;
 
-	else // Error state.
-	    return -1;
+        else // Error state.
+            return -1;
     }
 
     /** Set Player p as the owner of this PropagandaOutlet, and charge
      *  them the correct amount of money. */
     @Override
     public void buy(Player p, GameBoard board) {
-	p.payBank(this.getCost(), board);
-	this.setOwner(p);
-	board.printStatusAndLog(p.getName() + " bought " + this.getName() + " for $" + cost + ".");
+        p.payBank(this.getCost(), board);
+        this.setOwner(p);
+        board.printStatusAndLog(p.getName() + " bought " + this.getName() + " for $" + cost + ".");
     }
 
     /** Return whether or not this UtilityCell is 
      *  currently owned by a Player. */
     @Override
     public boolean isOwned() {
-	return ((owned == true) ? true : false);
+        return ((owned == true) ? true : false);
     }
 
     /** Returns the cost for a Player to buy this 
      *  property, unimproved. */
     public int getCost() {
-	return cost;
+        return cost;
     }
 
     // TODO: Javadocs for these.
     public int getMortgageValue() {
-	return mortgageValue;
+        return mortgageValue;
     }
 
     public int getInitialRent() {
-	return initialRent;
+        return initialRent;
     }
 
     // TODO: Remove these? They're kind of covered by getRent().
     public int getRent1House() {
-	return rent1House;
+        return rent1House;
     }
 
     public int getRent2House() {
-	return rent2House;
+        return rent2House;
     }
 
     public int getRent3House() {
-	return rent3House;
+        return rent3House;
     }
 
     public int getRent4House() {
-	return rent4House;
+        return rent4House;
     }
 
     public int getRent1Hotel() {
-	return rent1Hotel;
+        return rent1Hotel;
     }
 
     public int getHouseOrHotelCost() {
-	return houseOrHotelCost;
+        return houseOrHotelCost;
     }
 
     /** Return the Color associated with this PropagandaOutlet. */
     public Color getColor() {
-	return color;
+        return color;
     }
 }
 
 
-    /*
+/*
 * Propaganda outlet // A normal board place
 ** Fields
 *** Number of Beck's [houses]

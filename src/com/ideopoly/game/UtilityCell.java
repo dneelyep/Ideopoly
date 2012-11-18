@@ -13,14 +13,14 @@ public class UtilityCell extends BoardCell implements Ownable {
     /** Create a new UtilityCell with a given name,
      *  image, and x/y coordinates on the board.*/
     public UtilityCell(String newName, String imagePath, int xPos, int yPos, GameBoard board) {
-	super(newName, imagePath, xPos, yPos, board); // Use the BoardCell class' constructor.
-	owned = false;
+        super(newName, imagePath, xPos, yPos, board); // Use the BoardCell class' constructor.
+        owned = false;
     }
 
     /** Returns the cost for a Player to buy this 
      *  property, unimproved. */
     public int getCost() {
-	return COST;
+        return COST;
     }
 
     // TODO: That's the case for SpecialCells, but not UtilityCells. Fix it.
@@ -29,22 +29,22 @@ public class UtilityCell extends BoardCell implements Ownable {
      *  This value depends on a random dice roll. */
     @Override
     public int getRent() {
-	return 0;
+        return 0;
     }
 
     /** Set Player p as the owner of this UtilityCell, and charge
      *  them the correct amount of money. */
     @Override
     public void buy(Player p, GameBoard board) {
-	p.payBank(this.getCost(), board);
-	this.setOwner(p);
-	board.printStatusAndLog(p.getName() + " bought " + this.getName() + " for $" + COST + ".");
+        p.payBank(this.getCost(), board);
+        this.setOwner(p);
+        board.printStatusAndLog(p.getName() + " bought " + this.getName() + " for $" + COST + ".");
     }
 
     /** Return whether or not this UtilityCell is 
      *  currently owned by a Player. */
     @Override
     public boolean isOwned() {
-	return ((owned == true) ? true : false);
+        return ((owned == true) ? true : false);
     }
 }
