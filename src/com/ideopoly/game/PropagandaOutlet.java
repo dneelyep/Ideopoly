@@ -69,18 +69,18 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
         super(newName, imagePath, xPos, yPos, board); // Use the BoardCell class' constructor.
         numHouses	    = 0;
         numHotels	    = 0;
-        cost                = newCost;
-        mortgageValue	    = newCost / 2; // Mortgage prices are half the price to buy the property.
-        owned = false;
+        cost            = newCost;
+        mortgageValue	= newCost / 2; // Mortgage prices are half the price to buy the property.
+        owned           = false;
 
-        initialRent	    = newInitialRent;
-        rent1House	    = newRent1House;
-        rent2House	    = newRent2House;
-        rent3House	    = newRent3House;
-        rent4House	    = newRent4House;
-        rent1Hotel	    = newRent1Hotel;
-        houseOrHotelCost    = newHouseOrHotelCost;
-        color               = new Color(r, g, b);
+        initialRent	     = newInitialRent;
+        rent1House	     = newRent1House;
+        rent2House	     = newRent2House;
+        rent3House	     = newRent3House;
+        rent4House	     = newRent4House;
+        rent1Hotel	     = newRent1Hotel;
+        houseOrHotelCost = newHouseOrHotelCost;
+        color            = new Color(r, g, b);
     }
 
     /** Return the amount of rent that a Player landing here has to pay. */

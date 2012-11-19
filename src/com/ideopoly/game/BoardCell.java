@@ -108,11 +108,6 @@ public abstract class BoardCell {
         // the property to indicate ownership.
     }
 
-    /** Get the image associated with this property. */
-    public Icon getImage() {
-        return image;
-    }
-
     /** Get this cell's x position. */
     // TODO: Rename these for consistency between these and the getXCoord() method elsewhere?
     public int getX() {
@@ -146,17 +141,17 @@ public abstract class BoardCell {
         return graphicalRepresentation;
     }
 
-    /** Given a Player p, set the image i for the BoardPosition associated 
+    /** Given a Player p, set the image icon for the BoardPosition associated
      *  with p on this cell. */
-    public void setPositionImage(Player p, Icon i, GameBoard board) {
+    public void setPositionImage(Player p, Icon icon, GameBoard board) {
         if (p == board.player1)
-            p1Pos.setImage(i);
+            p1Pos.setImage(icon);
         else if (p == board.player2)
-            p2Pos.setImage(i);
+            p2Pos.setImage(icon);
         else if (p == board.player3)
-            p3Pos.setImage(i);
+            p3Pos.setImage(icon);
         else if (p == board.player4)
-            p4Pos.setImage(i);
+            p4Pos.setImage(icon);
     }
 
     /** Returns the BoardPosition associated with Player p. For example,
@@ -177,7 +172,7 @@ public abstract class BoardCell {
     }
 
     /** Using the supplied parameters, generate an image of this BoardCell. name is used for
-     *  the property name, which is displayed at the "top" of the image. The Player p is used to
+     *  the property name, which is distplayed at the "top" of the image. The Player p is used to
      *  set the background color of the image, which indicates who owns the property. Color c is
      *  used to set the color of the horizontal bar at the "top" of the image. And orientation
      *  is used to determine whether to display the image upright, at 90 degrees, etc. */
@@ -240,23 +235,23 @@ public abstract class BoardCell {
         @Override
         public void mouseEntered(MouseEvent e) {
             // TODO: Tests for this stuff.
-            // TODO: Replace this with instanceof operator.
-            if (BoardCell.this.getClass().getName().equals("com.ideopoly.game.Railroad")) {
+            if (BoardCell.this instanceof Railroad) {
+                // TODO Do I even need to do this cast?
                 Railroad r = (Railroad) BoardCell.this;
                 board.setGUIColor(Color.BLACK);
-                board.setGUICost("$" + Integer.toString(r.getCost()));
+                board.setGUICost("$" + r.getCost());
                 // TODO: Change the gui text to 1RR/2RRs/etc. maybe
                 //       where houses would be displayed.
-                board.setGUIRent("$" + Integer.toString(r.getRent()));
+                board.setGUIRent("$" + r.getRent());
                 // TODO: Combine the unownable/can't buy parts? Reduce a bit of duplication.
                 board.setGUI1House("-");
                 board.setGUI2House("-");
                 board.setGUI3House("-");
                 board.setGUI4House("-");
                 board.setGUIHotel("-");
-                board.setGUIMortgage("$" + Integer.toString(r.getMortgageValue()));
+                board.setGUIMortgage("$" + r.getMortgageValue());
             }
-            else if (BoardCell.this.getClass().getName().equals("com.ideopoly.game.PropagandaOutlet")) {
+            else if (BoardCell.this instanceof PropagandaOutlet) {
                 PropagandaOutlet p = (PropagandaOutlet) BoardCell.this;
 
                 board.setGUIColor(p.getColor());
@@ -271,7 +266,7 @@ public abstract class BoardCell {
                 board.setGUIHotel("$" + Integer.toString(p.getRent1Hotel()));
                 board.setGUIMortgage("$" + Integer.toString(p.getMortgageValue()));
             }
-            else if (BoardCell.this.getClass().getName().equals("com.ideopoly.game.UtilityCell")) {
+            else if (BoardCell.this instanceof UtilityCell) {
                 UtilityCell u = (UtilityCell) BoardCell.this;
 
                 board.setGUIColor(Color.GRAY);
@@ -286,8 +281,7 @@ public abstract class BoardCell {
                 // board.setGUIHotel.setText ("$" + Integer.toString(u.getRent1Hotel()));
                 board.setGUIMortgage("$75");
             }
-            else if (BoardCell.this.getClass().getName().equals("com.ideopoly.game.SpecialCell")
-                    || BoardCell.this.getClass().getName().equals("com.ideopoly.game.ChanceOrCommChestCell")) {
+            else if (BoardCell.this instanceof SpecialCell ||  BoardCell.this instanceof ChanceOrCommChestCell) {
                 // TODO: Remove the labels when we mouse over an un-ownable property?
                 board.setGUIColor(Color.WHITE);
                 board.setGUICost("-");
@@ -303,7 +297,7 @@ public abstract class BoardCell {
 
             board.setGUIName(name);
         }
-        // TODO: Is there a better way to do this?
+        // TODO: Is there a better way to do this? YES there is, see Swing adapters.
         @Override
         public void mouseExited(MouseEvent e) {	}
         @Override

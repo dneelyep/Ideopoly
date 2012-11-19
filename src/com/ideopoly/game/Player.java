@@ -438,14 +438,16 @@ public class Player {
         // TODO: There's probably a better way of doing this whole thing.
         // TODO: Add tests and things for this. Haven't made sure it works yet.
         // TODO This should be trivially clean-uppable.
-        if      (name.equals("Player 1 (H)"))
-            board.playerRowLabels[0].setForeground(Color.red);
-        else if (name.equals("Player 2 (C)"))
-            board.playerRowLabels[1].setForeground(Color.red);
-        else if (name.equals("Player 3 (C)"))
-            board.playerRowLabels[2].setForeground(Color.red);
-        else if (name.equals("Player 4 (C)"))
-            board.playerRowLabels[3].setForeground(Color.red);
+        switch (name) {
+            case "Player 1 (H)":
+                board.playerRowLabels.get(0).setForeground(Color.red); break;
+            case "Player 2 (C)":
+                board.playerRowLabels.get(1).setForeground(Color.red); break;
+            case "Player 3 (C)":
+                board.playerRowLabels.get(2).setForeground(Color.red); break;
+            case "Player 4 (C)":
+                board.playerRowLabels.get(3).setForeground(Color.red); break;
+        }
     }
 
     /** Put the given Player p in jail, and enable the "Use get 
@@ -479,7 +481,7 @@ public class Player {
             int[] billInt = {1, 5, 10, 20, 50, 100, 500};
             for (int i = 0; i <= 6; i++) {
                 this.spreadCash(billInt[i]);
-                this.addCash(board.cashValues[i], - board.paymentAmounts[i]);
+                this.addCash(board.cashValues.get(i), - board.paymentAmounts[i]);
             }
         }
     }
@@ -497,19 +499,14 @@ public class Player {
 
             // Then, for each bill, transfer the correct amount from this Player to p.
             int[] billInt = {1, 5, 10, 20, 50, 100, 500}; // TODO: Better array name here.
-            for (int i = 0; i <= 6; i++) {
+            for (int i = 0; i < billInt.length; i++) {
                 this.spreadCash(billInt[i]);
-                this.addCash(board.cashValues[i], - board.paymentAmounts[i]);
-                p.addCash(board.cashValues[i], board.paymentAmounts[i]);
+                this.addCash(board.cashValues.get(i), - board.paymentAmounts[i]);
+                p.addCash(board.cashValues.get(i), board.paymentAmounts[i]);
             }
 
             // And set cash back to sensible values.
             p.spreadCash(500);
         }
-    }
-
-    /** Get the Color object associated with this Player. */
-    public Color getColor() {
-        return this.color;
     }
 }

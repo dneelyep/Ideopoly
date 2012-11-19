@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
-import java.io.*;
 
 // TODO: com as a package name start doesn't make much sense. I don't own a domain name.
 // TODO: Add in Chance and Comm. Chest images.
@@ -23,18 +22,20 @@ import java.io.*;
 public class GameBoard implements ActionListener {
     // TODO: Make some of these arrays, etc., final/static when they're constant. Also see
     // if it's possible to get rid of some of them.
-    /** Number to represent if the game has been won. Once the game's won, 
+    /** Number to represent if the game has been won. Once the game's won,
      *  this switches to another value. */
     private int gameWon = 0;
 
     // TODO: Can I make this private?
-    protected final String cashValues[] = { "ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"};
-    private final String cashHeadings[] = { "Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail" };
+    protected final ArrayList<String> cashValues = new ArrayList<>(
+            Arrays.asList("ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"));
+
+    private final ArrayList<String> cashHeadings = new ArrayList<>(
+            Arrays.asList("Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail"));
+
     // TODO: Come up with a better solution than making this public.
-    public final JLabel[] playerRowLabels = { new JLabel("Player 1"),
-            new JLabel("Player 2"),
-            new JLabel("Player 3"),
-            new JLabel("Player 4") };
+    public final ArrayList<JLabel> playerRowLabels = new ArrayList<>(
+            Arrays.asList(new JLabel("Player 1"), new JLabel("Player 2"), new JLabel("Player 3"), new JLabel("Player 4")));
 
     /* TODO: Consider making these values constant, since they won't change.
        IE: static final int ROWS = 4
@@ -122,13 +123,14 @@ public class GameBoard implements ActionListener {
     // TODO: There should be a more elegant way of doing this than storing
     //       the player as an int. For example, make current player status
     //       a boolean field that belongs to each player.
+    //       Or just make it private Player currentPlayer.
     //    One idea would be just to make a function that checks the field for each player
     //    and returns the correct player.
     private int currentPlayer = 0;
-    public Player player1   = new Player(1, new Color(1, 238, 0) , this);
-    public Player player2   = new Player(2, new Color(223, 254, 10), this);
-    public Player player3   = new Player(3, new Color(253, 186, 17), this);
-    public Player player4   = new Player(4, new Color(19, 214, 242), this);
+    public Player player1 = new Player(1, new Color(1, 238, 0) , this);
+    public Player player2 = new Player(2, new Color(223, 254, 10), this);
+    public Player player3 = new Player(3, new Color(253, 186, 17), this);
+    public Player player4 = new Player(4, new Color(19, 214, 242), this);
     // TODO: Try to reduce usage of this players array. Is useless and confusing except when looping.
     // TODO: Does this need to be public?
     // TODO: Since it's public, javadocs for the field.
@@ -137,10 +139,10 @@ public class GameBoard implements ActionListener {
     public Player players[] = {player1, player2, player3, player4};
 
     /** The stack of Chance cards. */
-    private Stack<Chance> chanceCards = new Stack<Chance>();
+    private Stack<Chance> chanceCards = new Stack<>();
 
     /** The stack of Community Chest cards. */
-    private Stack<CommunityChest> commChestCards = new Stack<CommunityChest>();
+    private Stack<CommunityChest> commChestCards = new Stack<>();
 
     /** Various fields that display detailed property information. */
     // TODO: Better, more descriptive variable names. eg, detailedPropColor, etc.
@@ -232,7 +234,7 @@ public class GameBoard implements ActionListener {
                 else if (j == 8) // Get out of jail free cards.
                     cashLabels[i][j] = new CashCell(59, 1 + i, Integer.toString(players[i].getNumGOOJFCards()));
                 else             // Cash amounts.
-                    cashLabels[i][j] = new CashCell(51 + j, 1 + i, Integer.toString(players[i].getCash(cashValues[j])));
+                    cashLabels[i][j] = new CashCell(51 + j, 1 + i, Integer.toString(players[i].getCash(cashValues.get(j))));
             }
         }
 
@@ -552,18 +554,18 @@ public class GameBoard implements ActionListener {
                 else if (j == 8)
                     cashLabels[i][j].setText(Integer.toString(players[i].getNumGOOJFCards()));
                 else
-                    cashLabels[i][j].setText(Integer.toString(players[i].getCash(cashValues[j])));
+                    cashLabels[i][j].setText(Integer.toString(players[i].getCash(cashValues.get(j))));
             }
 
             // Set all player labels to black
-            playerRowLabels[i].setForeground(Color.BLACK);
+            playerRowLabels.get(i).setForeground(Color.BLACK);
         }
 
         // ...then set the current player to green.
         if (currentPlayer >= 1 && currentPlayer <= 3)
-            playerRowLabels[currentPlayer - 1].setForeground(Color.GREEN);
+            playerRowLabels.get(currentPlayer - 1).setForeground(Color.GREEN);
         else if (currentPlayer == 0)
-            playerRowLabels[3].setForeground(Color.GREEN);
+            playerRowLabels.get(3).setForeground(Color.GREEN);
     }
 
     /** Perform actions depending on GUI events. */
@@ -627,8 +629,9 @@ public class GameBoard implements ActionListener {
 
             // Since we can't break up this amount of money, the amount of each bill to pay is 0.
             // TODO: Convert this to a for-each loop or similar.
-            for (int i = 0; i <= 6; i++)
-                paymentAmounts[i] = 0;
+            for (int amount : paymentAmounts) {
+                amount = 0;
+            }
         }
 
         else {
@@ -655,7 +658,7 @@ public class GameBoard implements ActionListener {
 
             // Then have the player pay each of the amounts
             // TODO: Again, replace with a for each loop.
-            for (int j = 0; j <= 6; j++)
+            for (int j = 0; j < paymentAmounts.length; j++)
                 paymentAmounts[j] = billTotals[6 - j];
         }
 

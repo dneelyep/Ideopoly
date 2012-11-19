@@ -53,6 +53,8 @@ public class Railroad extends BoardCell implements Ownable {
      *  them the correct amount of money. */
     @Override
     public void buy(Player p, GameBoard board) {
+        // TODO buy should belong to the Player class, and be named buyProperty or similar. Better to maintain a single
+        //      implementation in one class than an implementation for every type of property.
         // TODO: This (and the other buy methods) will continue even if the Player becomes
         // bankrupt in payBank(). That should not be allowed.
         p.payBank(this.getCost(), board);

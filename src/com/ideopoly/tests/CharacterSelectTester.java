@@ -9,8 +9,8 @@ import org.junit.*;
 public class CharacterSelectTester extends TestCase {
     @Test
     public void testCharacterSelect() {
-	// 
-	//  ...TODO: Add tests here...
-	//
+        //
+        //  ...TODO: Add tests here...
+        //
     }
 }
