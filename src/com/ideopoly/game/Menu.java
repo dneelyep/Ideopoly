@@ -16,7 +16,6 @@ public class Menu implements ActionListener {
         new Menu();
     }
 
-    // TODO: Use multiple instances of GridBagConstraints.
     // TODO: See if any/all of this can be made into a loop rather than repeating everything.
     // TODO Use a simpler layout than gridbaglayout. No need for anything that complex.
     JFrame mainMenu = new JFrame("Ideopoly | Main menu");  // Initialized here so we can access it via event listeners.
@@ -30,36 +29,32 @@ public class Menu implements ActionListener {
         mainMenu.getContentPane().add(box);
 
         // TODO: Try to loop this? [Very small gains WRT less LOC.]
-        JLabel logo = new JLabel(new ImageIcon("images/logo.png"));
+        JLabel logo = new JLabel(new ImageIcon("src/com/ideopoly/game/images/logo.png"));
         logo.setAlignmentX(Component.CENTER_ALIGNMENT);
         box.add(logo);
 
-        JButton startButton = new JButton("Start");
-        JButton quitButton = new JButton("Quit");
-
-        for (JButton j : Arrays.asList(startButton, endButton) {
-            j.setAlignmentX(Component.CENTER_ALIGNMENT);
-            j.addActionListener(this);
-            box.add(j);
+        for (JButton button : Arrays.asList(new JButton("Start"), new JButton("Quit"))) {
+            button.setAlignmentX(Component.CENTER_ALIGNMENT);
+            button.addActionListener(this);
+            box.add(button);
         }
 
         mainMenu.pack();
         mainMenu.setVisible(true);
     }
 
-    // TODO: Javadocs here.
-    // TODO: Add @Override annotation?
+    /** Handle events that occur when the user decides to start or end the game. */
+    @Override
     public void actionPerformed(ActionEvent e) {
         String eventSource = e.getActionCommand();
 
-        if (eventSource == "Start") { // Launch the game
-            // TODO: Or should I just make the object invisible and keep it around?
+        if (eventSource.equals("Start")) { // Launch the game
             mainMenu.dispose(); // Get rid of the menu since we don't need it anymore.
-            new CharacterSelect();
+            new CharacterSelect("Ideopoly | Character select");
         }
-        else if (eventSource == "Quit") {
-            mainMenu.dispose();
+        else if (eventSource.equals("Quit")) {
             System.out.println("Goodbye.");
+            System.exit(0);
         }
     }
 }

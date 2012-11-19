@@ -57,11 +57,11 @@ public class MenuTester extends TestCase {
 
 	// 	String eventSource = e.getActionCommand();
 
-	// 	if (eventSource == "Start") {
+	// 	if (eventSource.equals("Start")) {
 	// 	    mainMenu.dispose(); // Close out the menu since we don't need it anymore.
 	// 	    CharacterSelect charSelectScreen = new CharacterSelect();
 	// 	}
-	// 	else if (eventSource == "Quit") {
+	// 	else if (eventSource.equals("Quit")) {
 	// 	    mainMenu.dispose();
 	// 	    System.out.println("Goodbye.");
 	// 	}

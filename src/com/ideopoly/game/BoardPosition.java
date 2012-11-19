@@ -17,36 +17,37 @@ public class BoardPosition extends JLabel {
     /** This position's y-coordinate in the GUI. */
     private final int yCoordPos;
 
+    // TODO Why do I have a separate image field, rather than using JLabel's built-in support?
     private Icon image;
 
     /** Create this object with the given x and y coordinates. */
     public BoardPosition(int newXPos, int newYPos) {
-	xCoordPos = newXPos;
-	yCoordPos = newYPos;
-	image     = new ImageIcon("images/noPlayerPresent.jpg");
-	this.setIcon(image);
+        xCoordPos = newXPos;
+        yCoordPos = newYPos;
+        image     = new ImageIcon("src/com/ideopoly/game/images/noPlayerPresent.jpg");
+        this.setIcon(image);
     }
 
     /** Get this position's x coordinate. */
     public int getXCoord() {
-	return xCoordPos;
+        return xCoordPos;
     }
 
     /** Get this position's y coordinate. */
     public int getYCoord() {
-	return yCoordPos;
+        return yCoordPos;
     }
 
     /** Get the image associated with this position. */
     public Icon getImage() {
-	return image;
+        return image;
     }
 
     /** Set the image associated with this position to
      *  the indicated image i. */
     public void setImage(Icon i) {
-	// TODO: This is a bit confusing.
-	image = i;
-	this.setIcon(i);
+        // TODO: This is a bit confusing.
+        image = i;
+        this.setIcon(i);
     }
 }

@@ -103,16 +103,16 @@ public class Player {
         cellIndex   = 0;
         switch (playerNumber) {
             case 1: name = "Player 1 (H)";
-                image = new ImageIcon("images/p1Present.jpg");
+                image = new ImageIcon("src/com/ideopoly/game/images/p1Present.jpg");
                 break;
             case 2: name = "Player 2 (C)";
-                image = new ImageIcon("images/p2Present.jpg");
+                image = new ImageIcon("src/com/ideopoly/game/images/p2Present.jpg");
                 break;
             case 3: name = "Player 3 (C)";
-                image = new ImageIcon("images/p3Present.jpg");
+                image = new ImageIcon("src/com/ideopoly/game/images/p3Present.jpg");
                 break;
             case 4: name = "Player 4 (C)";
-                image = new ImageIcon("images/p4Present.jpg");
+                image = new ImageIcon("src/com/ideopoly/game/images/p4Present.jpg");
                 break;
 
             default: System.out.println("Error: tried to create a non-standard player.");
@@ -437,13 +437,14 @@ public class Player {
 
         // TODO: There's probably a better way of doing this whole thing.
         // TODO: Add tests and things for this. Haven't made sure it works yet.
-        if      (name == "Player 1 (H)")
+        // TODO This should be trivially clean-uppable.
+        if      (name.equals("Player 1 (H)"))
             board.playerRowLabels[0].setForeground(Color.red);
-        else if (name == "Player 2 (C)")
+        else if (name.equals("Player 2 (C)"))
             board.playerRowLabels[1].setForeground(Color.red);
-        else if (name == "Player 3 (C)")
+        else if (name.equals("Player 3 (C)"))
             board.playerRowLabels[2].setForeground(Color.red);
-        else if (name == "Player 4 (C)")
+        else if (name.equals("Player 4 (C)"))
             board.playerRowLabels[3].setForeground(Color.red);
     }
 
@@ -455,7 +456,7 @@ public class Player {
         // Or change the color of the text by their name.
 
         // Allow the main player to use their cards.
-        if (name == "Player 1 (H)" && GOOJFCards > 0) {
+        if (name.equals("Player 1 (H)") && GOOJFCards > 0) {
             board.useGOOJFCard.setEnabled(true);
         }
 

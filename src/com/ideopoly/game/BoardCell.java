@@ -56,72 +56,72 @@ public abstract class BoardCell {
      *  player standing positions. Does not have an owner. There are no players standing 
      *  on this object. */
     public BoardCell(String newName, String imagePath, int xPos, int yPos, GameBoard g) {
-	name    = newName;
-	ownedBy = null;
-	image   = new ImageIcon("images/" + imagePath);
-	cellX   = xPos;
-	cellY   = yPos;
-	board   = g;
+        name    = newName;
+        ownedBy = null;
+        image   = new ImageIcon("src/com/ideopoly/game/images/" + imagePath);
+        cellX   = xPos;
+        cellY   = yPos;
+        board   = g;
 
-	if (xPos >= 1 && xPos <= 41 && yPos == 1) {       // Top row.
-	    p1Pos = new BoardPosition(cellX + 3, 0);
-	    p2Pos = new BoardPosition(cellX + 2, 0);
-	    p3Pos = new BoardPosition(cellX + 1, 0);
-	    p4Pos = new BoardPosition(cellX,     0);
-	}
-	else if (xPos >= 1 && xPos <= 41 && yPos == 41) { // Bottom row.
-	    p1Pos = new BoardPosition(cellX,     45);
+        if (xPos >= 1 && xPos <= 41 && yPos == 1) {       // Top row.
+            p1Pos = new BoardPosition(cellX + 3, 0);
+            p2Pos = new BoardPosition(cellX + 2, 0);
+            p3Pos = new BoardPosition(cellX + 1, 0);
+            p4Pos = new BoardPosition(cellX,     0);
+        }
+        else if (xPos >= 1 && xPos <= 41 && yPos == 41) { // Bottom row.
+            p1Pos = new BoardPosition(cellX,     45);
             p2Pos = new BoardPosition(cellX + 1, 45);
-	    p3Pos = new BoardPosition(cellX + 2, 45);
-	    p4Pos = new BoardPosition(cellX + 3, 45);
-	}
-	else if (yPos >= 2 && yPos <= 40 && xPos == 1) {  // Left column  (except top/bottom cells).
-	    p1Pos = new BoardPosition(0, cellY);
-	    p2Pos = new BoardPosition(0, cellY + 1);
-	    p3Pos = new BoardPosition(0, cellY + 2);
-	    p4Pos = new BoardPosition(0, cellY + 3);
-	}
-	else if (yPos >= 2 && yPos <= 40 && xPos == 41) { // Right column (except top/bottom cells).
-	    p1Pos = new BoardPosition(45, cellY + 3);
-	    p2Pos = new BoardPosition(45, cellY + 2);
-	    p3Pos = new BoardPosition(45, cellY + 1);
-	    p4Pos = new BoardPosition(45, cellY);
-	}
+            p3Pos = new BoardPosition(cellX + 2, 45);
+            p4Pos = new BoardPosition(cellX + 3, 45);
+        }
+        else if (yPos >= 2 && yPos <= 40 && xPos == 1) {  // Left column  (except top/bottom cells).
+            p1Pos = new BoardPosition(0, cellY);
+            p2Pos = new BoardPosition(0, cellY + 1);
+            p3Pos = new BoardPosition(0, cellY + 2);
+            p4Pos = new BoardPosition(0, cellY + 3);
+        }
+        else if (yPos >= 2 && yPos <= 40 && xPos == 41) { // Right column (except top/bottom cells).
+            p1Pos = new BoardPosition(45, cellY + 3);
+            p2Pos = new BoardPosition(45, cellY + 2);
+            p3Pos = new BoardPosition(45, cellY + 1);
+            p4Pos = new BoardPosition(45, cellY);
+        }
 
-	graphicalRepresentation = new BoardCellGUI(image);
+        graphicalRepresentation = new BoardCellGUI(image);
     }
 
     /** Get the name of this property. */
     public String getName() {
-	return name;
+        return name;
     }
 
     /** Get the owner of this property. */
     public Player getOwner() {
-	return ownedBy;
+        return ownedBy;
     }
 
     /** Make player p the owner of this property. */
     public void setOwner(Player p) {
-	ownedBy = p;
-	// TODO: Have this function also set the relevant image for 
-	// the property to indicate ownership.
+        ownedBy = p;
+        // TODO: Have this function also set the relevant image for
+        // the property to indicate ownership.
     }
 
     /** Get the image associated with this property. */
     public Icon getImage() {
-	return image;
+        return image;
     }
 
     /** Get this cell's x position. */
     // TODO: Rename these for consistency between these and the getXCoord() method elsewhere?
     public int getX() {
-	return cellX;
+        return cellX;
     }
 
     /** Get this cell's y position. */
     public int getY() {
-	return cellY;
+        return cellY;
     }
 
     // TODO: Look into abstract methods and classes for this part. It looks like those techniques
@@ -143,20 +143,20 @@ public abstract class BoardCell {
 
     /** Get the BoardCellGUI that represents this BoardCell. */
     public BoardCellGUI getGraphicalRepresentation() {
-	return graphicalRepresentation;
+        return graphicalRepresentation;
     }
 
     /** Given a Player p, set the image i for the BoardPosition associated 
      *  with p on this cell. */
     public void setPositionImage(Player p, Icon i, GameBoard board) {
-	if (p == board.player1)
-	    p1Pos.setImage(i);
-	else if (p == board.player2)
-	    p2Pos.setImage(i);
-	else if (p == board.player3)
-	    p3Pos.setImage(i);
-	else if (p == board.player4)
-	    p4Pos.setImage(i);
+        if (p == board.player1)
+            p1Pos.setImage(i);
+        else if (p == board.player2)
+            p2Pos.setImage(i);
+        else if (p == board.player3)
+            p3Pos.setImage(i);
+        else if (p == board.player4)
+            p4Pos.setImage(i);
     }
 
     /** Returns the BoardPosition associated with Player p. For example,
@@ -164,16 +164,16 @@ public abstract class BoardCell {
     // TODO: I could make an array of positions, so it would be easy to do, for example,
     //       for (BoardPosition b : boardcell)
     public BoardPosition getPosition(int p) {
-	if (p == 1)
-	    return p1Pos;
-	else if (p == 2)
-	    return p2Pos;
-	else if (p == 3)
-	    return p3Pos;
-	else // if (p == 4)
-	    return p4Pos;
-	// else // TODO: Make this an exception or similar?
-	//     System.out.println("Error! Ya tried to get the position of a non-existant Player.");
+        if (p == 1)
+            return p1Pos;
+        else if (p == 2)
+            return p2Pos;
+        else if (p == 3)
+            return p3Pos;
+        else // if (p == 4)
+            return p4Pos;
+        // else // TODO: Make this an exception or similar?
+        //     System.out.println("Error! Ya tried to get the position of a non-existant Player.");
     }
 
     /** Using the supplied parameters, generate an image of this BoardCell. name is used for
@@ -184,34 +184,34 @@ public abstract class BoardCell {
     // LEFTOFFHERE: Implementing this SVG generation method.
     // TODO: Do I need the Player argument? Can't I use this.getOwner() or similar instead?
     public void generateImage(String name, Color playerColor, Color barColor, String orientation) {
-	try {
-	    // TODO: Set the correct locale for Formatter? Getting a findbugs error.
-	    Formatter file = new Formatter("temp.svg");
-	    // TODO: Mediterranean Av., along with some other property, is the longest name I
-	    //       should expect to receive. Can use that to make sure the text fits.
-	    file.format("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n"
-			+ "  <rect width=\"50\" height=\"80\" style=\"fill:rgb(" + playerColor.getRed() + "," + playerColor.getGreen() + "," + playerColor.getBlue() + "); stroke-width:1; stroke:rgb(0,0,0)\" />\n"
-			+ "  <rect width=\"50\" height=\"20\" style=\"fill:rgb(" + barColor.getRed() + "," + barColor.getGreen() + "," + barColor.getBlue() + "); stroke-width:1; stroke:rgb(0,0,0)\" />\n"
-			+ "  <g style=\"font-size: 7pt\">\n"
-			+ "    <text x=\"5\"  y=\"10\">" + name + "</text>\n"
-			+ "  </g>\n"
-			+ "</svg>\n");
-	    file.close();
+        try {
+            // TODO: Set the correct locale for Formatter? Getting a findbugs error.
+            Formatter file = new Formatter("temp.svg");
+            // TODO: Mediterranean Av., along with some other property, is the longest name I
+            //       should expect to receive. Can use that to make sure the text fits.
+            file.format("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n"
+                    + "  <rect width=\"50\" height=\"80\" style=\"fill:rgb(" + playerColor.getRed() + "," + playerColor.getGreen() + "," + playerColor.getBlue() + "); stroke-width:1; stroke:rgb(0,0,0)\" />\n"
+                    + "  <rect width=\"50\" height=\"20\" style=\"fill:rgb(" + barColor.getRed() + "," + barColor.getGreen() + "," + barColor.getBlue() + "); stroke-width:1; stroke:rgb(0,0,0)\" />\n"
+                    + "  <g style=\"font-size: 7pt\">\n"
+                    + "    <text x=\"5\"  y=\"10\">" + name + "</text>\n"
+                    + "  </g>\n"
+                    + "</svg>\n");
+            file.close();
 
-	    // Then set image to the rasterized version.
-	    JPEGTranscoder t = new JPEGTranscoder();
-	    //	    image = ; // LEFTOFFHERE converting it.
-	    graphicalRepresentation = new BoardCellGUI(image);
+            // Then set image to the rasterized version.
+            JPEGTranscoder t = new JPEGTranscoder();
+            //	    image = ; // LEFTOFFHERE converting it.
+            graphicalRepresentation = new BoardCellGUI(image);
 
-	    // And lastly, delete the file.
-	    File f = new File("temp.svg");
+            // And lastly, delete the file.
+            File f = new File("temp.svg");
 
-	    if (f.delete() == false) {
-		System.out.println("Error: SVG file does not exist.");
-	    }
-	} catch (Exception e) {
-	    System.out.println("Exception: " + e);
-	}
+            if (f.delete() == false) {
+                System.out.println("Error: SVG file does not exist.");
+            }
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
+        }
     }
 
 
@@ -224,94 +224,94 @@ public abstract class BoardCell {
      *  tell when and how the user mouses over, clicks on, etc. the panels.
      *
      * @author Daniel Neel */
-    private class BoardCellGUI extends JPanel implements MouseListener { 
-	// TODO: Several files have this 42L thing. What is it? Why do I need it? Will 
-	// the same value in all cases cause errors?
-	// v--- This gets rid of some compiler errors.
-	private static final long serialVersionUID = 42L;
+    private class BoardCellGUI extends JPanel implements MouseListener {
+        // TODO: Several files have this 42L thing. What is it? Why do I need it? Will
+        // the same value in all cases cause errors?
+        // v--- This gets rid of some compiler errors.
+        private static final long serialVersionUID = 42L;
 
-	public BoardCellGUI(Icon image) {
-	    add(new JLabel(image));
-	    addMouseListener(this);
-	}
+        public BoardCellGUI(Icon image) {
+            add(new JLabel(image));
+            addMouseListener(this);
+        }
 
-	/** When the mouse hovers over a property, display relevant
-	 *  information in the detailed property info. GUI section. */
-	@Override 
-	public void mouseEntered(MouseEvent e) {
-	    // TODO: Tests for this stuff.
-	    // TODO: Replace this with instanceof operator.
-	   if (BoardCell.this.getClass().getName() == "com.ideopoly.game.Railroad") {
-		Railroad r = (Railroad) BoardCell.this;
-		board.setGUIColor(Color.BLACK);
-		board.setGUICost("$" + Integer.toString(r.getCost()));
-		// TODO: Change the gui text to 1RR/2RRs/etc. maybe 
-		//       where houses would be displayed.
-		board.setGUIRent("$" + Integer.toString(r.getRent()));
-		// TODO: Combine the unownable/can't buy parts? Reduce a bit of duplication.
-		board.setGUI1House("-");
-		board.setGUI2House("-");
-		board.setGUI3House("-");
-		board.setGUI4House("-");
-		board.setGUIHotel("-");
-		board.setGUIMortgage("$" + Integer.toString(r.getMortgageValue()));
-	    }
-	    else if (BoardCell.this.getClass().getName() == "com.ideopoly.game.PropagandaOutlet") {
-		PropagandaOutlet p = (PropagandaOutlet) BoardCell.this;
+        /** When the mouse hovers over a property, display relevant
+         *  information in the detailed property info. GUI section. */
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            // TODO: Tests for this stuff.
+            // TODO: Replace this with instanceof operator.
+            if (BoardCell.this.getClass().getName().equals("com.ideopoly.game.Railroad")) {
+                Railroad r = (Railroad) BoardCell.this;
+                board.setGUIColor(Color.BLACK);
+                board.setGUICost("$" + Integer.toString(r.getCost()));
+                // TODO: Change the gui text to 1RR/2RRs/etc. maybe
+                //       where houses would be displayed.
+                board.setGUIRent("$" + Integer.toString(r.getRent()));
+                // TODO: Combine the unownable/can't buy parts? Reduce a bit of duplication.
+                board.setGUI1House("-");
+                board.setGUI2House("-");
+                board.setGUI3House("-");
+                board.setGUI4House("-");
+                board.setGUIHotel("-");
+                board.setGUIMortgage("$" + Integer.toString(r.getMortgageValue()));
+            }
+            else if (BoardCell.this.getClass().getName().equals("com.ideopoly.game.PropagandaOutlet")) {
+                PropagandaOutlet p = (PropagandaOutlet) BoardCell.this;
 
-		board.setGUIColor(p.getColor());
-		// TODO: Find a way to prepend the $ automatically.
-		board.setGUICost("$" + Integer.toString(p.getCost()));
-		board.setGUIHouseHotelCost("$" + Integer.toString(p.getHouseOrHotelCost()));
-		board.setGUIRent("$" + Integer.toString(p.getInitialRent()));
-		board.setGUI1House("$" + Integer.toString(p.getRent1House()));
-		board.setGUI2House("$" + Integer.toString(p.getRent2House()));
-		board.setGUI3House("$" + Integer.toString(p.getRent3House()));
-		board.setGUI4House("$" + Integer.toString(p.getRent4House()));
-		board.setGUIHotel("$" + Integer.toString(p.getRent1Hotel()));
-		board.setGUIMortgage("$" + Integer.toString(p.getMortgageValue()));
-	    }
-	    else if (BoardCell.this.getClass().getName() == "com.ideopoly.game.UtilityCell") {
-		UtilityCell u = (UtilityCell) BoardCell.this;
+                board.setGUIColor(p.getColor());
+                // TODO: Find a way to prepend the $ automatically.
+                board.setGUICost("$" + Integer.toString(p.getCost()));
+                board.setGUIHouseHotelCost("$" + Integer.toString(p.getHouseOrHotelCost()));
+                board.setGUIRent("$" + Integer.toString(p.getInitialRent()));
+                board.setGUI1House("$" + Integer.toString(p.getRent1House()));
+                board.setGUI2House("$" + Integer.toString(p.getRent2House()));
+                board.setGUI3House("$" + Integer.toString(p.getRent3House()));
+                board.setGUI4House("$" + Integer.toString(p.getRent4House()));
+                board.setGUIHotel("$" + Integer.toString(p.getRent1Hotel()));
+                board.setGUIMortgage("$" + Integer.toString(p.getMortgageValue()));
+            }
+            else if (BoardCell.this.getClass().getName().equals("com.ideopoly.game.UtilityCell")) {
+                UtilityCell u = (UtilityCell) BoardCell.this;
 
-		board.setGUIColor(Color.GRAY);
-		board.setGUICost("$" + Integer.toString(u.getCost()));
-		// TODO: Fill in these things.
-		// board.setGUIHouseHotelCost.setText("$" + Integer.toString(u.getHouseOrHotelCost()));
-		// board.setGUIRent("$" + Integer.toString(u.getInitialRent()));
-		// board.setGUI1House.setText("$" + Integer.toString(u.getRent1House()));
-		// board.setGUI2House.setText("$" + Integer.toString(u.getRent2House()));
-		// board.setGUI3House.setText("$" + Integer.toString(u.getRent3House()));
-		// board.setGUI4House.setText("$" + Integer.toString(u.getRent4House()));
-		// board.setGUIHotel.setText ("$" + Integer.toString(u.getRent1Hotel()));
-		board.setGUIMortgage("$75");
-	    }
-	    else if (BoardCell.this.getClass().getName() == "com.ideopoly.game.SpecialCell"
-	          || BoardCell.this.getClass().getName() == "com.ideopoly.game.ChanceOrCommChestCell") {
-		// TODO: Remove the labels when we mouse over an un-ownable property?
-		board.setGUIColor(Color.WHITE);
-		board.setGUICost("-");
-		board.setGUIHouseHotelCost("-");
-		board.setGUIRent("-");
-		board.setGUI1House("-");
-		board.setGUI2House("-");
-		board.setGUI3House("-");
-		board.setGUI4House("-");
-		board.setGUIHotel("-");
-		board.setGUIMortgage("-");
-	    }
+                board.setGUIColor(Color.GRAY);
+                board.setGUICost("$" + Integer.toString(u.getCost()));
+                // TODO: Fill in these things.
+                // board.setGUIHouseHotelCost.setText("$" + Integer.toString(u.getHouseOrHotelCost()));
+                // board.setGUIRent("$" + Integer.toString(u.getInitialRent()));
+                // board.setGUI1House.setText("$" + Integer.toString(u.getRent1House()));
+                // board.setGUI2House.setText("$" + Integer.toString(u.getRent2House()));
+                // board.setGUI3House.setText("$" + Integer.toString(u.getRent3House()));
+                // board.setGUI4House.setText("$" + Integer.toString(u.getRent4House()));
+                // board.setGUIHotel.setText ("$" + Integer.toString(u.getRent1Hotel()));
+                board.setGUIMortgage("$75");
+            }
+            else if (BoardCell.this.getClass().getName().equals("com.ideopoly.game.SpecialCell")
+                    || BoardCell.this.getClass().getName().equals("com.ideopoly.game.ChanceOrCommChestCell")) {
+                // TODO: Remove the labels when we mouse over an un-ownable property?
+                board.setGUIColor(Color.WHITE);
+                board.setGUICost("-");
+                board.setGUIHouseHotelCost("-");
+                board.setGUIRent("-");
+                board.setGUI1House("-");
+                board.setGUI2House("-");
+                board.setGUI3House("-");
+                board.setGUI4House("-");
+                board.setGUIHotel("-");
+                board.setGUIMortgage("-");
+            }
 
-	    board.setGUIName(name);
-	}
-	// TODO: Is there a better way to do this?
-	@Override
-	public void mouseExited(MouseEvent e) {	}
-	@Override
-	public void mouseClicked(MouseEvent e) { }
-	@Override
-	public void mousePressed(MouseEvent e) { }
-	@Override
-	public void mouseReleased(MouseEvent e) { }
+            board.setGUIName(name);
+        }
+        // TODO: Is there a better way to do this?
+        @Override
+        public void mouseExited(MouseEvent e) {	}
+        @Override
+        public void mouseClicked(MouseEvent e) { }
+        @Override
+        public void mousePressed(MouseEvent e) { }
+        @Override
+        public void mouseReleased(MouseEvent e) { }
     }
 
     // Start with these, add more if/where needed. Add specifics in inherited classes.
