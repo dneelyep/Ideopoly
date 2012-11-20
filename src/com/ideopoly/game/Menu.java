@@ -18,7 +18,7 @@ public class Menu implements ActionListener {
 
     // TODO: See if any/all of this can be made into a loop rather than repeating everything.
     // TODO Use a simpler layout than gridbaglayout. No need for anything that complex.
-    JFrame mainMenu = new JFrame("Ideopoly | Main menu");  // Initialized here so we can access it via event listeners.
+    private JFrame mainMenu = new JFrame("Ideopoly | Main menu");  // Initialized here so we can access it via event listeners.
 
     /** Construct the GUI and make it visible. */
     public Menu() {

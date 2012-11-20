@@ -91,6 +91,7 @@ public abstract class BoardCell {
         graphicalRepresentation = new BoardCellGUI(image);
     }
 
+    // TODO Make this abstract, and have all sub-classes implement it?
     /** Get the name of this property. */
     public String getName() {
         return name;
@@ -137,6 +138,7 @@ public abstract class BoardCell {
     // Or maybe I could use interfaces, such as, for example, Buyable.
 
     /** Get the BoardCellGUI that represents this BoardCell. */
+    // TODO Rename graphicalRepresentation to something less verbose.
     public BoardCellGUI getGraphicalRepresentation() {
         return graphicalRepresentation;
     }
@@ -244,10 +246,10 @@ public abstract class BoardCell {
                 //       where houses would be displayed.
                 board.setGUIRent("$" + r.getRent());
                 // TODO: Combine the unownable/can't buy parts? Reduce a bit of duplication.
-                board.setGUI1House("-");
-                board.setGUI2House("-");
-                board.setGUI3House("-");
-                board.setGUI4House("-");
+                board.setGUI1HouseLabel("-");
+                board.setGUI2HouseLabel("-");
+                board.setGUI3HouseLabel("-");
+                board.setGUI4HouseLabel("-");
                 board.setGUIHotel("-");
                 board.setGUIMortgage("$" + r.getMortgageValue());
             }
@@ -259,10 +261,10 @@ public abstract class BoardCell {
                 board.setGUICost("$" + Integer.toString(p.getCost()));
                 board.setGUIHouseHotelCost("$" + Integer.toString(p.getHouseOrHotelCost()));
                 board.setGUIRent("$" + Integer.toString(p.getInitialRent()));
-                board.setGUI1House("$" + Integer.toString(p.getRent1House()));
-                board.setGUI2House("$" + Integer.toString(p.getRent2House()));
-                board.setGUI3House("$" + Integer.toString(p.getRent3House()));
-                board.setGUI4House("$" + Integer.toString(p.getRent4House()));
+                board.setGUI1HouseLabel("$" + Integer.toString(p.getRent1House()));
+                board.setGUI2HouseLabel("$" + Integer.toString(p.getRent2House()));
+                board.setGUI3HouseLabel("$" + Integer.toString(p.getRent3House()));
+                board.setGUI4HouseLabel("$" + Integer.toString(p.getRent4House()));
                 board.setGUIHotel("$" + Integer.toString(p.getRent1Hotel()));
                 board.setGUIMortgage("$" + Integer.toString(p.getMortgageValue()));
             }
@@ -287,10 +289,10 @@ public abstract class BoardCell {
                 board.setGUICost("-");
                 board.setGUIHouseHotelCost("-");
                 board.setGUIRent("-");
-                board.setGUI1House("-");
-                board.setGUI2House("-");
-                board.setGUI3House("-");
-                board.setGUI4House("-");
+                board.setGUI1HouseLabel("-");
+                board.setGUI2HouseLabel("-");
+                board.setGUI3HouseLabel("-");
+                board.setGUI4HouseLabel("-");
                 board.setGUIHotel("-");
                 board.setGUIMortgage("-");
             }

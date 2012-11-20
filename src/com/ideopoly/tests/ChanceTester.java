@@ -19,7 +19,7 @@ public class ChanceTester extends TestCase {
     private Player player3 = board.player3;
     private Player player4 = board.player4;
 
-    Chance chanceCard;
+    private Chance chanceCard;
 
     // TODO: I added the carryOutActions() method to the Chance class. Make sure to have tests
     // for this.

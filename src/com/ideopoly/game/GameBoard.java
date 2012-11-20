@@ -46,6 +46,7 @@ public class GameBoard implements ActionListener {
     /** Array used to store the values of each type of bill a Player
      *  should pay after requiring a payment. */
     // TODO: Can I make this private?
+    // TODO Have this class extend JFrame?
     public  int[]   paymentAmounts   = {0, 0, 0, 0, 0, 0, 0};
     private JFrame  frame	     = new JFrame("Ideopoly | Main game");
     private JButton continueButton   = new JButton("Continue");//new ImageIcon("images/continueButton.jpg"));
@@ -146,17 +147,18 @@ public class GameBoard implements ActionListener {
 
     /** Various fields that display detailed property information. */
     // TODO: Better, more descriptive variable names. eg, detailedPropColor, etc.
-    private JLabel guiColor    = new JLabel(" ");
-    private JLabel guiName     = new JLabel("-");
-    private JLabel guiCost     = new JLabel("-");
+    private JLabel guiColor          = new JLabel(" ");
+    private JLabel guiName           = new JLabel("-");
+    private JLabel guiCost           = new JLabel("-");
     private JLabel guiHouseHotelCost = new JLabel("-");
-    private JLabel guiRent     = new JLabel("-");
-    private JLabel gui1House   = new JLabel("-");
-    private JLabel gui2House   = new JLabel("-");
-    private JLabel gui3House   = new JLabel("-");
-    private JLabel gui4House   = new JLabel("-");
-    private JLabel guiHotel    = new JLabel("-");
-    private JLabel guiMortgage = new JLabel("-");
+    private JLabel guiRent           = new JLabel("-");
+    // TODO Convert these to a Map or similar.
+    private JLabel gui1HouseLabel = new JLabel("-");
+    private JLabel gui2HouseLabel = new JLabel("-");
+    private JLabel gui3HouseLabel = new JLabel("-");
+    private JLabel gui4HouseLabel = new JLabel("-");
+    private JLabel guiHotel       = new JLabel("-");
+    private JLabel guiMortgage    = new JLabel("-");
 
     /** Constructor creates the GUI, sets up parts of it, etc. */
     public GameBoard(String playerCharacter) { // TODO: Split up the functions logically.
@@ -176,8 +178,7 @@ public class GameBoard implements ActionListener {
         c.gridheight = 4;
 
         for (BoardCell cell : boardProperties) {
-            setConstraintsXY(c, cell.getX(), cell.getY());
-            frame.add(cell.getGraphicalRepresentation(), c);
+            addAtCoords(cell.getGraphicalRepresentation(), cell.getX(), cell.getY(), c);
         }
 
         // ================================================================
@@ -195,15 +196,15 @@ public class GameBoard implements ActionListener {
                     property.getPosition(4)};
 
             for (BoardPosition pos : cellPositions) {
-                setConstraintsXY(c, pos.getXCoord(), pos.getYCoord());
-                frame.add(pos, c);
+                addAtCoords(pos, pos.getXCoord(), pos.getYCoord(), c);
             }
         }
 
         // ====================================================
         // === Create labels to display each player's cash. ===
         // ====================================================
-        setConstraintsXY(c, 50, 0);
+        c.gridx = 50;
+        c.gridy = 0;
 
         // TODO: Would be good if I just used a 2D array to store all this, rather
         // than the separate titles, playerRowLabels, and for loop parts.
@@ -241,86 +242,61 @@ public class GameBoard implements ActionListener {
         // Then add all the labels to the board.
         for (CashCell[] outer : cashLabels) {
             for (CashCell cc : outer) {
-                setConstraintsXY(c, cc.getXCoord(), cc.getYCoord());
-                frame.add(cc, c);
+                addAtCoords(cc, cc.getXCoord(), cc.getYCoord(), c);
             }
         }
 
         // Add a Continue button in the middle of the board.
         c.gridwidth  = 7;
         c.gridheight = 2;
-        setConstraintsXY(c, 22, 22);
-        frame.add(continueButton, c);
+        addAtCoords(continueButton, 22, 22, c);
 
         // ======================================================================
         // === Add buttons (buy houses, etc.) to the right side of the board. ===
         // ======================================================================
         c.fill = GridBagConstraints.HORIZONTAL;
 
-        // Disable currently unusable buttons.
-        buyProperty.setEnabled(false);
-        buyHouse.setEnabled(false);
-        buyHotel.setEnabled(false);
-        sellProperty.setEnabled(false);
-        mortgageProperty.setEnabled(false);
-        useGOOJFCard.setEnabled(false);
-
-        // Add action listeners.
+        // Disable currently unusable buttons and add Action Listeners.
+        for (JButton button : Arrays.asList(buyProperty, buyHouse, buyHotel, sellProperty, mortgageProperty, useGOOJFCard)) {
+            button.setEnabled(false);
+            button.addActionListener(this);
+        }
         continueButton.addActionListener(this);
-        buyProperty.addActionListener(this);
-        buyHouse.addActionListener(this);
-        buyHotel.addActionListener(this);
-        sellProperty.addActionListener(this);
-        mortgageProperty.addActionListener(this);
-        useGOOJFCard.addActionListener(this);
 
         // Left column.
-        setConstraintsXY(c, 50, 6);
         c.gridwidth = 9;
-        frame.add(buyProperty, c);
+        addAtCoords(buyProperty, 50, 6, c);
 
+        // TODO Replace these guys with addAtCoords.
         c.gridwidth = 5;
-        c.gridy     = 8;
         frame.add(buyHouse, c);
-
-        c.gridy = 9;
-        frame.add(buyHotel, c);
+        addAtCoords(buyHouse, 50, 8, c);
+        addAtCoords(buyHotel, 50, 9, c);
 
         // Right column.
         c.gridwidth = 4;
-        setConstraintsXY(c, 55, 8);
-        frame.add(sellProperty, c);
+        addAtCoords(sellProperty, 55, 8, c);
+        addAtCoords(mortgageProperty, 55, 9, c);
 
-        c.gridy = 9;
-        frame.add(mortgageProperty, c);
-
-        setConstraintsXY(c, 50, 11);
         c.gridwidth = 9;
-        frame.add(useGOOJFCard, c);
+        addAtCoords(useGOOJFCard, 50, 11, c);
 
         // ===============================================================
         // === Add the GUI stuff that displays detailed property info. ===
         // ===============================================================
-        c.gridy      = 20;
         c.gridwidth  = 9;
         c.gridheight = 1;
         guiColor.setOpaque(true);
         // TODO: Add a thin black border around the color.
-        frame.add(guiColor, c);
-
-        c.gridy++;
+        addAtCoords(guiColor, 50, 20, c);
         // TODO: Center the title here.
-        frame.add(guiName, c);
+        addAtCoords(guiName, 50, 21, c);
 
         String[] labels = {"House/Hotel cost", "Rent", "1 house", "2 houses", "3 houses", "4 houses", "1 hotel", "Mortgage value"};
-        JLabel[] labelValues = {guiHouseHotelCost, guiRent, gui1House, gui2House, gui3House, gui4House, guiHotel, guiMortgage};
+        JLabel[] labelValues = {guiHouseHotelCost, guiRent, gui1HouseLabel, gui2HouseLabel, gui3HouseLabel,
+                gui4HouseLabel, guiHotel, guiMortgage};
 
-        c.gridwidth = 4;
-        c.gridy++;
-        frame.add(new JLabel("Cost:"), c);
-        c.gridx += 6;
-        frame.add(guiCost, c);
-
+        addAtCoords(guiCost, 56, 21, c);
         for (int i = 0; i < labels.length; i++) {
             c.gridy++;
             c.gridx -= 6;
@@ -334,7 +310,6 @@ public class GameBoard implements ActionListener {
         // ==============================
         // LEFTOFFHERE: Need to break this into multiple methods or similar.
         //              Maybe break them up by the headings?
-        setConstraintsXY(c, 50, 37);
         c.gridheight = 8;
         c.gridwidth  = 11;
 
@@ -348,7 +323,8 @@ public class GameBoard implements ActionListener {
         // in messages.
         // If I want this, it looks like I'll need to switch messages from a JTextArea
         // to a JTextPane. docs.oracle.com/javase/tutorial/uiswing/components/editorpane.html
-        frame.add(messagesPane, c);
+        // TODO Also looking into using get/putClientProperty to store coordinates inside the objects.
+        addAtCoords(messagesPane, 50, 31, c);
 
         // TODO: Make a single Random object and re-use it?
         Random generator = new Random();
@@ -375,7 +351,7 @@ public class GameBoard implements ActionListener {
     /** Do a turn's worth of gameplay. First the player p rolls/moves. 
      *  Then cash is exchanged. Then players can buy/trade, etc.
      *  Return a 0 if nobody has won yet, or a 1 if someone won the game. */
-    private void doTurn(JFrame frame, Player p) {
+    private void doTurn(Player p) {
         int roll = new Random().nextInt(6) + 1; // Roll a new random number between 1 and 6.
         printStatusAndLog(players[currentPlayer].getName() + " rolls " + roll + ".");
 
@@ -574,7 +550,7 @@ public class GameBoard implements ActionListener {
         String eventSource = e.getActionCommand();
 
         if (eventSource.equals("Continue")) {
-            doTurn(frame, players[currentPlayer]);
+            doTurn(players[currentPlayer]);
             // TODO: Make sure I don't need a bankruptcy check for this event.
             //       Shouldn't, because button's only highlighted when the Player can buy.
             //       Also add plenty of tests for this.
@@ -710,20 +686,20 @@ public class GameBoard implements ActionListener {
         guiRent.setText(t);
     }
     /** Set the 1 house cost text for detailed property info. */
-    public void setGUI1House(String t) {
-        gui1House.setText(t);
+    public void setGUI1HouseLabel(String t) {
+        gui1HouseLabel.setText(t);
     }
     /** Set the 2 houses cost text for detailed property info. */
-    public void setGUI2House(String t) {
-        gui2House.setText(t);
+    public void setGUI2HouseLabel(String t) {
+        gui2HouseLabel.setText(t);
     }
     /** Set the 3 houses cost text for detailed property info. */
-    public void setGUI3House(String t) {
-        gui3House.setText(t);
+    public void setGUI3HouseLabel(String t) {
+        gui3HouseLabel.setText(t);
     }
     /** Set the 4 houses cost text for detailed property info. */
-    public void setGUI4House(String t) {
-        gui4House.setText(t);
+    public void setGUI4HouseLabel(String t) {
+        gui4HouseLabel.setText(t);
     }
     /** Set the hotel cost text for detailed property info. */
     public void setGUIHotel(String t) {
@@ -734,12 +710,11 @@ public class GameBoard implements ActionListener {
         guiMortgage.setText(t);
     }
 
-    /** Helper method to, given a GridBagConstraints object gbc, 
-     *  set its gridx and gridx values to x and y. */
-    // TODO: Add the step of adding the stuff to the frame here?
     // TODO: Add tests.
-    private void setConstraintsXY(GridBagConstraints gbc, int x, int y) {
-        gbc.gridx = x;
-        gbc.gridy = y;
+    /** Add a given JComponent component to this GameBoard at coordinates (x, y). */
+    private void addAtCoords(JComponent component, int x, int y, GridBagConstraints constraints) {
+        constraints.gridx = x;
+        constraints.gridy = y;
+        frame.add(component, constraints);
     }
 }
