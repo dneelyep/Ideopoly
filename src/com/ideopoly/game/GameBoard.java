@@ -194,6 +194,7 @@ public class GameBoard implements ActionListener {
             for (JLabel pos : Arrays.asList(property.getPosition(1), property.getPosition(2),
                     property.getPosition(3), property.getPosition(4))) {
                 addAtCoords(pos, pos.getClientProperty("x"), pos.getClientProperty("y"), c);
+                // TODO REMOVE THIS COMMENT.
             }
         }
 
