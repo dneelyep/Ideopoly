@@ -2,6 +2,7 @@ package com.ideopoly.game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 /** Class that represents a player. Can be a computer or human-controlled character.
  *
@@ -19,30 +20,14 @@ public class Player {
      *  Other values not allowed. */
     private int inJail; // TODO: This needed? Couldn't I just use board position?
 
-    // TODO Add these money values into a map. Will make it much easier to access them, will clean up later switch statements.
-    /** Amount of one dollar bills this player has. */
-    private int ones;
+    // TODO Initialize bills here.
+    // TODO Thoroughly review uses of the bill variables to make improvements.
+    /** A Map of the amounts of all bills belonging to this Player. */
+    private Map<String, Integer> bills = new LinkedHashMap<>();
 
-    /** Amount of five dollar bills this player has. */
-    private int fives;
-
-    /** Amount of ten dollar bills this player has. */
-    private int tens;
-
-    /** Amount of twenty dollar bills this player has. */
-    private int twenties;
-
-    /** Amount of fifty dollar bills this player has. */
-    private int fifties;
-
-    /** Amount of hundred dollar bills this player has. */
-    private int hundreds;
-
+    // TODO I should not have this field. It should be calculated dynamically.
     /** Total amount of money this player has. */
     private int totalMoney;
-
-    /** Amount of five hundred dollar bills this player has. */
-    private int fiveHundreds;
 
     /** Amount of properties this player owns. */
     private int totalPropertiesOwned;
@@ -79,13 +64,13 @@ public class Player {
         inJail = 0; // TODO: This needed? Couldn't I just use board position?
 
         // Initial cash values.
-        ones	      = 5;
-        fives	      = 5;
-        tens	      = 5;
-        twenties      = 6;
-        fifties	      = 2;
-        hundreds      = 2;
-        fiveHundreds  = 2;
+        bills.put("ones", 5);
+        bills.put("fives", 5);
+        bills.put("tens", 5);
+        bills.put("twenties", 6);
+        bills.put("fifties", 2);
+        bills.put("hundreds", 2);
+        bills.put("fiveHundreds", 2);
         updateTotalMoney();
 
         totalPropertiesOwned = 0;
@@ -121,29 +106,15 @@ public class Player {
 
     /** Get the amount of bills of the given type for this player. */
     public int getCash(String billType) {
-        // TODO: Have the string parameter refer to the actual value. So i could just
-        // say "return billType" rather than switch
-
-        switch (billType) {
-            case "ones":
-                return ones;
-            case "fives":
-                return fives;
-            case "tens":
-                return tens;
-            case "twenties":
-                return twenties;
-            case "fifties":
-                return fifties;
-            case "hundreds":
-                return hundreds;
-            case "fiveHundreds": // TODO: Replace this with 'fiveHundreds'
-                return fiveHundreds;
-            case "total":
-                return totalMoney;
-            default:
-                System.out.println("Error! Incorrect argument.");
-                return -15; // TODO: Make this error code thing make sense.
+        if (billType.equals("total")) {
+            return totalMoney;
+        }
+        else if (bills.containsKey(billType)) {
+            return bills.get(billType);
+        }
+        else {
+            System.out.println("Error! Incorrect argument.");
+            return -15; // TODO: Make this error code thing make sense.
         }
     }
 
@@ -157,29 +128,15 @@ public class Player {
         return currentCell;
     }
 
-    /** Set this Player's currency of type t to a given amount a.*/
+    /** Set this Player's currency of type billType to a given amount a. */
     // TODO: With this, is addCash() now obsolete? For example, 
     //       I could setCash("x", p.getCash("x") + 5)
-    public void setCash(String t, int a) {
+    public void setCash(String billType, int a) {
         // TODO: Make sure this handles negative values appropriately.
-        switch (t) {
-            case "ones":         ones  = a;
-                break;
-            case "fives":        fives = a;
-                break;
-            case "tens":         tens  = a;
-                break;
-            case "twenties":     twenties = a;
-                break;
-            case "fifties":      fifties  = a;
-                break;
-            case "hundreds":     hundreds = a;
-                break;
-            case "fiveHundreds": fiveHundreds = a;
-                break;
-            default: System.out.println("Invalid currency amount.");
-                break;
-        }
+        if (bills.containsKey(billType))
+            bills.put(billType, a);
+        else
+            System.out.println("Invalid currency amount.");
 
         updateTotalMoney();
     }
@@ -189,7 +146,9 @@ public class Player {
     //       be returned.
     /** Update this Player's totalMoney value. */
     private void updateTotalMoney() {
-        totalMoney = ( ones + (fives * 5) + (tens * 10) + (twenties * 20) + (fifties * 50) + (hundreds * 100) + (fiveHundreds * 500) );
+        totalMoney = ( bills.get("ones") + (bills.get("fives") * 5)
+                + (bills.get("tens") * 10) + (bills.get("twenties") * 20)
+                + (bills.get("fifties") * 50) + (bills.get("hundreds") * 100) + (bills.get("fiveHundreds") * 500) );
     }
 
     /** Return the number of GOOJF cards this player owns. */
@@ -251,12 +210,6 @@ public class Player {
         return cellIndex;
     }
 
-    /** Remove a property from this player. */
-    public void removeProperty(BoardCell property) {
-        //TODO: Implement this. remove the property, decrement
-        //      number of properties owned, change image.
-    }
-
     /** Have this player roll the dice. */
     public void roll() {
         // TODO: Implement this
@@ -275,27 +228,15 @@ public class Player {
         }
     }
 
-    /** Change this Player's amount a of currency type t. */
-    public void addCash(String t, int a) {
+    /** Change this Player's amount a of currency type billType. */
+    public void addCash(String billType, int a) {
         // TODO: This results in the Player having negative cash values. That's not allowed...
         // TODO: Make sure addCash handles negative values appropriately.
-        switch (t) {
-            case "ones":         ones  += a;
-                break;
-            case "fives":        fives += a;
-                break;
-            case "tens":         tens  += a;
-                break;
-            case "twenties":     twenties += a;
-                break;
-            case "fifties":      fifties  += a;
-                break;
-            case "hundreds":     hundreds += a;
-                break;
-            case "fiveHundreds": fiveHundreds += a;
-                break;
-            default: System.out.println("Invalid currency amount.");
-                break;
+        if (bills.containsKey(billType)) {
+            bills.put(billType, bills.get(billType) + a);
+        }
+        else {
+            System.out.println("Invalid currency amount.");
         }
 
         updateTotalMoney();
@@ -334,38 +275,36 @@ public class Player {
         // The number of a given type of bill spread.
         int numBillsSpread;
 
-        fiveHundreds = 0;
-        hundreds     = 0;
-        fifties	     = 0;
-        twenties     = 0;
-        tens	     = 0;
-        fives	     = 0;
-        ones	     = 0;
+        for (String key : bills.keySet()) {
+            bills.put(key, 0);
+        }
 
         int billValues[]   = {500, 100, 50, 20, 10, 5, 1};
-        int newValues[] = {fiveHundreds, hundreds, fifties, twenties, tens, fives, ones};
+        // TODO Can I replace this with a method of bills? Such as toArray or something?
+        int newValues[] = {bills.get("fiveHundreds"), bills.get("hundreds"), bills.get("fifties"),
+                bills.get("twenties"), bills.get("tens"), bills.get("fives"), bills.get("ones")};
 
         // TODO: Clean up this mess of code.
         //	if input is x, set item[0] to x, and item[x] to fiveHundreds
         //      And update the rest of the behavior accordingly.
 
         if (desiredBill == 1)
-            swapValues(billValues, newValues, 1, ones, 6);
+            swapValues(billValues, newValues, desiredBill, bills.get("ones"), 6);
 
         else if (desiredBill == 5)
-            swapValues(billValues, newValues, 5, fives, 5);
+            swapValues(billValues, newValues, desiredBill, bills.get("fives"), 5);
 
         else if (desiredBill == 10)
-            swapValues(billValues, newValues, 10, tens, 4);
+            swapValues(billValues, newValues, desiredBill, bills.get("tens"), 4);
 
         else if (desiredBill == 20)
-            swapValues(billValues, newValues, 20, twenties, 3);
+            swapValues(billValues, newValues, desiredBill, bills.get("twenties"), 3);
 
         else if (desiredBill == 50)
-            swapValues(billValues, newValues, 50, fifties, 2);
+            swapValues(billValues, newValues, desiredBill, bills.get("fifties"), 2);
 
         else if (desiredBill == 100)
-            swapValues(billValues, newValues, 100, hundreds, 1);
+            swapValues(billValues, newValues, desiredBill, bills.get("hundreds"), 1);
 
         for (int i = 0; i <= 6; i++) {
             if ( (amountNotSpread / billValues[i]) != 0) {
@@ -375,37 +314,37 @@ public class Player {
             }
         }
 
-        fiveHundreds = newValues[0];
-        hundreds     = newValues[1];
-        fifties      = newValues[2];
-        twenties     = newValues[3];
-        tens         = newValues[4];
-        fives	     = newValues[5];
-        ones         = newValues[6];
+        bills.put("fiveHundreds", newValues[0]);
+        bills.put("hundreds", newValues[1]);
+        bills.put("fifties", newValues[2]);
+        bills.put("twenties", newValues[3]);
+        bills.put("tens", newValues[4]);
+        bills.put("fives", newValues[5]);
+        bills.put("ones", newValues[6]);
 
         if (desiredBill == 1) {
-            fiveHundreds = newValues[6];
-            ones         = newValues[0];
+            bills.put("fiveHundreds", newValues[6]);
+            bills.put("ones", newValues[0]);
         }
         else if (desiredBill == 5) {
-            fiveHundreds = newValues[5];
-            fives        = newValues[0];
+            bills.put("fiveHundreds", newValues[5]);
+            bills.put("fives", newValues[0]);
         }
         else if (desiredBill == 10) {
-            fiveHundreds = newValues[4];
-            tens	 = newValues[0];
+            bills.put("fiveHundreds", newValues[4]);
+            bills.put("tens", newValues[0]);
         }
         else if (desiredBill == 20) {
-            fiveHundreds = newValues[3];
-            twenties     = newValues[0];
+            bills.put("fiveHundreds", newValues[3]);
+            bills.put("twenties", newValues[0]);
         }
         else if (desiredBill == 50) {
-            fiveHundreds = newValues[2];
-            fifties      = newValues[0];
+            bills.put("fiveHundreds", newValues[2]);
+            bills.put("fifties", newValues[0]);
         }
         else if (desiredBill == 100) {
-            fiveHundreds = newValues[1];
-            hundreds     = newValues[0];
+            bills.put("fiveHundreds", newValues[1]);
+            bills.put("hundreds", newValues[0]);
         }
     }
 
@@ -416,7 +355,7 @@ public class Player {
         billVals[0]      = firstValue;
         newVals[0]       = first2Value;
         billVals[second] = 500;
-        newVals[second]  = fiveHundreds;
+        newVals[second]  = bills.get("fiveHundreds");
     }
 
     /** Bankrupt this player. */
@@ -425,13 +364,9 @@ public class Player {
         // be considered alive, given money, etc. in this state.
         // TODO: Set the player's text to red when this happens maybe also?
         // TODO: Maybe give the player an isBankrupt field, that can be used elsewhere.
-        ones         = 0;
-        fives	     = 0;
-        tens	     = 0;
-        twenties     = 0;
-        fifties	     = 0;
-        hundreds     = 0;
-        fiveHundreds = 0;
+        for (String key : bills.keySet()) {
+            bills.put(key, 0);
+        }
         updateTotalMoney();
         image = null;
 
@@ -479,7 +414,7 @@ public class Player {
 
             // TODO: Make this array shared between the two methods somehow?
             int[] billInt = {1, 5, 10, 20, 50, 100, 500};
-            for (int i = 0; i <= 6; i++) {
+            for (int i = 0; i < billInt.length; i++) {
                 this.spreadCash(billInt[i]);
                 this.addCash(board.cashValues.get(i), - board.paymentAmounts[i]);
             }

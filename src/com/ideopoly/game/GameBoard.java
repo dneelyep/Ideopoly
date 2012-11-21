@@ -48,7 +48,7 @@ public class GameBoard implements ActionListener {
     // TODO: Can I make this private?
     // TODO Have this class extend JFrame?
     public  int[]   paymentAmounts   = {0, 0, 0, 0, 0, 0, 0};
-    private JFrame  frame	     = new JFrame("Ideopoly | Main game");
+    private JFrame  frame	         = new JFrame("Ideopoly | Main game");
     private JButton continueButton   = new JButton("Continue");//new ImageIcon("images/continueButton.jpg"));
     private JButton buyProperty	     = new JButton("Buy property");
     private JButton buyHouse	     = new JButton("Buy house");
@@ -137,7 +137,7 @@ public class GameBoard implements ActionListener {
     // TODO: Since it's public, javadocs for the field.
     /** An array of the four players who will be playing in this game. player1
      *  is the human player, the rest are computer players. */
-    public Player players[] = {player1, player2, player3, player4};
+    protected ArrayList<Player> players = new ArrayList<>(Arrays.asList(player1, player2, player3, player4));
 
     /** The stack of Chance cards. */
     private Stack<Chance> chanceCards = new Stack<>();
@@ -190,12 +190,8 @@ public class GameBoard implements ActionListener {
         // TODO Re-design the display of player statistics. It's not useful to see tons of info.
         //      Viewing a single player's money/etc all at once would be more useful.
         for (BoardCell property : boardProperties) {
-            BoardPosition[] cellPositions = {property.getPosition(1),
-                    property.getPosition(2),
-                    property.getPosition(3),
-                    property.getPosition(4)};
-
-            for (BoardPosition pos : cellPositions) {
+            for (BoardPosition pos : Arrays.asList(property.getPosition(1), property.getPosition(2),
+                    property.getPosition(3), property.getPosition(4))) {
                 addAtCoords(pos, pos.getXCoord(), pos.getYCoord(), c);
             }
         }
@@ -231,11 +227,11 @@ public class GameBoard implements ActionListener {
                 // Add get out of jail free cards, rather than cash, in the 8th column.
                 // TODO: I should be able to reduce the code in this block a bit. A little tricky, doable.
                 if (j == 9)      // Jail status.
-                    cashLabels[i][j] = new CashCell(60, 1 + i, Integer.toString(players[i].getJailStatus()));
+                    cashLabels[i][j] = new CashCell(60, 1 + i, Integer.toString(players.get(i).getJailStatus()));
                 else if (j == 8) // Get out of jail free cards.
-                    cashLabels[i][j] = new CashCell(59, 1 + i, Integer.toString(players[i].getNumGOOJFCards()));
+                    cashLabels[i][j] = new CashCell(59, 1 + i, Integer.toString(players.get(i).getNumGOOJFCards()));
                 else             // Cash amounts.
-                    cashLabels[i][j] = new CashCell(51 + j, 1 + i, Integer.toString(players[i].getCash(cashValues.get(j))));
+                    cashLabels[i][j] = new CashCell(51 + j, 1 + i, Integer.toString(players.get(i).getCash(cashValues.get(j))));
             }
         }
 
@@ -267,9 +263,7 @@ public class GameBoard implements ActionListener {
         c.gridwidth = 9;
         addAtCoords(buyProperty, 50, 6, c);
 
-        // TODO Replace these guys with addAtCoords.
         c.gridwidth = 5;
-        frame.add(buyHouse, c);
         addAtCoords(buyHouse, 50, 8, c);
         addAtCoords(buyHotel, 50, 9, c);
 
@@ -353,7 +347,7 @@ public class GameBoard implements ActionListener {
      *  Return a 0 if nobody has won yet, or a 1 if someone won the game. */
     private void doTurn(Player p) {
         int roll = new Random().nextInt(6) + 1; // Roll a new random number between 1 and 6.
-        printStatusAndLog(players[currentPlayer].getName() + " rolls " + roll + ".");
+        printStatusAndLog(players.get(currentPlayer).getName() + " rolls " + roll + ".");
 
         // First or second week in jail - player can't do anything but sit and wait.
         if (p.getJailStatus() == 3 || p.getJailStatus() == 2) {
@@ -391,6 +385,8 @@ public class GameBoard implements ActionListener {
     //       figured out.
     public void movePlayer(Player p, int numCells) {
         int landingSpot = p.getIndex() + numCells;
+        // TODO Rather than this landingSpot nonsense, I could associate a set of 4 BoardPositions with every
+        //      BoardCell, and then say if (landed on any of cell.getPositions()) do something.
 
         // Check for valid input first.
         // TODO: Do I even need these? It's possible to move backwards.
@@ -526,11 +522,11 @@ public class GameBoard implements ActionListener {
         for (int i = 0; i <= 3; i++) {
             for (int j = 0; j <= 9; j++) {
                 if (j == 9)
-                    cashLabels[i][j].setText(Integer.toString(players[i].getJailStatus()));
+                    cashLabels[i][j].setText(Integer.toString(players.get(i).getJailStatus()));
                 else if (j == 8)
-                    cashLabels[i][j].setText(Integer.toString(players[i].getNumGOOJFCards()));
+                    cashLabels[i][j].setText(Integer.toString(players.get(i).getNumGOOJFCards()));
                 else
-                    cashLabels[i][j].setText(Integer.toString(players[i].getCash(cashValues.get(j))));
+                    cashLabels[i][j].setText(Integer.toString(players.get(i).getCash(cashValues.get(j))));
             }
 
             // Set all player labels to black
@@ -550,7 +546,7 @@ public class GameBoard implements ActionListener {
         String eventSource = e.getActionCommand();
 
         if (eventSource.equals("Continue")) {
-            doTurn(players[currentPlayer]);
+            doTurn(players.get(currentPlayer));
             // TODO: Make sure I don't need a bankruptcy check for this event.
             //       Shouldn't, because button's only highlighted when the Player can buy.
             //       Also add plenty of tests for this.
