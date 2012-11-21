@@ -41,10 +41,10 @@ public abstract class BoardCell {
     private int cellY;
 
     /** A set of four positions that players stand on, that refer to this BoardCell. */
-    private BoardPosition p1Pos;
-    private BoardPosition p2Pos;
-    private BoardPosition p3Pos;
-    private BoardPosition p4Pos;
+    private JLabel p1Position;
+    private JLabel p2Position;
+    private JLabel p3Position;
+    private JLabel p4Position;
 
     /** The graphical representation of this BoardCell. */
     private BoardCellGUI graphicalRepresentation;
@@ -64,28 +64,28 @@ public abstract class BoardCell {
         board   = g;
 
         if (xPos >= 1 && xPos <= 41 && yPos == 1) {       // Top row.
-            p1Pos = new BoardPosition(cellX + 3, 0);
-            p2Pos = new BoardPosition(cellX + 2, 0);
-            p3Pos = new BoardPosition(cellX + 1, 0);
-            p4Pos = new BoardPosition(cellX,     0);
+            p1Position = initPositionWithCoords(cellX + 3, 0);
+            p2Position = initPositionWithCoords(cellX + 2, 0);
+            p3Position = initPositionWithCoords(cellX + 1, 0);
+            p4Position = initPositionWithCoords(cellX,     0);
         }
         else if (xPos >= 1 && xPos <= 41 && yPos == 41) { // Bottom row.
-            p1Pos = new BoardPosition(cellX,     45);
-            p2Pos = new BoardPosition(cellX + 1, 45);
-            p3Pos = new BoardPosition(cellX + 2, 45);
-            p4Pos = new BoardPosition(cellX + 3, 45);
+            p1Position =initPositionWithCoords(cellX,     45);
+            p2Position =initPositionWithCoords(cellX + 1, 45);
+            p3Position =initPositionWithCoords(cellX + 2, 45);
+            p4Position =initPositionWithCoords(cellX + 3, 45);
         }
         else if (yPos >= 2 && yPos <= 40 && xPos == 1) {  // Left column  (except top/bottom cells).
-            p1Pos = new BoardPosition(0, cellY);
-            p2Pos = new BoardPosition(0, cellY + 1);
-            p3Pos = new BoardPosition(0, cellY + 2);
-            p4Pos = new BoardPosition(0, cellY + 3);
+            p1Position =initPositionWithCoords(0, cellY);
+            p2Position =initPositionWithCoords(0, cellY + 1);
+            p3Position =initPositionWithCoords(0, cellY + 2);
+            p4Position =initPositionWithCoords(0, cellY + 3);
         }
         else if (yPos >= 2 && yPos <= 40 && xPos == 41) { // Right column (except top/bottom cells).
-            p1Pos = new BoardPosition(45, cellY + 3);
-            p2Pos = new BoardPosition(45, cellY + 2);
-            p3Pos = new BoardPosition(45, cellY + 1);
-            p4Pos = new BoardPosition(45, cellY);
+            p1Position =initPositionWithCoords(45, cellY + 3);
+            p2Position =initPositionWithCoords(45, cellY + 2);
+            p3Position =initPositionWithCoords(45, cellY + 1);
+            p4Position =initPositionWithCoords(45, cellY);
         }
 
         graphicalRepresentation = new BoardCellGUI(image);
@@ -147,28 +147,29 @@ public abstract class BoardCell {
      *  with p on this cell. */
     public void setPositionImage(Player p, Icon icon, GameBoard board) {
         if (p == board.player1)
-            p1Pos.setImage(icon);
+            p1Position.setIcon(icon);
         else if (p == board.player2)
-            p2Pos.setImage(icon);
+            p2Position.setIcon(icon);
         else if (p == board.player3)
-            p3Pos.setImage(icon);
+            p3Position.setIcon(icon);
         else if (p == board.player4)
-            p4Pos.setImage(icon);
+            p4Position.setIcon(icon);
     }
 
     /** Returns the BoardPosition associated with Player p. For example,
      *  if p is 2, we return player 2's BoardPosition.*/
+    // TODO This method should be able to be easily implemented more cleanly.
     // TODO: I could make an array of positions, so it would be easy to do, for example,
     //       for (BoardPosition b : boardcell)
-    public BoardPosition getPosition(int p) {
+    public JLabel getPosition(int p) {
         if (p == 1)
-            return p1Pos;
+            return p1Position;
         else if (p == 2)
-            return p2Pos;
+            return p2Position;
         else if (p == 3)
-            return p3Pos;
+            return p3Position;
         else // if (p == 4)
-            return p4Pos;
+            return p4Position;
         // else // TODO: Make this an exception or similar?
         //     System.out.println("Error! Ya tried to get the position of a non-existant Player.");
     }
@@ -313,4 +314,12 @@ public abstract class BoardCell {
     // Start with these, add more if/where needed. Add specifics in inherited classes.
     // TODO: Make creative alternatives to jail/free parking
     // TODO: Add a timer so they don't have time to add up their money?
+
+    /** Create a new JLabel at coordinates (x, y). */
+    private JLabel initPositionWithCoords(int x, int y) {
+        JLabel position = new JLabel("src/com/ideopoly/game/images/noPlayerPresent.jpg");
+        position.putClientProperty("x", x);
+        position.putClientProperty("y", y);
+        return position;
+    }
 } 

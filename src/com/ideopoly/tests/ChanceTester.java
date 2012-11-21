@@ -107,40 +107,40 @@ public class ChanceTester extends TestCase {
         // TODO: Little problem here. I need to know ahead of time what random value will be
         // generated to test it. So I need to get that information from Chance.java
         // roll = rollGenerator.nextInt(6) + 1;
-        // expectedCash = Integer.parseInt(player1.getCash("total")) - (roll * 10);
-        // assertEquals(Integer.parseInt(player1.getCash("total")) < 1500, true);
+        // expectedCash = Integer.parseInt(player1.getCash(CASH_TYPES.total) - (roll * 10);
+        // assertEquals(Integer.parseInt(player1.getCash(CASH_TYPES.total) < 1500, true);
 
         // roll = rollGenerator.nextInt(6) + 1;
-        // expectedCash = Integer.parseInt(player2.getCash("total")) - (roll * 10);
-        // assertEquals(player2.getCash("total"), expectedCash);
+        // expectedCash = Integer.parseInt(player2.getCash(CASH_TYPES.total) - (roll * 10);
+        // assertEquals(player2.getCash(CASH_TYPES.total"), expectedCash);
 
         // roll = rollGenerator.nextInt(6) + 1;
-        // expectedCash = Integer.parseInt(player3.getCash("total")) - (roll * 10);
-        // assertEquals(player3.getCash("total"), expectedCash);
+        // expectedCash = Integer.parseInt(player3.getCash(CASH_TYPES.total) - (roll * 10);
+        // assertEquals(player3.getCash(CASH_TYPES.total"), expectedCash);
 
         // roll = rollGenerator.nextInt(6) + 1;
-        // expectedCash = Integer.parseInt(player4.getCash("total")) - (roll * 10);
-        // assertEquals(player4.getCash("total"), expectedCash);
+        // expectedCash = Integer.parseInt(player4.getCash(CASH_TYPES.total) - (roll * 10);
+        // assertEquals(player4.getCash(CASH_TYPES.total"), expectedCash);
 
         // player1.setPosition(91);
         // player2.setPosition(91);
         // player3.setPosition(91);
         // player4.setPosition(91);
         // TestHelper.doActionsAllPlayers(player1, player2, player3, player4, chanceCard, board);
-        // assertEquals(player1.getCash("total"), 103);
-        // assertEquals(player2.getCash("total"), 102);
-        // assertEquals(player3.getCash("total"), 101);
-        // assertEquals(player4.getCash("total"), 100);
+        // assertEquals(player1.getCash(CASH_TYPES.total"), 103);
+        // assertEquals(player2.getCash(CASH_TYPES.total"), 102);
+        // assertEquals(player3.getCash(CASH_TYPES.total"), 101);
+        // assertEquals(player4.getCash(CASH_TYPES.total"), 100);
 
         // player1.setPosition(147);
         // player2.setPosition(147);
         // player3.setPosition(147);
         // player4.setPosition(147);
         // TestHelper.doActionsAllPlayers(player1, player2, player3, player4, chanceCard, board);
-        // assertEquals(player1.getCash("total"), 143);
-        // assertEquals(player2.getCash("total"), 142);
-        // assertEquals(player3.getCash("total"), 141);
-        // assertEquals(player4.getCash("total"), 140);
+        // assertEquals(player1.getCash(CASH_TYPES.total"), 143);
+        // assertEquals(player2.getCash(CASH_TYPES.total"), 142);
+        // assertEquals(player3.getCash(CASH_TYPES.total"), 141);
+        // assertEquals(player4.getCash(CASH_TYPES.total"), 140);
 
         // TestHelper.doActionsAllPlayers(player1, player2, player3, player4, chanceCard, board);
         // Chance locations: 1 by Reading, 1 by B. &. O., 1 by Short Line
@@ -209,17 +209,17 @@ public class ChanceTester extends TestCase {
         assertEquals(chanceCard.getType(), 6);
         assertEquals(chanceCard.getText(), "Bank pays you dividend of $50");
 
-        int p1Money = player1.getCash("total");
-        int p2Money = player2.getCash("total");
-        int p3Money = player3.getCash("total");
-        int p4Money = player4.getCash("total");
+        int p1Money = player1.getCash(CASH_TYPES.total);
+        int p2Money = player2.getCash(CASH_TYPES.total);
+        int p3Money = player3.getCash(CASH_TYPES.total);
+        int p4Money = player4.getCash(CASH_TYPES.total);
 
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
 
-        assertEquals(player1.getCash("total"), p1Money + 50);
-        assertEquals(player2.getCash("total"), p2Money + 50);
-        assertEquals(player3.getCash("total"), p3Money + 50);
-        assertEquals(player4.getCash("total"), p4Money + 50);
+        assertEquals(player1.getCash(CASH_TYPES.total), p1Money + 50);
+        assertEquals(player2.getCash(CASH_TYPES.total), p2Money + 50);
+        assertEquals(player3.getCash(CASH_TYPES.total), p3Money + 50);
+        assertEquals(player4.getCash(CASH_TYPES.total), p4Money + 50);
     }
 
     @Test
@@ -263,10 +263,10 @@ public class ChanceTester extends TestCase {
         // TODO: Landed on property is income tax, which takes off $200.
         // TODO: This (and other below getCash()'s) isn't working currently.
         //       Need the onLand() method first?
-        // assertEquals(player1.getCash("total"), 1300);
-        // assertEquals(player2.getCash("total"), 1300);
-        // assertEquals(player3.getCash("total"), 1300);
-        // assertEquals(player4.getCash("total"), 1300);
+        // assertEquals(player1.getCash(CASH_TYPES.total"), 1300);
+        // assertEquals(player2.getCash(CASH_TYPES.total"), 1300);
+        // assertEquals(player3.getCash(CASH_TYPES.total"), 1300);
+        // assertEquals(player4.getCash(CASH_TYPES.total"), 1300);
 
 
         // Test on the second Chance spot.
@@ -274,10 +274,10 @@ public class ChanceTester extends TestCase {
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
         TestHelper.assertSameCell(19, board, player1, player2, player3, player4);
 
-        // assertEquals(player1.getCash("total"), 1300);
-        // assertEquals(player2.getCash("total"), 1300);
-        // assertEquals(player3.getCash("total"), 1300);
-        // assertEquals(player4.getCash("total"), 1300);
+        // assertEquals(player1.getCash(CASH_TYPES.total"), 1300);
+        // assertEquals(player2.getCash(CASH_TYPES.total"), 1300);
+        // assertEquals(player3.getCash(CASH_TYPES.total"), 1300);
+        // assertEquals(player4.getCash(CASH_TYPES.total"), 1300);
 
 
         // Test on the third (and last) Chance spot.
@@ -286,10 +286,10 @@ public class ChanceTester extends TestCase {
 
         TestHelper.assertSameCell(33, board, player1, player2, player3, player4);
 
-        // assertEquals(player1.getCash("total"), 1300);
-        // assertEquals(player2.getCash("total"), 1300);
-        // assertEquals(player3.getCash("total"), 1300);
-        // assertEquals(player4.getCash("total"), 1300);
+        // assertEquals(player1.getCash(CASH_TYPES.total"), 1300);
+        // assertEquals(player2.getCash(CASH_TYPES.total"), 1300);
+        // assertEquals(player3.getCash(CASH_TYPES.total"), 1300);
+        // assertEquals(player4.getCash(CASH_TYPES.total"), 1300);
     }
 
     @Test
@@ -339,23 +339,23 @@ public class ChanceTester extends TestCase {
         player1.setCell(0, board);  // Test when we start on Go.
         chanceCard.doActions(player1, board);
         assertEquals(player1.getCell(), board.boardProperties[5]);
-        assertEquals(player1.getCash("total"), 1500);
+        assertEquals(player1.getCash(CASH_TYPES.total), 1500);
 
         player1.setCell(3, board); // Test when we start before Reading RR (Baltic Av. here).
         chanceCard.doActions(player1, board);
         assertEquals(player1.getCell(), board.boardProperties[5]);
-        assertEquals(player1.getCash("total"), 1500);
+        assertEquals(player1.getCash(CASH_TYPES.total), 1500);
 
         player1.setCell(5, board); // Test when we start on Reading RR.
         chanceCard.doActions(player1, board);
         assertEquals(player1.getCell(), board.boardProperties[5]);
-        assertEquals(player1.getCash("total"), 1500); // TODO: Should this count as passing
+        assertEquals(player1.getCash(CASH_TYPES.total), 1500); // TODO: Should this count as passing
         // Go? Even though doing this is impossible by the game's rules...
 
         player1.setCell(6, board); // Test when we start after Reading RR.
         chanceCard.doActions(player1, board);
         assertEquals(player1.getCell(), board.boardProperties[5]);
-        assertEquals(player1.getCash("total"), 1700);
+        assertEquals(player1.getCash(CASH_TYPES.total), 1700);
     }
 
     @Test
@@ -391,7 +391,7 @@ public class ChanceTester extends TestCase {
         TestHelper.assertCash(1500, newBoard.player1, newBoard.player2, newBoard.player3, newBoard.player4);
 
         // TODO: Then test when the main player will be bankrupt.
-        //	player1.addCash("ones", );
+        //	player1.addCash(CASH_TYPES.ones, );
 
 
         // TODO: Test this when the main Player is going to go bankrupt.

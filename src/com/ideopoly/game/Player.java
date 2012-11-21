@@ -23,11 +23,11 @@ public class Player {
     // TODO Initialize bills here.
     // TODO Thoroughly review uses of the bill variables to make improvements.
     /** A Map of the amounts of all bills belonging to this Player. */
-    private Map<String, Integer> bills = new LinkedHashMap<>();
+    private Map<CASH_TYPES, Integer> bills = new LinkedHashMap<>();
 
     // TODO I should not have this field. It should be calculated dynamically.
     /** Total amount of money this player has. */
-    private int totalMoney;
+    private int totalMoney = 0;
 
     /** Amount of properties this player owns. */
     private int totalPropertiesOwned;
@@ -64,13 +64,13 @@ public class Player {
         inJail = 0; // TODO: This needed? Couldn't I just use board position?
 
         // Initial cash values.
-        bills.put("ones", 5);
-        bills.put("fives", 5);
-        bills.put("tens", 5);
-        bills.put("twenties", 6);
-        bills.put("fifties", 2);
-        bills.put("hundreds", 2);
-        bills.put("fiveHundreds", 2);
+        bills.put(CASH_TYPES.ones, 5);
+        bills.put(CASH_TYPES.fives, 5);
+        bills.put(CASH_TYPES.tens, 5);
+        bills.put(CASH_TYPES.twenties, 6);
+        bills.put(CASH_TYPES.fifties, 2);
+        bills.put(CASH_TYPES.hundreds, 2);
+        bills.put(CASH_TYPES.fiveHundreds, 2);
         updateTotalMoney();
 
         totalPropertiesOwned = 0;
@@ -105,17 +105,9 @@ public class Player {
     }
 
     /** Get the amount of bills of the given type for this player. */
-    public int getCash(String billType) {
-        if (billType.equals("total")) {
-            return totalMoney;
-        }
-        else if (bills.containsKey(billType)) {
-            return bills.get(billType);
-        }
-        else {
-            System.out.println("Error! Incorrect argument.");
-            return -15; // TODO: Make this error code thing make sense.
-        }
+    public int getCash(CASH_TYPES cashType) {
+        // TODO Here can't I just use return cashType?
+        return (cashType.getDescription().equals("total") ? totalMoney : bills.get(cashType));
     }
 
     /** Return the image associated with this player. */
@@ -128,27 +120,29 @@ public class Player {
         return currentCell;
     }
 
-    /** Set this Player's currency of type billType to a given amount a. */
+    /** Set this Player's currency of type cashType to a given amount. */
     // TODO: With this, is addCash() now obsolete? For example, 
     //       I could setCash("x", p.getCash("x") + 5)
-    public void setCash(String billType, int a) {
+    public void setCash(CASH_TYPES cashType, int amount) {
         // TODO: Make sure this handles negative values appropriately.
-        if (bills.containsKey(billType))
-            bills.put(billType, a);
-        else
-            System.out.println("Invalid currency amount.");
+        // TODO An error here. CASH_TYPES should not include "total".
+        if (bills.containsKey(cashType))
+            bills.put(cashType, amount);
 
         updateTotalMoney();
     }
 
-    // TODO: Get rid of this method. Also get rid of the totalMoney field. When I want the total,
+    // TODO: Get rid of the totalMoney field, since I can just use this. When I want the total,
     //       all I should have to do is call getCash("total"), and the ones + (fives * 5), etc. should
     //       be returned.
     /** Update this Player's totalMoney value. */
     private void updateTotalMoney() {
-        totalMoney = ( bills.get("ones") + (bills.get("fives") * 5)
-                + (bills.get("tens") * 10) + (bills.get("twenties") * 20)
-                + (bills.get("fifties") * 50) + (bills.get("hundreds") * 100) + (bills.get("fiveHundreds") * 500) );
+        int total = 0;
+        for (CASH_TYPES cashType : CASH_TYPES.values()) {
+            if (cashType != CASH_TYPES.total)
+                total += (bills.get(cashType) * cashType.asInt());
+        }
+        totalMoney = total;
     }
 
     /** Return the number of GOOJF cards this player owns. */
@@ -228,12 +222,12 @@ public class Player {
         }
     }
 
-    /** Change this Player's amount a of currency type billType. */
-    public void addCash(String billType, int a) {
+    /** Change this Player's amount of currency type cashType. */
+    public void addCash(CASH_TYPES cashType, int amount) {
         // TODO: This results in the Player having negative cash values. That's not allowed...
         // TODO: Make sure addCash handles negative values appropriately.
-        if (bills.containsKey(billType)) {
-            bills.put(billType, bills.get(billType) + a);
+        if (bills.containsKey(cashType)) {
+            bills.put(cashType, bills.get(cashType) + amount);
         }
         else {
             System.out.println("Invalid currency amount.");
@@ -275,36 +269,36 @@ public class Player {
         // The number of a given type of bill spread.
         int numBillsSpread;
 
-        for (String key : bills.keySet()) {
+        for (CASH_TYPES key : bills.keySet()) {
             bills.put(key, 0);
         }
 
         int billValues[]   = {500, 100, 50, 20, 10, 5, 1};
         // TODO Can I replace this with a method of bills? Such as toArray or something?
-        int newValues[] = {bills.get("fiveHundreds"), bills.get("hundreds"), bills.get("fifties"),
-                bills.get("twenties"), bills.get("tens"), bills.get("fives"), bills.get("ones")};
+        int newValues[] = {bills.get(CASH_TYPES.fiveHundreds), bills.get(CASH_TYPES.hundreds), bills.get(CASH_TYPES.fifties),
+                bills.get(CASH_TYPES.twenties), bills.get(CASH_TYPES.tens), bills.get(CASH_TYPES.fives), bills.get(CASH_TYPES.ones)};
 
         // TODO: Clean up this mess of code.
         //	if input is x, set item[0] to x, and item[x] to fiveHundreds
         //      And update the rest of the behavior accordingly.
 
         if (desiredBill == 1)
-            swapValues(billValues, newValues, desiredBill, bills.get("ones"), 6);
+            swapValues(billValues, newValues, desiredBill, bills.get(CASH_TYPES.ones), 6);
 
         else if (desiredBill == 5)
-            swapValues(billValues, newValues, desiredBill, bills.get("fives"), 5);
+            swapValues(billValues, newValues, desiredBill, bills.get(CASH_TYPES.fives), 5);
 
         else if (desiredBill == 10)
-            swapValues(billValues, newValues, desiredBill, bills.get("tens"), 4);
+            swapValues(billValues, newValues, desiredBill, bills.get(CASH_TYPES.tens), 4);
 
         else if (desiredBill == 20)
-            swapValues(billValues, newValues, desiredBill, bills.get("twenties"), 3);
+            swapValues(billValues, newValues, desiredBill, bills.get(CASH_TYPES.twenties), 3);
 
         else if (desiredBill == 50)
-            swapValues(billValues, newValues, desiredBill, bills.get("fifties"), 2);
+            swapValues(billValues, newValues, desiredBill, bills.get(CASH_TYPES.fifties), 2);
 
         else if (desiredBill == 100)
-            swapValues(billValues, newValues, desiredBill, bills.get("hundreds"), 1);
+            swapValues(billValues, newValues, desiredBill, bills.get(CASH_TYPES.hundreds), 1);
 
         for (int i = 0; i <= 6; i++) {
             if ( (amountNotSpread / billValues[i]) != 0) {
@@ -314,37 +308,37 @@ public class Player {
             }
         }
 
-        bills.put("fiveHundreds", newValues[0]);
-        bills.put("hundreds", newValues[1]);
-        bills.put("fifties", newValues[2]);
-        bills.put("twenties", newValues[3]);
-        bills.put("tens", newValues[4]);
-        bills.put("fives", newValues[5]);
-        bills.put("ones", newValues[6]);
+        bills.put(CASH_TYPES.fiveHundreds, newValues[0]);
+        bills.put(CASH_TYPES.hundreds, newValues[1]);
+        bills.put(CASH_TYPES.fifties, newValues[2]);
+        bills.put(CASH_TYPES.twenties, newValues[3]);
+        bills.put(CASH_TYPES.tens, newValues[4]);
+        bills.put(CASH_TYPES.fives, newValues[5]);
+        bills.put(CASH_TYPES.ones, newValues[6]);
 
         if (desiredBill == 1) {
-            bills.put("fiveHundreds", newValues[6]);
-            bills.put("ones", newValues[0]);
+            bills.put(CASH_TYPES.fiveHundreds, newValues[6]);
+            bills.put(CASH_TYPES.ones, newValues[0]);
         }
         else if (desiredBill == 5) {
-            bills.put("fiveHundreds", newValues[5]);
-            bills.put("fives", newValues[0]);
+            bills.put(CASH_TYPES.fiveHundreds, newValues[5]);
+            bills.put(CASH_TYPES.fives, newValues[0]);
         }
         else if (desiredBill == 10) {
-            bills.put("fiveHundreds", newValues[4]);
-            bills.put("tens", newValues[0]);
+            bills.put(CASH_TYPES.fiveHundreds, newValues[4]);
+            bills.put(CASH_TYPES.tens, newValues[0]);
         }
         else if (desiredBill == 20) {
-            bills.put("fiveHundreds", newValues[3]);
-            bills.put("twenties", newValues[0]);
+            bills.put(CASH_TYPES.fiveHundreds, newValues[3]);
+            bills.put(CASH_TYPES.twenties, newValues[0]);
         }
         else if (desiredBill == 50) {
-            bills.put("fiveHundreds", newValues[2]);
-            bills.put("fifties", newValues[0]);
+            bills.put(CASH_TYPES.fiveHundreds, newValues[2]);
+            bills.put(CASH_TYPES.fifties, newValues[0]);
         }
         else if (desiredBill == 100) {
-            bills.put("fiveHundreds", newValues[1]);
-            bills.put("hundreds", newValues[0]);
+            bills.put(CASH_TYPES.fiveHundreds, newValues[1]);
+            bills.put(CASH_TYPES.hundreds, newValues[0]);
         }
     }
 
@@ -355,7 +349,7 @@ public class Player {
         billVals[0]      = firstValue;
         newVals[0]       = first2Value;
         billVals[second] = 500;
-        newVals[second]  = bills.get("fiveHundreds");
+        newVals[second]  = bills.get(CASH_TYPES.fiveHundreds);
     }
 
     /** Bankrupt this player. */
@@ -364,8 +358,8 @@ public class Player {
         // be considered alive, given money, etc. in this state.
         // TODO: Set the player's text to red when this happens maybe also?
         // TODO: Maybe give the player an isBankrupt field, that can be used elsewhere.
-        for (String key : bills.keySet()) {
-            bills.put(key, 0);
+        for (CASH_TYPES key : CASH_TYPES.values()) {
+            bills.put(key, new Integer(0));
         }
         updateTotalMoney();
         image = null;
@@ -413,14 +407,19 @@ public class Player {
             board.getCashDistribution(amount);
 
             // TODO: Make this array shared between the two methods somehow?
+            // TODO Get rid of cashValues altogether.
+            // LEFTOFFHERE Making progress using my enum type. Need to use it to replace these and other arrays throughout the program.
+            // TODO spreadCash should take in an enum, rather than an int, again.
             int[] billInt = {1, 5, 10, 20, 50, 100, 500};
             for (int i = 0; i < billInt.length; i++) {
                 this.spreadCash(billInt[i]);
-                this.addCash(board.cashValues.get(i), - board.paymentAmounts[i]);
+                this.addCash(CASH_TYPES.getTypeFromDescription(board.cashValues.get(i)), - board.paymentAmounts[i]);
             }
         }
     }
 
+    // TODO Disassociate this enum from the Player class, since it's not
+    // particularly tied to Players. Put it in its own file.
     /** Have this Player pay Player p amount dollars. This Player
      *  will bankrupt if amount is larger than this Player's totalMoney
      *  value. */
@@ -436,8 +435,8 @@ public class Player {
             int[] billInt = {1, 5, 10, 20, 50, 100, 500}; // TODO: Better array name here.
             for (int i = 0; i < billInt.length; i++) {
                 this.spreadCash(billInt[i]);
-                this.addCash(board.cashValues.get(i), - board.paymentAmounts[i]);
-                p.addCash(board.cashValues.get(i), board.paymentAmounts[i]);
+                this.addCash(CASH_TYPES.getTypeFromDescription(board.cashValues.get(i)), - board.paymentAmounts[i]);
+                p.addCash(CASH_TYPES.getTypeFromDescription(board.cashValues.get(i)), board.paymentAmounts[i]);
             }
 
             // And set cash back to sensible values.

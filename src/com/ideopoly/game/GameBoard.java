@@ -13,8 +13,8 @@ import java.awt.event.*;
 // TODO: Look into replacing arrays with ArrayLists. Could be useful, not sure.
 // TODO: Is the Ideopoly- prefix for the class name needed? Wouldn't GUI/similar work just as well and be shorter?
 
-/** Class to contain the GUI of the game board. A new instance of the class
- *  creates the GUI and sets up various things in it. The game takes place mostly
+/** Class to contain the GUI of the game p. A new instance of the class
+ *  creates the GUI and sets up various things in it. The game takes place mitiontly
  *  inside this GUI - the others are just there to get ya to the point where you
  *  can play the game.
  *
@@ -26,7 +26,7 @@ public class GameBoard implements ActionListener {
      *  this switches to another value. */
     private int gameWon = 0;
 
-    // TODO: Can I make this private?
+    // TODO Should be able to remove this, with my enum in place.
     protected final ArrayList<String> cashValues = new ArrayList<>(
             Arrays.asList("ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"));
 
@@ -117,7 +117,7 @@ public class GameBoard implements ActionListener {
     //       Color.GREEN, I could have IdeopolyGUI.TENNESSEE for referring to the items.
     //       ^-- I'm pretty sure I can do that by making this a static field.
     // And while I'm at it, static imports look worthwhile: http://docs.oracle.com/javase/tutorial/java/package/usepkgs.html
-    // TODO: Possible to make this not public?
+    // TODO: Possible to make this private?
     public final BoardCell boardProperties[] = { go, mediterraneanAv, commChestBottom, balticAv, incomeTax, readingRR, orientalAv, chanceBottom, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChestLeft, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chanceTop, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChestRight, pennsylvaniaAv, shortLineRR, chanceRight, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
 
     /** Represents the player whose turn it currently is to roll. 0-3. */
@@ -127,6 +127,7 @@ public class GameBoard implements ActionListener {
     //       Or just make it private Player currentPlayer.
     //    One idea would be just to make a function that checks the field for each player
     //    and returns the correct player.
+    // TODO currentPlayer should be a Player, not an int.
     private int currentPlayer = 0;
     public Player player1 = new Player(1, new Color(1, 238, 0) , this);
     public Player player2 = new Player(2, new Color(223, 254, 10), this);
@@ -187,12 +188,12 @@ public class GameBoard implements ActionListener {
         c.gridwidth  = 1;
         c.gridheight = 1;
 
-        // TODO Re-design the display of player statistics. It's not useful to see tons of info.
+        // TODO Re-design the display of player statistics. It's not useful to see tons of info.    n
         //      Viewing a single player's money/etc all at once would be more useful.
         for (BoardCell property : boardProperties) {
-            for (BoardPosition pos : Arrays.asList(property.getPosition(1), property.getPosition(2),
+            for (JLabel pos : Arrays.asList(property.getPosition(1), property.getPosition(2),
                     property.getPosition(3), property.getPosition(4))) {
-                addAtCoords(pos, pos.getXCoord(), pos.getYCoord(), c);
+                addAtCoords(pos, pos.getClientProperty("x"), pos.getClientProperty("y"), c);
             }
         }
 
@@ -231,7 +232,8 @@ public class GameBoard implements ActionListener {
                 else if (j == 8) // Get out of jail free cards.
                     cashLabels[i][j] = new CashCell(59, 1 + i, Integer.toString(players.get(i).getNumGOOJFCards()));
                 else             // Cash amounts.
-                    cashLabels[i][j] = new CashCell(51 + j, 1 + i, Integer.toString(players.get(i).getCash(cashValues.get(j))));
+                    cashLabels[i][j] = new CashCell(51 + j, 1 + i, Integer.toString(players.get(i).getCash(CASH_TYPES.getTypeFromDescription((cashValues.get(j))))));
+                // TODO Clean up this ugly hack.
             }
         }
 
@@ -291,6 +293,7 @@ public class GameBoard implements ActionListener {
                 gui4HouseLabel, guiHotel, guiMortgage};
 
         addAtCoords(guiCost, 56, 21, c);
+
         for (int i = 0; i < labels.length; i++) {
             c.gridy++;
             c.gridx -= 6;
@@ -312,7 +315,6 @@ public class GameBoard implements ActionListener {
         messages.setLineWrap(true);
         messages.setColumns(50);
         messagesPane.setColumnHeaderView(new JLabel("Status"));
-
         // TODO: Implement formatted text here. For example, bold the Player names
         // in messages.
         // If I want this, it looks like I'll need to switch messages from a JTextArea
@@ -408,7 +410,7 @@ public class GameBoard implements ActionListener {
                 // TODO: Try to clarify what's happening here. Could probably simplify it.
                 // TODO: If circular linked list works, this conditional should be unneeded.
                 p.setCell((landingSpot - 40), this);
-                p.addCash("hundreds", 2); // Give 200 bucks for passing Go.
+                p.addCash(CASH_TYPES.hundreds, 2); // Give 200 bucks for passing Go.
             }
 
             // Player lands on Go to Jail.
@@ -481,7 +483,7 @@ public class GameBoard implements ActionListener {
 
                     // Have the AI buy the property if it has more than $500.
                     else {
-                        if (p.getCash("total") >= 500) {
+                        if (p.getCash(CASH_TYPES.total) >= 500) {
                             if (   (p.getCell() instanceof  PropagandaOutlet)
                                     || (p.getCell() instanceof  Railroad)
                                     || (p.getCell() instanceof  UtilityCell)) {
@@ -526,7 +528,8 @@ public class GameBoard implements ActionListener {
                 else if (j == 8)
                     cashLabels[i][j].setText(Integer.toString(players.get(i).getNumGOOJFCards()));
                 else
-                    cashLabels[i][j].setText(Integer.toString(players.get(i).getCash(cashValues.get(j))));
+                    cashLabels[i][j].setText(Integer.toString(players.get(i).getCash(CASH_TYPES.getTypeFromDescription(cashValues.get(j)))));
+                // TODO Clean up this ugly hack.
             }
 
             // Set all player labels to black

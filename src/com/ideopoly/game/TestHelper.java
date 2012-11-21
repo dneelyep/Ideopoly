@@ -30,19 +30,19 @@ public class TestHelper extends TestCase {
 
     /** Check that the total cash value v is the same for every Player.*/
     public static void assertCash(int v, Player p1, Player p2, Player p3, Player p4) {
-        assertEquals(p1.getCash("total"), v);
-        assertEquals(p2.getCash("total"), v);
-        assertEquals(p3.getCash("total"), v);
-        assertEquals(p4.getCash("total"), v);
+        assertEquals(p1.getCash(CASH_TYPES.total), v);
+        assertEquals(p2.getCash(CASH_TYPES.total), v);
+        assertEquals(p3.getCash(CASH_TYPES.total), v);
+        assertEquals(p4.getCash(CASH_TYPES.total), v);
     }
 
     /** Make sure the unique total cash values v1/2/3/4 for each 
      *  individual Player are correct. */
     public static void assertCash(int v1, int v2, int v3, int v4, Player p1, Player p2, Player p3, Player p4) {
-        assertEquals(p1.getCash("total"), v1);
-        assertEquals(p2.getCash("total"), v2);
-        assertEquals(p3.getCash("total"), v3);
-        assertEquals(p4.getCash("total"), v4);
+        assertEquals(p1.getCash(CASH_TYPES.total), v1);
+        assertEquals(p2.getCash(CASH_TYPES.total), v2);
+        assertEquals(p3.getCash(CASH_TYPES.total), v3);
+        assertEquals(p4.getCash(CASH_TYPES.total), v4);
     }
 
 
