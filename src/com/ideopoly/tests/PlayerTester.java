@@ -21,14 +21,14 @@ public class PlayerTester extends TestCase {
         Player testPlayer4 = new Player(4, new Color(19, 214, 242), board);
 
         assertEquals(testPlayer.getJailStatus(),         0);
-        assertEquals(testPlayer.getCash("ones"),         5);
-        assertEquals(testPlayer.getCash("fives"),        5);
-        assertEquals(testPlayer.getCash("tens"),         5);
-        assertEquals(testPlayer.getCash("twenties"),     6);
-        assertEquals(testPlayer.getCash("fifties"),      2);
-        assertEquals(testPlayer.getCash("hundreds"),     2);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 2);
-        assertEquals(testPlayer.getCash("total"),        1500);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         5);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),        5);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         5);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     6);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      2);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     2);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 2);
+        assertEquals(testPlayer.getCash(CASH_TYPES.total),        1500);
 
         assertEquals(testPlayer.getNumHouses(),          0);
         assertEquals(testPlayer.getNumHotels(),          0);
@@ -73,170 +73,163 @@ public class PlayerTester extends TestCase {
         assertEquals(testPlayer.getNumOwnedProperties(), 0);
 
         testPlayer.bankruptPlayer(board);
-        assertEquals(testPlayer.getCash("ones"),         0);
-        assertEquals(testPlayer.getCash("fives"),        0);
-        assertEquals(testPlayer.getCash("tens"),         0);
-        assertEquals(testPlayer.getCash("twenties"),     0);
-        assertEquals(testPlayer.getCash("fifties"),      0);
-        assertEquals(testPlayer.getCash("hundreds"),     0);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 0);
-        assertEquals(testPlayer.getCash("total"),        0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),        0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.total),        0);
         assertEquals(testPlayer.getImage(),              null);
 
-        testPlayer.addCash("ones", testPlayer.getCash("ones") + 20);
-        testPlayer.addCash("fives", 5);
-        testPlayer.addCash("tens", 10);
-        testPlayer.addCash("twenties", 15);
-        testPlayer.addCash("fifties", 80);
-        testPlayer.addCash("hundreds", -12);
-        testPlayer.addCash("fiveHundreds", 10);
+        testPlayer.addCash(CASH_TYPES.ones, testPlayer.getCash(CASH_TYPES.ones) + 20);
+        testPlayer.addCash(CASH_TYPES.fives, 5);
+        testPlayer.addCash(CASH_TYPES.tens, 10);
+        testPlayer.addCash(CASH_TYPES.twenties, 15);
+        testPlayer.addCash(CASH_TYPES.fifties, 80);
+        testPlayer.addCash(CASH_TYPES.hundreds, -12);
+        testPlayer.addCash(CASH_TYPES.fiveHundreds, 10);
 
-        assertEquals(testPlayer.getCash("ones"),         20);
-        assertEquals(testPlayer.getCash("fives"),         5);
-        assertEquals(testPlayer.getCash("tens"),         10);
-        assertEquals(testPlayer.getCash("twenties"),     15);
-        assertEquals(testPlayer.getCash("fifties"),      80);
-        assertEquals(testPlayer.getCash("hundreds"),    -12);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 10);
-        assertEquals(testPlayer.getCash("total"),      8245);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         20);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),         5);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         10);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     15);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      80);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),    -12);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 10);
+        assertEquals(testPlayer.getCash(CASH_TYPES.total),      8245);
 
         // TODO: More tests for negative inputs?
 
         // Test that correct values are set for the spreadCash() method.
         testPlayer.spreadCash(500);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 16);
-        assertEquals(testPlayer.getCash("hundreds"),     2);
-        assertEquals(testPlayer.getCash("fifties"),      0);
-        assertEquals(testPlayer.getCash("twenties"),     2);
-        assertEquals(testPlayer.getCash("tens"),         0);
-        assertEquals(testPlayer.getCash("fives"),        1);
-        assertEquals(testPlayer.getCash("ones"),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 16);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     2);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     2);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),        1);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
         testPlayer.spreadCash(100);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 0);
-        assertEquals(testPlayer.getCash("hundreds"),    82);
-        assertEquals(testPlayer.getCash("fifties"),      0);
-        assertEquals(testPlayer.getCash("twenties"),     2);
-        assertEquals(testPlayer.getCash("tens"),         0);
-        assertEquals(testPlayer.getCash("fives"),        1);
-        assertEquals(testPlayer.getCash("ones"),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),    82);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     2);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),        1);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
         testPlayer.spreadCash(50);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 0);
-        assertEquals(testPlayer.getCash("hundreds"),     0);
-        assertEquals(testPlayer.getCash("fifties"),    164);
-        assertEquals(testPlayer.getCash("twenties"),     2);
-        assertEquals(testPlayer.getCash("tens"),         0);
-        assertEquals(testPlayer.getCash("fives"),        1);
-        assertEquals(testPlayer.getCash("ones"),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),    164);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     2);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),        1);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
         testPlayer.spreadCash(20);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 0);
-        assertEquals(testPlayer.getCash("hundreds"),     0);
-        assertEquals(testPlayer.getCash("fifties"),      0);
-        assertEquals(testPlayer.getCash("twenties"),   412);
-        assertEquals(testPlayer.getCash("tens"),         0);
-        assertEquals(testPlayer.getCash("fives"),        1);
-        assertEquals(testPlayer.getCash("ones"),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),   412);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),        1);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
         testPlayer.spreadCash(10);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 0);
-        assertEquals(testPlayer.getCash("hundreds"),     0);
-        assertEquals(testPlayer.getCash("fifties"),      0);
-        assertEquals(testPlayer.getCash("twenties"),     0);
-        assertEquals(testPlayer.getCash("tens"),       824);
-        assertEquals(testPlayer.getCash("fives"),        1);
-        assertEquals(testPlayer.getCash("ones"),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),       824);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),        1);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
         testPlayer.spreadCash(5);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 0);
-        assertEquals(testPlayer.getCash("hundreds"),     0);
-        assertEquals(testPlayer.getCash("fifties"),      0);
-        assertEquals(testPlayer.getCash("twenties"),     0);
-        assertEquals(testPlayer.getCash("tens"),         0);
-        assertEquals(testPlayer.getCash("fives"),     1649);
-        assertEquals(testPlayer.getCash("ones"),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),     1649);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
         testPlayer.spreadCash(1);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 0);
-        assertEquals(testPlayer.getCash("hundreds"),     0);
-        assertEquals(testPlayer.getCash("fifties"),      0);
-        assertEquals(testPlayer.getCash("twenties"),     0);
-        assertEquals(testPlayer.getCash("tens"),         0);
-        assertEquals(testPlayer.getCash("fives"),        0);
-        assertEquals(testPlayer.getCash("ones"),      8245);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),        0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),      8245);
 
 
         testPlayer.bankruptPlayer(board);
         testPlayer.spreadCash(500);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 0);
-        assertEquals(testPlayer.getCash("hundreds"),     0);
-        assertEquals(testPlayer.getCash("fifties"),      0);
-        assertEquals(testPlayer.getCash("twenties"),     0);
-        assertEquals(testPlayer.getCash("tens"),         0);
-        assertEquals(testPlayer.getCash("fives"),        0);
-        assertEquals(testPlayer.getCash("ones"),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),        0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
         testPlayer.spreadCash(100);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 0);
-        assertEquals(testPlayer.getCash("hundreds"),     0);
-        assertEquals(testPlayer.getCash("fifties"),      0);
-        assertEquals(testPlayer.getCash("twenties"),     0);
-        assertEquals(testPlayer.getCash("tens"),         0);
-        assertEquals(testPlayer.getCash("fives"),        0);
-        assertEquals(testPlayer.getCash("ones"),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),        0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
         testPlayer.spreadCash(50);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 0);
-        assertEquals(testPlayer.getCash("hundreds"),     0);
-        assertEquals(testPlayer.getCash("fifties"),      0);
-        assertEquals(testPlayer.getCash("twenties"),     0);
-        assertEquals(testPlayer.getCash("tens"),         0);
-        assertEquals(testPlayer.getCash("fives"),        0);
-        assertEquals(testPlayer.getCash("ones"),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),        0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
         testPlayer.spreadCash(20);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 0);
-        assertEquals(testPlayer.getCash("hundreds"),     0);
-        assertEquals(testPlayer.getCash("fifties"),      0);
-        assertEquals(testPlayer.getCash("twenties"),     0);
-        assertEquals(testPlayer.getCash("tens"),         0);
-        assertEquals(testPlayer.getCash("fives"),        0);
-        assertEquals(testPlayer.getCash("ones"),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),        0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
         testPlayer.spreadCash(10);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 0);
-        assertEquals(testPlayer.getCash("hundreds"),     0);
-        assertEquals(testPlayer.getCash("fifties"),      0);
-        assertEquals(testPlayer.getCash("twenties"),     0);
-        assertEquals(testPlayer.getCash("tens"),         0);
-        assertEquals(testPlayer.getCash("fives"),        0);
-        assertEquals(testPlayer.getCash("ones"),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),        0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
         testPlayer.spreadCash(5);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 0);
-        assertEquals(testPlayer.getCash("hundreds"),     0);
-        assertEquals(testPlayer.getCash("fifties"),      0);
-        assertEquals(testPlayer.getCash("twenties"),     0);
-        assertEquals(testPlayer.getCash("tens"),         0);
-        assertEquals(testPlayer.getCash("fives"),        0);
-        assertEquals(testPlayer.getCash("ones"),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),        0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
         testPlayer.spreadCash(1);
-        assertEquals(testPlayer.getCash("fiveHundreds"), 0);
-        assertEquals(testPlayer.getCash("hundreds"),     0);
-        assertEquals(testPlayer.getCash("fifties"),      0);
-        assertEquals(testPlayer.getCash("twenties"),     0);
-        assertEquals(testPlayer.getCash("tens"),         0);
-        assertEquals(testPlayer.getCash("fives"),        0);
-        assertEquals(testPlayer.getCash("ones"),         0);
-
-        // Try some invalid arguments to getCash().
-        assertEquals(testPlayer.getCash("one"),  -15);
-        assertEquals(testPlayer.getCash("1"),    -15);
-        assertEquals(testPlayer.getCash("500"),  -15);
-        assertEquals(testPlayer.getCash("500s"), -15);
-
+        assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.twenties),     0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.tens),         0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.fives),        0);
+        assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
         // image = new ImageIcon("images/p1Present.jpg"); // getImage()
 

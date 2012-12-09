@@ -88,23 +88,23 @@ public class CommunityChestTester extends TestCase {
 
 	// Now bankrupt the player.
 	// TODO: Use the player's bankruptPlayer() method here? Or make a helper method?
-	p1.setCash("ones",         1);
-	p1.setCash("fives",        0);
-	p1.setCash("tens",         0);
-	p1.setCash("twenties",     0);
-	p1.setCash("fifties",      0);
-	p1.setCash("hundreds",     0);
-	p1.setCash("fiveHundreds", 0);
+	p1.setCash(CASH_TYPES.ones,         1);
+	p1.setCash(CASH_TYPES.fives,        0);
+	p1.setCash(CASH_TYPES.tens,         0);
+	p1.setCash(CASH_TYPES.twenties,     0);
+	p1.setCash(CASH_TYPES.fifties,      0);
+	p1.setCash(CASH_TYPES.hundreds,     0);
+	p1.setCash(CASH_TYPES.fiveHundreds, 0);
 	commChestCard.doActions(p1, board);
 
-	assertEquals(p1.getCash("total"),        0);
-	assertEquals(p1.getCash("ones"),         0);
-	assertEquals(p1.getCash("fives"),        0);
-	assertEquals(p1.getCash("tens"),         0);
-	assertEquals(p1.getCash("twenties"),     0);
-	assertEquals(p1.getCash("fifties"),      0);
-	assertEquals(p1.getCash("hundreds"),     0);
-	assertEquals(p1.getCash("fiveHundreds"), 0);
+	assertEquals(p1.getCash(CASH_TYPES.total),        0);
+	assertEquals(p1.getCash(CASH_TYPES.ones),         0);
+	assertEquals(p1.getCash(CASH_TYPES.fives),        0);
+	assertEquals(p1.getCash(CASH_TYPES.tens),         0);
+	assertEquals(p1.getCash(CASH_TYPES.twenties),     0);
+	assertEquals(p1.getCash(CASH_TYPES.fifties),      0);
+	assertEquals(p1.getCash(CASH_TYPES.hundreds),     0);
+	assertEquals(p1.getCash(CASH_TYPES.fiveHundreds), 0);
     }
 
     @Test
@@ -317,43 +317,43 @@ public class CommunityChestTester extends TestCase {
 
 	// TODO: This pattern of testing is repeated. Can probably refactor.
 	// ...and then when a player will bankrupt.
-	p1.setCash("ones",         1);
-	p1.setCash("fives",        0);
-	p1.setCash("tens",         0);
-	p1.setCash("twenties",     0);
-	p1.setCash("fifties",      0);
-	p1.setCash("hundreds",     0);
-	p1.setCash("fiveHundreds", 0);
+	p1.setCash(CASH_TYPES.ones,         1);
+	p1.setCash(CASH_TYPES.fives,        0);
+	p1.setCash(CASH_TYPES.tens,         0);
+	p1.setCash(CASH_TYPES.twenties,     0);
+	p1.setCash(CASH_TYPES.fifties,      0);
+	p1.setCash(CASH_TYPES.hundreds,     0);
+	p1.setCash(CASH_TYPES.fiveHundreds, 0);
 	commChestCard.doActions(p1, board);
 
-	assertEquals(p1.getCash("total"),        0);
-	assertEquals(p1.getCash("ones"),         0);
-	assertEquals(p1.getCash("fives"),        0);
-	assertEquals(p1.getCash("tens"),         0);
-	assertEquals(p1.getCash("twenties"),     0);
-	assertEquals(p1.getCash("fifties"),      0);
-	assertEquals(p1.getCash("hundreds"),     0);
-	assertEquals(p1.getCash("fiveHundreds"), 0);
+	assertEquals(p1.getCash(CASH_TYPES.total),        0);
+	assertEquals(p1.getCash(CASH_TYPES.ones),         0);
+	assertEquals(p1.getCash(CASH_TYPES.fives),        0);
+	assertEquals(p1.getCash(CASH_TYPES.tens),         0);
+	assertEquals(p1.getCash(CASH_TYPES.twenties),     0);
+	assertEquals(p1.getCash(CASH_TYPES.fifties),      0);
+	assertEquals(p1.getCash(CASH_TYPES.hundreds),     0);
+	assertEquals(p1.getCash(CASH_TYPES.fiveHundreds), 0);
 
 
 	// And when the amount payed is the Player's exact total of cash.
-	p1.setCash("ones",         0);
-	p1.setCash("fives",        0);
-	p1.setCash("tens",         0);
-	p1.setCash("twenties",     0);
-	p1.setCash("fifties",      0);
-	p1.setCash("hundreds",     1);
-	p1.setCash("fiveHundreds", 0);
+	p1.setCash(CASH_TYPES.ones,         0);
+	p1.setCash(CASH_TYPES.fives,        0);
+	p1.setCash(CASH_TYPES.tens,         0);
+	p1.setCash(CASH_TYPES.twenties,     0);
+	p1.setCash(CASH_TYPES.fifties,      0);
+	p1.setCash(CASH_TYPES.hundreds,     1);
+	p1.setCash(CASH_TYPES.fiveHundreds, 0);
 	commChestCard.doActions(p1, board);
 
-	assertEquals(p1.getCash("total"),        0);
-	assertEquals(p1.getCash("ones"),         0);
-	assertEquals(p1.getCash("fives"),        0);
-	assertEquals(p1.getCash("tens"),         0);
-	assertEquals(p1.getCash("twenties"),     0);
-	assertEquals(p1.getCash("fifties"),      0);
-	assertEquals(p1.getCash("hundreds"),     0);
-	assertEquals(p1.getCash("fiveHundreds"), 0);
+	assertEquals(p1.getCash(CASH_TYPES.total),        0);
+	assertEquals(p1.getCash(CASH_TYPES.ones),         0);
+	assertEquals(p1.getCash(CASH_TYPES.fives),        0);
+	assertEquals(p1.getCash(CASH_TYPES.tens),         0);
+	assertEquals(p1.getCash(CASH_TYPES.twenties),     0);
+	assertEquals(p1.getCash(CASH_TYPES.fifties),      0);
+	assertEquals(p1.getCash(CASH_TYPES.hundreds),     0);
+	assertEquals(p1.getCash(CASH_TYPES.fiveHundreds), 0);
     }
 
     @Test
@@ -380,43 +380,43 @@ public class CommunityChestTester extends TestCase {
 	TestHelper.assertSameCell(33, board, p1, p2, p3, p4);
 
 	// ...and then when a player will bankrupt.
-	p1.setCash("ones",         1);
-	p1.setCash("fives",        0);
-	p1.setCash("tens",         0);
-	p1.setCash("twenties",     0);
-	p1.setCash("fifties",      0);
-	p1.setCash("hundreds",     0);
-	p1.setCash("fiveHundreds", 0);
+	p1.setCash(CASH_TYPES.ones,         1);
+	p1.setCash(CASH_TYPES.fives,        0);
+	p1.setCash(CASH_TYPES.tens,         0);
+	p1.setCash(CASH_TYPES.twenties,     0);
+	p1.setCash(CASH_TYPES.fifties,      0);
+	p1.setCash(CASH_TYPES.hundreds,     0);
+	p1.setCash(CASH_TYPES.fiveHundreds, 0);
 	commChestCard.doActions(p1, board);
 
-	assertEquals(p1.getCash("total"),        0);
-	assertEquals(p1.getCash("ones"),         0);
-	assertEquals(p1.getCash("fives"),        0);
-	assertEquals(p1.getCash("tens"),         0);
-	assertEquals(p1.getCash("twenties"),     0);
-	assertEquals(p1.getCash("fifties"),      0);
-	assertEquals(p1.getCash("hundreds"),     0);
-	assertEquals(p1.getCash("fiveHundreds"), 0);
+	assertEquals(p1.getCash(CASH_TYPES.total),        0);
+	assertEquals(p1.getCash(CASH_TYPES.ones),         0);
+	assertEquals(p1.getCash(CASH_TYPES.fives),        0);
+	assertEquals(p1.getCash(CASH_TYPES.tens),         0);
+	assertEquals(p1.getCash(CASH_TYPES.twenties),     0);
+	assertEquals(p1.getCash(CASH_TYPES.fifties),      0);
+	assertEquals(p1.getCash(CASH_TYPES.hundreds),     0);
+	assertEquals(p1.getCash(CASH_TYPES.fiveHundreds), 0);
 
 
 	// And when the amount payed is the Player's exact total of cash.
-	p1.setCash("ones",         0);
-	p1.setCash("fives",        0);
-	p1.setCash("tens",         0);
-	p1.setCash("twenties",     0);
-	p1.setCash("fifties",      1);
-	p1.setCash("hundreds",     0);
-	p1.setCash("fiveHundreds", 0);
+	p1.setCash(CASH_TYPES.ones,         0);
+	p1.setCash(CASH_TYPES.fives,        0);
+	p1.setCash(CASH_TYPES.tens,         0);
+	p1.setCash(CASH_TYPES.twenties,     0);
+	p1.setCash(CASH_TYPES.fifties,      1);
+	p1.setCash(CASH_TYPES.hundreds,     0);
+	p1.setCash(CASH_TYPES.fiveHundreds, 0);
 	commChestCard.doActions(p1, board);
 
-	assertEquals(p1.getCash("total"),        0);
-	assertEquals(p1.getCash("ones"),         0);
-	assertEquals(p1.getCash("fives"),        0);
-	assertEquals(p1.getCash("tens"),         0);
-	assertEquals(p1.getCash("twenties"),     0);
-	assertEquals(p1.getCash("fifties"),      0);
-	assertEquals(p1.getCash("hundreds"),     0);
-	assertEquals(p1.getCash("fiveHundreds"), 0);
+	assertEquals(p1.getCash(CASH_TYPES.total),        0);
+	assertEquals(p1.getCash(CASH_TYPES.ones),         0);
+	assertEquals(p1.getCash(CASH_TYPES.fives),        0);
+	assertEquals(p1.getCash(CASH_TYPES.tens),         0);
+	assertEquals(p1.getCash(CASH_TYPES.twenties),     0);
+	assertEquals(p1.getCash(CASH_TYPES.fifties),      0);
+	assertEquals(p1.getCash(CASH_TYPES.hundreds),     0);
+	assertEquals(p1.getCash(CASH_TYPES.fiveHundreds), 0);
     }
 
     @Test
@@ -454,49 +454,49 @@ public class CommunityChestTester extends TestCase {
 
 	// Test when the player has no property.
 	commChestCard.doActions(p1, board);
-	assertEquals(p1.getCash("total"), 1500);
+	assertEquals(p1.getCash(CASH_TYPES.total), 1500);
 
 	// Then when the player has 1 house.
 	p1.setNumHouses(1);
 	commChestCard.doActions(p1, board);
-	assertEquals(p1.getCash("total"), 1460);
+	assertEquals(p1.getCash(CASH_TYPES.total), 1460);
 
 	// Then when the player has 2 houses.
 	p1.setNumHouses(2);
 	commChestCard.doActions(p1, board);
-	assertEquals(p1.getCash("total"), 1380);
+	assertEquals(p1.getCash(CASH_TYPES.total), 1380);
 
 	// Then when the player has 3 houses.
 	p1.setNumHouses(3);
 	commChestCard.doActions(p1, board);
-	assertEquals(p1.getCash("total"), 1260);
+	assertEquals(p1.getCash(CASH_TYPES.total), 1260);
 
 	// Then when the player has 4 houses.
 	p1.setNumHouses(4);
 	commChestCard.doActions(p1, board);
-	assertEquals(p1.getCash("total"), 1100);
+	assertEquals(p1.getCash(CASH_TYPES.total), 1100);
 
 	// Then when the player has 5 houses.
 	p1.setNumHouses(5);
 	commChestCard.doActions(p1, board);
-	assertEquals(p1.getCash("total"), 900);
+	assertEquals(p1.getCash(CASH_TYPES.total), 900);
 
 	// Then when the player has 1 hotel.
 	p1.setNumHouses(0);
 	p1.setNumHotels(1);
 	commChestCard.doActions(p1, board);
-	assertEquals(p1.getCash("total"), 785);
+	assertEquals(p1.getCash(CASH_TYPES.total), 785);
 
 	// Then when the player has 2 hotels.
 	p1.setNumHotels(2);
 	commChestCard.doActions(p1, board);
-	assertEquals(p1.getCash("total"), 555);
+	assertEquals(p1.getCash(CASH_TYPES.total), 555);
 
 	// And lastly when the player will be bankrupt by this.
 	p1.setNumHouses(10); // $400
 	p1.setNumHotels(2);  // $300
 	commChestCard.doActions(p1, board);
-	assertEquals(p1.getCash("total"), 0);
+	assertEquals(p1.getCash(CASH_TYPES.total), 0);
     }
 
 

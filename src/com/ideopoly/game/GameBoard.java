@@ -231,7 +231,7 @@ public class GameBoard implements ActionListener {
                 else if (j == 8) // Get out of jail free cards.
                     cashLabels[i][j] = new CashCell(59, 1 + i, Integer.toString(players.get(i).getNumGOOJFCards()));
                 else             // Cash amounts.
-                    cashLabels[i][j] = new CashCell(51 + j, 1 + i, Integer.toString(players.get(i).getCash(cashValues.get(j))));
+                    cashLabels[i][j] = new CashCell(51 + j, 1 + i, Integer.toString(players.get(i).getCash(CASH_TYPES.valueOf(cashValues.get(j)))));
             }
         }
 
@@ -408,7 +408,7 @@ public class GameBoard implements ActionListener {
                 // TODO: Try to clarify what's happening here. Could probably simplify it.
                 // TODO: If circular linked list works, this conditional should be unneeded.
                 p.setCell((landingSpot - 40), this);
-                p.addCash("hundreds", 2); // Give 200 bucks for passing Go.
+                p.addCash(CASH_TYPES.hundreds, 2); // Give 200 bucks for passing Go.
             }
 
             // Player lands on Go to Jail.
@@ -481,7 +481,7 @@ public class GameBoard implements ActionListener {
 
                     // Have the AI buy the property if it has more than $500.
                     else {
-                        if (p.getCash("total") >= 500) {
+                        if (p.getCash(CASH_TYPES.total) >= 500) {
                             if (   (p.getCell() instanceof  PropagandaOutlet)
                                     || (p.getCell() instanceof  Railroad)
                                     || (p.getCell() instanceof  UtilityCell)) {
@@ -526,7 +526,7 @@ public class GameBoard implements ActionListener {
                 else if (j == 8)
                     cashLabels[i][j].setText(Integer.toString(players.get(i).getNumGOOJFCards()));
                 else
-                    cashLabels[i][j].setText(Integer.toString(players.get(i).getCash(cashValues.get(j))));
+                    cashLabels[i][j].setText(Integer.toString(players.get(i).getCash(CASH_TYPES.valueOf(cashValues.get(j)))));
             }
 
             // Set all player labels to black

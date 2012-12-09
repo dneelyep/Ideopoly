@@ -76,9 +76,9 @@ public class CommunityChest {
     public void doActions(Player p, GameBoard board) { // TODO: Rename this to drawCard() or something better.
         switch (this.cardType) {
             case 1: p.setCell(0, board); // "Advance to Go (Collect $200)"
-                p.addCash("hundreds", 2);
+                p.addCash(CASH_TYPES.hundreds, 2);
                 break;
-            case 2: p.addCash("hundreds", 2); // "Bank error in your favor – collect $200"
+            case 2: p.addCash(CASH_TYPES.hundreds, 2); // "Bank error in your favor – collect $200"
                 break;
             case 3:   // "Doctor's fees – Pay $50"
                 p.payBank(50, board);
@@ -104,13 +104,13 @@ public class CommunityChest {
                         }
                         else {
                             player.spreadCash(10);
-                            player.addCash("tens", -1);
+                            player.addCash(CASH_TYPES.tens, -1);
                             player.spreadCash(500);
                         }
                     }
                 }
 
-                p.addCash("tens", numNotBankrupt);
+                p.addCash(CASH_TYPES.tens, numNotBankrupt);
                 break;
             case 7:   // "Grand Opera Night – collect $50 from every player for opening night seats"
                 numNotBankrupt = 3;
@@ -123,17 +123,17 @@ public class CommunityChest {
                         }
                         else {
                             player.spreadCash(50);
-                            player.addCash("fifties", -1);
+                            player.addCash(CASH_TYPES.fifties, -1);
                             player.spreadCash(500);
                         }
                     }
                 }
 
-                p.addCash("fifties", numNotBankrupt);
+                p.addCash(CASH_TYPES.fifties, numNotBankrupt);
                 break;
-            case 8: p.addCash("tens", 2);     // "Income Tax refund – collect $20"
+            case 8: p.addCash(CASH_TYPES.tens, 2);     // "Income Tax refund – collect $20"
                 break;
-            case 9: p.addCash("hundreds", 1); // "Life Insurance Matures – collect $100"
+            case 9: p.addCash(CASH_TYPES.hundreds, 1); // "Life Insurance Matures – collect $100"
                 break;
             case 10:  // "Pay Hospital Fees of $100"
                 p.payBank(100, board);
@@ -141,20 +141,20 @@ public class CommunityChest {
             case 11:  // "Pay School Fees of $50"
                 p.payBank(50, board);
                 break;
-            case 12: p.addCash("twenties", 1); // "Receive $25 Consultancy Fee"
-                p.addCash("fives", 1);
+            case 12: p.addCash(CASH_TYPES.twenties, 1); // "Receive $25 Consultancy Fee"
+                p.addCash(CASH_TYPES.fives, 1);
                 break;
             case 13:  // "You are assessed for street repairs – $40 per house, $115 per hotel"
                 int chargeAmount = (p.getNumHouses() * 40) + (p.getNumHotels() * 115);
                 p.payBank(chargeAmount, board);
                 break;
-            case 14: p.addCash("tens", 1);     // "You have won second prize in a beauty contest– collect $10"
+            case 14: p.addCash(CASH_TYPES.tens, 1);     // "You have won second prize in a beauty contest– collect $10"
                 break;
-            case 15: p.addCash("hundreds", 1); // "You inherit $100"
+            case 15: p.addCash(CASH_TYPES.hundreds, 1); // "You inherit $100"
                 break;
-            case 16: p.addCash("fifties", 1);  // "From sale of stock you get $50"
+            case 16: p.addCash(CASH_TYPES.fifties, 1);  // "From sale of stock you get $50"
                 break;
-            case 17: p.addCash("hundreds", 1); // "Holiday Fund matures - Receive $100"
+            case 17: p.addCash(CASH_TYPES.hundreds, 1); // "Holiday Fund matures - Receive $100"
                 break;
 
             default: System.out.println("Wrong Community Chest value!");
