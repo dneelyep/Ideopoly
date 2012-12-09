@@ -103,7 +103,7 @@ public class PlayerTester extends TestCase {
         // TODO: More tests for negative inputs?
 
         // Test that correct values are set for the spreadCash() method.
-        testPlayer.spreadCash(500);
+        testPlayer.spreadCash(CASH_TYPES.fiveHundreds);
         assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 16);
         assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     2);
         assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
@@ -112,7 +112,7 @@ public class PlayerTester extends TestCase {
         assertEquals(testPlayer.getCash(CASH_TYPES.fives),        1);
         assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
-        testPlayer.spreadCash(100);
+        testPlayer.spreadCash(CASH_TYPES.hundreds);
         assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
         assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),    82);
         assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
@@ -121,7 +121,7 @@ public class PlayerTester extends TestCase {
         assertEquals(testPlayer.getCash(CASH_TYPES.fives),        1);
         assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
-        testPlayer.spreadCash(50);
+        testPlayer.spreadCash(CASH_TYPES.fifties);
         assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
         assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
         assertEquals(testPlayer.getCash(CASH_TYPES.fifties),    164);
@@ -130,7 +130,7 @@ public class PlayerTester extends TestCase {
         assertEquals(testPlayer.getCash(CASH_TYPES.fives),        1);
         assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
-        testPlayer.spreadCash(20);
+        testPlayer.spreadCash(CASH_TYPES.twenties);
         assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
         assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
         assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
@@ -139,7 +139,7 @@ public class PlayerTester extends TestCase {
         assertEquals(testPlayer.getCash(CASH_TYPES.fives),        1);
         assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
-        testPlayer.spreadCash(10);
+        testPlayer.spreadCash(CASH_TYPES.tens);
         assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
         assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
         assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
@@ -148,7 +148,7 @@ public class PlayerTester extends TestCase {
         assertEquals(testPlayer.getCash(CASH_TYPES.fives),        1);
         assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
-        testPlayer.spreadCash(5);
+        testPlayer.spreadCash(CASH_TYPES.fives);
         assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
         assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
         assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
@@ -157,7 +157,7 @@ public class PlayerTester extends TestCase {
         assertEquals(testPlayer.getCash(CASH_TYPES.fives),     1649);
         assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
-        testPlayer.spreadCash(1);
+        testPlayer.spreadCash(CASH_TYPES.ones);
         assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
         assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
         assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
@@ -168,7 +168,7 @@ public class PlayerTester extends TestCase {
 
 
         testPlayer.bankruptPlayer(board);
-        testPlayer.spreadCash(500);
+        testPlayer.spreadCash(CASH_TYPES.fiveHundreds);
         assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
         assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
         assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
@@ -177,7 +177,7 @@ public class PlayerTester extends TestCase {
         assertEquals(testPlayer.getCash(CASH_TYPES.fives),        0);
         assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
-        testPlayer.spreadCash(100);
+        testPlayer.spreadCash(CASH_TYPES.hundreds);
         assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
         assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
         assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
@@ -186,7 +186,7 @@ public class PlayerTester extends TestCase {
         assertEquals(testPlayer.getCash(CASH_TYPES.fives),        0);
         assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
-        testPlayer.spreadCash(50);
+        testPlayer.spreadCash(CASH_TYPES.fifties);
         assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
         assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
         assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
@@ -195,7 +195,7 @@ public class PlayerTester extends TestCase {
         assertEquals(testPlayer.getCash(CASH_TYPES.fives),        0);
         assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
-        testPlayer.spreadCash(20);
+        testPlayer.spreadCash(CASH_TYPES.twenties);
         assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
         assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
         assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
@@ -204,7 +204,7 @@ public class PlayerTester extends TestCase {
         assertEquals(testPlayer.getCash(CASH_TYPES.fives),        0);
         assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
-        testPlayer.spreadCash(10);
+        testPlayer.spreadCash(CASH_TYPES.tens);
         assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
         assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
         assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
@@ -213,7 +213,7 @@ public class PlayerTester extends TestCase {
         assertEquals(testPlayer.getCash(CASH_TYPES.fives),        0);
         assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
-        testPlayer.spreadCash(5);
+        testPlayer.spreadCash(CASH_TYPES.fives);
         assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
         assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
         assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
@@ -222,7 +222,7 @@ public class PlayerTester extends TestCase {
         assertEquals(testPlayer.getCash(CASH_TYPES.fives),        0);
         assertEquals(testPlayer.getCash(CASH_TYPES.ones),         0);
 
-        testPlayer.spreadCash(1);
+        testPlayer.spreadCash(CASH_TYPES.ones);
         assertEquals(testPlayer.getCash(CASH_TYPES.fiveHundreds), 0);
         assertEquals(testPlayer.getCash(CASH_TYPES.hundreds),     0);
         assertEquals(testPlayer.getCash(CASH_TYPES.fifties),      0);
@@ -245,28 +245,28 @@ public class PlayerTester extends TestCase {
         // === Test changeCell() ===
         // TODO: Make sure to thoroughly test this function.
         // Make sure a few normal cases work fine.
-        testPlayer.setCell(board.boardProperties.get(0),  board);
-        testPlayer2.setCell(board.boardProperties.get(0), board);
-        testPlayer3.setCell(board.boardProperties.get(0), board);
-        testPlayer4.setCell(board.boardProperties.get(0), board);
+        testPlayer.setCell(board.boardProperties.get(0));
+        testPlayer2.setCell(board.boardProperties.get(0));
+        testPlayer3.setCell(board.boardProperties.get(0));
+        testPlayer4.setCell(board.boardProperties.get(0));
         assertEquals(testPlayer.getCell(),  board.boardProperties.get(0));
         assertEquals(testPlayer2.getCell(), board.boardProperties.get(0));
         assertEquals(testPlayer3.getCell(), board.boardProperties.get(0));
         assertEquals(testPlayer4.getCell(), board.boardProperties.get(0));
 
-        testPlayer.setCell(board.boardProperties.get(1),  board);
-        testPlayer2.setCell(board.boardProperties.get(1), board);
-        testPlayer3.setCell(board.boardProperties.get(1), board);
-        testPlayer4.setCell(board.boardProperties.get(1), board);
+        testPlayer.setCell(board.boardProperties.get(1));
+        testPlayer2.setCell(board.boardProperties.get(1));
+        testPlayer3.setCell(board.boardProperties.get(1));
+        testPlayer4.setCell(board.boardProperties.get(1));
         assertEquals(testPlayer.getCell(),  board.boardProperties.get(1));
         assertEquals(testPlayer2.getCell(), board.boardProperties.get(1));
         assertEquals(testPlayer3.getCell(), board.boardProperties.get(1));
         assertEquals(testPlayer4.getCell(), board.boardProperties.get(1));
 
-        testPlayer.setCell(board.boardProperties.get(2),  board);
-        testPlayer2.setCell(board.boardProperties.get(2), board);
-        testPlayer3.setCell(board.boardProperties.get(2), board);
-        testPlayer4.setCell(board.boardProperties.get(2), board);
+        testPlayer.setCell(board.boardProperties.get(2));
+        testPlayer2.setCell(board.boardProperties.get(2));
+        testPlayer3.setCell(board.boardProperties.get(2));
+        testPlayer4.setCell(board.boardProperties.get(2));
         assertEquals(testPlayer.getCell(),  board.boardProperties.get(2));
         assertEquals(testPlayer2.getCell(), board.boardProperties.get(2));
         assertEquals(testPlayer3.getCell(), board.boardProperties.get(2));
@@ -281,38 +281,38 @@ public class PlayerTester extends TestCase {
         // Then try incorrect cases.
 
         // Don't allow negative BoardCell arguments.
-        testPlayer.setCell(board.boardProperties.get(-1), board);
-        testPlayer.setCell(board.boardProperties.get(-1), board);
-        testPlayer.setCell(board.boardProperties.get(-1), board);
-        testPlayer.setCell(board.boardProperties.get(-1), board);
+        testPlayer.setCell(board.boardProperties.get(-1));
+        testPlayer.setCell(board.boardProperties.get(-1));
+        testPlayer.setCell(board.boardProperties.get(-1));
+        testPlayer.setCell(board.boardProperties.get(-1));
         assertEquals(testPlayer.getCell(),  board.boardProperties.get(2));
         assertEquals(testPlayer2.getCell(), board.boardProperties.get(2));
         assertEquals(testPlayer3.getCell(), board.boardProperties.get(2));
         assertEquals(testPlayer4.getCell(), board.boardProperties.get(2));
 
-        testPlayer.setCell(board.boardProperties.get(-5), board);
-        testPlayer.setCell(board.boardProperties.get(-5), board);
-        testPlayer.setCell(board.boardProperties.get(-5), board);
-        testPlayer.setCell(board.boardProperties.get(-5), board);
+        testPlayer.setCell(board.boardProperties.get(-5));
+        testPlayer.setCell(board.boardProperties.get(-5));
+        testPlayer.setCell(board.boardProperties.get(-5));
+        testPlayer.setCell(board.boardProperties.get(-5));
         assertEquals(testPlayer.getCell(),  board.boardProperties.get(2));
         assertEquals(testPlayer2.getCell(), board.boardProperties.get(2));
         assertEquals(testPlayer3.getCell(), board.boardProperties.get(2));
         assertEquals(testPlayer4.getCell(), board.boardProperties.get(2));
 
         // And check to make sure we can't move beyond the edge of the board.
-        testPlayer.setCell(board.boardProperties.get(40), board);
-        testPlayer.setCell(board.boardProperties.get(40), board);
-        testPlayer.setCell(board.boardProperties.get(40), board);
-        testPlayer.setCell(board.boardProperties.get(40), board);
+        testPlayer.setCell(board.boardProperties.get(40));
+        testPlayer.setCell(board.boardProperties.get(40));
+        testPlayer.setCell(board.boardProperties.get(40));
+        testPlayer.setCell(board.boardProperties.get(40));
         assertEquals(testPlayer.getCell(),  board.boardProperties.get(2));
         assertEquals(testPlayer2.getCell(), board.boardProperties.get(2));
         assertEquals(testPlayer3.getCell(), board.boardProperties.get(2));
         assertEquals(testPlayer4.getCell(), board.boardProperties.get(2));
 
-        testPlayer.setCell(board.boardProperties.get(55), board);
-        testPlayer.setCell(board.boardProperties.get(55), board);
-        testPlayer.setCell(board.boardProperties.get(55), board);
-        testPlayer.setCell(board.boardProperties.get(55), board);
+        testPlayer.setCell(board.boardProperties.get(55));
+        testPlayer.setCell(board.boardProperties.get(55));
+        testPlayer.setCell(board.boardProperties.get(55));
+        testPlayer.setCell(board.boardProperties.get(55));
         assertEquals(testPlayer.getCell(),  board.boardProperties.get(2));
         assertEquals(testPlayer2.getCell(), board.boardProperties.get(2));
         assertEquals(testPlayer3.getCell(), board.boardProperties.get(2));

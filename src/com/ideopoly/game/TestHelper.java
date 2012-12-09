@@ -47,14 +47,14 @@ public class TestHelper extends TestCase {
 
 
     /** Move all players to the same BoardCell on the gui. */
-    public static void changeCellAllPlayers(BoardCell cell, GameBoard board, Player p1, Player p2, Player p3, Player p4) {
-        p1.setCell(cell, board);
-        p2.setCell(cell, board);
-        p3.setCell(cell, board);
-        p4.setCell(cell, board);
+    public static void changeCellAllPlayers(BoardCell cell, Player p1, Player p2, Player p3, Player p4) {
+        p1.setCell(cell);
+        p2.setCell(cell);
+        p3.setCell(cell);
+        p4.setCell(cell);
     }
 
-    /** Ensure that all four players are standing on the same cell. */
+    /** Ensure that all four players are standi ng on the same cell. */
     public static void assertSameCell(int cell, GameBoard board, Player p1, Player p2, Player p3, Player p4) {
         assertEquals(p1.getCell(), board.boardProperties.get(cell));
         assertEquals(p2.getCell(), board.boardProperties.get(cell));

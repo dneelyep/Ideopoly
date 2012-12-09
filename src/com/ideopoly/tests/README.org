@@ -120,7 +120,6 @@ per regular class in the src/ directory.
 *** TODO bankruptPlayer()
 *** TODO getName()
 *** TODO getNumOwnedProperties()
-*** TODO getIndex()
 *** TODO putInJail()
 ** PropagandaOutlet [0/3]
 *** TODO PropagandaOutlet()

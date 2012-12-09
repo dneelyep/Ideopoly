@@ -1,7 +1,6 @@
 package com.ideopoly.game;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
@@ -28,7 +27,7 @@ public class GameBoard implements ActionListener {
     private int gameWon = 0;
 
     // TODO: Can I make this private?
-    protected final ArrayList<String> cashValues = new ArrayList<>(
+    private final ArrayList<String> cashValues = new ArrayList<>(
             Arrays.asList("ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"));
 
     private final ArrayList<String> cashHeadings = new ArrayList<>(
@@ -383,7 +382,7 @@ public class GameBoard implements ActionListener {
     //       moving the player with that, rather than calling this method and having the details
     //       figured out.
     public void movePlayer(Player p, int numCells) {
-        int landingSpot = p.getIndex() + numCells;
+        int landingSpot = boardProperties.indexOf(p.getCell()) + numCells;
 
         // The actual space that will be landed on.
         BoardCell landingSpace = boardProperties.get(landingSpot % 40);
@@ -410,7 +409,7 @@ public class GameBoard implements ActionListener {
             if (landingSpot > 39) {
                 // TODO: Try to clarify what's happening here. Could probably simplify it.
                 // TODO: If circular linked list works, this conditional should be unneeded.
-                p.setCell(boardProperties.get(landingSpot - 40), this);
+                p.setCell(boardProperties.get(landingSpot - 40));
                 p.addCash(CASH_TYPES.hundreds, 2); // Give 200 bucks for passing Go.
             }
 
@@ -450,7 +449,7 @@ public class GameBoard implements ActionListener {
             // position-changing cells (Go to Jail, Chance, etc.). The Player has landed on
             // an ownable BoardCell.
             else {
-                p.setCell(boardProperties.get(landingSpot), this);
+                p.setCell(boardProperties.get(landingSpot));
 
                 // TODO: The below block of stuff looks like things to do post-moving a player to a cell.
                 //       Move it all into a new method?

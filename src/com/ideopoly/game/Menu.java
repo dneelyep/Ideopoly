@@ -50,7 +50,7 @@ public class Menu implements ActionListener {
 
         if (eventSource.equals("Start")) { // Launch the game
             mainMenu.dispose(); // Get rid of the menu since we don't need it anymore.
-            new CharacterSelect("Ideopoly | Character select");
+            new CharacterSelect();
         }
         else if (eventSource.equals("Quit")) {
             System.out.println("Goodbye.");

@@ -47,9 +47,6 @@
         /** Image associated with this player. Used as an icon to indicate board position. */
         private Icon image;
 
-        /** An index that represents which element of BoardProperties[] this Player is standing on. */
-        private int cellIndex;
-
         /** Color associated with this Player. Player1 = green, 2 = yellow,
          *  3 = orange, 4 = blue. */
         private Color color;
@@ -85,7 +82,7 @@
             GOOJFCards = 0;
 
             currentCell = board.boardProperties.get(0);
-            cellIndex   = 0;
+
             switch (playerNumber) {
                 case 1: name = "Player 1 (H)";
                     image = new ImageIcon("src/com/ideopoly/game/images/p1Present.jpg");
@@ -206,30 +203,16 @@
             totalPropertiesOwned = n;
         }
 
-        /** Get the index of the BoardCell in boardProperties[] this Player
-         *  is standing on. */
-        public int getIndex() {
-            return cellIndex;
-        }
-
         /** Have this player roll the dice. */
         public void roll() {
             // TODO: Implement this
         }
 
-        // TODO Convert this to just refer to a cell, not an integer index.
-        // TODO Try to remove/reduce usage of cellIndex. Unclean way of doing things.
         /** Move this player to a given position p. p refers to the cell the Player wants
          *  to move to. For example, changePosition(3) will move any player to the 4th
          *  BoardCell on the board. */
-        public void setCell(BoardCell cell, GameBoard board) { // TODO: Better function name.
-            // Only allow valid indexes.
-//            if (p < 0 || p > 39)
-//                System.out.println("Error! That cell is outside the bounds of valid cells!");
-//            else {
-                currentCell = cell;//board.boardProperties[p];
-                cellIndex = board.boardProperties.indexOf(cell);
-            //}
+        public void setCell(BoardCell cell) { // TODO: Better function name.
+            currentCell = cell;
         }
 
         /** Change this Player's amount a of currency type billType. */
@@ -274,16 +257,15 @@
          *  For example, if a Player needs more 5s, this will convert all the Player's
          *  cash to 5s. By default (with an invalid argument), converts to 500s. */
         // TODO Convert this argument into a CASH_TYPES?
-        public void spreadCash(int desiredBill) {
+        public void spreadCash(CASH_TYPES desiredBill) {
             // The amount still left to be spread out.
             int amountNotSpread = totalMoney;
             // The number of a given type of bill spread.
             int numBillsSpread;
 
             // TODO This looks like a bankrupt action.
-            for (CASH_TYPES billType : CASH_TYPES.values()) {
+            for (CASH_TYPES billType : CASH_TYPES.values())
                 bills.put(billType, 0);
-            }
 
             int billValues[]   = {500, 100, 50, 20, 10, 5, 1};
             // TODO Can I replace this with a method of bills? Such as toArray or something?
@@ -294,23 +276,23 @@
             //	if input is x, set item[0] to x, and item[x] to fiveHundreds
             //      And update the rest of the behavior accordingly.
 
-            if (desiredBill == 1)
-                swapValues(billValues, newValues, desiredBill, bills.get(CASH_TYPES.ones), 6);
+            if (desiredBill == CASH_TYPES.ones)
+                swapValues(billValues, newValues, desiredBill.asInt(), bills.get(CASH_TYPES.ones), 6);
 
-            else if (desiredBill == 5)
-                swapValues(billValues, newValues, desiredBill, bills.get(CASH_TYPES.fives), 5);
+            else if (desiredBill == CASH_TYPES.fives)
+                swapValues(billValues, newValues, desiredBill.asInt(), bills.get(CASH_TYPES.fives), 5);
 
-            else if (desiredBill == 10)
-                swapValues(billValues, newValues, desiredBill, bills.get(CASH_TYPES.tens), 4);
+            else if (desiredBill == CASH_TYPES.tens)
+                swapValues(billValues, newValues, desiredBill.asInt(), bills.get(CASH_TYPES.tens), 4);
 
-            else if (desiredBill == 20)
-                swapValues(billValues, newValues, desiredBill, bills.get(CASH_TYPES.twenties), 3);
+            else if (desiredBill == CASH_TYPES.twenties)
+                swapValues(billValues, newValues, desiredBill.asInt(), bills.get(CASH_TYPES.twenties), 3);
 
-            else if (desiredBill == 50)
-                swapValues(billValues, newValues, desiredBill, bills.get(CASH_TYPES.fifties), 2);
+            else if (desiredBill == CASH_TYPES.fifties)
+                swapValues(billValues, newValues, desiredBill.asInt(), bills.get(CASH_TYPES.fifties), 2);
 
-            else if (desiredBill == 100)
-                swapValues(billValues, newValues, desiredBill, bills.get(CASH_TYPES.hundreds), 1);
+            else if (desiredBill == CASH_TYPES.hundreds)
+                swapValues(billValues, newValues, desiredBill.asInt(), bills.get(CASH_TYPES.hundreds), 1);
 
             for (int i = 0; i <= 6; i++) {
                 if ( (amountNotSpread / billValues[i]) != 0) {
@@ -328,27 +310,27 @@
             bills.put(CASH_TYPES.fives, newValues[5]);
             bills.put(CASH_TYPES.ones, newValues[6]);
 
-            if (desiredBill == 1) {
+            if (desiredBill == CASH_TYPES.ones) {
                 bills.put(CASH_TYPES.fiveHundreds, newValues[6]);
                 bills.put(CASH_TYPES.ones, newValues[0]);
             }
-            else if (desiredBill == 5) {
+            else if (desiredBill == CASH_TYPES.fives) {
                 bills.put(CASH_TYPES.fiveHundreds, newValues[5]);
                 bills.put(CASH_TYPES.fives, newValues[0]);
             }
-            else if (desiredBill == 10) {
+            else if (desiredBill == CASH_TYPES.tens) {
                 bills.put(CASH_TYPES.fiveHundreds, newValues[4]);
                 bills.put(CASH_TYPES.tens, newValues[0]);
             }
-            else if (desiredBill == 20) {
+            else if (desiredBill == CASH_TYPES.twenties) {
                 bills.put(CASH_TYPES.fiveHundreds, newValues[3]);
                 bills.put(CASH_TYPES.twenties, newValues[0]);
             }
-            else if (desiredBill == 50) {
+            else if (desiredBill == CASH_TYPES.fifties) {
                 bills.put(CASH_TYPES.fiveHundreds, newValues[2]);
                 bills.put(CASH_TYPES.fifties, newValues[0]);
             }
-            else if (desiredBill == 100) {
+            else if (desiredBill == CASH_TYPES.hundreds) {
                 bills.put(CASH_TYPES.fiveHundreds, newValues[1]);
                 bills.put(CASH_TYPES.hundreds, newValues[0]);
             }
@@ -399,11 +381,10 @@
             // Or change the color of the text by their name.
 
             // Allow the main player to use their cards.
-            if (name.equals("Player 1 (H)") && GOOJFCards > 0) {
+            if (name.equals("Player 1 (H)") && GOOJFCards > 0)
                 board.useGOOJFCard.setEnabled(true);
-            }
 
-            setCell(board.boardProperties.get(10), board);
+            setCell(board.boardProperties.get(10));
             setJailStatus(3);
         }
 
@@ -418,12 +399,12 @@
             else {
                 board.getCashDistribution(amount);
 
-                // TODO: Make this array shared between the two methods somehow?
-                int[] billInt = {1, 5, 10, 20, 50, 100, 500};
-                for (int i = 0; i < billInt.length; i++) {
-                    this.spreadCash(billInt[i]);
-                    // TODO Convert this into a for each loop and use this.addCash(billType, - board.paymentAmounts.get(billType)
-                    this.addCash(CASH_TYPES.valueOf(board.cashValues.get(i)), - board.paymentAmounts[i]);
+                int i = 0;
+                for (CASH_TYPES billType : CASH_TYPES.values()) {
+                    this.spreadCash(billType);
+                    if (i < 7)
+                        this.addCash(billType, - board.paymentAmounts[i]);
+                    i++;
                 }
             }
         }
@@ -440,15 +421,18 @@
                 board.getCashDistribution(amount);
 
                 // Then, for each bill, transfer the correct amount from this Player to p.
-                int[] billInt = {1, 5, 10, 20, 50, 100, 500}; // TODO: Better array name here.
-                for (int i = 0; i < billInt.length; i++) {
-                    this.spreadCash(billInt[i]);
-                    this.addCash(CASH_TYPES.valueOf(board.cashValues.get(i)), - board.paymentAmounts[i]);
-                    p.addCash(CASH_TYPES.valueOf(board.cashValues.get(i)), board.paymentAmounts[i]);
+                int i = 0;
+                for (CASH_TYPES billType : CASH_TYPES.values()) {
+                    this.spreadCash(billType);
+                    if (i < 7) {
+                        this.addCash(billType, - board.paymentAmounts[i]);
+                        p.addCash(billType, board.paymentAmounts[i]);
+                    }
+                    i++;
                 }
 
                 // And set cash back to sensible values.
-                p.spreadCash(500);
+                p.spreadCash(CASH_TYPES.fiveHundreds);
             }
         }
     }

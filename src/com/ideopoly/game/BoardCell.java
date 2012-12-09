@@ -50,7 +50,7 @@ public abstract class BoardCell {
     private BoardCellGUI graphicalRepresentation;
 
     /** The board associated with this BoardCell. */
-    public GameBoard board;
+    private GameBoard board;
 
     /** Creates a BoardCell object, with the specified name, image path, coordinates, and 
      *  player standing positions. Does not have an owner. There are no players standing 

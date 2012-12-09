@@ -75,7 +75,7 @@ public class CommunityChest {
      *  a Community Chest card of this type. */
     public void doActions(Player p, GameBoard board) { // TODO: Rename this to drawCard() or something better.
         switch (this.cardType) {
-            case 1: p.setCell(board.boardProperties.get(0), board); // "Advance to Go (Collect $200)"
+            case 1: p.setCell(board.boardProperties.get(0)); // "Advance to Go (Collect $200)"
                 p.addCash(CASH_TYPES.hundreds, 2);
                 break;
             case 2: p.addCash(CASH_TYPES.hundreds, 2); // "Bank error in your favor – collect $200"
@@ -103,9 +103,9 @@ public class CommunityChest {
                             numNotBankrupt--;
                         }
                         else {
-                            player.spreadCash(10);
+                            player.spreadCash(CASH_TYPES.tens);
                             player.addCash(CASH_TYPES.tens, -1);
-                            player.spreadCash(500);
+                            player.spreadCash(CASH_TYPES.fiveHundreds);
                         }
                     }
                 }
@@ -122,9 +122,9 @@ public class CommunityChest {
                             numNotBankrupt--;
                         }
                         else {
-                            player.spreadCash(50);
+                            player.spreadCash(CASH_TYPES.fifties);
                             player.addCash(CASH_TYPES.fifties, -1);
-                            player.spreadCash(500);
+                            player.spreadCash(CASH_TYPES.fiveHundreds);
                         }
                     }
                 }

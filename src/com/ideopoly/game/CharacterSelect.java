@@ -29,8 +29,8 @@ public class CharacterSelect extends JFrame implements ActionListener {
 
     // TODO: Review other constructors - should their stuff be fields?
     /** Create a new CharacterSelect with the provided title. */
-    public CharacterSelect(String title) {
-        super(title);
+    public CharacterSelect() {
+        super("Ideopoly | Character select");
         final Container pane = this.getContentPane();
         getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();

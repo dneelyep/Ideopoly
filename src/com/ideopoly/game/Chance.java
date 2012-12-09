@@ -56,7 +56,7 @@ public class Chance {
     public void doActions(Player p, GameBoard board) { // TODO: Rename this to drawCard() or something better.
         switch (cardType) {
             case 1:  // "Advance to Go (Collect $200)"
-                p.setCell(board.boardProperties.get(0), board);
+                p.setCell(board.boardProperties.get(0));
                 p.addCash(CASH_TYPES.hundreds, 2);
                 break;
             case 2:  // "Advance to Illinois Ave - if you pass Go, collect $200"
@@ -65,16 +65,16 @@ public class Chance {
                 // Make this type of card into a function.
 
                 // If the player's on B & O RR or after, give money.
-                if (p.getIndex() >= 24)
+                if (board.boardProperties.indexOf(p.getCell()) >= 24)
                     p.addCash(CASH_TYPES.hundreds, 2);
 
-                p.setCell(board.boardProperties.get(24), board);
+                p.setCell(board.boardProperties.get(24));
                 break;
             case 3:  // "Advance token to nearest Utility. If unowned, you may buy it from the
                 //  Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
                 // TODO: I could also make use of p.getCell() instead. Could simplify things maybe.
                 if (p.getCell() == board.boardProperties.get(7)) { // Bottom Chance
-                    p.setCell(board.boardProperties.get(12), board); // move to Electric Co.
+                    p.setCell(board.boardProperties.get(12)); // move to Electric Co.
 
                     // TODO: Would be good if I could remove the duplication here.
                     if (board.boardProperties.get(12).getOwner() != null) {
@@ -85,7 +85,7 @@ public class Chance {
                     }
                 }
                 else if (p.getCell() == board.boardProperties.get(22) || p.getCell() == board.boardProperties.get(36)) { // Top or Right Chance
-                    p.setCell(board.boardProperties.get(28), board); // move to Water Works.
+                    p.setCell(board.boardProperties.get(28)); // move to Water Works.
 
                     if (board.boardProperties.get(28).getOwner() != null) {
                         Random rollGenerator = new Random();
@@ -102,13 +102,13 @@ public class Chance {
                 // you may buy it from the Bank. (There are two of these.)"
                 // TODO: Implement this.
                 if (p.getCell() == board.boardProperties.get(7)) {
-                    p.setCell(board.boardProperties.get(5), board);
+                    p.setCell(board.boardProperties.get(5));
                 }
                 else if (p.getCell() == board.boardProperties.get(22)) {
-                    p.setCell(board.boardProperties.get(25), board);
+                    p.setCell(board.boardProperties.get(25));
                 }
                 else if (p.getCell() == board.boardProperties.get(36)) {
-                    p.setCell(board.boardProperties.get(35), board);
+                    p.setCell(board.boardProperties.get(35));
                 }
                 else
                     System.out.println("Error! Apparently you tried to do actions on a Chance card 3, but you weren't standing on a Chance space to begin with.");
@@ -116,10 +116,10 @@ public class Chance {
             case 5:  // "Advance to St. Charles Place – if you pass Go, collect $200"
 
                 // If the player's position is on or after Electric Company, give em $200.
-                if (p.getIndex() >= 12)
+                if (board.boardProperties.indexOf(p.getCell()) >= 12)
                     p.addCash(CASH_TYPES.hundreds, 2);
 
-                p.setCell(board.boardProperties.get(11), board);
+                p.setCell(board.boardProperties.get(11));
                 break;
 
             case 6:  // "Bank pays you dividend of $50"
@@ -129,8 +129,9 @@ public class Chance {
                 p.giveGOOJF();
                 break;
             case 8:  // "Go back 3 spaces"
-                // TODO: This should take charge the Player for landing on Income Tax.
-                p.setCell(board.boardProperties.get(p.getIndex() - 3), board);
+                // TODO: This should charge the Player for landing on Income Tax.
+                p.setCell(board.boardProperties.get(board.boardProperties.indexOf(p.getCell()) - 3));
+
                 // TODO: Then call onland function.
                 // TODO: Or just call movePlayer() ?
                 // TODO: Should I use changePosition() instead for some reason?
@@ -158,15 +159,15 @@ public class Chance {
                 break;
             case 12: // "Take a trip to Reading Railroad – if you pass Go, collect $200"
                 // If the player's position is on or after Oriental avenue, give em $200.
-                if (p.getIndex() >= 6)
+                if (board.boardProperties.indexOf(p.getCell()) >= 6)
                     p.addCash(CASH_TYPES.hundreds, 2);
 
-                p.setCell(board.boardProperties.get(5), board);
+                p.setCell(board.boardProperties.get(5));
                 // TODO: And then onland function.
                 break;
 
             case 13: // "Take a walk on the Boardwalk – advance token to Boardwalk"
-                p.setCell(board.boardProperties.get(39), board);
+                p.setCell(board.boardProperties.get(39));
                 //TODO: And then call the onland function for boardwalk.
                 break;
             case 14: // "You have been elected chairman of the board – pay each player $50"

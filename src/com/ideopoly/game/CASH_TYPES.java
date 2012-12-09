@@ -27,18 +27,4 @@ public enum CASH_TYPES {
     public int asInt() {
         return intValue;
     }
-
-    public static CASH_TYPES getTypeFromDescription(String description) {
-        switch (description) {
-            case "ones":  return ones;
-            case "fives": return fives;
-            case "tens":  return tens;
-            case "twenties": return twenties;
-            case "fifties":  return fifties;
-            case "hundreds": return hundreds;
-            case "fiveHundreds": return fiveHundreds;
-            case "total": return total;
-            default: return fiveHundreds;
-        }
-    }
 }
