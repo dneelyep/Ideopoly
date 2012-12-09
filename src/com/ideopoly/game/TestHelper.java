@@ -47,7 +47,7 @@ public class TestHelper extends TestCase {
 
 
     /** Move all players to the same BoardCell on the gui. */
-    public static void changeCellAllPlayers(int cell, GameBoard board, Player p1, Player p2, Player p3, Player p4) {
+    public static void changeCellAllPlayers(BoardCell cell, GameBoard board, Player p1, Player p2, Player p3, Player p4) {
         p1.setCell(cell, board);
         p2.setCell(cell, board);
         p3.setCell(cell, board);
@@ -56,10 +56,10 @@ public class TestHelper extends TestCase {
 
     /** Ensure that all four players are standing on the same cell. */
     public static void assertSameCell(int cell, GameBoard board, Player p1, Player p2, Player p3, Player p4) {
-        assertEquals(p1.getCell(), board.boardProperties[cell]);
-        assertEquals(p2.getCell(), board.boardProperties[cell]);
-        assertEquals(p3.getCell(), board.boardProperties[cell]);
-        assertEquals(p4.getCell(), board.boardProperties[cell]);
+        assertEquals(p1.getCell(), board.boardProperties.get(cell));
+        assertEquals(p2.getCell(), board.boardProperties.get(cell));
+        assertEquals(p3.getCell(), board.boardProperties.get(cell));
+        assertEquals(p4.getCell(), board.boardProperties.get(cell));
     }
 
     /** Make sure players p1, p2, p3, and p4 have the same jail status s. */

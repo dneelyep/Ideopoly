@@ -245,32 +245,32 @@ public class PlayerTester extends TestCase {
         // === Test changeCell() ===
         // TODO: Make sure to thoroughly test this function.
         // Make sure a few normal cases work fine.
-        testPlayer.setCell(0,  board);
-        testPlayer2.setCell(0, board);
-        testPlayer3.setCell(0, board);
-        testPlayer4.setCell(0, board);
-        assertEquals(testPlayer.getCell(),  board.boardProperties[0]);
-        assertEquals(testPlayer2.getCell(), board.boardProperties[0]);
-        assertEquals(testPlayer3.getCell(), board.boardProperties[0]);
-        assertEquals(testPlayer4.getCell(), board.boardProperties[0]);
+        testPlayer.setCell(board.boardProperties.get(0),  board);
+        testPlayer2.setCell(board.boardProperties.get(0), board);
+        testPlayer3.setCell(board.boardProperties.get(0), board);
+        testPlayer4.setCell(board.boardProperties.get(0), board);
+        assertEquals(testPlayer.getCell(),  board.boardProperties.get(0));
+        assertEquals(testPlayer2.getCell(), board.boardProperties.get(0));
+        assertEquals(testPlayer3.getCell(), board.boardProperties.get(0));
+        assertEquals(testPlayer4.getCell(), board.boardProperties.get(0));
 
-        testPlayer.setCell(1,  board);
-        testPlayer2.setCell(1, board);
-        testPlayer3.setCell(1, board);
-        testPlayer4.setCell(1, board);
-        assertEquals(testPlayer.getCell(),  board.boardProperties[1]);
-        assertEquals(testPlayer2.getCell(), board.boardProperties[1]);
-        assertEquals(testPlayer3.getCell(), board.boardProperties[1]);
-        assertEquals(testPlayer4.getCell(), board.boardProperties[1]);
+        testPlayer.setCell(board.boardProperties.get(1),  board);
+        testPlayer2.setCell(board.boardProperties.get(1), board);
+        testPlayer3.setCell(board.boardProperties.get(1), board);
+        testPlayer4.setCell(board.boardProperties.get(1), board);
+        assertEquals(testPlayer.getCell(),  board.boardProperties.get(1));
+        assertEquals(testPlayer2.getCell(), board.boardProperties.get(1));
+        assertEquals(testPlayer3.getCell(), board.boardProperties.get(1));
+        assertEquals(testPlayer4.getCell(), board.boardProperties.get(1));
 
-        testPlayer.setCell(2,  board);
-        testPlayer2.setCell(2, board);
-        testPlayer3.setCell(2, board);
-        testPlayer4.setCell(2, board);
-        assertEquals(testPlayer.getCell(),  board.boardProperties[2]);
-        assertEquals(testPlayer2.getCell(), board.boardProperties[2]);
-        assertEquals(testPlayer3.getCell(), board.boardProperties[2]);
-        assertEquals(testPlayer4.getCell(), board.boardProperties[2]);
+        testPlayer.setCell(board.boardProperties.get(2),  board);
+        testPlayer2.setCell(board.boardProperties.get(2), board);
+        testPlayer3.setCell(board.boardProperties.get(2), board);
+        testPlayer4.setCell(board.boardProperties.get(2), board);
+        assertEquals(testPlayer.getCell(),  board.boardProperties.get(2));
+        assertEquals(testPlayer2.getCell(), board.boardProperties.get(2));
+        assertEquals(testPlayer3.getCell(), board.boardProperties.get(2));
+        assertEquals(testPlayer4.getCell(), board.boardProperties.get(2));
 
         // NOTE: I removed previous test cases here. Previously, these tests checked to make
         //       sure, for example, that players 1 and 2 could not move to the same standing
@@ -281,42 +281,42 @@ public class PlayerTester extends TestCase {
         // Then try incorrect cases.
 
         // Don't allow negative BoardCell arguments.
-        testPlayer.setCell(-1, board);
-        testPlayer.setCell(-1, board);
-        testPlayer.setCell(-1, board);
-        testPlayer.setCell(-1, board);
-        assertEquals(testPlayer.getCell(),  board.boardProperties[2]);
-        assertEquals(testPlayer2.getCell(), board.boardProperties[2]);
-        assertEquals(testPlayer3.getCell(), board.boardProperties[2]);
-        assertEquals(testPlayer4.getCell(), board.boardProperties[2]);
+        testPlayer.setCell(board.boardProperties.get(-1), board);
+        testPlayer.setCell(board.boardProperties.get(-1), board);
+        testPlayer.setCell(board.boardProperties.get(-1), board);
+        testPlayer.setCell(board.boardProperties.get(-1), board);
+        assertEquals(testPlayer.getCell(),  board.boardProperties.get(2));
+        assertEquals(testPlayer2.getCell(), board.boardProperties.get(2));
+        assertEquals(testPlayer3.getCell(), board.boardProperties.get(2));
+        assertEquals(testPlayer4.getCell(), board.boardProperties.get(2));
 
-        testPlayer.setCell(-5, board);
-        testPlayer.setCell(-5, board);
-        testPlayer.setCell(-5, board);
-        testPlayer.setCell(-5, board);
-        assertEquals(testPlayer.getCell(),  board.boardProperties[2]);
-        assertEquals(testPlayer2.getCell(), board.boardProperties[2]);
-        assertEquals(testPlayer3.getCell(), board.boardProperties[2]);
-        assertEquals(testPlayer4.getCell(), board.boardProperties[2]);
+        testPlayer.setCell(board.boardProperties.get(-5), board);
+        testPlayer.setCell(board.boardProperties.get(-5), board);
+        testPlayer.setCell(board.boardProperties.get(-5), board);
+        testPlayer.setCell(board.boardProperties.get(-5), board);
+        assertEquals(testPlayer.getCell(),  board.boardProperties.get(2));
+        assertEquals(testPlayer2.getCell(), board.boardProperties.get(2));
+        assertEquals(testPlayer3.getCell(), board.boardProperties.get(2));
+        assertEquals(testPlayer4.getCell(), board.boardProperties.get(2));
 
         // And check to make sure we can't move beyond the edge of the board.
-        testPlayer.setCell(40, board);
-        testPlayer.setCell(40, board);
-        testPlayer.setCell(40, board);
-        testPlayer.setCell(40, board);
-        assertEquals(testPlayer.getCell(),  board.boardProperties[2]);
-        assertEquals(testPlayer2.getCell(), board.boardProperties[2]);
-        assertEquals(testPlayer3.getCell(), board.boardProperties[2]);
-        assertEquals(testPlayer4.getCell(), board.boardProperties[2]);
+        testPlayer.setCell(board.boardProperties.get(40), board);
+        testPlayer.setCell(board.boardProperties.get(40), board);
+        testPlayer.setCell(board.boardProperties.get(40), board);
+        testPlayer.setCell(board.boardProperties.get(40), board);
+        assertEquals(testPlayer.getCell(),  board.boardProperties.get(2));
+        assertEquals(testPlayer2.getCell(), board.boardProperties.get(2));
+        assertEquals(testPlayer3.getCell(), board.boardProperties.get(2));
+        assertEquals(testPlayer4.getCell(), board.boardProperties.get(2));
 
-        testPlayer.setCell(55, board);
-        testPlayer.setCell(55, board);
-        testPlayer.setCell(55, board);
-        testPlayer.setCell(55, board);
-        assertEquals(testPlayer.getCell(),  board.boardProperties[2]);
-        assertEquals(testPlayer2.getCell(), board.boardProperties[2]);
-        assertEquals(testPlayer3.getCell(), board.boardProperties[2]);
-        assertEquals(testPlayer4.getCell(), board.boardProperties[2]);
+        testPlayer.setCell(board.boardProperties.get(55), board);
+        testPlayer.setCell(board.boardProperties.get(55), board);
+        testPlayer.setCell(board.boardProperties.get(55), board);
+        testPlayer.setCell(board.boardProperties.get(55), board);
+        assertEquals(testPlayer.getCell(),  board.boardProperties.get(2));
+        assertEquals(testPlayer2.getCell(), board.boardProperties.get(2));
+        assertEquals(testPlayer3.getCell(), board.boardProperties.get(2));
+        assertEquals(testPlayer4.getCell(), board.boardProperties.get(2));
 
 
         // === Test putInJail() ===
@@ -329,13 +329,13 @@ public class PlayerTester extends TestCase {
         testPlayer3.putInJail(board);
         testPlayer4.putInJail(board);
 
-        assertEquals(testPlayer.getCell(),  board.boardProperties[10]);
+        assertEquals(testPlayer.getCell(),  board.boardProperties.get(10));
         assertEquals(testPlayer.getJailStatus(),  3);
-        assertEquals(testPlayer2.getCell(), board.boardProperties[10]);
+        assertEquals(testPlayer2.getCell(), board.boardProperties.get(10));
         assertEquals(testPlayer2.getJailStatus(), 3);
-        assertEquals(testPlayer3.getCell(), board.boardProperties[10]);
+        assertEquals(testPlayer3.getCell(), board.boardProperties.get(10));
         assertEquals(testPlayer3.getJailStatus(), 3);
-        assertEquals(testPlayer4.getCell(), board.boardProperties[10]);
+        assertEquals(testPlayer4.getCell(), board.boardProperties.get(10));
         assertEquals(testPlayer4.getJailStatus(), 3);
     }
 }

@@ -84,7 +84,7 @@
 
             GOOJFCards = 0;
 
-            currentCell = board.boardProperties[0];
+            currentCell = board.boardProperties.get(0);
             cellIndex   = 0;
             switch (playerNumber) {
                 case 1: name = "Player 1 (H)";
@@ -217,17 +217,19 @@
             // TODO: Implement this
         }
 
+        // TODO Convert this to just refer to a cell, not an integer index.
+        // TODO Try to remove/reduce usage of cellIndex. Unclean way of doing things.
         /** Move this player to a given position p. p refers to the cell the Player wants
          *  to move to. For example, changePosition(3) will move any player to the 4th
          *  BoardCell on the board. */
-        public void setCell(int p, GameBoard board) { // TODO: Better function name.
+        public void setCell(BoardCell cell, GameBoard board) { // TODO: Better function name.
             // Only allow valid indexes.
-            if (p < 0 || p > 39)
-                System.out.println("Error! That cell is outside the bounds of valid cells!");
-            else {
-                currentCell = board.boardProperties[p];
-                cellIndex = p;
-            }
+//            if (p < 0 || p > 39)
+//                System.out.println("Error! That cell is outside the bounds of valid cells!");
+//            else {
+                currentCell = cell;//board.boardProperties[p];
+                cellIndex = board.boardProperties.indexOf(cell);
+            //}
         }
 
         /** Change this Player's amount a of currency type billType. */
@@ -401,7 +403,7 @@
                 board.useGOOJFCard.setEnabled(true);
             }
 
-            setCell(10, board);
+            setCell(board.boardProperties.get(10), board);
             setJailStatus(3);
         }
 
@@ -420,6 +422,7 @@
                 int[] billInt = {1, 5, 10, 20, 50, 100, 500};
                 for (int i = 0; i < billInt.length; i++) {
                     this.spreadCash(billInt[i]);
+                    // TODO Convert this into a for each loop and use this.addCash(billType, - board.paymentAmounts.get(billType)
                     this.addCash(CASH_TYPES.valueOf(board.cashValues.get(i)), - board.paymentAmounts[i]);
                 }
             }

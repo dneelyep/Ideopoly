@@ -58,7 +58,7 @@ public class ChanceTester extends TestCase {
         TestHelper.assertCash(1700, player1, player2, player3, player4);
 
         // And now start them at 1 cell after Illinois and test.
-        TestHelper.changeCellAllPlayers(25, board, player1, player2, player3, player4);
+        TestHelper.changeCellAllPlayers(board.boardProperties.get(25), board, player1, player2, player3, player4);
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
 
         TestHelper.assertSameCell(24, board, player1, player2, player3, player4);
@@ -73,25 +73,25 @@ public class ChanceTester extends TestCase {
         assertEquals(chanceCard.getText(), "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.");
         // TODO: Test the 10x amount thrown part. And the may buy it part.
         // Test this function's for all 4 players, where they land on all 3 possible Chance locations.
-        TestHelper.changeCellAllPlayers(7, board, player1, player2, player3, player4);
+        TestHelper.changeCellAllPlayers(board.boardProperties.get(7), board, player1, player2, player3, player4);
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
         TestHelper.assertSameCell(12, board, player1, player2, player3, player4);
-        assertEquals(board.boardProperties[12].getOwner(), null);
+        assertEquals(board.boardProperties.get(12).getOwner(), null);
 
-        TestHelper.changeCellAllPlayers(22, board, player1, player2, player3, player4);
+        TestHelper.changeCellAllPlayers(board.boardProperties.get(22), board, player1, player2, player3, player4);
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
         TestHelper.assertSameCell(28, board, player1, player2, player3, player4);
-        assertEquals(board.boardProperties[28].getOwner(), null);
+        assertEquals(board.boardProperties.get(28).getOwner(), null);
 
-        TestHelper.changeCellAllPlayers(36, board, player1, player2, player3, player4);
+        TestHelper.changeCellAllPlayers(board.boardProperties.get(36), board, player1, player2, player3, player4);
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
         TestHelper.assertSameCell(28, board, player1, player2, player3, player4);
-        assertEquals(board.boardProperties[28].getOwner(), null);
+        assertEquals(board.boardProperties.get(28).getOwner(), null);
 
         // Now make sure that, when a player owns the property, players are charged proper rent.
         // Going into this case, each player had 2100 bucks total.
-        board.boardProperties[12].setOwner(board.player1); // Electric Company
-        board.boardProperties[28].setOwner(board.player1); // Water Works
+        board.boardProperties.get(12).setOwner(board.player1); // Electric Company
+        board.boardProperties.get(28).setOwner(board.player1); // Water Works
 
         // TODO: The below tests should work, I just need to solve the problem of knowing
         // the value of the rollGenerator so I can assertEquals() cash values.
@@ -155,18 +155,18 @@ public class ChanceTester extends TestCase {
         assertEquals(chanceCard.getText(), "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank. (There are two of these.)");
 
         // Test on all Chance cards.
-        TestHelper.changeCellAllPlayers(7, board, player1, player2, player3, player4);
+        TestHelper.changeCellAllPlayers(board.boardProperties.get(7), board, player1, player2, player3, player4);
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
         //	TestHelper.assertCash(1500, player1, player2, player3, player4);
         TestHelper.assertSameCell(5, board, player1, player2, player3, player4);
         TestHelper.assertCash(1500, player1, player2, player3, player4); // No owner yet.
 
-        TestHelper.changeCellAllPlayers(22, board, player1, player2, player3, player4);
+        TestHelper.changeCellAllPlayers(board.boardProperties.get(22), board, player1, player2, player3, player4);
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
         TestHelper.assertSameCell(25, board, player1, player2, player3, player4);
         TestHelper.assertCash(1500, player1, player2, player3, player4); // No owner yet.
 
-        TestHelper.changeCellAllPlayers(36, board, player1, player2, player3, player4);
+        TestHelper.changeCellAllPlayers(board.boardProperties.get(36), board, player1, player2, player3, player4);
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
         TestHelper.assertSameCell(35, board, player1, player2, player3, player4);
         TestHelper.assertCash(1500, player1, player2, player3, player4); // No owner yet.
@@ -189,14 +189,14 @@ public class ChanceTester extends TestCase {
         // Test when we start before/after St. Charles. Impossible to start at St. Charles (no
         // Chance card there), so we don't test that.
         // Starting before St. Charles (at Go).
-        TestHelper.changeCellAllPlayers(0, board, player1, player2, player3, player4);
+        TestHelper.changeCellAllPlayers(board.boardProperties.get(0), board, player1, player2, player3, player4);
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
 
         TestHelper.assertCash(1500, player1, player2, player3, player4);
         TestHelper.assertSameCell(11, board, player1, player2, player3, player4);
 
         // Starting after St. Charles (at Electric Company).
-        TestHelper.changeCellAllPlayers(12, board, player1, player2, player3, player4);
+        TestHelper.changeCellAllPlayers(board.boardProperties.get(12), board, player1, player2, player3, player4);
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
 
         TestHelper.assertCash(1700, player1, player2, player3, player4);
@@ -256,7 +256,7 @@ public class ChanceTester extends TestCase {
         player4 = new Player(4, new Color(19, 214, 242), board);
 
         // Test on the first Chance spot.
-        TestHelper.changeCellAllPlayers(7, board, player1, player2, player3, player4);
+        TestHelper.changeCellAllPlayers(board.boardProperties.get(7), board, player1, player2, player3, player4);
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
         TestHelper.assertSameCell(4, board, player1, player2, player3, player4);
 
@@ -270,7 +270,7 @@ public class ChanceTester extends TestCase {
 
 
         // Test on the second Chance spot.
-        TestHelper.changeCellAllPlayers(22, board, player1, player2, player3, player4);
+        TestHelper.changeCellAllPlayers(board.boardProperties.get(22), board, player1, player2, player3, player4);
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
         TestHelper.assertSameCell(19, board, player1, player2, player3, player4);
 
@@ -281,7 +281,7 @@ public class ChanceTester extends TestCase {
 
 
         // Test on the third (and last) Chance spot.
-        TestHelper.changeCellAllPlayers(36, board, player1, player2, player3, player4);
+        TestHelper.changeCellAllPlayers(board.boardProperties.get(36), board, player1, player2, player3, player4);
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
 
         TestHelper.assertSameCell(33, board, player1, player2, player3, player4);
@@ -336,25 +336,25 @@ public class ChanceTester extends TestCase {
         assertEquals(chanceCard.getType(), 12);
         assertEquals(chanceCard.getText(), "Take a trip to Reading Railroad – if you pass Go, collect $200");
 
-        player1.setCell(0, board);  // Test when we start on Go.
+        player1.setCell(board.boardProperties.get(0), board);  // Test when we start on Go.
         chanceCard.doActions(player1, board);
-        assertEquals(player1.getCell(), board.boardProperties[5]);
+        assertEquals(player1.getCell(), board.boardProperties.get(5));
         assertEquals(player1.getCash(CASH_TYPES.total), 1500);
 
-        player1.setCell(3, board); // Test when we start before Reading RR (Baltic Av. here).
+        player1.setCell(board.boardProperties.get(3), board); // Test when we start before Reading RR (Baltic Av. here).
         chanceCard.doActions(player1, board);
-        assertEquals(player1.getCell(), board.boardProperties[5]);
+        assertEquals(player1.getCell(), board.boardProperties.get(5));
         assertEquals(player1.getCash(CASH_TYPES.total), 1500);
 
-        player1.setCell(5, board); // Test when we start on Reading RR.
+        player1.setCell(board.boardProperties.get(5), board); // Test when we start on Reading RR.
         chanceCard.doActions(player1, board);
-        assertEquals(player1.getCell(), board.boardProperties[5]);
+        assertEquals(player1.getCell(), board.boardProperties.get(5));
         assertEquals(player1.getCash(CASH_TYPES.total), 1500); // TODO: Should this count as passing
         // Go? Even though doing this is impossible by the game's rules...
 
-        player1.setCell(6, board); // Test when we start after Reading RR.
+        player1.setCell(board.boardProperties.get(6), board); // Test when we start after Reading RR.
         chanceCard.doActions(player1, board);
-        assertEquals(player1.getCell(), board.boardProperties[5]);
+        assertEquals(player1.getCell(), board.boardProperties.get(5));
         assertEquals(player1.getCash(CASH_TYPES.total), 1700);
     }
 

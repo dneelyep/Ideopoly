@@ -1,6 +1,7 @@
 package com.ideopoly.game;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
@@ -118,7 +119,11 @@ public class GameBoard implements ActionListener {
     //       ^-- I'm pretty sure I can do that by making this a static field.
     // And while I'm at it, static imports look worthwhile: http://docs.oracle.com/javase/tutorial/java/package/usepkgs.html
     // TODO: Possible to make this not public?
-    public final BoardCell boardProperties[] = { go, mediterraneanAv, commChestBottom, balticAv, incomeTax, readingRR, orientalAv, chanceBottom, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChestLeft, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chanceTop, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChestRight, pennsylvaniaAv, shortLineRR, chanceRight, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
+    public final ArrayList<BoardCell> boardProperties = new ArrayList<BoardCell>(40) {{
+        add(go); add(mediterraneanAv); add(commChestBottom); add(balticAv); add(incomeTax); add(readingRR); add(orientalAv); add(chanceBottom); add(vermontAv); add(connecticutAv); add(jail); add(stCharles); add(electricCompany); add(statesAv); add(virginiaAv); add(pennsylvaniaRR); add(stJames); add(commChestLeft); add(tennesseeAv); add(newYorkAv); add(freeParking); add(kentuckyAv); add(chanceTop); add(indianaAv); add(illinoisAv); add(bAndORR); add(atlanticAv); add(ventnorAv); add(waterWorks); add(marvinGardens); add(goToJail); add(pacificAv); add(nCarolinaAv); add(commChestRight); add(pennsylvaniaAv); add(shortLineRR); add(chanceRight); add(parkPlace); add(luxuryTax); add(boardwalk);
+    }};
+    // TODO REMOVE ME.
+    //public final BoardCell boardProperties[] = { go, mediterraneanAv, commChestBottom, balticAv, incomeTax, readingRR, orientalAv, chanceBottom, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChestLeft, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chanceTop, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChestRight, pennsylvaniaAv, shortLineRR, chanceRight, parkPlace, luxuryTax, boardwalk }; // The game board is represented as an array of BoardCells
 
     /** Represents the player whose turn it currently is to roll. 0-3. */
     // TODO: There should be a more elegant way of doing this than storing
@@ -221,18 +226,12 @@ public class GameBoard implements ActionListener {
         // ==============================================================
         // === Initialize the labels that display player cash values. ===
         // ==============================================================
-        // TODO: Replace this with a foreach loop. Possible with the players[i] part?
-        for (int i = 0; i <= 3; i++) { // Iterate through each row.
-            for (int j = 0; j <= 9; j++) { // And through each column.
-                // Add get out of jail free cards, rather than cash, in the 8th column.
-                // TODO: I should be able to reduce the code in this block a bit. A little tricky, doable.
-                if (j == 9)      // Jail status.
-                    cashLabels[i][j] = new CashCell(60, 1 + i, Integer.toString(players.get(i).getJailStatus()));
-                else if (j == 8) // Get out of jail free cards.
-                    cashLabels[i][j] = new CashCell(59, 1 + i, Integer.toString(players.get(i).getNumGOOJFCards()));
-                else             // Cash amounts.
-                    cashLabels[i][j] = new CashCell(51 + j, 1 + i, Integer.toString(players.get(i).getCash(CASH_TYPES.valueOf(cashValues.get(j)))));
-            }
+        for (int player = 0; player < players.size(); player++) { // Iterate through each row.
+            cashLabels[player][9] = new CashCell(60, 1 + player, Integer.toString(players.get(player).getJailStatus()));
+            cashLabels[player][8] = new CashCell(59, 1 + player, Integer.toString(players.get(player).getNumGOOJFCards()));
+
+            for (int j = 0; j < 8; j++)
+                cashLabels[player][j] = new CashCell(51 + j, 1 + player, Integer.toString(players.get(player).getCash(CASH_TYPES.valueOf(cashValues.get(j)))));
         }
 
         // Then add all the labels to the board.
@@ -281,9 +280,8 @@ public class GameBoard implements ActionListener {
         c.gridwidth  = 9;
         c.gridheight = 1;
         guiColor.setOpaque(true);
-        // TODO: Add a thin black border around the color.
+        guiColor.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         addAtCoords(guiColor, 50, 20, c);
-        // TODO: Center the title here.
         addAtCoords(guiName, 50, 21, c);
 
         String[] labels = {"House/Hotel cost", "Rent", "1 house", "2 houses", "3 houses", "4 houses", "1 hotel", "Mortgage value"};
@@ -330,10 +328,10 @@ public class GameBoard implements ActionListener {
             commChestCards.push(new CommunityChest(generator.nextInt(17) + 1));
         }
 
-        boardProperties[0].getPosition(1).setImage(player1.getImage());
-        boardProperties[0].getPosition(2).setImage(player2.getImage());
-        boardProperties[0].getPosition(3).setImage(player3.getImage());
-        boardProperties[0].getPosition(4).setImage(player4.getImage());
+        boardProperties.get(0).getPosition(1).setImage(player1.getImage());
+        boardProperties.get(0).getPosition(2).setImage(player2.getImage());
+        boardProperties.get(0).getPosition(3).setImage(player3.getImage());
+        boardProperties.get(0).getPosition(4).setImage(player4.getImage());
 
         frame.pack();
         frame.setVisible(true);
@@ -349,6 +347,7 @@ public class GameBoard implements ActionListener {
         int roll = new Random().nextInt(6) + 1; // Roll a new random number between 1 and 6.
         printStatusAndLog(players.get(currentPlayer).getName() + " rolls " + roll + ".");
 
+        // TODO Make an enumeration for jail statuses?
         // First or second week in jail - player can't do anything but sit and wait.
         if (p.getJailStatus() == 3 || p.getJailStatus() == 2) {
             p.setJailStatus(p.getJailStatus() - 1);
@@ -385,6 +384,10 @@ public class GameBoard implements ActionListener {
     //       figured out.
     public void movePlayer(Player p, int numCells) {
         int landingSpot = p.getIndex() + numCells;
+
+        // The actual space that will be landed on.
+        BoardCell landingSpace = boardProperties.get(landingSpot % 40);
+
         // TODO Rather than this landingSpot nonsense, I could associate a set of 4 BoardPositions with every
         //      BoardCell, and then say if (landed on any of cell.getPositions()) do something.
 
@@ -407,65 +410,52 @@ public class GameBoard implements ActionListener {
             if (landingSpot > 39) {
                 // TODO: Try to clarify what's happening here. Could probably simplify it.
                 // TODO: If circular linked list works, this conditional should be unneeded.
-                p.setCell((landingSpot - 40), this);
+                p.setCell(boardProperties.get(landingSpot - 40), this);
                 p.addCash(CASH_TYPES.hundreds, 2); // Give 200 bucks for passing Go.
             }
 
-            // Player lands on Go to Jail.
             // TODO: I seem to be getting a bug where, after landing on Go to Jail,
             //       Buy Property will light up for the property player1 would have
             //       landed on, if (s)he had been allowed to roll. Then I get an error,
             //       because I try to buy that property, which uses player1's current cell
             //       (which is Jail, which is a SpecialCell), and you can't buy SpecialCells.
-            else if (landingSpot == 30)
+            else if (landingSpace == goToJail)
                 p.putInJail(this);
 
-                // Player lands on a Community Chest card.
-                // TODO: For Chance and CommChest, do I need to have the Player
-                //       changeCell() before popping the card off?
-            else if (landingSpot == 2 || landingSpot == 17 || landingSpot == 33)
+            // TODO: For Chance and CommChest, do I need to have the Player
+            //       changeCell() before popping the card off?
+            else if (landingSpace == commChestBottom || landingSpace == commChestLeft || landingSpace == commChestRight)
                 commChestCards.pop().doActions(p, this);
 
-                // Player lands on a Chance card.
-            else if (landingSpot == 7 || landingSpot == 22 || landingSpot == 36)
+            else if (landingSpace == chanceBottom || landingSpace == chanceTop || landingSpace == chanceRight)
                 chanceCards.pop().doActions(p, this);
 
-                // TODO: Allow the Player to choose 10% or $200, or do the cheapest automatically.
-                // Player lands on Income Tax.
-                // TODO: Test to make sure this works.
-            else if (landingSpot == 4)
+            // TODO: Allow the Player to choose 10% or $200, or do the cheapest automatically.
+            // TODO: Test to make sure this works.
+            else if (landingSpace == incomeTax)
                 p.payBank(200, this);
 
                 // Luxury tax.
                 // TODO: Test to make sure this works.
-            else if (landingSpot == 38)
+            else if (landingSpace == luxuryTax)
                 p.payBank(75, this);
 
-                // TODO: Possibly redo this to take advantage of p.getCell().getClass()
-                // rather than using landingSpot numbers.
+             else if (landingSpace == freeParking && p == player1)
+                printStatusAndLog("Free parking!");
 
-                // Free parking
-            else if (landingSpot == 20) {
-                if (p == player1)
-                    printStatusAndLog("Free parking!");
-            }
-
-            // In jail (just visiting)
-            else if (landingSpot == 10) {
-                if (p == player1)
-                    printStatusAndLog("In jail - but just visiting!");
-            }
+            else if (landingSpace == jail && p == player1)
+                printStatusAndLog("In jail - but just visiting!");
 
             // Regular move. Here the Player should have not overshot Go or landed on any
             // position-changing cells (Go to Jail, Chance, etc.). The Player has landed on
             // an ownable BoardCell.
             else {
-                p.setCell(landingSpot, this);
+                p.setCell(boardProperties.get(landingSpot), this);
 
                 // TODO: The below block of stuff looks like things to do post-moving a player to a cell.
                 //       Move it all into a new method?
                 // No player currently owns the property.
-                if (boardProperties[landingSpot].getOwner() == null ) {
+                if (boardProperties.get(landingSpot).getOwner() == null ) {
 
                     // Allow player to buy the property.
                     if (p == player1) {
@@ -475,20 +465,18 @@ public class GameBoard implements ActionListener {
                         //       it or lands on the cell.
                         //       Also, have the text for the property name disappear when the button
                         //       is disabled.
-                        buyProperty.setText("Buy property (" + boardProperties[landingSpot].getName() + ")");
+                        buyProperty.setText("Buy property (" + boardProperties.get(landingSpot).getName() + ")");
                         buyProperty.setEnabled(true);
                     }
 
                     // Have the AI buy the property if it has more than $500.
                     else {
-                        if (p.getCash(CASH_TYPES.total) >= 500) {
-                            if (   (p.getCell() instanceof  PropagandaOutlet)
-                                    || (p.getCell() instanceof  Railroad)
-                                    || (p.getCell() instanceof  UtilityCell)) {
-                                Ownable cell = (Ownable) p.getCell();
-                                if (cell.isOwned() == false)
-                                    cell.buy(p, this);
-                            }
+                        if (p.getCash(CASH_TYPES.total) >= 500 && ((   p.getCell() instanceof PropagandaOutlet)
+                                                                    || p.getCell() instanceof Railroad
+                                                                    || p.getCell() instanceof UtilityCell)) {
+                            Ownable cell = (Ownable) p.getCell();
+                            if (cell.isOwned() == false)
+                                cell.buy(p, this);
                         }
                     }
                 }

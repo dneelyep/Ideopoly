@@ -56,7 +56,7 @@ public class Chance {
     public void doActions(Player p, GameBoard board) { // TODO: Rename this to drawCard() or something better.
         switch (cardType) {
             case 1:  // "Advance to Go (Collect $200)"
-                p.setCell(0, board);
+                p.setCell(board.boardProperties.get(0), board);
                 p.addCash(CASH_TYPES.hundreds, 2);
                 break;
             case 2:  // "Advance to Illinois Ave - if you pass Go, collect $200"
@@ -68,29 +68,29 @@ public class Chance {
                 if (p.getIndex() >= 24)
                     p.addCash(CASH_TYPES.hundreds, 2);
 
-                p.setCell(24, board);
+                p.setCell(board.boardProperties.get(24), board);
                 break;
             case 3:  // "Advance token to nearest Utility. If unowned, you may buy it from the
                 //  Bank. If owned, throw dice and pay owner a total ten times the amount thrown."
                 // TODO: I could also make use of p.getCell() instead. Could simplify things maybe.
-                if (p.getCell() == board.boardProperties[7]) { // Bottom Chance
-                    p.setCell(12, board); // move to Electric Co.
+                if (p.getCell() == board.boardProperties.get(7)) { // Bottom Chance
+                    p.setCell(board.boardProperties.get(12), board); // move to Electric Co.
 
                     // TODO: Would be good if I could remove the duplication here.
-                    if (board.boardProperties[12].getOwner() != null) {
+                    if (board.boardProperties.get(12).getOwner() != null) {
                         // TODO: Add handling for bankruptcy here. Or build that into playerPayPlayer?
                         Random rollGenerator = new Random();
                         int roll = rollGenerator.nextInt(6) + 1;
-                        p.payPlayer(board.boardProperties[12].getOwner(), roll * 10, board);
+                        p.payPlayer(board.boardProperties.get(12).getOwner(), roll * 10, board);
                     }
                 }
-                else if (p.getCell() == board.boardProperties[22] || p.getCell() == board.boardProperties[36]) { // Top or Right Chance
-                    p.setCell(28, board); // move to Water Works.
+                else if (p.getCell() == board.boardProperties.get(22) || p.getCell() == board.boardProperties.get(36)) { // Top or Right Chance
+                    p.setCell(board.boardProperties.get(28), board); // move to Water Works.
 
-                    if (board.boardProperties[28].getOwner() != null) {
+                    if (board.boardProperties.get(28).getOwner() != null) {
                         Random rollGenerator = new Random();
                         int roll = rollGenerator.nextInt(6) + 1;
-                        p.payPlayer(board.boardProperties[28].getOwner(), roll * 10, board);
+                        p.payPlayer(board.boardProperties.get(28).getOwner(), roll * 10, board);
                     }
                 }
                 else {
@@ -101,14 +101,14 @@ public class Chance {
                 // rental to which he/she is otherwise entitled. If Railroad is unowned,
                 // you may buy it from the Bank. (There are two of these.)"
                 // TODO: Implement this.
-                if (p.getCell() == board.boardProperties[7]) {
-                    p.setCell(5, board);
+                if (p.getCell() == board.boardProperties.get(7)) {
+                    p.setCell(board.boardProperties.get(5), board);
                 }
-                else if (p.getCell() == board.boardProperties[22]) {
-                    p.setCell(25, board);
+                else if (p.getCell() == board.boardProperties.get(22)) {
+                    p.setCell(board.boardProperties.get(25), board);
                 }
-                else if (p.getCell() == board.boardProperties[36]) {
-                    p.setCell(35, board);
+                else if (p.getCell() == board.boardProperties.get(36)) {
+                    p.setCell(board.boardProperties.get(35), board);
                 }
                 else
                     System.out.println("Error! Apparently you tried to do actions on a Chance card 3, but you weren't standing on a Chance space to begin with.");
@@ -119,7 +119,7 @@ public class Chance {
                 if (p.getIndex() >= 12)
                     p.addCash(CASH_TYPES.hundreds, 2);
 
-                p.setCell(11, board);
+                p.setCell(board.boardProperties.get(11), board);
                 break;
 
             case 6:  // "Bank pays you dividend of $50"
@@ -130,7 +130,7 @@ public class Chance {
                 break;
             case 8:  // "Go back 3 spaces"
                 // TODO: This should take charge the Player for landing on Income Tax.
-                p.setCell((p.getIndex() - 3), board);
+                p.setCell(board.boardProperties.get(p.getIndex() - 3), board);
                 // TODO: Then call onland function.
                 // TODO: Or just call movePlayer() ?
                 // TODO: Should I use changePosition() instead for some reason?
@@ -161,12 +161,12 @@ public class Chance {
                 if (p.getIndex() >= 6)
                     p.addCash(CASH_TYPES.hundreds, 2);
 
-                p.setCell(5, board);
+                p.setCell(board.boardProperties.get(5), board);
                 // TODO: And then onland function.
                 break;
 
             case 13: // "Take a walk on the Boardwalk – advance token to Boardwalk"
-                p.setCell(39, board);
+                p.setCell(board.boardProperties.get(39), board);
                 //TODO: And then call the onland function for boardwalk.
                 break;
             case 14: // "You have been elected chairman of the board – pay each player $50"
