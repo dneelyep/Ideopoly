@@ -29,7 +29,7 @@ public class Menu implements ActionListener {
         mainMenu.getContentPane().add(box);
 
         // TODO: Try to loop this? [Very small gains WRT less LOC.]
-        JLabel logo = new JLabel(new ImageIcon("src/com/ideopoly/game/images/logo.png"));
+        JLabel logo = new JLabel(new ImageIcon("res/images/logo.png"));
         logo.setAlignmentX(Component.CENTER_ALIGNMENT);
         box.add(logo);
 

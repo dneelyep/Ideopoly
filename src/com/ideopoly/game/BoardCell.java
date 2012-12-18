@@ -50,7 +50,7 @@ public abstract class BoardCell extends JPanel {
     public BoardCell(String newName, String imagePath, Point coordinates, GameBoard g) {
         name    = newName;
         ownedBy = null;
-        image   = new ImageIcon("src/com/ideopoly/game/images/" + imagePath);
+        image   = new ImageIcon("res/images/" + imagePath);
         this.coordinates = coordinates;
         board   = g;
 

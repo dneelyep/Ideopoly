@@ -398,8 +398,7 @@ public class GameBoard implements ActionListener {
 
         else {
             // Here the Player is moving, so set the label at p's current position to no player present.
-            // TODO Make a res/ top-level folder to store sounds and images in.
-            p.getCell().setPositionImage(p, new ImageIcon("src/com/ideopoly/game/images/noPlayerPresent.jpg"), this);
+            p.getCell().setPositionImage(p, new ImageIcon("res/images/noPlayerPresent.jpg"), this);
 
             // The player is about to land on/overshoot Go.
             if (landingSpot > 39) {

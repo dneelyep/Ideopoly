@@ -85,16 +85,16 @@
 
             switch (playerNumber) {
                 case 1: name = "Player 1 (H)";
-                    image = new ImageIcon("src/com/ideopoly/game/images/p1Present.jpg");
+                    image = new ImageIcon("res/images/p1Present.jpg");
                     break;
                 case 2: name = "Player 2 (C)";
-                    image = new ImageIcon("src/com/ideopoly/game/images/p2Present.jpg");
+                    image = new ImageIcon("res/images/p2Present.jpg");
                     break;
                 case 3: name = "Player 3 (C)";
-                    image = new ImageIcon("src/com/ideopoly/game/images/p3Present.jpg");
+                    image = new ImageIcon("res/images/p3Present.jpg");
                     break;
                 case 4: name = "Player 4 (C)";
-                    image = new ImageIcon("src/com/ideopoly/game/images/p4Present.jpg");
+                    image = new ImageIcon("res/images/p4Present.jpg");
                     break;
 
                 default: System.out.println("Error: tried to create a non-standard player.");

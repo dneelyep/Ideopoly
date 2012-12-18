@@ -24,7 +24,7 @@ public class BoardPosition extends JLabel {
     public BoardPosition(int newXPos, int newYPos) {
         xCoordPos = newXPos;
         yCoordPos = newYPos;
-        image     = new ImageIcon("src/com/ideopoly/game/images/noPlayerPresent.jpg");
+        image     = new ImageIcon("res/images/noPlayerPresent.jpg");
         this.setIcon(image);
     }
 

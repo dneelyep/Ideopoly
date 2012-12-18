@@ -37,7 +37,7 @@ public class CharacterSelect extends JFrame implements ActionListener {
         continueButton.setEnabled(false); // Disable at first, since a character hasn't been picked.
 
         for (String string : Arrays.asList("Richard_Stallman", "Margaret_Thatcher", "Karl_Marx", "Mahatma_Gandhi", "Peter_Kropotkin", "Otto_von_Bismarck")) {
-            tokenButtons.add(new JButton(new ImageIcon("src/com/ideopoly/game/images/" + string + ".jpg", string)));
+            tokenButtons.add(new JButton(new ImageIcon("res/images/" + string + ".jpg", string)));
         }
 
         // Make all character token buttons listen for actions.
@@ -51,15 +51,15 @@ public class CharacterSelect extends JFrame implements ActionListener {
         // Set various icons for each character.
         for (JButton button: tokenButtons) {
             ImageIcon img = (ImageIcon) button.getIcon();
-            button.setRolloverIcon(new ImageIcon("src/com/ideopoly/game/images/" + img.getDescription() + "_rollover.png"));
-            button.setSelectedIcon(new ImageIcon("src/com/ideopoly/game/images/" + img.getDescription() + "_selected.png"));
+            button.setRolloverIcon(new ImageIcon("res/images/" + img.getDescription() + "_rollover.png"));
+            button.setSelectedIcon(new ImageIcon("res/images/" + img.getDescription() + "_selected.png"));
         }
 
         c.fill = GridBagConstraints.HORIZONTAL;
 
         // Add all buttons to the character select screen.
         c.gridwidth = 3;
-        addAt(new JLabel(new ImageIcon("src/com/ideopoly/game/images/chooseLeader.png")), 0, 0, c);
+        addAt(new JLabel(new ImageIcon("res/images/chooseLeader.png")), 0, 0, c);
 
         c.gridwidth = 1;
         c.gridy = 1;
