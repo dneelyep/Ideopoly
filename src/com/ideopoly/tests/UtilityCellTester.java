@@ -4,12 +4,14 @@ import junit.framework.TestCase;
 import org.junit.*;
 import com.ideopoly.game.*;
 
+import java.awt.*;
+
 /** UtilityCellTester.java - Tests for the UtilityCell class.
  *
  * @author Daniel Neel */
 public class UtilityCellTester extends TestCase { 
    
-   private  UtilityCell testWaterWorks = new UtilityCell("Water Works", "waterWorks.jpg", 33, 1, new GameBoard("Test"));
+   private UtilityCell testWaterWorks = new UtilityCell("Water Works", "waterWorks.jpg", new Point(33, 1), new GameBoard("Test"));
     //    UtilityCell testElectricCo = new UtilityCell();
 
     @Test
@@ -21,18 +23,18 @@ public class UtilityCellTester extends TestCase {
 	assertEquals(testWaterWorks.getOwner(), null);
 	assertEquals(testWaterWorks.getCost(), 150);
 	//	assertEquals(testWaterWorks.getRent(), 0);
-	assertEquals(testWaterWorks.getX(), 33);
-	assertEquals(testWaterWorks.getY(), 1);
+	assertEquals(testWaterWorks.getCoordinates().x, 33);
+	assertEquals(testWaterWorks.getCoordinates().y, 1);
 
-	assertEquals(testWaterWorks.getPosition(1).getXCoord(), 36);
-	assertEquals(testWaterWorks.getPosition(2).getXCoord(), 35);
-	assertEquals(testWaterWorks.getPosition(3).getXCoord(), 34);
-	assertEquals(testWaterWorks.getPosition(4).getXCoord(), 33);
+	assertEquals(testWaterWorks.getPosition(1).getClientProperty("x"), 36);
+	assertEquals(testWaterWorks.getPosition(2).getClientProperty("x"), 35);
+	assertEquals(testWaterWorks.getPosition(3).getClientProperty("x"), 34);
+	assertEquals(testWaterWorks.getPosition(4).getClientProperty("x"), 33);
 
-	assertEquals(testWaterWorks.getPosition(1).getYCoord(), 0);
-	assertEquals(testWaterWorks.getPosition(2).getYCoord(), 0);
-	assertEquals(testWaterWorks.getPosition(3).getYCoord(), 0);
-	assertEquals(testWaterWorks.getPosition(4).getYCoord(), 0);
+	assertEquals(testWaterWorks.getPosition(1).getClientProperty("y"), 0);
+	assertEquals(testWaterWorks.getPosition(2).getClientProperty("y"), 0);
+	assertEquals(testWaterWorks.getPosition(3).getClientProperty("y"), 0);
+	assertEquals(testWaterWorks.getPosition(4).getClientProperty("y"), 0);
 
 	// private Icon image;
 	// private BoardCellGUI graphicalRepresentation;

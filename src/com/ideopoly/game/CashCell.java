@@ -9,6 +9,7 @@ public class CashCell extends JLabel {
     // v--- This gets rid of some compiler errors.
     private static final long serialVersionUID = 42L;
 
+    // TODO Store these coordinates as a Point rather than separate values.
     /** This position's x-coordinate in the GUI. */
     private final int xCoordPos;
 

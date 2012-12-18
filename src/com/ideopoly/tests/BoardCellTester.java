@@ -32,7 +32,7 @@ public class BoardCellTester extends TestCase {
 	//	testCell.setImage(new ImageIcon("images/greenTemplate.jpg"));
 	//	assertEquals(testCell.getImage(), new ImageIcon("images/greenTemplate.jpg"));
 
-	//	assertEquals(testCell.getX(), 4);
+	//	assertEquals(testCell.getCoordinates().x, 4);
 	//	assertEquals(testCell.getY(), 10);
 
 	// TODO: What should these return? This screams for a better design, since I think they're just dummy methods.

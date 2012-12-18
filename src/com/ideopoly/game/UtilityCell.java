@@ -1,5 +1,9 @@
 package com.ideopoly.game;
 
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 /** Represents the common behaviors of the
  *  Water Works and Electric Company cells. */
 public class UtilityCell extends BoardCell implements Ownable {
@@ -10,10 +14,31 @@ public class UtilityCell extends BoardCell implements Ownable {
     /** Status of this UtilityCell's ownership. If true, a Player owns the property. */
     private boolean owned;
 
+    /** The GameBoard that contains this UtilityCell. */
+    private GameBoard parentBoard;
+
     /** Create a new UtilityCell with a given name,
      *  image, and x/y coordinates on the board.*/
-    public UtilityCell(String newName, String imagePath, int xPos, int yPos, GameBoard board) {
-        super(newName, imagePath, xPos, yPos, board); // Use the BoardCell class' constructor.
+    public UtilityCell(String newName, String imagePath, Point coordinates, GameBoard board) {
+        super(newName, imagePath, coordinates, board); // Use the BoardCell class' constructor.
+        this.parentBoard = board;
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                parentBoard.setGUIColor(Color.GRAY);
+                parentBoard.setGUICost("$" + Integer.toString(getCost()));
+                // TODO: Fill in these things.
+                // board.setGUIHouseHotelCost.setText("$" + Integer.toString(u.getHouseOrHotelCost()));
+                // board.setGUIRent("$" + Integer.toString(u.getInitialRent()));
+                // board.setGUI1House.setText("$" + Integer.toString(u.getRent1House()));
+                // board.setGUI2House.setText("$" + Integer.toString(u.getRent2House()));
+                // board.setGUI3House.setText("$" + Integer.toString(u.getRent3House()));
+                // board.setGUI4House.setText("$" + Integer.toString(u.getRent4House()));
+                // board.setGUIHotel.setText ("$" + Integer.toString(u.getRent1Hotel()));
+                parentBoard.setGUIMortgage("$75");
+                parentBoard.setGUIName(getName());
+            }
+        });
         owned = false;
     }
 
