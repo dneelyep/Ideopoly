@@ -20,6 +20,11 @@ import java.awt.event.*;
  *
  *  @author Daniel Neel */
 public class GameBoard implements ActionListener {
+    // LEFTOFFHERE TODO To get rid of the ugly borders around some JButtons, use this:
+    //   button.setContentAreaFilled(false);
+    //   button.setBorderPainted(false);
+    
+    
     // TODO: Make some of these arrays, etc., final/static when they're constant. Also see
     // if it's possible to get rid of some of them.
     /** Number to represent if the game has been won. Once the game's won,
