@@ -19,7 +19,7 @@ import java.awt.event.*;
  *  can play the game.
  *
  *  @author Daniel Neel */
-public class GameBoard implements ActionListener {
+public class GameBoard {
     // TODO: Make some of these arrays, etc., final/static when they're constant. Also see
     // if it's possible to get rid of some of them.
     /** Number to represent if the game has been won. Once the game's won,
@@ -239,6 +239,16 @@ public class GameBoard implements ActionListener {
         // Add a Continue button in the middle of the board.
         c.gridwidth  = 7;
         c.gridheight = 2;
+        continueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                doTurn(players.get(currentPlayer));
+                // TODO: Make sure I don't need a bankruptcy check for this event.
+                //       Shouldn't, because button's only highlighted when the Player can buy.
+                //       Also add plenty of tests for this.
+                updateDisplay();
+            }
+        });
         addAtCoords(continueButton, new Point(22, 22), c);
 
         // ======================================================================
@@ -247,11 +257,36 @@ public class GameBoard implements ActionListener {
         c.fill = GridBagConstraints.HORIZONTAL;
 
         // Disable currently unusable buttons and add Action Listeners.
-        for (JButton button : Arrays.asList(buyProperty, buyHouse, buyHotel, sellProperty, mortgageProperty, useGOOJFCard)) {
+        buyProperty.setEnabled(false);
+        buyProperty.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((Ownable) player1.getCell()).buy(player1, GameBoard.this);
+                buyProperty.setEnabled(false);
+                updateDisplay();
+            }
+        });
+
+        useGOOJFCard.setEnabled(false);
+        useGOOJFCard.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                player1.spendGOOJF(GameBoard.this);
+                useGOOJFCard.setEnabled(false);
+                updateDisplay();
+            }
+        });
+
+        for (JButton button : Arrays.asList(buyHouse, buyHotel, sellProperty, mortgageProperty)) {
             button.setEnabled(false);
-            button.addActionListener(this);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("Testing " + ((JButton) e.getSource()).getText() + ".");
+                    updateDisplay();
+                }
+            });
         }
-        continueButton.addActionListener(this);
 
         // Left column.
         c.gridwidth = 9;
@@ -520,54 +555,6 @@ public class GameBoard implements ActionListener {
             playerRowLabels.get(currentPlayer - 1).setForeground(Color.GREEN);
         else if (currentPlayer == 0)
             playerRowLabels.get(3).setForeground(Color.GREEN);
-    }
-
-    /** Perform actions depending on GUI events. */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String eventSource = e.getActionCommand();
-
-        if (eventSource.equals("Continue")) {
-            doTurn(players.get(currentPlayer));
-            // TODO: Make sure I don't need a bankruptcy check for this event.
-            //       Shouldn't, because button's only highlighted when the Player can buy.
-            //       Also add plenty of tests for this.
-        }
-
-        else if (eventSource.substring(0, 12).equals("Buy property")) {
-            // TODO: Possible to do this more cleanly?
-            Ownable cell = (Ownable) player1.getCell();
-            cell.buy(player1, this);
-            buyProperty.setEnabled(false); // Disable button after property's bought.
-        }
-
-        else if (eventSource.equals("Buy house")) {
-            System.out.println("Testing buy house.");
-        }
-
-        else if (eventSource.equals("Buy hotel")) {
-            System.out.println("Testing buy hotel.");
-        }
-
-        else if (eventSource.equals("Sell property")) {
-            System.out.println("Testing sell property.");
-        }
-
-        else if (eventSource.equals("Mortgage property")) {
-            System.out.println("Testing mortgage property.");
-        }
-
-        else if (eventSource.equals("Use get out of jail free card")) {
-            player1.spendGOOJF(this);
-            useGOOJFCard.setEnabled(false);
-            updateDisplay();
-        }
-
-        else {
-            System.out.println("Received an action from an unknown source.");
-        }
-
-        updateDisplay();
     }
 
     /** Given an integer i, break it up into the smallest possible amount of bills. */

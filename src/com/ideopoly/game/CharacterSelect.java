@@ -10,7 +10,7 @@ import java.util.Arrays;
  *  to start a game.
  *
  *  @author Daniel Neel */
-public class CharacterSelect extends JFrame implements ActionListener {
+public class CharacterSelect extends JFrame {
 
     // TODO These buttons might be better modeled by a set
     /** This string represents the character currently selected.
@@ -36,17 +36,45 @@ public class CharacterSelect extends JFrame implements ActionListener {
         GridBagConstraints c = new GridBagConstraints();
         continueButton.setEnabled(false); // Disable at first, since a character hasn't been picked.
 
-        for (String string : Arrays.asList("Richard_Stallman", "Margaret_Thatcher", "Karl_Marx", "Mahatma_Gandhi", "Peter_Kropotkin", "Otto_von_Bismarck")) {
+        for (String string : Arrays.asList("Richard_Stallman", "Margaret_Thatcher", "Karl_Marx", "Mahatma_Gandhi",
+                "Peter_Kropotkin", "Otto_von_Bismarck")) {
             tokenButtons.add(new JButton(new ImageIcon("res/images/" + string + ".jpg", string)));
         }
 
         // Make all character token buttons listen for actions.
         for (JButton button : tokenButtons) {
-            button.addActionListener(this);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    continueButton.setEnabled(true);
+
+                    JButton sourceButton = (JButton) e.getSource();
+                    ImageIcon sourceIcon = (ImageIcon) sourceButton.getIcon();
+
+                    selectedPlayer = sourceIcon.getDescription();
+
+                    // Deselect all buttons, except the source button.
+                    for (JButton button : tokenButtons)
+                        button.setSelected(button == sourceButton);
+                }
+            });
         }
 
-        continueButton.addActionListener(this);
-        backButton.addActionListener(this);
+        continueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new GameBoard(selectedPlayer);
+                SwingUtilities.windowForComponent((JButton) e.getSource()).dispose();
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Menu();
+                SwingUtilities.windowForComponent((JButton) e.getSource()).dispose();
+            }
+        });
 
         // Set various icons for each character.
         for (JButton button: tokenButtons) {
@@ -80,34 +108,6 @@ public class CharacterSelect extends JFrame implements ActionListener {
 
         this.pack();
         this.setVisible(true);
-    }
-
-    /** Set the player's token to the clicked character.
-     *  If they click Continue, start a new game. If they
-     *  click Back, head back to the main menu. */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        JButton sourceButton = (JButton) e.getSource();
-        continueButton.setEnabled(true);
-
-        if (e.getActionCommand().equals("Continue")) {
-            new GameBoard(selectedPlayer);
-            this.dispose();
-        }
-        else if (e.getActionCommand().equals("Back")) {
-            new Menu();
-            this.dispose();
-        }
-        else {
-            ImageIcon sourceIcon = (ImageIcon) sourceButton.getIcon();
-            selectedPlayer = sourceIcon.getDescription();
-        }
-
-        // Deselect all buttons, then select only the selected button.
-        for (JButton button : tokenButtons)
-            button.setSelected(false);
-
-        sourceButton.setSelected(true);
     }
 
     /** Add a given JComponent component to this CharacterSelect at coordinates (x, y). */

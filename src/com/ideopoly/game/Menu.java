@@ -9,7 +9,7 @@ import java.util.Arrays;
  *  things such as quit, start a new game, etc.
  *
  *  @author Daniel Neel */
-public class Menu implements ActionListener {
+public class Menu {
 
     /** Create an instance of this menu to start the game */
     public static void main(String[] args) {
@@ -33,28 +33,30 @@ public class Menu implements ActionListener {
         logo.setAlignmentX(Component.CENTER_ALIGNMENT);
         box.add(logo);
 
-        for (JButton button : Arrays.asList(new JButton("Start"), new JButton("Quit"))) {
+        JButton startButton = new JButton("Start");
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainMenu.dispose(); // Get rid of the menu since we don't need it anymore.
+                new CharacterSelect();
+            }
+        });
+
+        JButton quitButton = new JButton("Quit");
+        quitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Goodbye.");
+                System.exit(0);
+            }
+        });
+
+        for (JButton button : Arrays.asList(startButton, quitButton)) {
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
-            button.addActionListener(this);
             box.add(button);
         }
 
         mainMenu.pack();
         mainMenu.setVisible(true);
-    }
-
-    /** Handle events that occur when the user decides to start or end the game. */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String eventSource = e.getActionCommand();
-
-        if (eventSource.equals("Start")) { // Launch the game
-            mainMenu.dispose(); // Get rid of the menu since we don't need it anymore.
-            new CharacterSelect();
-        }
-        else if (eventSource.equals("Quit")) {
-            System.out.println("Goodbye.");
-            System.exit(0);
-        }
     }
 }

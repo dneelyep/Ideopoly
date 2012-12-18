@@ -52,7 +52,6 @@
         private Color color;
 
         // TODO: Make add/remove functions for ownedOutlets. Use something other than an array for ease?
-
         /** Actions to take when a player object is initially created. Players
          *  are only created at the start of the game. Different players start
          *  at different positions on the board (Same cell, different walking space.) */
