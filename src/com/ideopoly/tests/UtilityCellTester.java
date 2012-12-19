@@ -26,15 +26,15 @@ public class UtilityCellTester extends TestCase {
 	assertEquals(testWaterWorks.getCoordinates().x, 33);
 	assertEquals(testWaterWorks.getCoordinates().y, 1);
 
-	assertEquals(testWaterWorks.getPosition(1).getClientProperty("x"), 36);
-	assertEquals(testWaterWorks.getPosition(2).getClientProperty("x"), 35);
-	assertEquals(testWaterWorks.getPosition(3).getClientProperty("x"), 34);
-	assertEquals(testWaterWorks.getPosition(4).getClientProperty("x"), 33);
+	assertEquals(testWaterWorks.getPosition(1).getXCoord(), 36);
+	assertEquals(testWaterWorks.getPosition(2).getXCoord(), 35);
+	assertEquals(testWaterWorks.getPosition(3).getXCoord(), 34);
+	assertEquals(testWaterWorks.getPosition(4).getXCoord(), 33);
 
-	assertEquals(testWaterWorks.getPosition(1).getClientProperty("y"), 0);
-	assertEquals(testWaterWorks.getPosition(2).getClientProperty("y"), 0);
-	assertEquals(testWaterWorks.getPosition(3).getClientProperty("y"), 0);
-	assertEquals(testWaterWorks.getPosition(4).getClientProperty("y"), 0);
+	assertEquals(testWaterWorks.getPosition(1).getYCoord(), 0);
+	assertEquals(testWaterWorks.getPosition(2).getYCoord(), 0);
+	assertEquals(testWaterWorks.getPosition(3).getYCoord(), 0);
+	assertEquals(testWaterWorks.getPosition(4).getYCoord(), 0);
 
 	// private Icon image;
 	// private BoardCellGUI graphicalRepresentation;

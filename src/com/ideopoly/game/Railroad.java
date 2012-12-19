@@ -23,29 +23,25 @@ public class Railroad extends BoardCell implements Ownable {
     /** Status of this Railroad's ownership. If true, a Player owns the property. */
     private boolean owned;
 
-    /** The GameBoard that contains this Railroad. */
-    private GameBoard parentBoard;
-
     /** Create a new Railroad with a given name, image, and no owner. */
-    public Railroad(String newName, String imagePath, Point coordinates, GameBoard board) {
-        super(newName, imagePath, coordinates, board); // Use the BoardCell class' constructor.
-        this.parentBoard = board;
+    public Railroad(String newName, String imagePath, Point coordinates, final GameBoard board) {
+        super(newName, imagePath, coordinates); // Use the BoardCell class' constructor.
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                parentBoard.setGUIColor(Color.BLACK);
-                parentBoard.setGUICost("$" + getCost());
+                board.setGUIColor(Color.BLACK);
+                board.setGUICost("$" + getCost());
                 // TODO: Change the gui text to 1RR/2RRs/etc. maybe
                 //       where houses would be displayed.
-                parentBoard.setGUIRent("$" + getRent());
+                board.setGUIRent("$" + getRent());
                 // TODO: Combine the unownable/can't buy parts? Reduce a bit of duplication.
-                parentBoard.setGUI1HouseLabel("-");
-                parentBoard.setGUI2HouseLabel("-");
-                parentBoard.setGUI3HouseLabel("-");
-                parentBoard.setGUI4HouseLabel("-");
-                parentBoard.setGUIHotel("-");
-                parentBoard.setGUIMortgage("$" + getMortgageValue());
-                parentBoard.setGUIName(getName());
+                board.setGUI1HouseLabel("-");
+                board.setGUI2HouseLabel("-");
+                board.setGUI3HouseLabel("-");
+                board.setGUI4HouseLabel("-");
+                board.setGUIHotel("-");
+                board.setGUIMortgage("$" + getMortgageValue());
+                board.setGUIName(getName());
             }
         });
         owned = false;

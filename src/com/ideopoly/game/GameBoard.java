@@ -440,7 +440,7 @@ public class GameBoard {
                 // TODO: Try to clarify what's happening here. Could probably simplify it.
                 // TODO: If circular linked list works, this conditional should be unneeded.
                 p.setCell(boardProperties.get(landingSpot - 40));
-                p.addCash(CASH_TYPES.hundreds, 2); // Give 200 bucks for passing Go.
+                p.setCash(CASH_TYPES.hundreds, p.getCash(CASH_TYPES.hundreds) + 2); // Give 200 bucks for passing Go.
             }
 
             // TODO: I seem to be getting a bug where, after landing on Go to Jail,

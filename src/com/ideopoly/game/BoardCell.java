@@ -41,18 +41,14 @@ public abstract class BoardCell extends JPanel {
     private BoardPosition p3Pos;
     private BoardPosition p4Pos;
 
-    /** The board associated with this BoardCell. */
-    private GameBoard board;
-
     /** Creates a BoardCell object, with the specified name, image path, coordinates, and 
      *  player standing positions. Does not have an owner. There are no players standing 
      *  on this object. */
-    public BoardCell(String newName, String imagePath, Point coordinates, GameBoard g) {
+    public BoardCell(String newName, String imagePath, Point coordinates) {
         name    = newName;
         ownedBy = null;
         image   = new ImageIcon("res/images/" + imagePath);
         this.coordinates = coordinates;
-        board   = g;
 
         if (coordinates.x >= 1 && coordinates.x <= 41 && coordinates.y == 1) {       // Top row.
             p1Pos = new BoardPosition(coordinates.x + 3, 0);

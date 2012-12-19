@@ -57,7 +57,7 @@ public class Chance {
         switch (cardType) {
             case 1:  // "Advance to Go (Collect $200)"
                 p.setCell(board.boardProperties.get(0));
-                p.addCash(CASH_TYPES.hundreds, 2);
+                p.setCash(CASH_TYPES.hundreds, p.getCash(CASH_TYPES.hundreds) + 2);
                 break;
             case 2:  // "Advance to Illinois Ave - if you pass Go, collect $200"
                 // TODO: There's a general pattern to these cards. It's if position is
@@ -66,7 +66,7 @@ public class Chance {
 
                 // If the player's on B & O RR or after, give money.
                 if (board.boardProperties.indexOf(p.getCell()) >= 24)
-                    p.addCash(CASH_TYPES.hundreds, 2);
+                    p.setCash(CASH_TYPES.hundreds, p.getCash(CASH_TYPES.hundreds) + 2);
 
                 p.setCell(board.boardProperties.get(24));
                 break;
@@ -117,13 +117,13 @@ public class Chance {
 
                 // If the player's position is on or after Electric Company, give em $200.
                 if (board.boardProperties.indexOf(p.getCell()) >= 12)
-                    p.addCash(CASH_TYPES.hundreds, 2);
+                    p.setCash(CASH_TYPES.hundreds, p.getCash(CASH_TYPES.hundreds) + 2);
 
                 p.setCell(board.boardProperties.get(11));
                 break;
 
             case 6:  // "Bank pays you dividend of $50"
-                p.addCash(CASH_TYPES.fifties, 1);
+                p.setCash(CASH_TYPES.fifties, p.getCash(CASH_TYPES.fifties) + 1);
                 break;
             case 7:  // "Get out of Jail Free – this card may be kept until needed, or traded/sold"
                 p.giveGOOJF();
@@ -160,7 +160,7 @@ public class Chance {
             case 12: // "Take a trip to Reading Railroad – if you pass Go, collect $200"
                 // If the player's position is on or after Oriental avenue, give em $200.
                 if (board.boardProperties.indexOf(p.getCell()) >= 6)
-                    p.addCash(CASH_TYPES.hundreds, 2);
+                    p.setCash(CASH_TYPES.hundreds, p.getCash(CASH_TYPES.hundreds) + 2);
 
                 p.setCell(board.boardProperties.get(5));
                 // TODO: And then onland function.
@@ -173,17 +173,17 @@ public class Chance {
             case 14: // "You have been elected chairman of the board – pay each player $50"
                 for (Player player : board.players) {
                     if (player != p)
-                        player.addCash(CASH_TYPES.fifties, 1);
+                        player.setCash(CASH_TYPES.fifties, player.getCash(CASH_TYPES.fifties) + 1);
                 }
                 // TODO: This won't be 150 when one or more other players are bankrupt.
                 p.payBank(150, board);
                 break;
             case 15: // "Your building loan matures – collect $150"
-                p.addCash(CASH_TYPES.hundreds, 1);
-                p.addCash(CASH_TYPES.fifties, 1);
+                p.setCash(CASH_TYPES.hundreds, p.getCash(CASH_TYPES.hundreds) + 1);
+                p.setCash(CASH_TYPES.fifties, p.getCash(CASH_TYPES.fifties) + 1);
                 break;
             case 16: // "You have won a crossword competition - collect $100"
-                p.addCash(CASH_TYPES.hundreds, 1);
+                p.setCash(CASH_TYPES.hundreds, p.getCash(CASH_TYPES.hundreds) + 1);
                 break;
 
             default: System.out.println("Wrong Chance value!");

@@ -14,19 +14,15 @@ public class UtilityCell extends BoardCell implements Ownable {
     /** Status of this UtilityCell's ownership. If true, a Player owns the property. */
     private boolean owned;
 
-    /** The GameBoard that contains this UtilityCell. */
-    private GameBoard parentBoard;
-
     /** Create a new UtilityCell with a given name,
      *  image, and x/y coordinates on the board.*/
-    public UtilityCell(String newName, String imagePath, Point coordinates, GameBoard board) {
-        super(newName, imagePath, coordinates, board); // Use the BoardCell class' constructor.
-        this.parentBoard = board;
+    public UtilityCell(String newName, String imagePath, Point coordinates, final GameBoard board) {
+        super(newName, imagePath, coordinates); // Use the BoardCell class' constructor.
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                parentBoard.setGUIColor(Color.GRAY);
-                parentBoard.setGUICost("$" + Integer.toString(getCost()));
+                board.setGUIColor(Color.GRAY);
+                board.setGUICost("$" + Integer.toString(getCost()));
                 // TODO: Fill in these things.
                 // board.setGUIHouseHotelCost.setText("$" + Integer.toString(u.getHouseOrHotelCost()));
                 // board.setGUIRent("$" + Integer.toString(u.getInitialRent()));
@@ -35,8 +31,8 @@ public class UtilityCell extends BoardCell implements Ownable {
                 // board.setGUI3House.setText("$" + Integer.toString(u.getRent3House()));
                 // board.setGUI4House.setText("$" + Integer.toString(u.getRent4House()));
                 // board.setGUIHotel.setText ("$" + Integer.toString(u.getRent1Hotel()));
-                parentBoard.setGUIMortgage("$75");
-                parentBoard.setGUIName(getName());
+                board.setGUIMortgage("$75");
+                board.setGUIName(getName());
             }
         });
         owned = false;
@@ -70,6 +66,6 @@ public class UtilityCell extends BoardCell implements Ownable {
      *  currently owned by a Player. */
     @Override
     public boolean isOwned() {
-        return ((owned == true) ? true : false);
+        return owned;
     }
 }

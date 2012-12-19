@@ -24,9 +24,6 @@ public class CharacterSelect extends JFrame {
     /** Button to continue to the actual game. */
     private final JButton continueButton = new JButton("Continue");
 
-    /** Button to go back to the main menu. */
-    private final JButton backButton = new JButton("Back");
-
     // TODO: Review other constructors - should their stuff be fields?
     /** Create a new CharacterSelect with the provided title. */
     public CharacterSelect() {
@@ -38,7 +35,10 @@ public class CharacterSelect extends JFrame {
 
         for (String string : Arrays.asList("Richard_Stallman", "Margaret_Thatcher", "Karl_Marx", "Mahatma_Gandhi",
                 "Peter_Kropotkin", "Otto_von_Bismarck")) {
-            tokenButtons.add(new JButton(new ImageIcon("res/images/" + string + ".jpg", string)));
+            JButton button = new JButton(new ImageIcon("res/images/" + string + ".jpg", string));
+            button.setContentAreaFilled(false);
+            button.setBorderPainted(false);
+            tokenButtons.add(button);//new JButton(new ImageIcon("res/images/" + string + ".jpg", string)));
         }
 
         // Make all character token buttons listen for actions.
@@ -68,6 +68,7 @@ public class CharacterSelect extends JFrame {
             }
         });
 
+        final JButton backButton = new JButton("Back");
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

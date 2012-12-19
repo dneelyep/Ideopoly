@@ -9,31 +9,26 @@ import java.awt.event.MouseEvent;
 // TODO: More concise name for this class.
 public class ChanceOrCommChestCell extends BoardCell {
     // TODO: Add a test class and tests.
-
-    /** The GameBoard that contains this ChanceOrCommChestCell. */
-    private GameBoard parentBoard;
-
     /** Create a new ChanceOrCommChestCell with a given
      *  name, image, and x/y coordinates on the board.*/
-    public ChanceOrCommChestCell(String newName, String imagePath, Point coordinates, GameBoard board) {
-        super(newName, imagePath, coordinates, board); // Use the BoardCell class' constructor.
-        this.parentBoard = board;
+    public ChanceOrCommChestCell(String newName, String imagePath, Point coordinates, final GameBoard board) {
+        super(newName, imagePath, coordinates); // Use the BoardCell class' constructor.
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 // TODO Make this a unique color rather than sharing the same color with free parking/etc.
                 // TODO: Remove the labels when we mouse over an un-ownable property?
-                parentBoard.setGUIColor(Color.WHITE);
-                parentBoard.setGUICost("-");
-                parentBoard.setGUIHouseHotelCost("-");
-                parentBoard.setGUIRent("-");
-                parentBoard.setGUI1HouseLabel("-");
-                parentBoard.setGUI2HouseLabel("-");
-                parentBoard.setGUI3HouseLabel("-");
-                parentBoard.setGUI4HouseLabel("-");
-                parentBoard.setGUIHotel("-");
-                parentBoard.setGUIMortgage("-");
-                parentBoard.setGUIName(getName());
+                board.setGUIColor(Color.WHITE);
+                board.setGUICost("-");
+                board.setGUIHouseHotelCost("-");
+                board.setGUIRent("-");
+                board.setGUI1HouseLabel("-");
+                board.setGUI2HouseLabel("-");
+                board.setGUI3HouseLabel("-");
+                board.setGUI4HouseLabel("-");
+                board.setGUIHotel("-");
+                board.setGUIMortgage("-");
+                board.setGUIName(getName());
             }
         });
     }

@@ -10,32 +10,27 @@ import java.awt.event.MouseEvent;
  *  Tax. */
 public class SpecialCell extends BoardCell {
     // TODO: Add a test class and tests.
-
-    /** The GameBoard that contains this SpecialCell. */
-    private GameBoard parentBoard;
-
     /** Create a new SpecialCell with a given name,
      *  image, and x/y coordinates on the board.*/
-    public SpecialCell(String newName, String imagePath, Point coordinates, GameBoard board) {
-        super(newName, imagePath, coordinates, board); // Use the BoardCell class' constructor.
+    public SpecialCell(String newName, String imagePath, Point coordinates, final GameBoard board) {
+        super(newName, imagePath, coordinates); // Use the BoardCell class' constructor.
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 // TODO: Remove the labels when we mouse over an un-ownable property?
-                parentBoard.setGUIColor(Color.WHITE);
-                parentBoard.setGUICost("-");
-                parentBoard.setGUIHouseHotelCost("-");
-                parentBoard.setGUIRent("-");
-                parentBoard.setGUI1HouseLabel("-");
-                parentBoard.setGUI2HouseLabel("-");
-                parentBoard.setGUI3HouseLabel("-");
-                parentBoard.setGUI4HouseLabel("-");
-                parentBoard.setGUIHotel("-");
-                parentBoard.setGUIMortgage("-");
-                parentBoard.setGUIName(getName());
+                board.setGUIColor(Color.WHITE);
+                board.setGUICost("-");
+                board.setGUIHouseHotelCost("-");
+                board.setGUIRent("-");
+                board.setGUI1HouseLabel("-");
+                board.setGUI2HouseLabel("-");
+                board.setGUI3HouseLabel("-");
+                board.setGUI4HouseLabel("-");
+                board.setGUIHotel("-");
+                board.setGUIMortgage("-");
+                board.setGUIName(getName());
             }
         });
-        this.parentBoard = board;
     }
 
     // TODO: Handle this better than returning a 0 value. Un-elegant.

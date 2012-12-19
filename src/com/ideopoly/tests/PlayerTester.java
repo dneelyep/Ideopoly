@@ -83,13 +83,13 @@ public class PlayerTester extends TestCase {
         assertEquals(testPlayer.getCash(CASH_TYPES.total),        0);
         assertEquals(testPlayer.getImage(),              null);
 
-        testPlayer.addCash(CASH_TYPES.ones, testPlayer.getCash(CASH_TYPES.ones) + 20);
-        testPlayer.addCash(CASH_TYPES.fives, 5);
-        testPlayer.addCash(CASH_TYPES.tens, 10);
-        testPlayer.addCash(CASH_TYPES.twenties, 15);
-        testPlayer.addCash(CASH_TYPES.fifties, 80);
-        testPlayer.addCash(CASH_TYPES.hundreds, -12);
-        testPlayer.addCash(CASH_TYPES.fiveHundreds, 10);
+        testPlayer.setCash(CASH_TYPES.ones, testPlayer.getCash(CASH_TYPES.ones) + 20);
+        testPlayer.setCash(CASH_TYPES.fives, testPlayer.getCash(CASH_TYPES.fives) + 5);
+        testPlayer.setCash(CASH_TYPES.tens, testPlayer.getCash(CASH_TYPES.tens) + 10);
+        testPlayer.setCash(CASH_TYPES.twenties, testPlayer.getCash(CASH_TYPES.twenties) + 15);
+        testPlayer.setCash(CASH_TYPES.fifties, testPlayer.getCash(CASH_TYPES.fifties) + 80);
+        testPlayer.setCash(CASH_TYPES.hundreds, testPlayer.getCash(CASH_TYPES.hundreds) - 12);
+        testPlayer.setCash(CASH_TYPES.fiveHundreds, testPlayer.getCash(CASH_TYPES.fiveHundreds) + 10);
 
         assertEquals(testPlayer.getCash(CASH_TYPES.ones),         20);
         assertEquals(testPlayer.getCash(CASH_TYPES.fives),         5);
@@ -277,27 +277,6 @@ public class PlayerTester extends TestCase {
         //       position. Due to the new data model, that shouldn't be a problem. If I want to
         //       reproduce those tests, just try to move two separate players to standing on the
         //       same standing position.
-
-        // Then try incorrect cases.
-
-        // Don't allow negative BoardCell arguments.
-        testPlayer.setCell(board.boardProperties.get(-1));
-        testPlayer.setCell(board.boardProperties.get(-1));
-        testPlayer.setCell(board.boardProperties.get(-1));
-        testPlayer.setCell(board.boardProperties.get(-1));
-        assertEquals(testPlayer.getCell(),  board.boardProperties.get(2));
-        assertEquals(testPlayer2.getCell(), board.boardProperties.get(2));
-        assertEquals(testPlayer3.getCell(), board.boardProperties.get(2));
-        assertEquals(testPlayer4.getCell(), board.boardProperties.get(2));
-
-        testPlayer.setCell(board.boardProperties.get(-5));
-        testPlayer.setCell(board.boardProperties.get(-5));
-        testPlayer.setCell(board.boardProperties.get(-5));
-        testPlayer.setCell(board.boardProperties.get(-5));
-        assertEquals(testPlayer.getCell(),  board.boardProperties.get(2));
-        assertEquals(testPlayer2.getCell(), board.boardProperties.get(2));
-        assertEquals(testPlayer3.getCell(), board.boardProperties.get(2));
-        assertEquals(testPlayer4.getCell(), board.boardProperties.get(2));
 
         // And check to make sure we can't move beyond the edge of the board.
         testPlayer.setCell(board.boardProperties.get(40));

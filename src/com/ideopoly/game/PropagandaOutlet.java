@@ -57,9 +57,6 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
     /** Status of this PropagandaOutlet's ownership. If true, a Player owns the property. */
     private boolean owned;
 
-    /** The GameBoard that this PropagandaOutlet belongs to. */
-    private GameBoard parentBoard;
-
     /** Create a new propaganda outlet with a given name, image, no owner,
      *  no houses/hotels and the given rent per no house, 1/2/3/4 houses/hotels,
      *  mortgage value, cost per house/hotel, x/y coordinates.
@@ -69,9 +66,9 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
     // TODO: Should we accept an array instead maybe?
     // TODO: Accept an array for rent values rather than separate variables?
     // TODO: camelCase variable names here.
-    public PropagandaOutlet(String newName, String imagePath, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, Point coordinates, GameBoard board, int r, int g, int b) {
+    public PropagandaOutlet(String newName, String imagePath, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, Point coordinates, final GameBoard board, int r, int g, int b) {
         // TODO: Better, less ambiguous variable names here.
-        super(newName, imagePath, coordinates, board); // Use the BoardCell class' constructor.
+        super(newName, imagePath, coordinates); // Use the BoardCell class' constructor.
         numHouses	    = 0;
         numHotels	    = 0;
         cost            = newCost;
@@ -86,22 +83,21 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
         rent1Hotel	     = newRent1Hotel;
         houseOrHotelCost = newHouseOrHotelCost;
         color            = new Color(r, g, b);
-        this.parentBoard = board;
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                parentBoard.setGUIColor(getColor());
+                board.setGUIColor(getColor());
                 // TODO: Find a way to prepend the $ automatically.
-                parentBoard.setGUICost("$" + Integer.toString(getCost()));
-                parentBoard.setGUIHouseHotelCost("$" + Integer.toString(getHouseOrHotelCost()));
-                parentBoard.setGUIRent("$" + Integer.toString(getInitialRent()));
-                parentBoard.setGUI1HouseLabel("$" + Integer.toString(getRent1House()));
-                parentBoard.setGUI2HouseLabel("$" + Integer.toString(getRent2House()));
-                parentBoard.setGUI3HouseLabel("$" + Integer.toString(getRent3House()));
-                parentBoard.setGUI4HouseLabel("$" + Integer.toString(getRent4House()));
-                parentBoard.setGUIHotel("$" + Integer.toString(getRent1Hotel()));
-                parentBoard.setGUIMortgage("$" + Integer.toString(getMortgageValue()));
-                parentBoard.setGUIName(getName());
+                board.setGUICost("$" + Integer.toString(getCost()));
+                board.setGUIHouseHotelCost("$" + Integer.toString(getHouseOrHotelCost()));
+                board.setGUIRent("$" + Integer.toString(getInitialRent()));
+                board.setGUI1HouseLabel("$" + Integer.toString(getRent1House()));
+                board.setGUI2HouseLabel("$" + Integer.toString(getRent2House()));
+                board.setGUI3HouseLabel("$" + Integer.toString(getRent3House()));
+                board.setGUI4HouseLabel("$" + Integer.toString(getRent4House()));
+                board.setGUIHotel("$" + Integer.toString(getRent1Hotel()));
+                board.setGUIMortgage("$" + Integer.toString(getMortgageValue()));
+                board.setGUIName(getName());
             }
         });
     }
