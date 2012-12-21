@@ -7,14 +7,19 @@ package com.ideopoly.game;
  * @author Daniel Neel */
 public interface Ownable {
     // TODO: Tests? Possible for an interface?
-    /** Set Player p as this property's owner, and
-     *  charge them the relevant amount of money. */
-    void buy(Player p, GameBoard board);
-
     /** Get the amount of rent charged to a Player
      *  landing on this property. */
-    int getRent();
+    public int getRent();
+
+    /** Get the amount of money required to buy this Ownable property. */
+    public int getCost();
 
     /** Return true if this property is owned, false otherwise. */
-    boolean isOwned();
+    public boolean isOwned();
+
+    /** Change the owner of this Ownable to a given Player player. */
+    public void setOwner(Player player);
+
+    /** Get a string representation of the name of this Ownable. */
+    public String getName();
 }

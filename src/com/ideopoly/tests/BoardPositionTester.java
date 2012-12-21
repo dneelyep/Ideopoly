@@ -5,6 +5,8 @@ import org.junit.*;
 import javax.swing.*;
 import com.ideopoly.game.*;
 
+import java.awt.*;
+
 /** Class to test all methods inside the BoardPosition class.
  *
  *  @author Daniel Neel */
@@ -13,9 +15,9 @@ public class BoardPositionTester extends TestCase {
     // TODO: More tests needed? Looks skimpy.
     @Test
     public void testBoardPosition() {
-	BoardPosition testBoardPosition = new BoardPosition(0, 0);
-	assertEquals(testBoardPosition.getXCoord(), 0);
-	assertEquals(testBoardPosition.getYCoord(), 0);
+	BoardPosition testBoardPosition = new BoardPosition(new Point(0, 0));
+	assertEquals(testBoardPosition.getCoordinates().x, 0);
+	assertEquals(testBoardPosition.getCoordinates().y, 0);
 	//	assertEquals(testBoardPosition.getImage(), ); <-- TODO
 
 	Icon testImage = new ImageIcon("images/p1Present.jpg");

@@ -21,18 +21,20 @@ public class UtilityCell extends BoardCell implements Ownable {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                board.setGUIColor(Color.GRAY);
-                board.setGUICost("$" + Integer.toString(getCost()));
-                // TODO: Fill in these things.
-                // board.setGUIHouseHotelCost.setText("$" + Integer.toString(u.getHouseOrHotelCost()));
-                // board.setGUIRent("$" + Integer.toString(u.getInitialRent()));
-                // board.setGUI1House.setText("$" + Integer.toString(u.getRent1House()));
-                // board.setGUI2House.setText("$" + Integer.toString(u.getRent2House()));
-                // board.setGUI3House.setText("$" + Integer.toString(u.getRent3House()));
-                // board.setGUI4House.setText("$" + Integer.toString(u.getRent4House()));
-                // board.setGUIHotel.setText ("$" + Integer.toString(u.getRent1Hotel()));
-                board.setGUIMortgage("$75");
-                board.setGUIName(getName());
+                if (board.getFocusedCell() == null) {
+                    board.setGUIColor(Color.GRAY);
+                    board.setGUICost("$" + Integer.toString(getCost()));
+                    // TODO: Fill in these things.
+                    // board.setGUIHouseHotelCost.setText("$" + Integer.toString(u.getHouseOrHotelCost()));
+                    // board.setGUIRent("$" + Integer.toString(u.getInitialRent()));
+                    // board.setGUI1House.setText("$" + Integer.toString(u.getRent1House()));
+                    // board.setGUI2House.setText("$" + Integer.toString(u.getRent2House()));
+                    // board.setGUI3House.setText("$" + Integer.toString(u.getRent3House()));
+                    // board.setGUI4House.setText("$" + Integer.toString(u.getRent4House()));
+                    // board.setGUIHotel.setText ("$" + Integer.toString(u.getRent1Hotel()));
+                    board.setGUIMortgage("$75");
+                    board.setGUIName(getName());
+                }
             }
         });
         owned = false;
@@ -51,15 +53,6 @@ public class UtilityCell extends BoardCell implements Ownable {
     @Override
     public int getRent() {
         return 0;
-    }
-
-    /** Set Player p as the owner of this UtilityCell, and charge
-     *  them the correct amount of money. */
-    @Override
-    public void buy(Player p, GameBoard board) {
-        p.payBank(this.getCost(), board);
-        this.setOwner(p);
-        board.printStatusAndLog(p.getName() + " bought " + this.getName() + " for $" + COST + ".");
     }
 
     /** Return whether or not this UtilityCell is 

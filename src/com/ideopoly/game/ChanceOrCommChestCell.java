@@ -18,17 +18,19 @@ public class ChanceOrCommChestCell extends BoardCell {
             public void mouseEntered(MouseEvent e) {
                 // TODO Make this a unique color rather than sharing the same color with free parking/etc.
                 // TODO: Remove the labels when we mouse over an un-ownable property?
-                board.setGUIColor(Color.WHITE);
-                board.setGUICost("-");
-                board.setGUIHouseHotelCost("-");
-                board.setGUIRent("-");
-                board.setGUI1HouseLabel("-");
-                board.setGUI2HouseLabel("-");
-                board.setGUI3HouseLabel("-");
-                board.setGUI4HouseLabel("-");
-                board.setGUIHotel("-");
-                board.setGUIMortgage("-");
-                board.setGUIName(getName());
+                if (board.getFocusedCell() == null) {
+                    board.setGUIColor(Color.WHITE);
+                    board.setGUICost("-");
+                    board.setGUIHouseHotelCost("-");
+                    board.setGUIRent("-");
+                    board.setGUI1HouseLabel("-");
+                    board.setGUI2HouseLabel("-");
+                    board.setGUI3HouseLabel("-");
+                    board.setGUI4HouseLabel("-");
+                    board.setGUIHotel("-");
+                    board.setGUIMortgage("-");
+                    board.setGUIName(getName());
+                }
             }
         });
     }

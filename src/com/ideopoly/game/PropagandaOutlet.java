@@ -1,5 +1,6 @@
 package com.ideopoly.game;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -86,18 +87,35 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                board.setGUIColor(getColor());
-                // TODO: Find a way to prepend the $ automatically.
-                board.setGUICost("$" + Integer.toString(getCost()));
-                board.setGUIHouseHotelCost("$" + Integer.toString(getHouseOrHotelCost()));
-                board.setGUIRent("$" + Integer.toString(getInitialRent()));
-                board.setGUI1HouseLabel("$" + Integer.toString(getRent1House()));
-                board.setGUI2HouseLabel("$" + Integer.toString(getRent2House()));
-                board.setGUI3HouseLabel("$" + Integer.toString(getRent3House()));
-                board.setGUI4HouseLabel("$" + Integer.toString(getRent4House()));
-                board.setGUIHotel("$" + Integer.toString(getRent1Hotel()));
-                board.setGUIMortgage("$" + Integer.toString(getMortgageValue()));
-                board.setGUIName(getName());
+                if (board.getFocusedCell() == null) {
+                    board.setGUIColor(getColor());
+                    // TODO: Find a way to prepend the $ automatically.
+                    board.setGUICost("$" + Integer.toString(getCost()));
+                    board.setGUIHouseHotelCost("$" + Integer.toString(getHouseOrHotelCost()));
+                    board.setGUIRent("$" + Integer.toString(getInitialRent()));
+                    board.setGUI1HouseLabel("$" + Integer.toString(getRent1House()));
+                    board.setGUI2HouseLabel("$" + Integer.toString(getRent2House()));
+                    board.setGUI3HouseLabel("$" + Integer.toString(getRent3House()));
+                    board.setGUI4HouseLabel("$" + Integer.toString(getRent4House()));
+                    board.setGUIHotel("$" + Integer.toString(getRent1Hotel()));
+                    board.setGUIMortgage("$" + Integer.toString(getMortgageValue()));
+                    board.setGUIName(getName());
+                }
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (board.getFocusedCell() == null) {
+                    board.getBuyHouse().setEnabled(true);
+                    board.getBuyHotel().setEnabled(true);
+                    board.getSellProperty().setEnabled(true);
+                    board.getMortgageProperty().setEnabled(true);
+                    board.getCancelButton().setEnabled(true);
+                    board.setFocusedCell(PropagandaOutlet.this);
+//                ((ImageIcon) ((JLabel) getComponent(0)).getIcon()).;
+
+                    ((JLabel) getComponent(0)).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
+                }
             }
         });
     }
@@ -131,20 +149,11 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
             return -1;
     }
 
-    /** Set Player p as the owner of this PropagandaOutlet, and charge
-     *  them the correct amount of money. */
-    @Override
-    public void buy(Player p, GameBoard board) {
-        p.payBank(this.getCost(), board);
-        this.setOwner(p);
-        board.printStatusAndLog(p.getName() + " bought " + this.getName() + " for $" + cost + ".");
-    }
-
     /** Return whether or not this UtilityCell is 
      *  currently owned by a Player. */
     @Override
     public boolean isOwned() {
-        return ((owned == true) ? true : false);
+        return owned;
     }
 
     /** Returns the cost for a Player to buy this 

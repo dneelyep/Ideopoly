@@ -51,28 +51,28 @@ public abstract class BoardCell extends JPanel {
         this.coordinates = coordinates;
 
         if (coordinates.x >= 1 && coordinates.x <= 41 && coordinates.y == 1) {       // Top row.
-            p1Pos = new BoardPosition(coordinates.x + 3, 0);
-            p2Pos = new BoardPosition(coordinates.x + 2, 0);
-            p3Pos = new BoardPosition(coordinates.x + 1, 0);
-            p4Pos = new BoardPosition(coordinates.x,     0);
+            p1Pos = new BoardPosition(new Point(coordinates.x + 3, 0));
+            p2Pos = new BoardPosition(new Point(coordinates.x + 2, 0));
+            p3Pos = new BoardPosition(new Point(coordinates.x + 1, 0));
+            p4Pos = new BoardPosition(new Point(coordinates.x,     0));
         }
         else if (coordinates.x >= 1 && coordinates.x <= 41 && coordinates.y == 41) { // Bottom row.
-            p1Pos = new BoardPosition(coordinates.x,     45);
-            p2Pos = new BoardPosition(coordinates.x + 1, 45);
-            p3Pos = new BoardPosition(coordinates.x + 2, 45);
-            p4Pos = new BoardPosition(coordinates.x + 3, 45);
+            p1Pos = new BoardPosition(new Point(coordinates.x,     45));
+            p2Pos = new BoardPosition(new Point(coordinates.x + 1, 45));
+            p3Pos = new BoardPosition(new Point(coordinates.x + 2, 45));
+            p4Pos = new BoardPosition(new Point(coordinates.x + 3, 45));
         }
         else if (coordinates.y >= 2 && coordinates.y <= 40 && coordinates.x == 1) {  // Left column  (except top/bottom cells).
-            p1Pos = new BoardPosition(0, coordinates.y);
-            p2Pos = new BoardPosition(0, coordinates.y + 1);
-            p3Pos = new BoardPosition(0, coordinates.y + 2);
-            p4Pos = new BoardPosition(0, coordinates.y + 3);
+            p1Pos = new BoardPosition(new Point(0, coordinates.y));
+            p2Pos = new BoardPosition(new Point(0, coordinates.y + 1));
+            p3Pos = new BoardPosition(new Point(0, coordinates.y + 2));
+            p4Pos = new BoardPosition(new Point(0, coordinates.y + 3));
         }
         else if (coordinates.y >= 2 && coordinates.y <= 40 && coordinates.x == 41) { // Right column (except top/bottom cells).
-            p1Pos = new BoardPosition(45, coordinates.y + 3);
-            p2Pos = new BoardPosition(45, coordinates.y + 2);
-            p3Pos = new BoardPosition(45, coordinates.y + 1);
-            p4Pos = new BoardPosition(45, coordinates.y);
+            p1Pos = new BoardPosition(new Point(45, coordinates.y + 3));
+            p2Pos = new BoardPosition(new Point(45, coordinates.y + 2));
+            p3Pos = new BoardPosition(new Point(45, coordinates.y + 1));
+            p4Pos = new BoardPosition(new Point(45, coordinates.y));
         }
 
         add(new JLabel(image));

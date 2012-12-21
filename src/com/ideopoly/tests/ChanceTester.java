@@ -19,7 +19,7 @@ public class ChanceTester extends TestCase {
     private Player player3 = board.player3;
     private Player player4 = board.player4;
 
-    private Chance chanceCard;
+    private ChanceCards chanceCard;
 
     // TODO: I added the carryOutActions() method to the Chance class. Make sure to have tests
     // for this.
@@ -27,8 +27,8 @@ public class ChanceTester extends TestCase {
     /** Test all methods in the Chance class. */
     @Test
     public void testChance1() {
-        chanceCard = new Chance(1);
-        assertEquals(chanceCard.getType(), 1);
+        chanceCard = ChanceCards.one;
+        assertEquals(chanceCard.getCardNumber(), 1);
         assertEquals(chanceCard.getText(), "Advance to Go (Collect $200)");
 
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
@@ -40,8 +40,8 @@ public class ChanceTester extends TestCase {
     // TODO: Add javadocs for each test. Possibly include the text of the card with each.
     @Test
     public void testChance2() {
-        chanceCard = new Chance(2);
-        assertEquals(chanceCard.getType(), 2);
+        chanceCard = ChanceCards.two;
+        assertEquals(chanceCard.getCardNumber(), 2);
         assertEquals(chanceCard.getText(), "Advance to Illinois Ave - if you pass Go, collect $200");
 
         // First check with players standing at Go. Then with them on Illinois. Then with
@@ -68,8 +68,8 @@ public class ChanceTester extends TestCase {
     @Test
     public void testChance3() {
         // TODO: Refactor/loop this section. Lots of duplicate code.
-        chanceCard = new Chance(3);
-        assertEquals(chanceCard.getType(), 3);
+        chanceCard = ChanceCards.three;
+        assertEquals(chanceCard.getCardNumber(), 3);
         assertEquals(chanceCard.getText(), "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.");
         // TODO: Test the 10x amount thrown part. And the may buy it part.
         // Test this function's for all 4 players, where they land on all 3 possible Chance locations.
@@ -150,8 +150,8 @@ public class ChanceTester extends TestCase {
 
     @Test
     public void testChance4() {
-        chanceCard = new Chance(4);
-        assertEquals(chanceCard.getType(), 4);
+        chanceCard = ChanceCards.four;
+        assertEquals(chanceCard.getCardNumber(), 4);
         assertEquals(chanceCard.getText(), "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank. (There are two of these.)");
 
         // Test on all Chance cards.
@@ -176,8 +176,8 @@ public class ChanceTester extends TestCase {
 
     @Test
     public void testChance5() {
-        chanceCard = new Chance(5);
-        assertEquals(chanceCard.getType(), 5);
+        chanceCard = ChanceCards.five;
+        assertEquals(chanceCard.getCardNumber(), 5);
         assertEquals(chanceCard.getText(), "Advance to St. Charles Place – if you pass Go, collect $200");
         // Start with clean Players.
         // TODO: Do I need these start with clean players things where I have them? If not, remove.
@@ -205,8 +205,8 @@ public class ChanceTester extends TestCase {
 
     @Test
     public void testChance6() {
-        chanceCard = new Chance(6);
-        assertEquals(chanceCard.getType(), 6);
+        chanceCard = ChanceCards.six;
+        assertEquals(chanceCard.getCardNumber(), 6);
         assertEquals(chanceCard.getText(), "Bank pays you dividend of $50");
 
         int p1Money = player1.getCash(CASH_TYPES.total);
@@ -224,8 +224,8 @@ public class ChanceTester extends TestCase {
 
     @Test
     public void testChance7() {
-        chanceCard = new Chance(7);
-        assertEquals(chanceCard.getType(), 7);
+        chanceCard = ChanceCards.seven;
+        assertEquals(chanceCard.getCardNumber(), 7);
         assertEquals(chanceCard.getText(), "Get out of Jail Free – this card may be kept until needed, or traded/sold");
 
         assertEquals(player1.getNumGOOJFCards(), 0);
@@ -244,8 +244,8 @@ public class ChanceTester extends TestCase {
     @Test
     public void testChance8() {
         // Chance is on cells 8, 23, and 37.
-        chanceCard = new Chance(8);
-        assertEquals(chanceCard.getType(), 8);
+        chanceCard = ChanceCards.eight;
+        assertEquals(chanceCard.getCardNumber(), 8);
         assertEquals(chanceCard.getText(), "Go back 3 spaces");
 
         // Start with some clean Players.
@@ -294,8 +294,8 @@ public class ChanceTester extends TestCase {
 
     @Test
     public void testChance9() {
-        chanceCard = new Chance(9);
-        assertEquals(chanceCard.getType(), 9);
+        chanceCard = ChanceCards.nine;
+        assertEquals(chanceCard.getCardNumber(), 9);
         assertEquals(chanceCard.getText(), "Go directly to Jail – do not pass Go, do not collect $200");
 
         TestHelper.assertSameJailStatus(0, player1, player2, player3, player4);
@@ -307,8 +307,8 @@ public class ChanceTester extends TestCase {
 
     @Test
     public void testChance10() {
-        chanceCard = new Chance(10);
-        assertEquals(chanceCard.getType(), 10);
+        chanceCard = ChanceCards.ten;
+        assertEquals(chanceCard.getCardNumber(), 10);
         assertEquals(chanceCard.getText(), "Make general repairs on all your property – for each house pay $25 – for each hotel $100");
         // TODO: Test this for 0 houses/hotels, 0 houses/n hotels, n houses/0 hotels, n houses/n hotels.
     }
@@ -316,8 +316,8 @@ public class ChanceTester extends TestCase {
 
     @Test
     public void testChance11() {
-        chanceCard = new Chance(11);
-        assertEquals(chanceCard.getType(), 11);
+        chanceCard = ChanceCards.eleven;
+        assertEquals(chanceCard.getCardNumber(), 11);
         assertEquals(chanceCard.getText(), "Pay poor tax of $15");
         // Make some new Players.
         player1 = new Player(1, new Color(1, 238, 0) , board);
@@ -332,8 +332,8 @@ public class ChanceTester extends TestCase {
 
     @Test
     public void testChance12() {
-        chanceCard = new Chance(12);
-        assertEquals(chanceCard.getType(), 12);
+        chanceCard = ChanceCards.twelve;
+        assertEquals(chanceCard.getCardNumber(), 12);
         assertEquals(chanceCard.getText(), "Take a trip to Reading Railroad – if you pass Go, collect $200");
 
         player1.setCell(board.boardProperties.get(0));  // Test when we start on Go.
@@ -360,8 +360,8 @@ public class ChanceTester extends TestCase {
 
     @Test
     public void testChance13() {
-        chanceCard = new Chance(13);
-        assertEquals(chanceCard.getType(), 13);
+        chanceCard = ChanceCards.thirteen;
+        assertEquals(chanceCard.getCardNumber(), 13);
         assertEquals(chanceCard.getText(), "Take a walk on the Boardwalk – advance token to Boardwalk");
         // TODO: Also test this when the property is owned and the player's charged rent.
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
@@ -371,8 +371,8 @@ public class ChanceTester extends TestCase {
 
     @Test
     public void testChance14() {
-        chanceCard = new Chance(14);
-        assertEquals(chanceCard.getType(), 14);
+        chanceCard = ChanceCards.fourteen;
+        assertEquals(chanceCard.getCardNumber(), 14);
         assertEquals(chanceCard.getText(), "You have been elected chairman of the board – pay each player $50");
         // First we test when players will not be bankrupt by this card, so make some new Players.
         GameBoard newBoard = new GameBoard("Ayn Rand");
@@ -401,8 +401,8 @@ public class ChanceTester extends TestCase {
 
     @Test
     public void testChance15() {
-        chanceCard = new Chance(15);
-        assertEquals(chanceCard.getType(), 15);
+        chanceCard = ChanceCards.fifteen;
+        assertEquals(chanceCard.getCardNumber(), 15);
         assertEquals(chanceCard.getText(), "Your building loan matures – collect $150");
         // Make some new Players.
         player1 = new Player(1, new Color(1, 238, 0) , board);
@@ -417,8 +417,8 @@ public class ChanceTester extends TestCase {
 
     @Test
     public void testChance16() {
-        chanceCard = new Chance(16);
-        assertEquals(chanceCard.getType(), 16);
+        chanceCard = ChanceCards.sixteen;
+        assertEquals(chanceCard.getCardNumber(), 16);
         assertEquals(chanceCard.getText(), "You have won a crossword competition - collect $100.");
         // Make some new Players.
         player1 = new Player(1, new Color(1, 238, 0) , board);
@@ -430,41 +430,4 @@ public class ChanceTester extends TestCase {
         TestHelper.assertCash(1600, player1, player2, player3, player4);
         // TODO: Tests for when n number of players are bankrupt and they somehow draw this card.
     }
-
-    @Test
-    public void testBrokenChance() {
-        // Make sure un-allowed card values don't affect text, etc.
-        chanceCard = new Chance(17);
-        assertEquals(chanceCard.getType(), 17);
-        assertEquals(chanceCard.getText(), null);
-
-        chanceCard = new Chance(-1);
-        assertEquals(chanceCard.getType(), -1);
-        assertEquals(chanceCard.getText(), null);
-
-        chanceCard = new Chance(0);
-        assertEquals(chanceCard.getType(), 0);
-        assertEquals(chanceCard.getText(), null);
-    }
 }
-
-// Test coverage status:
-// (Note that this means basic tests are in place for all relevant methods/conditions. 
-//  It does NOT mean that all tests pass, or that every single possible case is tested.
-//  Just testing that the basic, expected cases work correctly.)
-// DONE: Chance(1)
-// DONE: Chance(2)
-// TODO: Chance(3)
-// TODO: Chance(4)
-// DONE: Chance(5)
-// DONE: Chance(6)
-// DONE: Chance(7)
-// DONE: Chance(8)
-// DONE: Chance(9)
-// TODO: Chance(10)
-// DONE: Chance(11)
-// DONE: Chance(12)
-// DONE: Chance(13)
-// DONE: Chance(14)
-// DONE: Chance(15)
-// DONE: Chance(16)

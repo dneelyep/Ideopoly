@@ -5,7 +5,6 @@ import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
 
-// TODO: com as a package name start doesn't make much sense. I don't own a domain name.
 // TODO: Add in Chance and Comm. Chest images.
 // TODO: Use the native look and feel for the program.
 // TODO: Get rid of the spacing between cells.
@@ -41,7 +40,7 @@ public class GameBoard {
        IE: static final int ROWS = 4
        static final int COLS = 7
        JLabel[][] cashLabels = new JLabel[ROWS][COLS]; */
-    private CashCell[][] cashLabels = new CashCell[4][10];
+    private JLabel[][] cashLabels = new JLabel[4][10];
 
     /** Array used to store the values of each type of bill a Player
      *  should pay after requiring a payment. */
@@ -55,12 +54,17 @@ public class GameBoard {
     private JButton buyHotel	     = new JButton("Buy hotel");
     private JButton sellProperty     = new JButton("Sell property");
     private JButton mortgageProperty = new JButton("Mortgage property");
+    private JButton cancelButton     = new JButton("Cancel");
+
     // TODO: Should I make this private, and include a function to set its enable-ability? The Player
     // class is currently the only outside class that changes its state.
     public  JButton useGOOJFCard     = new JButton("Use get out of jail free card");
     /** An area of text where we can display messages to the player. */
     // TODO: Make messages a little larger - would be useful so the player can see more at a time.
     private JTextArea messages = new JTextArea("Welcome to Ideopoly!\nTo start playing, press \"Continue\". \nUse the other buttons to buy properties, sell properties, etc. \nGood luck!", 7, 1);
+
+    /** The BoardCell currently focused by the Player. */
+    private BoardCell focusedCell = null;
 
     // Create the game board.
     // TODO: Remove unneeded image templates.
@@ -120,27 +124,16 @@ public class GameBoard {
     // TODO: Possible to make this not public?
     public final ArrayList<BoardCell> boardProperties = new ArrayList<>(Arrays.asList(go, mediterraneanAv, commChestBottom, balticAv, incomeTax, readingRR, orientalAv, chanceBottom, vermontAv, connecticutAv, jail, stCharles, electricCompany, statesAv, virginiaAv, pennsylvaniaRR, stJames, commChestLeft, tennesseeAv, newYorkAv, freeParking, kentuckyAv, chanceTop, indianaAv, illinoisAv, bAndORR, atlanticAv, ventnorAv, waterWorks, marvinGardens, goToJail, pacificAv, nCarolinaAv, commChestRight, pennsylvaniaAv, shortLineRR, chanceRight, parkPlace, luxuryTax, boardwalk));
 
-    /** Represents the player whose turn it currently is to roll. 0-3. */
-    // TODO: There should be a more elegant way of doing this than storing
-    //       the player as an int. For example, make current player status
-    //       a boolean field that belongs to each player.
-    //       Or just make it private Player currentPlayer.
-    //    One idea would be just to make a function that checks the field for each player
-    //    and returns the correct player.
-    private int currentPlayer = 0;
     public Player player1 = new Player(1, new Color(1, 238, 0) , this);
     public Player player2 = new Player(2, new Color(223, 254, 10), this);
     public Player player3 = new Player(3, new Color(253, 186, 17), this);
     public Player player4 = new Player(4, new Color(19, 214, 242), this);
-    // TODO: Try to reduce usage of this players array. Is useless and confusing except when looping.
-    // TODO: Does this need to be public?
-    // TODO: Since it's public, javadocs for the field.
-    /** An array of the four players who will be playing in this game. player1
+    /** A queue of the four players who will be playing in this game. player1
      *  is the human player, the rest are computer players. */
-    protected ArrayList<Player> players = new ArrayList<>(Arrays.asList(player1, player2, player3, player4));
+    protected Queue<Player> players = new ArrayDeque<>(Arrays.asList(player1, player2, player3, player4));
 
     /** The stack of Chance cards. */
-    private Stack<Chance> chanceCards = new Stack<>();
+    private Stack<ChanceCards> chanceCards = new Stack<>();
 
     /** The stack of Community Chest cards. */
     private Stack<CommunityChest> commChestCards = new Stack<>();
@@ -192,7 +185,7 @@ public class GameBoard {
         for (BoardCell property : boardProperties) {
             for (BoardPosition pos : Arrays.asList(property.getPosition(1), property.getPosition(2),
                     property.getPosition(3), property.getPosition(4))) {
-                addAtCoords(pos, new Point(pos.getXCoord(), pos.getYCoord()), c);
+                addAtCoords(pos, pos.getCoordinates(), c);
             }
         }
 
@@ -218,22 +211,24 @@ public class GameBoard {
             frame.add(j, c);
         }
 
-        // ==============================================================
-        // === Initialize the labels that display player cash values. ===
-        // ==============================================================
+        // =======================================================
+        // === Add the labels that display player cash values. ===
+        // =======================================================
         for (int player = 0; player < players.size(); player++) { // Iterate through each row.
-            cashLabels[player][9] = new CashCell(60, 1 + player, Integer.toString(players.get(player).getJailStatus()));
-            cashLabels[player][8] = new CashCell(59, 1 + player, Integer.toString(players.get(player).getNumGOOJFCards()));
+            Player tmpPlayer = players.remove();
 
-            for (int j = 0; j < 8; j++)
-                cashLabels[player][j] = new CashCell(51 + j, 1 + player, Integer.toString(players.get(player).getCash(CASH_TYPES.valueOf(cashValues.get(j)))));
-        }
-
-        // Then add all the labels to the board.
-        for (CashCell[] outer : cashLabels) {
-            for (CashCell cc : outer) {
-                addAtCoords(cc, new Point(cc.getXCoord(), cc.getYCoord()), c);
+            for (int billType = 0; billType < 8; billType++) {
+                cashLabels[player][billType] = new JLabel(Integer.toString(tmpPlayer.getCash(CASH_TYPES.valueOf(cashValues.get(billType)))));
+                addAtCoords(cashLabels[player][billType], new Point(51 + billType, 1 + player), c);
             }
+
+            cashLabels[player][8] = new JLabel(Integer.toString(tmpPlayer.getNumGOOJFCards()));
+            addAtCoords(cashLabels[player][8], new Point(59, 1 + player), c);
+
+            cashLabels[player][9] = new JLabel(Integer.toString(tmpPlayer.getJailStatus()));
+            addAtCoords(cashLabels[player][9], new Point(60, 1 + player), c);
+
+            players.add(tmpPlayer);
         }
 
         // Add a Continue button in the middle of the board.
@@ -242,11 +237,12 @@ public class GameBoard {
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                doTurn(players.get(currentPlayer));
+                doTurn(players.element());
                 // TODO: Make sure I don't need a bankruptcy check for this event.
                 //       Shouldn't, because button's only highlighted when the Player can buy.
                 //       Also add plenty of tests for this.
                 updateDisplay();
+                players.add(players.remove());
             }
         });
         addAtCoords(continueButton, new Point(22, 22), c);
@@ -261,9 +257,11 @@ public class GameBoard {
         buyProperty.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ((Ownable) player1.getCell()).buy(player1, GameBoard.this);
-                buyProperty.setEnabled(false);
-                updateDisplay();
+                if (Ownable.class.isInstance(player1.getCell())) {
+                    player1.buyProperty((Ownable) player1.getCell(), GameBoard.this);
+                    buyProperty.setEnabled(false);
+                    updateDisplay();
+                }
             }
         });
 
@@ -274,6 +272,21 @@ public class GameBoard {
                 player1.spendGOOJF(GameBoard.this);
                 useGOOJFCard.setEnabled(false);
                 updateDisplay();
+            }
+        });
+
+        cancelButton.setEnabled(false);
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cancelButton.setEnabled(false);
+                buyHouse.setEnabled(false);
+                buyHotel.setEnabled(false);
+                sellProperty.setEnabled(false);
+                mortgageProperty.setEnabled(false);
+
+                ((JLabel) focusedCell.getComponent(0)).setBorder(BorderFactory.createEmptyBorder());
+                focusedCell = null;
             }
         });
 
@@ -303,6 +316,8 @@ public class GameBoard {
 
         c.gridwidth = 9;
         addAtCoords(useGOOJFCard, new Point(50, 11), c);
+
+        addAtCoords(cancelButton, new Point(50, 13), c);
 
         // ===============================================================
         // === Add the GUI stuff that displays detailed property info. ===
@@ -354,7 +369,13 @@ public class GameBoard {
         // Make a large stack of cards to use for the game.
         for (int i = 0; i < 200; i++) {
             // Add random types of Chance and Community Chest cards.
-            chanceCards.push(new Chance(generator.nextInt(16) + 1));
+            // TODO Do I need the +1? Can I just do .nextInt(17)?
+
+            int cardType = generator.nextInt(16) + 1;
+            for (ChanceCards type : ChanceCards.values())
+                if (type.getCardNumber() == cardType)
+                    chanceCards.push(type);
+
             commChestCards.push(new CommunityChest(generator.nextInt(17) + 1));
         }
 
@@ -368,6 +389,8 @@ public class GameBoard {
 
         System.out.println("You picked " + playerCharacter + ".");
         //	readingRR.generateImage("testName", player1.getColor(), Color.YELLOW, "left");
+
+        // TODO See if there is a built-in collection for the players Queue.
     }
 
     /** Do a turn's worth of gameplay. First the player p rolls/moves. 
@@ -375,13 +398,12 @@ public class GameBoard {
      *  Return a 0 if nobody has won yet, or a 1 if someone won the game. */
     private void doTurn(Player p) {
         int roll = new Random().nextInt(6) + 1; // Roll a new random number between 1 and 6.
-        printStatusAndLog(players.get(currentPlayer).getName() + " rolls " + roll + ".");
+        printStatusAndLog(players.element().getName() + " rolls " + roll + ".");
 
         // TODO Make an enumeration for jail statuses?
         // First or second week in jail - player can't do anything but sit and wait.
-        if (p.getJailStatus() == 3 || p.getJailStatus() == 2) {
+        if (p.getJailStatus() == 3 || p.getJailStatus() == 2)
             p.setJailStatus(p.getJailStatus() - 1);
-        }
 
         else {
             if (p.getJailStatus() == 1) { // Last week in jail. Player gets charged $50, then moves forward.
@@ -390,14 +412,6 @@ public class GameBoard {
             }
             movePlayer(p, roll);
         }
-
-        // Now move on to the next player.
-        if (p == player4)
-            currentPlayer = 0;
-        else
-            currentPlayer++;
-
-        updateDisplay();
     }
 
     /** Move the given Player p forward numCells (where numCells is # of 
@@ -464,12 +478,11 @@ public class GameBoard {
             else if (landingSpace == incomeTax)
                 p.payBank(200, this);
 
-                // Luxury tax.
-                // TODO: Test to make sure this works.
+            // TODO: Test to make sure this works.
             else if (landingSpace == luxuryTax)
                 p.payBank(75, this);
 
-             else if (landingSpace == freeParking && p == player1)
+            else if (landingSpace == freeParking && p == player1)
                 printStatusAndLog("Free parking!");
 
             else if (landingSpace == jail && p == player1)
@@ -504,8 +517,8 @@ public class GameBoard {
                                                                     || p.getCell() instanceof Railroad
                                                                     || p.getCell() instanceof UtilityCell)) {
                             Ownable cell = (Ownable) p.getCell();
-                            if (cell.isOwned() == false)
-                                cell.buy(p, this);
+                            if (!cell.isOwned())
+                                p.buyProperty(cell, this);
                         }
                     }
                 }
@@ -536,25 +549,29 @@ public class GameBoard {
     public void updateDisplay() {
         // TODO: Replace with foreach?
         // TODO: This same code's used earlier.
-        for (int i = 0; i <= 3; i++) {
+        Queue<Player> tmpPlayersQueue = new ArrayDeque<>(Arrays.asList(player1, player2, player3, player4));
+
+        for (int i = 0; i < tmpPlayersQueue.size(); i++) {
             for (int j = 0; j <= 9; j++) {
+                Player tmpPlayer = tmpPlayersQueue.remove();
+
                 if (j == 9)
-                    cashLabels[i][j].setText(Integer.toString(players.get(i).getJailStatus()));
+                    cashLabels[i][j].setText(Integer.toString(tmpPlayer.getJailStatus()));
                 else if (j == 8)
-                    cashLabels[i][j].setText(Integer.toString(players.get(i).getNumGOOJFCards()));
+                    cashLabels[i][j].setText(Integer.toString(tmpPlayer.getNumGOOJFCards()));
                 else
-                    cashLabels[i][j].setText(Integer.toString(players.get(i).getCash(CASH_TYPES.valueOf(cashValues.get(j)))));
+                    cashLabels[i][j].setText(Integer.toString(tmpPlayer.getCash(CASH_TYPES.valueOf(cashValues.get(j)))));
+
+                tmpPlayersQueue.add(tmpPlayer);
             }
 
             // Set all player labels to black
             playerRowLabels.get(i).setForeground(Color.BLACK);
         }
 
-        // ...then set the current player to green.
-        if (currentPlayer >= 1 && currentPlayer <= 3)
-            playerRowLabels.get(currentPlayer - 1).setForeground(Color.GREEN);
-        else if (currentPlayer == 0)
-            playerRowLabels.get(3).setForeground(Color.GREEN);
+        // ...then set the current player's label to green.
+        int player = Integer.parseInt(Character.toString(players.element().getName().charAt(7)));
+        playerRowLabels.get(player == 4 ? 0 : player).setForeground(Color.GREEN);
     }
 
     /** Given an integer i, break it up into the smallest possible amount of bills. */
@@ -681,5 +698,41 @@ public class GameBoard {
         constraints.gridx = point.x;
         constraints.gridy = point.y;
         frame.add(component, constraints);
+    }
+
+    /** Get this GameBoard's Buy House button. */
+    public JButton getBuyHouse() {
+        return buyHouse;
+    }
+
+    /** Get this GameBoard's Buy Hotel button. */
+    public JButton getBuyHotel() {
+        return buyHotel;
+    }
+
+    /** Get this GameBoard's Sell Property button. */
+    public JButton getSellProperty() {
+        return sellProperty;
+    }
+
+    /** Get this GameBoard's Mortgage Property button. */
+    public JButton getMortgageProperty() {
+        return mortgageProperty;
+    }
+
+    /** Get this GameBoard Cancel button, used to cancel focus
+     * of the current BoardCell. */
+    public JButton getCancelButton() {
+        return cancelButton;
+    }
+
+    /** Set the focusedcell to a given BoardCell cell. */
+    public void setFocusedCell(BoardCell cell) {
+        focusedCell = cell;
+    }
+
+    /** Get the focusedcell for this GameBoard. */
+    public BoardCell getFocusedCell() {
+        return focusedCell;
     }
 }

@@ -9,7 +9,7 @@ public class TestHelper extends TestCase {
     /** Have each Player draw a card. */
     // TODO: Rather than using two separate methods, try to find a way to allow the first
     //       argument to be of type Chance or CommunityChest.
-    public static void doActionsAllPlayers(Chance card, GameBoard board, Player p1, Player p2, Player p3, Player p4) {
+    public static void doActionsAllPlayers(ChanceCards card, GameBoard board, Player p1, Player p2, Player p3, Player p4) {
         // TODO: Do I need the two arguments? They're the same for each time I call them here.
         card.doActions(p1, board);
         card.doActions(p2, board);
