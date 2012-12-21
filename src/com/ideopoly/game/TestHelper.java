@@ -17,7 +17,7 @@ public class TestHelper extends TestCase {
         card.doActions(p4, board);
     }
 
-    public static void doActionsAllPlayers(CommunityChest card, GameBoard board, Player p1, Player p2, Player p3, Player p4) {
+    public static void doActionsAllPlayers(CommunityChestCards card, GameBoard board, Player p1, Player p2, Player p3, Player p4) {
         // TODO: Is there a way to allow the first argument to have a variable type, so I don't have to
         //       make two separate methods for it?
         // TODO: Do I need the two arguments? They're the same for each time I call them here.

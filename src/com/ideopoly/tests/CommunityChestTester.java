@@ -9,7 +9,7 @@ import com.ideopoly.game.*;
  *
  *  @author Daniel Neel */
 public class CommunityChestTester extends TestCase {
-    private CommunityChest commChestCard;
+    private CommunityChestCards commChestCard;
     private GameBoard board = new GameBoard("Test Board");
     private Player p1 = new Player(1, new Color(1, 238, 0) , board);
     private Player p2 = new Player(2, new Color(223, 254, 10), board);
@@ -19,15 +19,15 @@ public class CommunityChestTester extends TestCase {
     // TODO: Javadocs for all methods here.
     @Test
     public void testCommChest1() {
-	commChestCard = new CommunityChest(1);
-	assertEquals(commChestCard.getType(), 1);
-	assertEquals(commChestCard.getText(), "Advance to Go (Collect $200)");
-	// Ensure that this method works properly on all three Comm. Chest spots and for all Players.
-	TestHelper.changeCellAllPlayers(board.boardProperties.get(2), p1, p2, p3, p4);
-	TestHelper.doActionsAllPlayers(commChestCard, board, p1, p2, p3, p4);
-	// Make sure the players land on the right spot and get the right amount of $.
-	TestHelper.assertCash(1700, p1, p2, p3, p4);
-	TestHelper.assertSameCell(0, board, p1, p2, p3, p4);
+        commChestCard = CommunityChestCards.one;
+        assertEquals(commChestCard.getCardNumber(), 1);
+        assertEquals(commChestCard.getText(), "Advance to Go (Collect $200)");
+        // Ensure that this method works properly on all three Comm. Chest spots and for all Players.
+        TestHelper.changeCellAllPlayers(board.boardProperties.get(2), p1, p2, p3, p4);
+        TestHelper.doActionsAllPlayers(commChestCard, board, p1, p2, p3, p4);
+        // Make sure the players land on the right spot and get the right amount of $.
+        TestHelper.assertCash(1700, p1, p2, p3, p4);
+        TestHelper.assertSameCell(0, board, p1, p2, p3, p4);
 
 	TestHelper.changeCellAllPlayers(board.boardProperties.get(17), p1, p2, p3, p4);
 	TestHelper.doActionsAllPlayers(commChestCard, board, p1, p2, p3, p4);
@@ -42,8 +42,8 @@ public class CommunityChestTester extends TestCase {
 
     @Test
     public void testCommChest2() {
-	commChestCard = new CommunityChest(2);
-	assertEquals(commChestCard.getType(), 2);
+	commChestCard = CommunityChestCards.two;
+	assertEquals(commChestCard.getCardNumber(), 2);
 	assertEquals(commChestCard.getText(), "Bank error in your favor – collect $200");
 
 	// Test this on all three Comm. Chest spots and for all Players.
@@ -67,8 +67,8 @@ public class CommunityChestTester extends TestCase {
 
     @Test
     public void testCommChest3() {
-	commChestCard = new CommunityChest(3);
-	assertEquals(commChestCard.getType(), 3);
+	commChestCard = CommunityChestCards.three;
+	assertEquals(commChestCard.getCardNumber(), 3);
 	assertEquals(commChestCard.getText(), "Doctor's fees – Pay $50");
 
 	// Test on all three Community Chest spots with normal conditions. Then
@@ -109,8 +109,8 @@ public class CommunityChestTester extends TestCase {
 
     @Test
     public void testCommChest4() {
-	commChestCard = new CommunityChest(4);
-	assertEquals(commChestCard.getType(), 4);
+	commChestCard = CommunityChestCards.four;
+	assertEquals(commChestCard.getCardNumber(), 4);
 	assertEquals(commChestCard.getText(), "Get Out of Jail Free – this card may be kept until needed, or sold");
 
 	assertEquals(p1.getNumGOOJFCards(), 0);
@@ -130,8 +130,8 @@ public class CommunityChestTester extends TestCase {
 
     @Test
     public void testCommChest5() {
-	commChestCard = new CommunityChest(5);
-	assertEquals(commChestCard.getType(), 5);
+	commChestCard = CommunityChestCards.five;
+	assertEquals(commChestCard.getCardNumber(), 5);
 	assertEquals(commChestCard.getText(), "Go to Jail – go directly to jail – Do not pass Go, do not collect $200");
 
 	// Test this on all 3 CommChest cells with all 4 players, and make sure 
@@ -165,8 +165,8 @@ public class CommunityChestTester extends TestCase {
 	p3 = board.player3;
 	p4 = board.player4;
 
-	commChestCard = new CommunityChest(6);
-	assertEquals(commChestCard.getType(), 6);
+	commChestCard = CommunityChestCards.six;
+	assertEquals(commChestCard.getCardNumber(), 6);
 	assertEquals(commChestCard.getText(), "It is your birthday - Collect $10 from each player");
 
 	// Test when no players are bankrupt.
@@ -208,8 +208,8 @@ public class CommunityChestTester extends TestCase {
 	p3 = board.player3;
 	p4 = board.player4;
 
-	commChestCard = new CommunityChest(7);
-	assertEquals(commChestCard.getType(), 7);
+	commChestCard = CommunityChestCards.seven;
+	assertEquals(commChestCard.getCardNumber(), 7);
 	assertEquals(commChestCard.getText(), "Grand Opera Night – collect $50 from every player for opening night seats");
 
 	// Test when no players are bankrupt.
@@ -247,8 +247,8 @@ public class CommunityChestTester extends TestCase {
 
     @Test
     public void testCommChest8() {
-	commChestCard = new CommunityChest(8);
-	assertEquals(commChestCard.getType(), 8);
+	commChestCard = CommunityChestCards.eight;
+	assertEquals(commChestCard.getCardNumber(), 8);
 	assertEquals(commChestCard.getText(), "Income Tax refund – collect $20");
 
 	TestHelper.changeCellAllPlayers(board.boardProperties.get(2), p1, p2, p3, p4);
@@ -270,8 +270,8 @@ public class CommunityChestTester extends TestCase {
 
     @Test
     public void testCommChest9() {
-	commChestCard = new CommunityChest(9);
-	assertEquals(commChestCard.getType(), 9);
+	commChestCard = CommunityChestCards.nine;
+	assertEquals(commChestCard.getCardNumber(), 9);
 	assertEquals(commChestCard.getText(), "Life Insurance Matures – collect $100");
 
 	TestHelper.changeCellAllPlayers(board.boardProperties.get(2), p1, p2, p3, p4);
@@ -294,8 +294,8 @@ public class CommunityChestTester extends TestCase {
 
     @Test
     public void testCommChest10() {
-	commChestCard = new CommunityChest(10);
-	assertEquals(commChestCard.getType(), 10);
+	commChestCard = CommunityChestCards.ten;
+	assertEquals(commChestCard.getCardNumber(), 10);
 	assertEquals(commChestCard.getText(), "Pay Hospital Fees of $100");
 
 	TestHelper.assertCash(1500, p1, p2, p3, p4);
@@ -358,8 +358,8 @@ public class CommunityChestTester extends TestCase {
 
     @Test
     public void testCommChest11() {
-	commChestCard = new CommunityChest(11);
-	assertEquals(commChestCard.getType(), 11);
+	commChestCard = CommunityChestCards.eleven;
+	assertEquals(commChestCard.getCardNumber(), 11);
 	assertEquals(commChestCard.getText(), "Pay School Fees of $50");
 
 	TestHelper.assertCash(1500, p1, p2, p3, p4);
@@ -421,8 +421,8 @@ public class CommunityChestTester extends TestCase {
 
     @Test
     public void testCommChest12() {
-	commChestCard = new CommunityChest(12);
-	assertEquals(commChestCard.getType(), 12);
+	commChestCard = CommunityChestCards.twelve;
+	assertEquals(commChestCard.getCardNumber(), 12);
 	assertEquals(commChestCard.getText(), "Receive $25 Consultancy Fee");
 
 	// TODO: Make a helper method for this type of card? IE: all players
@@ -448,8 +448,8 @@ public class CommunityChestTester extends TestCase {
 
     @Test
     public void testCommChest13() {
-	commChestCard = new CommunityChest(13);
-	assertEquals(commChestCard.getType(), 13);
+	commChestCard = CommunityChestCards.thirteen;
+	assertEquals(commChestCard.getCardNumber(), 13);
 	assertEquals(commChestCard.getText(), "You are assessed for street repairs – $40 per house, $115 per hotel");
 
 	// Test when the player has no property.
@@ -502,8 +502,8 @@ public class CommunityChestTester extends TestCase {
 
     @Test
     public void testCommChest14() {
-	commChestCard = new CommunityChest(14);
-	assertEquals(commChestCard.getType(), 14);
+	commChestCard = CommunityChestCards.fourteen;
+	assertEquals(commChestCard.getCardNumber(), 14);
 	assertEquals(commChestCard.getText(), "You have won second prize in a beauty contest– collect $10");
 
 	TestHelper.changeCellAllPlayers(board.boardProperties.get(2), p1, p2, p3, p4);
@@ -526,8 +526,8 @@ public class CommunityChestTester extends TestCase {
 
     @Test
     public void testCommChest15() {
-	commChestCard = new CommunityChest(15);
-	assertEquals(commChestCard.getType(), 15);
+	commChestCard = CommunityChestCards.fifteen;
+	assertEquals(commChestCard.getCardNumber(), 15);
 	assertEquals(commChestCard.getText(), "You inherit $100");
 
 	TestHelper.changeCellAllPlayers(board.boardProperties.get(2), p1, p2, p3, p4);
@@ -550,8 +550,8 @@ public class CommunityChestTester extends TestCase {
 
     @Test
     public void testCommChest16() {
-	commChestCard = new CommunityChest(16);
-	assertEquals(commChestCard.getType(), 16);
+	commChestCard = CommunityChestCards.sixteen;
+	assertEquals(commChestCard.getCardNumber(), 16);
 	assertEquals(commChestCard.getText(), "From sale of stock you get $50");
 
 	TestHelper.changeCellAllPlayers(board.boardProperties.get(2), p1, p2, p3, p4);
@@ -574,8 +574,8 @@ public class CommunityChestTester extends TestCase {
 
     @Test
     public void testCommChest17() {
-	commChestCard = new CommunityChest(17);
-	assertEquals(commChestCard.getType(), 17);
+	commChestCard = CommunityChestCards.seventeen;
+	assertEquals(commChestCard.getCardNumber(), 17);
 	assertEquals(commChestCard.getText(), "Holiday Fund matures - Receive $100");
 
 	TestHelper.changeCellAllPlayers(board.boardProperties.get(2), p1, p2, p3, p4);
@@ -594,23 +594,5 @@ public class CommunityChestTester extends TestCase {
 	TestHelper.assertSameCell(33, board, p1, p2, p3, p4);
 
 	// TODO: And then any odd cases here.
-    }
-
-    @Test
-    /** Test incorrect constructor values, etc. */
-    public void testBrokenCommChest() {
-	// Make sure un-allowed card types produce incorrect text, etc.
-	commChestCard = new CommunityChest(18);
-	assertEquals(commChestCard.getType(), 18);
-
-	assertEquals(commChestCard.getText(), null);
-
-	commChestCard = new CommunityChest(-1);
-	assertEquals(commChestCard.getType(), -1);
-	assertEquals(commChestCard.getText(), null);
-
-	commChestCard = new CommunityChest(0);
-	assertEquals(commChestCard.getType(), 0);
-	assertEquals(commChestCard.getText(), null);
     }
 }

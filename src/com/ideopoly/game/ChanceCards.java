@@ -6,7 +6,7 @@ import java.util.Random;
  *
  * @author Daniel Neel */
 public enum ChanceCards {
-    // TODO: Replace the textual descriptions  with Ideology-themed ones.
+    // TODO: Replace the textual descriptions  with Ideology-themed ones. Do this on Commchest as well.
     one("Advance to Go (Collect $200)", 1),
     two("Advance to Illinois Ave - if you pass Go, collect $200", 2),
     three("Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.", 3),
@@ -25,10 +25,10 @@ public enum ChanceCards {
     sixteen("You have won a crossword competition - collect $100.", 16);
 
     /** A textual description of the content of this ChanceCard. */
-    private String text;
+    private final String text;
 
     /** A unique number that represents the type of ChanceCard. */
-    private int cardNumber;
+    private final int cardNumber;
 
     ChanceCards(String text, int cardNumber) {
         this.text = text;
@@ -45,7 +45,7 @@ public enum ChanceCards {
         return cardNumber;
     }
 
-    /** Have the given Player p draw a ChanceCard of this type and do the relevant actions. */
+    /** Have the given Player draw a ChanceCard of this type and do the relevant actions. */
     // TODO: Rename this to drawCard() or something better.
     public void doActions(Player p, GameBoard board) {
         switch (this) {

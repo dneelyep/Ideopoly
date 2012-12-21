@@ -136,7 +136,7 @@ public class GameBoard {
     private Stack<ChanceCards> chanceCards = new Stack<>();
 
     /** The stack of Community Chest cards. */
-    private Stack<CommunityChest> commChestCards = new Stack<>();
+    private Stack<CommunityChestCards> commChestCards = new Stack<>();
 
     /** Various fields that display detailed property information. */
     // TODO: Better, more descriptive variable names. eg, detailedPropColor, etc.
@@ -371,12 +371,17 @@ public class GameBoard {
             // Add random types of Chance and Community Chest cards.
             // TODO Do I need the +1? Can I just do .nextInt(17)?
 
-            int cardType = generator.nextInt(16) + 1;
-            for (ChanceCards type : ChanceCards.values())
-                if (type.getCardNumber() == cardType)
+            int chanceCardType = generator.nextInt(16) + 1;
+            for (ChanceCards type : ChanceCards.values()) {
+                if (type.getCardNumber() == chanceCardType)
                     chanceCards.push(type);
+            }
 
-            commChestCards.push(new CommunityChest(generator.nextInt(17) + 1));
+            int commChestCardType = generator.nextInt(17) + 1;
+            for (CommunityChestCards type : CommunityChestCards.values()) {
+                if (type.getCardNumber() == commChestCardType)
+                    commChestCards.push(type);
+            }
         }
 
         boardProperties.get(0).getPosition(1).setIcon(player1.getImage());
