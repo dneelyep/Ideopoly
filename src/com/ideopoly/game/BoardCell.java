@@ -154,7 +154,7 @@ public abstract class BoardCell extends JPanel {
      *  is used to determine whether to display the image upright, at 90 degrees, etc. */
     // LEFTOFFHERE: Implementing this SVG generation method.
     // TODO: Do I need the Player argument? Can't I use this.getOwner() or similar instead?
-    public void generateImage(String name, Color playerColor, Color barColor, String orientation) {
+    public void enerateImage(String name, Color playerColor, Color barColor, String orientation) {
         try {
             // TODO: Set the correct locale for Formatter? Getting a findbugs error.
             Formatter file = new Formatter("temp.svg");

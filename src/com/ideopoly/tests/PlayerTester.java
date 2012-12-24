@@ -273,9 +273,9 @@ public class PlayerTester extends TestCase {
         assertEquals(testPlayer4.getCell(), board.boardProperties.get(2));
 
         // NOTE: I removed previous test cases here. Previously, these tests checked to make
-        //       sure, for example, that players 1 and 2 could not move to the same standing
+        //       sure, for example, that playerQueue 1 and 2 could not move to the same standing
         //       position. Due to the new data model, that shouldn't be a problem. If I want to
-        //       reproduce those tests, just try to move two separate players to standing on the
+        //       reproduce those tests, just try to move two separate playerQueue to standing on the
         //       same standing position.
 
         // And check to make sure we can't move beyond the edge of the board.

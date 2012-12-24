@@ -13,7 +13,7 @@ public class ChanceTester extends TestCase {
     // LEFTOFFHERE: Implementing the printStatusAndLog stuff in GameBoard. 
     // Fixing all the stuff related to exception throwing.
     private GameBoard board = new GameBoard("Ayn Rand");
-    /** Grab all 4 players from the board.*/
+    /** Grab all 4 playerQueue from the board.*/
     private Player player1 = board.player1;
     private Player player2 = board.player2;
     private Player player3 = board.player3;
@@ -44,7 +44,7 @@ public class ChanceTester extends TestCase {
         assertEquals(chanceCard.getCardNumber(), 2);
         assertEquals(chanceCard.getText(), "Advance to Illinois Ave - if you pass Go, collect $200");
 
-        // First check with players standing at Go. Then with them on Illinois. Then with
+        // First check with playerQueue standing at Go. Then with them on Illinois. Then with
         // them 1 past Illinois.
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
         TestHelper.assertSameCell(24, board, player1, player2, player3, player4);
@@ -72,7 +72,7 @@ public class ChanceTester extends TestCase {
         assertEquals(chanceCard.getCardNumber(), 3);
         assertEquals(chanceCard.getText(), "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.");
         // TODO: Test the 10x amount thrown part. And the may buy it part.
-        // Test this function's for all 4 players, where they land on all 3 possible Chance locations.
+        // Test this function's for all 4 playerQueue, where they land on all 3 possible Chance locations.
         TestHelper.changeCellAllPlayers(board.boardProperties.get(7), player1, player2, player3, player4);
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
         TestHelper.assertSameCell(12, board, player1, player2, player3, player4);
@@ -88,7 +88,7 @@ public class ChanceTester extends TestCase {
         TestHelper.assertSameCell(28, board, player1, player2, player3, player4);
         assertEquals(board.boardProperties.get(28).getOwner(), null);
 
-        // Now make sure that, when a player owns the property, players are charged proper rent.
+        // Now make sure that, when a player owns the property, playerQueue are charged proper rent.
         // Going into this case, each player had 2100 bucks total.
         board.boardProperties.get(12).setOwner(board.player1); // Electric Company
         board.boardProperties.get(28).setOwner(board.player1); // Water Works
@@ -180,7 +180,7 @@ public class ChanceTester extends TestCase {
         assertEquals(chanceCard.getCardNumber(), 5);
         assertEquals(chanceCard.getText(), "Advance to St. Charles Place – if you pass Go, collect $200");
         // Start with clean Players.
-        // TODO: Do I need these start with clean players things where I have them? If not, remove.
+        // TODO: Do I need these start with clean playerQueue things where I have them? If not, remove.
         player1 = new Player(1, new Color(1, 238, 0), board);
         player2 = new Player(2, new Color(223, 254, 10), board);
         player3 = new Player(3, new Color(253, 186, 17), board);
@@ -374,7 +374,7 @@ public class ChanceTester extends TestCase {
         chanceCard = ChanceCards.fourteen;
         assertEquals(chanceCard.getCardNumber(), 14);
         assertEquals(chanceCard.getText(), "You have been elected chairman of the board – pay each player $50");
-        // First we test when players will not be bankrupt by this card, so make some new Players.
+        // First we test when playerQueue will not be bankrupt by this card, so make some new Players.
         GameBoard newBoard = new GameBoard("Ayn Rand");
 
         chanceCard.doActions(newBoard.player1, newBoard);
@@ -395,7 +395,7 @@ public class ChanceTester extends TestCase {
 
 
         // TODO: Test this when the main Player is going to go bankrupt.
-        // Then test when 1/2/n other players are bankrupt. Make sure they're not given money.
+        // Then test when 1/2/n other playerQueue are bankrupt. Make sure they're not given money.
         //       Or is that a general thing that should be tested elsewhere?
     }
 
@@ -412,7 +412,7 @@ public class ChanceTester extends TestCase {
 
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
         TestHelper.assertCash(1650, player1, player2, player3, player4);
-        // TODO: Tests for when n number of players are bankrupt and they somehow draw this card.
+        // TODO: Tests for when n number of playerQueue are bankrupt and they somehow draw this card.
     }
 
     @Test
@@ -428,6 +428,6 @@ public class ChanceTester extends TestCase {
 
         TestHelper.doActionsAllPlayers(chanceCard, board, player1, player2, player3, player4);
         TestHelper.assertCash(1600, player1, player2, player3, player4);
-        // TODO: Tests for when n number of players are bankrupt and they somehow draw this card.
+        // TODO: Tests for when n number of playerQueue are bankrupt and they somehow draw this card.
     }
 }

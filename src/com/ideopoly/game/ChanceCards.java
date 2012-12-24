@@ -164,7 +164,7 @@ public enum ChanceCards {
                 // TODO: And then call the onland function for boardwalk.
                 break;
             case fourteen: // "You have been elected chairman of the board – pay each player $50"
-                for (Player player : board.players) {
+                for (Player player : board.playerQueue) {
                     if (player != p)
                         player.setCash(CASH_TYPES.fifties, player.getCash(CASH_TYPES.fifties) + 1);
                 }

@@ -73,7 +73,7 @@ public enum CommunityChestCards {
                  *  become bankrupt, Player p gets $10 less. */
                 int numNotBankrupt = 3;
 
-                for (Player tmpPlayer : board.players) {
+                for (Player tmpPlayer : board.playerQueue) {
                     if (tmpPlayer != player) { // Don't collect money from p.
                         if (tmpPlayer.willBankrupt(10)) {
                             tmpPlayer.bankruptPlayer(board);
@@ -92,7 +92,7 @@ public enum CommunityChestCards {
             case seven:   // "Grand Opera Night – collect $50 from every player for opening night seats"
                 numNotBankrupt = 3;
 
-                for (Player tmpPlayer : board.players) {
+                for (Player tmpPlayer : board.playerQueue) {
                     if (tmpPlayer != player) { // Don't collect money from p.
                         if (tmpPlayer.willBankrupt(50)) {
                             tmpPlayer.bankruptPlayer(board);

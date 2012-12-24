@@ -25,7 +25,7 @@ public class CommunityChestTester extends TestCase {
         // Ensure that this method works properly on all three Comm. Chest spots and for all Players.
         TestHelper.changeCellAllPlayers(board.boardProperties.get(2), p1, p2, p3, p4);
         TestHelper.doActionsAllPlayers(commChestCard, board, p1, p2, p3, p4);
-        // Make sure the players land on the right spot and get the right amount of $.
+        // Make sure the playerQueue land on the right spot and get the right amount of $.
         TestHelper.assertCash(1700, p1, p2, p3, p4);
         TestHelper.assertSameCell(0, board, p1, p2, p3, p4);
 
@@ -47,7 +47,7 @@ public class CommunityChestTester extends TestCase {
 	assertEquals(commChestCard.getText(), "Bank error in your favor – collect $200");
 
 	// Test this on all three Comm. Chest spots and for all Players.
-	// Make sure the players get the right amount of money and that they're 
+	// Make sure the playerQueue get the right amount of money and that they're
 	// on the correct BoardCells.
 	TestHelper.changeCellAllPlayers(board.boardProperties.get(2), p1, p2, p3, p4);
 	TestHelper.doActionsAllPlayers(commChestCard, board, p1, p2, p3, p4);
@@ -134,7 +134,7 @@ public class CommunityChestTester extends TestCase {
 	assertEquals(commChestCard.getCardNumber(), 5);
 	assertEquals(commChestCard.getText(), "Go to Jail – go directly to jail – Do not pass Go, do not collect $200");
 
-	// Test this on all 3 CommChest cells with all 4 players, and make sure 
+	// Test this on all 3 CommChest cells with all 4 playerQueue, and make sure
 	// they land on the correct spot and don't collect $200.
 	TestHelper.changeCellAllPlayers(board.boardProperties.get(2), p1, p2, p3, p4);
 	TestHelper.doActionsAllPlayers(commChestCard, board, p1, p2, p3, p4);
@@ -169,7 +169,7 @@ public class CommunityChestTester extends TestCase {
 	assertEquals(commChestCard.getCardNumber(), 6);
 	assertEquals(commChestCard.getText(), "It is your birthday - Collect $10 from each player");
 
-	// Test when no players are bankrupt.
+	// Test when no playerQueue are bankrupt.
 	TestHelper.changeCellAllPlayers(board.boardProperties.get(2), p1, p2, p3, p4);
 	commChestCard.doActions(p1, board);
 	TestHelper.assertSameCell(2, board, p1, p2, p3, p4);
@@ -185,7 +185,7 @@ public class CommunityChestTester extends TestCase {
 	TestHelper.assertSameCell(33, board, p1, p2, p3, p4);
 	TestHelper.assertCash(1590, 1470, 1470, 1470, p1, p2, p3, p4);
 
-	// And test when 1, 2, and 3 other players are bankrupt.
+	// And test when 1, 2, and 3 other playerQueue are bankrupt.
 	p1 = new Player(1, new Color(1, 238, 0), board);
 	p2.bankruptPlayer(board);
 	commChestCard.doActions(p1, board);
@@ -212,7 +212,7 @@ public class CommunityChestTester extends TestCase {
 	assertEquals(commChestCard.getCardNumber(), 7);
 	assertEquals(commChestCard.getText(), "Grand Opera Night – collect $50 from every player for opening night seats");
 
-	// Test when no players are bankrupt.
+	// Test when no playerQueue are bankrupt.
 	TestHelper.changeCellAllPlayers(board.boardProperties.get(2), p1, p2, p3, p4);
 	commChestCard.doActions(p1, board);
 	TestHelper.assertSameCell(2, board, p1, p2, p3, p4);
@@ -230,7 +230,7 @@ public class CommunityChestTester extends TestCase {
 	// TODO: A method for asserting arbitrary total cash values?
 	TestHelper.assertCash(1950, 1350, 1350, 1350, p1, p2, p3, p4);
 
-	// And then when 1, 2, and 3 other players are bankrupt.
+	// And then when 1, 2, and 3 other playerQueue are bankrupt.
 	p1 = new Player(1, new Color(1, 238, 0), board);
 	p2.bankruptPlayer(board);
 	commChestCard.doActions(p1, board);
@@ -425,7 +425,7 @@ public class CommunityChestTester extends TestCase {
 	assertEquals(commChestCard.getCardNumber(), 12);
 	assertEquals(commChestCard.getText(), "Receive $25 Consultancy Fee");
 
-	// TODO: Make a helper method for this type of card? IE: all players
+	// TODO: Make a helper method for this type of card? IE: all playerQueue
 	//       move to a spot, doactions, gain money, and land on a final spot.
 
 	TestHelper.changeCellAllPlayers(board.boardProperties.get(2), p1, p2, p3, p4);

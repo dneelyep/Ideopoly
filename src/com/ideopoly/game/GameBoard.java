@@ -19,6 +19,7 @@ import java.awt.event.*;
  *
  *  @author Daniel Neel */
 public class GameBoard {
+    // TODO Have this class extend JFrame?
     // TODO: Make some of these arrays, etc., final/static when they're constant. Also see
     // if it's possible to get rid of some of them.
     /** Number to represent if the game has been won. Once the game's won,
@@ -26,7 +27,7 @@ public class GameBoard {
     private int gameWon = 0;
 
     // TODO: Can I make this private?
-    private final ArrayList<String> cashValues = new ArrayList<>(
+    protected final ArrayList<String> cashValues = new ArrayList<>(
             Arrays.asList("ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"));
 
     private final ArrayList<String> cashHeadings = new ArrayList<>(
@@ -44,9 +45,6 @@ public class GameBoard {
 
     /** Array used to store the values of each type of bill a Player
      *  should pay after requiring a payment. */
-    // TODO: Can I make this private?
-    // TODO Have this class extend JFrame?
-    public  int[]   paymentAmounts   = {0, 0, 0, 0, 0, 0, 0};
     private JFrame  frame	         = new JFrame("Ideopoly | Main game");
     private JButton continueButton   = new JButton("Continue");//new ImageIcon("images/continueButton.jpg"));
     private JButton buyProperty	     = new JButton("Buy property");
@@ -130,7 +128,7 @@ public class GameBoard {
     public Player player4 = new Player(4, new Color(19, 214, 242), this);
     /** A queue of the four players who will be playing in this game. player1
      *  is the human player, the rest are computer players. */
-    protected Queue<Player> players = new ArrayDeque<>(Arrays.asList(player1, player2, player3, player4));
+    protected Queue<Player> playerQueue = new ArrayDeque<>(Arrays.asList(player1, player2, player3, player4));
 
     /** The stack of Chance cards. */
     private Stack<ChanceCards> chanceCards = new Stack<>();
@@ -214,8 +212,9 @@ public class GameBoard {
         // =======================================================
         // === Add the labels that display player cash values. ===
         // =======================================================
-        for (int player = 0; player < players.size(); player++) { // Iterate through each row.
-            Player tmpPlayer = players.remove();
+        // TODO Consider storing these arrays of labels in Player, and just adding them here.
+        for (int player = 0; player < playerQueue.size(); player++) { // Iterate through each row.
+            Player tmpPlayer = playerQueue.remove();
 
             for (int billType = 0; billType < 8; billType++) {
                 cashLabels[player][billType] = new JLabel(Integer.toString(tmpPlayer.getCash(CASH_TYPES.valueOf(cashValues.get(billType)))));
@@ -228,7 +227,7 @@ public class GameBoard {
             cashLabels[player][9] = new JLabel(Integer.toString(tmpPlayer.getJailStatus()));
             addAtCoords(cashLabels[player][9], new Point(60, 1 + player), c);
 
-            players.add(tmpPlayer);
+            playerQueue.add(tmpPlayer);
         }
 
         // Add a Continue button in the middle of the board.
@@ -237,12 +236,12 @@ public class GameBoard {
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                doTurn(players.element());
+                doTurn(playerQueue.element());
                 // TODO: Make sure I don't need a bankruptcy check for this event.
                 //       Shouldn't, because button's only highlighted when the Player can buy.
                 //       Also add plenty of tests for this.
                 updateDisplay();
-                players.add(players.remove());
+                playerQueue.add(playerQueue.remove());
             }
         });
         addAtCoords(continueButton, new Point(22, 22), c);
@@ -352,14 +351,19 @@ public class GameBoard {
 
         JScrollPane messagesPane = new JScrollPane(messages);
         messagesPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
         messages.setLineWrap(true);
         messages.setColumns(50);
         messagesPane.setColumnHeaderView(new JLabel("Status"));
 
+        c.weightx = 1;
+        c.weighty = 1;
+        c.fill = GridBagConstraints.BOTH;
+
         // TODO: Implement formatted text here. For example, bold the Player names
         // in messages.
         // If I want this, it looks like I'll need to switch messages from a JTextArea
-        // to a JTextPane. docs.oracle.com/javase/tutorial/uiswing/components/editorpane.html
+        // to a JTextPane. docs.oracle.com/javase/tutorial/uiswing/components/edito rpane.html
         // TODO Also looking into using get/putClientProperty to store coordinates inside the objects.
         addAtCoords(messagesPane, new Point(50, 31), c);
 
@@ -403,7 +407,7 @@ public class GameBoard {
      *  Return a 0 if nobody has won yet, or a 1 if someone won the game. */
     private void doTurn(Player p) {
         int roll = new Random().nextInt(6) + 1; // Roll a new random number between 1 and 6.
-        printStatusAndLog(players.element().getName() + " rolls " + roll + ".");
+        printStatusAndLog(playerQueue.element().getName() + " rolls " + roll + ".");
 
         // TODO Make an enumeration for jail statuses?
         // First or second week in jail - player can't do anything but sit and wait.
@@ -518,12 +522,10 @@ public class GameBoard {
 
                     // Have the AI buy the property if it has more than $500.
                     else {
-                        if (p.getCash(CASH_TYPES.total) >= 500 && ((   p.getCell() instanceof PropagandaOutlet)
-                                                                    || p.getCell() instanceof Railroad
-                                                                    || p.getCell() instanceof UtilityCell)) {
-                            Ownable cell = (Ownable) p.getCell();
-                            if (!cell.isOwned())
-                                p.buyProperty(cell, this);
+                        if (   p.getCash(CASH_TYPES.total) >= 500     // player has enough money to buy the property
+                            && Ownable.class.isInstance(p.getCell())  // property is ownable
+                            && !((Ownable) p.getCell()).isOwned()) {  // property is not owned
+                                p.buyProperty((Ownable) p.getCell(), this);
                         }
                     }
                 }
@@ -575,54 +577,54 @@ public class GameBoard {
         }
 
         // ...then set the current player's label to green.
-        int player = Integer.parseInt(Character.toString(players.element().getName().charAt(7)));
+        int player = Integer.parseInt(Character.toString(playerQueue.element().getName().charAt(7)));
         playerRowLabels.get(player == 4 ? 0 : player).setForeground(Color.GREEN);
     }
 
     /** Given an integer i, break it up into the smallest possible amount of bills. */
     // TODO: Can/should this be public? And this seems like it should maybe be associated with
     //       a Player object instead? Or similar?
+
+    /** Given a total amount of cash to split up, get back an array that contains
+     * the number of each type of bill that represents that total amount. For example,
+     * getCashDistribution(1300) would yield {2, 3, 0, 0, 0, 0, 0}, for two 500s and
+     * three 100s. */
     public int[] getCashDistribution(int total) {
-        /* TODO: This functionality seems so generic that it should be in a library somewhere...
-         TODO: This is almost working, but I think BoardCell's getCost() function
-         is not being overwritten by PropagandaOutlet's => since BoardCell always returns
-         0, I get this case where total = 0, which screws up gameplay. */
+        int[] paymentAmounts = {0, 0, 0, 0, 0, 0, 0};
+
+        // TODO: This functionality seems so generic that it should be in a library somewhere...
         if (total <= 0) {
             printStatusAndLog("Can't break up 0 or negative dollars!");
 
             // Since we can't break up this amount of money, the amount of each bill to pay is 0.
-            // TODO: Convert this to a for-each loop or similar.
-            for (int amount : paymentAmounts) {
+            for (int amount : paymentAmounts)
                 amount = 0;
-            }
         }
 
         else {
             /* We keep the arrays in reverse order here. This way, when we iterate
               through them, we start with the highest dollar amount, which leads to
-              less dividing up the player's money into (eg) hundreds of little bills.
-              TODO: Ambiguous, confusing names here. */
+              less dividing up the player's money into lots of small bills.
+              TODO: Fix ambiguous, confusing names here. */
             /** billValues is the amount, in dollars, of bills that go into a given bill type. */
             int[] billValues  = {500, 100, 50, 20, 10, 5, 1};
 
-            /** billTotals is the number of each bill type I have. */
+            /** billTotals is the number of each bill type that have to be paid. */
             int[] billTotals  = {0, 0, 0, 0, 0, 0, 0};
             // TODO: Do I need this billTotals array? Could I just store values
             //       directly in paymentAmounts[] instead?
 
-            int i = 0;
-            for (int amount : billValues) {
-                if (total / amount != 0) {
-                    billTotals[i] = total / amount;
-                    total -= (amount * billTotals[i]);
-                }
-                i++;
+            for (int i = 0; i < billValues.length; i++) {
+                int numberOfBills = total / billValues[i];
+
+                billTotals[i] = numberOfBills;
+                total -= (billValues[i] * billTotals[i]);
             }
 
-            // Then have the player pay each of the amounts
+            // Then set the amount of each bill type the player has to pay.
             // TODO: Again, replace with a for each loop.
-            for (int j = 0; j < paymentAmounts.length; j++)
-                paymentAmounts[j] = billTotals[6 - j];
+            for (int i = 0; i < paymentAmounts.length; i++)
+                paymentAmounts[i] = billTotals[6 - i];
         }
 
         return paymentAmounts;
