@@ -40,7 +40,7 @@ public class Player {
     private BoardCell currentCell;
 
     /** Image associated with this player. Used as an icon to indicate board position. */
-    private Icon image;
+    private ImageIcon image;
 
     /** Color associated with this Player. Player1 = green, 2 = yellow,
      *  3 = orange, 4 = blue. */
@@ -84,7 +84,7 @@ public class Player {
     }
 
     /** Return the image associated with this player. */
-    public Icon getImage() {
+    public ImageIcon getImage() {
         return image;
     }
 

@@ -17,7 +17,6 @@ import org.apache.batik.transcoder.image.JPEGTranscoder;
 //  things considerably.
 // TODO: On go to jail, on land do a funny animation.
 
-// TODO: This should extend JButton/JLabel or similar.
 public abstract class BoardCell extends JPanel {
     // TODO: Add a field indicating whether or not a player is present 
     //       on this cell? And a method to set that.
@@ -119,15 +118,15 @@ public abstract class BoardCell extends JPanel {
     // Or maybe I could use interfaces, such as, for example, Buyable.
     /** Given a Player p, set the image icon for the BoardPosition associated
      *  with p on this cell. */
-    public void setPositionImage(Player p, Icon icon, GameBoard board) {
+    public void setPositionImage(Player p, ImageIcon icon, GameBoard board) {
         if (p == board.player1)
-            p1Pos.setImage(icon);
+            p1Pos.setIcon(icon);
         else if (p == board.player2)
-            p2Pos.setImage(icon);
+            p2Pos.setIcon(icon);
         else if (p == board.player3)
-            p3Pos.setImage(icon);
+            p3Pos.setIcon(icon);
         else if (p == board.player4)
-            p4Pos.setImage(icon);
+            p4Pos.setIcon(icon);
     }
 
     /** Returns the BoardPosition associated with Player p. For example,

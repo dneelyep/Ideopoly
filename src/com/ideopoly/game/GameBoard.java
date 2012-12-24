@@ -19,6 +19,8 @@ import java.awt.event.*;
  *
  *  @author Daniel Neel */
 public class GameBoard {
+    // TODO Review and look for places where I can make more use of generics.
+
     // TODO Have this class extend JFrame?
     // TODO: Make some of these arrays, etc., final/static when they're constant. Also see
     // if it's possible to get rid of some of them.
@@ -27,7 +29,7 @@ public class GameBoard {
     private int gameWon = 0;
 
     // TODO: Can I make this private?
-    protected final ArrayList<String> cashValues = new ArrayList<>(
+    private final ArrayList<String> cashValues = new ArrayList<>(
             Arrays.asList("ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"));
 
     private final ArrayList<String> cashHeadings = new ArrayList<>(
@@ -363,7 +365,7 @@ public class GameBoard {
         // TODO: Implement formatted text here. For example, bold the Player names
         // in messages.
         // If I want this, it looks like I'll need to switch messages from a JTextArea
-        // to a JTextPane. docs.oracle.com/javase/tutorial/uiswing/components/edito rpane.html
+        // to a JTextPane. docs.oracle.com/javase/tutorial/uiswing/components/editorpane.html
         // TODO Also looking into using get/putClientProperty to store coordinates inside the objects.
         addAtCoords(messagesPane, new Point(50, 31), c);
 
