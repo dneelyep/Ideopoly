@@ -58,7 +58,7 @@ public enum CommunityChestCards {
             case two: player.setCash(CASH_TYPES.hundreds, player.getCash(CASH_TYPES.hundreds) + 2);
                 break;
             case three:   // "Doctor's fees – Pay $50"
-                player.payBank(50, board);
+                player.makePayment(50, board);
                 break;
             case four: player.giveGOOJF();    // "Get Out of Jail Free – this card may be kept until needed, or sold.
                 break;
@@ -113,17 +113,17 @@ public enum CommunityChestCards {
             case nine: player.setCash(CASH_TYPES.hundreds, player.getCash(CASH_TYPES.hundreds) + 1); // "Life Insurance Matures – collect $100"
                 break;
             case ten:  // "Pay Hospital Fees of $100"
-                player.payBank(100, board);
+                player.makePayment(100, board);
                 break;
             case eleven:  // "Pay School Fees of $50"
-                player.payBank(50, board);
+                player.makePayment(50, board);
                 break;
             case twelve: player.setCash(CASH_TYPES.twenties, player.getCash(CASH_TYPES.twenties) + 1); // "Receive $25 Consultancy Fee"
                 player.setCash(CASH_TYPES.fives, player.getCash(CASH_TYPES.fives) + 1);
                 break;
             case thirteen:  // "You are assessed for street repairs – $40 per house, $115 per hotel"
                 int chargeAmount = (player.getNumHouses() * 40) + (player.getNumHotels() * 115);
-                player.payBank(chargeAmount, board);
+                player.makePayment(chargeAmount, board);
                 break;
             case fourteen: player.setCash(CASH_TYPES.tens, player.getCash(CASH_TYPES.tens) + 1); // "You have won second prize in a beauty contest– collect $10"
                 break;

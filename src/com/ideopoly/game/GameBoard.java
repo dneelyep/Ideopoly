@@ -32,9 +32,6 @@ public class GameBoard {
     private final ArrayList<String> cashValues = new ArrayList<>(
             Arrays.asList("ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"));
 
-    private final ArrayList<String> cashHeadings = new ArrayList<>(
-            Arrays.asList("Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s", "Total", "GOOJF cards", "Turns left in jail"));
-
     // TODO: Come up with a better solution than making this public.
     public final ArrayList<JLabel> playerRowLabels = new ArrayList<>(
             Arrays.asList(new JLabel("Player 1"), new JLabel("Player 2"), new JLabel("Player 3"), new JLabel("Player 4")));
@@ -70,46 +67,46 @@ public class GameBoard {
     // TODO: Remove unneeded image templates.
     // TODO Store this configuration data in a file, XML or similar.
     private SpecialCell	     go              = new SpecialCell("Go", "go.jpg", new Point(41, 41), this);
-    private PropagandaOutlet mediterraneanAv = new PropagandaOutlet("Mediterranean Av.", "purpleTemplate.jpg", 60, 2, 10, 30, 90, 160, 250, 50, new Point(37, 41), this, 120, 1, 217);
+    private PropagandaOutlet mediterraneanAv = new PropagandaOutlet("Mediterranean Av.", "purpleTemplate.jpg", 60, 2, 10, 30, 90, 160, 250, 50, new Point(37, 41), this, new Color(120, 1, 217));
     private ChanceOrCommChestCell commChestBottom = new ChanceOrCommChestCell("Community Chest", "bottCommChest.jpg", new Point(33, 41), this);
-    private PropagandaOutlet balticAv        = new PropagandaOutlet("Baltic Av.", "purpleTemplate.jpg", 60, 4, 20, 60, 180, 320, 450, 50, new Point(29, 41), this, 120, 1, 217);
+    private PropagandaOutlet balticAv        = new PropagandaOutlet("Baltic Av.", "purpleTemplate.jpg", 60, 4, 20, 60, 180, 320, 450, 50, new Point(29, 41), this, new Color(120, 1, 217));
     private SpecialCell	     incomeTax       = new SpecialCell("Income Tax", "incomeTax.jpg", new Point(25, 41), this);
     // TODO: Bigger font size (~80) for the text on railroads - hard to read currently.
     private Railroad	     readingRR       = new Railroad("Reading RR", "readingRR.jpg", new Point(21, 41), this);
-    private PropagandaOutlet orientalAv      = new PropagandaOutlet("Oriental Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, new Point(17, 41), this, 174, 239, 255);
+    private PropagandaOutlet orientalAv      = new PropagandaOutlet("Oriental Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, new Point(17, 41), this, new Color(174, 239, 255));
     private ChanceOrCommChestCell chanceBottom = new ChanceOrCommChestCell("Chance", "botChance.jpg", new Point(13, 41), this);
-    private PropagandaOutlet vermontAv       = new PropagandaOutlet("Vermont Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, new Point(9, 41), this, 174, 239, 255);
-    private PropagandaOutlet connecticutAv   = new PropagandaOutlet("Connecticut Av.", "lightBlueTemplate.jpg", 120, 8, 40, 100, 300, 450, 600, 50, new Point(5, 41), this, 174, 239, 255);
+    private PropagandaOutlet vermontAv       = new PropagandaOutlet("Vermont Av.", "lightBlueTemplate.jpg", 100, 6, 30, 90, 270, 400, 550, 50, new Point(9, 41), this, new Color(174, 239, 255));
+    private PropagandaOutlet connecticutAv   = new PropagandaOutlet("Connecticut Av.", "lightBlueTemplate.jpg", 120, 8, 40, 100, 300, 450, 600, 50, new Point(5, 41), this, new Color(174, 239, 255));
     private SpecialCell	     jail	         = new SpecialCell("Jail", "jail.jpg", new Point(1, 41), this);
-    private PropagandaOutlet stCharles       = new PropagandaOutlet("St. Charles Place", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, new Point(1, 37), this, 254, 2, 151);
+    private PropagandaOutlet stCharles       = new PropagandaOutlet("St. Charles Place", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, new Point(1, 37), this, new Color(254, 2, 151));
     private UtilityCell	     electricCompany = new UtilityCell("Electric Co.", "electricCo.jpg", new Point(1, 33), this);
-    private PropagandaOutlet statesAv	     = new PropagandaOutlet("States Av.", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, new Point(1, 29), this, 254, 2, 151);
-    private PropagandaOutlet virginiaAv      = new PropagandaOutlet("Virginia Av.", "pinkTemplate.jpg", 160, 12, 60, 180, 500, 700, 900, 100, new Point(1, 25), this, 254, 2, 151);
+    private PropagandaOutlet statesAv	     = new PropagandaOutlet("States Av.", "pinkTemplate.jpg", 140, 10, 50, 150, 450, 625, 750, 100, new Point(1, 29), this, new Color(254, 2, 151));
+    private PropagandaOutlet virginiaAv      = new PropagandaOutlet("Virginia Av.", "pinkTemplate.jpg", 160, 12, 60, 180, 500, 700, 900, 100, new Point(1, 25), this, new Color(254, 2, 151));
     private Railroad	     pennsylvaniaRR  = new Railroad("Pennsylvania RR", "pennsylvaniaRR.jpg", new Point(1, 21), this);
-    private PropagandaOutlet stJames         = new PropagandaOutlet("St. James", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, new Point(1, 17), this, 255, 188, 6);
+    private PropagandaOutlet stJames         = new PropagandaOutlet("St. James", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, new Point(1, 17), this, new Color(255, 188, 6));
     private ChanceOrCommChestCell commChestLeft = new ChanceOrCommChestCell("Community Chest", "leftCommChest.jpg", new Point(1, 13), this);
-    private PropagandaOutlet tennesseeAv     = new PropagandaOutlet("Tennessee Av.", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, new Point(1, 9), this, 255, 188, 6);
-    private PropagandaOutlet newYorkAv       = new PropagandaOutlet("New York Av.", "orangeTemplate.jpg", 200, 16, 80, 220, 600, 800, 1000, 100, new Point(1, 5), this, 255, 188, 6);
+    private PropagandaOutlet tennesseeAv     = new PropagandaOutlet("Tennessee Av.", "orangeTemplate.jpg", 180, 14, 70, 200, 550, 750, 950, 100, new Point(1, 9), this, new Color(255, 188, 6));
+    private PropagandaOutlet newYorkAv       = new PropagandaOutlet("New York Av.", "orangeTemplate.jpg", 200, 16, 80, 220, 600, 800, 1000, 100, new Point(1, 5), this, new Color(255, 188, 6));
     private SpecialCell      freeParking     = new SpecialCell("Free Parking", "freeParking.jpg", new Point(1, 1), this);
-    private PropagandaOutlet kentuckyAv      = new PropagandaOutlet("Kentucky Av.", "properties/kentuckyAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, new Point(5, 1), this, 255, 0, 0);
+    private PropagandaOutlet kentuckyAv      = new PropagandaOutlet("Kentucky Av.", "properties/kentuckyAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, new Point(5, 1), this, new Color(255, 0, 0));
     private ChanceOrCommChestCell chanceTop  = new ChanceOrCommChestCell("Chance", "topChance.jpg", new Point(9, 1), this);
-    private PropagandaOutlet indianaAv	     = new PropagandaOutlet("Indiana Av.", "properties/indianaAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, new Point(13, 1), this, 255, 0, 0);
-    private PropagandaOutlet illinoisAv      = new PropagandaOutlet("Illinois Av.", "properties/illinoisAv.jpg", 240, 20, 100, 300, 750, 925, 1100, 150, new Point(17, 1), this, 255, 0, 0);
+    private PropagandaOutlet indianaAv	     = new PropagandaOutlet("Indiana Av.", "properties/indianaAv.jpg", 220, 18, 90, 250, 700, 875, 1050, 150, new Point(13, 1), this, new Color(255, 0, 0));
+    private PropagandaOutlet illinoisAv      = new PropagandaOutlet("Illinois Av.", "properties/illinoisAv.jpg", 240, 20, 100, 300, 750, 925, 1100, 150, new Point(17, 1), this, new Color(255, 0, 0));
     private Railroad	     bAndORR	     = new Railroad("B & O RR", "bAndORR.jpg", new Point(21, 1), this);
-    private PropagandaOutlet atlanticAv      = new PropagandaOutlet("Atlantic Av.", "properties/atlanticAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 1, new Point(25, 1), this, 252, 255, 0);
-    private PropagandaOutlet ventnorAv	     = new PropagandaOutlet("Ventnor Av.", "properties/ventnorAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 150, new Point(29, 1), this, 252, 255, 0);
+    private PropagandaOutlet atlanticAv      = new PropagandaOutlet("Atlantic Av.", "properties/atlanticAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 1, new Point(25, 1), this, new Color(252, 255, 0));
+    private PropagandaOutlet ventnorAv	     = new PropagandaOutlet("Ventnor Av.", "properties/ventnorAv.jpg", 260, 22, 110, 330, 800, 975, 1150, 150, new Point(29, 1), this, new Color(252, 255, 0));
     private UtilityCell	     waterWorks      = new UtilityCell("Water Works", "waterWorks.jpg", new Point(33, 1), this);
-    private PropagandaOutlet marvinGardens   = new PropagandaOutlet("Marvin Gardens", "properties/marvinGardens.jpg", 280, 24, 120, 360, 850, 1025, 1200, 150, new Point(37, 1), this, 252, 255, 0);
+    private PropagandaOutlet marvinGardens   = new PropagandaOutlet("Marvin Gardens", "properties/marvinGardens.jpg", 280, 24, 120, 360, 850, 1025, 1200, 150, new Point(37, 1), this, new Color(252, 255, 0));
     private SpecialCell      goToJail        = new SpecialCell("Go to Jail", "goToJail.jpg", new Point(41, 1), this);
-    private PropagandaOutlet pacificAv	     = new PropagandaOutlet("Pacific Av.", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, new Point(41, 5), this, 0, 196, 0);
-    private PropagandaOutlet nCarolinaAv     = new PropagandaOutlet("N. Carolina Av.", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, new Point(41, 9), this, 0, 196, 0);
+    private PropagandaOutlet pacificAv	     = new PropagandaOutlet("Pacific Av.", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, new Point(41, 5), this, new Color(0, 196, 0));
+    private PropagandaOutlet nCarolinaAv     = new PropagandaOutlet("N. Carolina Av.", "greenTemplate.jpg", 300, 26, 130, 390, 900, 1100, 1275, 200, new Point(41, 9), this, new Color(0, 196, 0));
     private ChanceOrCommChestCell commChestRight = new ChanceOrCommChestCell("Community Chest", "rightCommChest.jpg", new Point(41, 13), this);
-    private PropagandaOutlet pennsylvaniaAv  = new PropagandaOutlet("Pennsylvania Av.", "greenTemplate.jpg", 320, 28, 150, 450, 1000, 1200, 1400, 200, new Point(41, 17), this, 0, 196, 0);
+    private PropagandaOutlet pennsylvaniaAv  = new PropagandaOutlet("Pennsylvania Av.", "greenTemplate.jpg", 320, 28, 150, 450, 1000, 1200, 1400, 200, new Point(41, 17), this, new Color(0, 196, 0));
     private Railroad         shortLineRR     = new Railroad("Short Line RR", "shortLineRR.jpg", new Point(41, 21), this);
     private ChanceOrCommChestCell chanceRight = new ChanceOrCommChestCell("Chance", "rightChance.jpg", new Point(41, 25), this);
-    private PropagandaOutlet parkPlace       = new PropagandaOutlet("Park Place", "darkBlueTemplate.jpg", 350, 35, 175, 500, 1100, 1300, 1500, 200, new Point(41, 29), this, 0, 8, 253);
+    private PropagandaOutlet parkPlace       = new PropagandaOutlet("Park Place", "darkBlueTemplate.jpg", 350, 35, 175, 500, 1100, 1300, 1500, 200, new Point(41, 29), this, new Color(0, 8, 253));
     private SpecialCell      luxuryTax       = new SpecialCell("Luxury Tax", "luxuryTax.jpg", new Point(41, 33), this);
-    private PropagandaOutlet boardwalk       = new PropagandaOutlet("Boardwalk", "darkBlueTemplate.jpg", 400, 50, 200, 600, 1400, 1700, 2000, 200, new Point(41, 37), this, 0, 8, 253);
+    private PropagandaOutlet boardwalk       = new PropagandaOutlet("Boardwalk", "darkBlueTemplate.jpg", 400, 50, 200, 600, 1400, 1700, 2000, 200, new Point(41, 37), this, new Color(0, 8, 253));
 
     // TODO: See file:///home/daniel/Desktop/aaa-TIJ3-distribution/TIJ3.htm and then
     //       "Downcasting vs. templates/generics" for how to get the original class back out
@@ -198,18 +195,15 @@ public class GameBoard {
         // TODO: Would be good if I just used a 2D array to store all this, rather
         // than the separate titles, playerRowLabels, and for loop parts.
         // Display the column titles.
-        for (String s : cashHeadings) {
+        for (String s : Arrays.asList("Cash", "1s", "5s", "10s", "20s", "50s", "100s", "500s",
+                "Total", "GOOJF cards", "Turns left in jail")) {
             frame.add(new JLabel(s), c);
             c.gridx++;
         }
 
-        // Display Player 1/2/3/4: to the left of the rows.
-        c.gridx = 50;
-
-        for (JLabel j : playerRowLabels) {
-            c.gridy++;
-            frame.add(j, c);
-        }
+        // Display Player 1/2/3/4: to the left of each row.
+        for (int i = 0; i < 4; i++)
+            addAtCoords(playerRowLabels.get(i), new Point(50, i + 1), c);
 
         // =======================================================
         // === Add the labels that display player cash values. ===
@@ -317,7 +311,6 @@ public class GameBoard {
 
         c.gridwidth = 9;
         addAtCoords(useGOOJFCard, new Point(50, 11), c);
-
         addAtCoords(cancelButton, new Point(50, 13), c);
 
         // ===============================================================
@@ -330,17 +323,18 @@ public class GameBoard {
         addAtCoords(guiColor, new Point(50, 20), c);
         addAtCoords(guiName, new Point(50, 21), c);
 
-        String[] labels = {"House/Hotel cost", "Rent", "1 house", "2 houses", "3 houses", "4 houses", "1 hotel", "Mortgage value"};
+        for (String string : Arrays.asList("House/Hotel cost", "Rent", "1 house", "2 houses", "3 houses", "4 houses", "1 hotel", "Mortgage value")) {
+            c.gridy++;
+            addAtCoords(new JLabel(string + ":"), new Point(50, c.gridy), c);
+        }
+
         JLabel[] labelValues = {guiHouseHotelCost, guiRent, gui1HouseLabel, gui2HouseLabel, gui3HouseLabel,
                 gui4HouseLabel, guiHotel, guiMortgage};
 
         addAtCoords(guiCost, new Point(56, 21), c);
-        for (int i = 0; i < labels.length; i++) {
+        for (JLabel label : labelValues) {
             c.gridy++;
-            c.gridx -= 6;
-            frame.add(new JLabel(labels[i] + ":"), c);
-            c.gridx += 6;
-            frame.add(labelValues[i], c);
+            addAtCoords(label, new Point(56, c.gridy), c);
         }
 
         // ==============================
@@ -418,7 +412,7 @@ public class GameBoard {
 
         else {
             if (p.getJailStatus() == 1) { // Last week in jail. Player gets charged $50, then moves forward.
-                p.payBank(50, this);
+                p.makePayment(50, this);
                 p.setJailStatus(0);
             }
             movePlayer(p, roll);
@@ -487,11 +481,11 @@ public class GameBoard {
             // TODO: Allow the Player to choose 10% or $200, or do the cheapest automatically.
             // TODO: Test to make sure this works.
             else if (landingSpace == incomeTax)
-                p.payBank(200, this);
+                p.makePayment(200, this);
 
             // TODO: Test to make sure this works.
             else if (landingSpace == luxuryTax)
-                p.payBank(75, this);
+                p.makePayment(75, this);
 
             else if (landingSpace == freeParking && p == player1)
                 printStatusAndLog("Free parking!");
@@ -541,12 +535,8 @@ public class GameBoard {
                         buyProperty.setEnabled(false);
 
                     // Charge the player appropriately.
-                    // TODO: Can I use landingSpot rather than p.getCell().getOwner() ?
-                    p.payPlayer(p.getCell().getOwner(), p.getCell().getRent(), this);
+                    p.makePayment(p.getCell().getOwner(), p.getCell().getRent(), this);
                 }
-
-                // TODO: Make BoardCells and such clickable. That way, I can easily implement
-                // property selling, mortgaging, house/hotel buying.
             }
 
             p.getCell().setPositionImage(p, p.getImage(), this);
@@ -645,7 +635,6 @@ public class GameBoard {
     public void printStatusAndLog(String text) {
         messages.append("\n" + text);
         // Setting the caret position is required to make the messages pane scroll.
-        // See https://tips4java.wordpress.com/2008/10/22/text-area-scrolling/
         messages.setCaretPosition(messages.getDocument().getLength());
         // fout.append(text);
         // fout.close();

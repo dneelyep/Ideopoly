@@ -265,7 +265,7 @@ public class Player {
     /** Have this Player pay the bank amount dollars.
      *  The Player will bankrupt if charged an amount higher than
      *  his/her totalMoney value. */
-    public void payBank(int amount, GameBoard board) {
+    public void makePayment(int amount, GameBoard board) {
         if (willBankrupt(amount)) // Player will be bankrupt.
             bankruptPlayer(board);
         else { // Amount is ok.
@@ -285,7 +285,7 @@ public class Player {
      *  will bankrupt if amount is larger than this Player's totalMoney
      *  value. */
     // TODO: Have any tests transferred over to these new methods.
-    public void payPlayer(Player p, int amount, GameBoard board) {
+    public void makePayment(Player p, int amount, GameBoard board) {
         if (this.willBankrupt(amount))
             this.bankruptPlayer(board);
         else {
@@ -311,7 +311,7 @@ public class Player {
     /** Set this Player as the owner of the provided Ownable property, and charge
      *  the correct amount of money. */
     public void buyProperty(Ownable property, GameBoard board) {
-        payBank(property.getCost(), board);
+        makePayment(property.getCost(), board);
         property.setOwner(this);
         board.printStatusAndLog(getName() + " bought " + property.getName() + " for $" + property.getCost() + ".");
 

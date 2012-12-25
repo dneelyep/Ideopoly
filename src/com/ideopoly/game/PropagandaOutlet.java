@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /** Class to represent a given propaganda outlet.
  *  Extends a generic BoardCell to also include properties 
@@ -36,17 +38,9 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
     private int initialRent;
 
     // TODO: Is there a formula that can calculate rent per house/hotel?
-    /** How much rent costs with 1 house present. */
-    private int rent1House;
-
-    /** How much rent costs with 2 houses present. */
-    private int rent2House;
-
-    /** How much rent costs with 3 houses present. */
-    private int rent3House;
-
-    /** How much rent costs with 4 houses present. */
-    private int rent4House;
+    /** A map of house numbers to the rent value. For example, the rent for this PropagandaOutlet
+     * might be $x with 2 houses present. */
+    private Map<Integer, Integer> houseRentValues = new LinkedHashMap<>(4);
 
     /** How much rent costs with a hotel present on this property. */
     private int rent1Hotel;
@@ -67,7 +61,7 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
     // TODO: Should we accept an array instead maybe?
     // TODO: Accept an array for rent values rather than separate variables?
     // TODO: camelCase variable names here.
-    public PropagandaOutlet(String newName, String imagePath, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, Point coordinates, final GameBoard board, int r, int g, int b) {
+    public PropagandaOutlet(String newName, String imagePath, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, Point coordinates, final GameBoard board, Color color) {
         // TODO: Better, less ambiguous variable names here.
         super(newName, imagePath, coordinates); // Use the BoardCell class' constructor.
         numHouses	    = 0;
@@ -77,13 +71,13 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
         owned           = false;
 
         initialRent	     = newInitialRent;
-        rent1House	     = newRent1House;
-        rent2House	     = newRent2House;
-        rent3House	     = newRent3House;
-        rent4House	     = newRent4House;
+        houseRentValues.put(1, newRent1House);
+        houseRentValues.put(2, newRent2House);
+        houseRentValues.put(3, newRent3House);
+        houseRentValues.put(4, newRent4House);
         rent1Hotel	     = newRent1Hotel;
         houseOrHotelCost = newHouseOrHotelCost;
-        color            = new Color(r, g, b);
+        this.color       = color;
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -93,10 +87,10 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
                     board.setGUICost("$" + Integer.toString(getCost()));
                     board.setGUIHouseHotelCost("$" + Integer.toString(getHouseOrHotelCost()));
                     board.setGUIRent("$" + Integer.toString(getInitialRent()));
-                    board.setGUI1HouseLabel("$" + Integer.toString(getRent1House()));
-                    board.setGUI2HouseLabel("$" + Integer.toString(getRent2House()));
-                    board.setGUI3HouseLabel("$" + Integer.toString(getRent3House()));
-                    board.setGUI4HouseLabel("$" + Integer.toString(getRent4House()));
+                    board.setGUI1HouseLabel("$" + Integer.toString(getHouseRentValues().get(1)));
+                    board.setGUI2HouseLabel("$" + Integer.toString(getHouseRentValues().get(2)));
+                    board.setGUI3HouseLabel("$" + Integer.toString(getHouseRentValues().get(3)));
+                    board.setGUI4HouseLabel("$" + Integer.toString(getHouseRentValues().get(4)));
                     board.setGUIHotel("$" + Integer.toString(getRent1Hotel()));
                     board.setGUIMortgage("$" + Integer.toString(getMortgageValue()));
                     board.setGUIName(getName());
@@ -129,18 +123,18 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
         if (numHouses == 0) // TODO: Not all props in group owned.
             return initialRent;
 
-            // TODO: else if (are owned in a group, no houses) {}
+        // TODO: else if (are owned in a group, no houses) {}
         else if (numHouses == 1)
-            return rent1House;
+            return houseRentValues.get(1);
 
         else if (numHouses == 2)
-            return rent2House;
+            return houseRentValues.get(2);
 
         else if (numHouses == 3)
-            return rent3House;
+            return houseRentValues.get(3);
 
         else if (numHouses == 4)
-            return rent4House;
+            return houseRentValues.get(4);
 
         else if (numHotels == 1)
             return rent1Hotel;
@@ -158,6 +152,7 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
 
     /** Returns the cost for a Player to buy this 
      *  property, unimproved. */
+    @Override
     public int getCost() {
         return cost;
     }
@@ -171,21 +166,10 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
         return initialRent;
     }
 
-    // TODO: Remove these? They're kind of covered by getRent().
-    public int getRent1House() {
-        return rent1House;
-    }
-
-    public int getRent2House() {
-        return rent2House;
-    }
-
-    public int getRent3House() {
-        return rent3House;
-    }
-
-    public int getRent4House() {
-        return rent4House;
+    // TODO: Remove this? It's kind of covered by getRent().
+    /** Get a Map of house numbers to rent values for this PropagandaOutlet. */
+    public Map<Integer, Integer> getHouseRentValues() {
+        return houseRentValues;
     }
 
     public int getRent1Hotel() {
@@ -201,7 +185,6 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
         return color;
     }
 }
-
 
 /*
 * Propaganda outlet // A normal board place

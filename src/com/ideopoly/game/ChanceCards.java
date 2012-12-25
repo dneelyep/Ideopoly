@@ -56,7 +56,7 @@ public enum ChanceCards {
             case two:  // "Advance to Illinois Ave - if you pass Go, collect $200"
                 // TODO: There's a general pattern to these cards. It's if position is
                 // >= some value, give $200 dollars. And then, depending on player, set position.
-                // Make this type of card into a function.
+                // Make this type of card into a function?
 
                 // If the player's on B & O RR or after, give money.
                 if (board.boardProperties.indexOf(p.getCell()) >= 24)
@@ -75,7 +75,7 @@ public enum ChanceCards {
                         // TODO: Add handling for bankruptcy here. Or build that into playerPayPlayer?
                         Random rollGenerator = new Random();
                         int roll = rollGenerator.nextInt(6) + 1;
-                        p.payPlayer(board.boardProperties.get(12).getOwner(), roll * 10, board);
+                        p.makePayment(board.boardProperties.get(12).getOwner(), roll * 10, board);
                     }
                 }
                 else if (p.getCell() == board.boardProperties.get(22) || p.getCell() == board.boardProperties.get(36)) { // Top or Right Chance
@@ -84,7 +84,7 @@ public enum ChanceCards {
                     if (board.boardProperties.get(28).getOwner() != null) {
                         Random rollGenerator = new Random();
                         int roll = rollGenerator.nextInt(6) + 1;
-                        p.payPlayer(board.boardProperties.get(28).getOwner(), roll * 10, board);
+                        p.makePayment(board.boardProperties.get(28).getOwner(), roll * 10, board);
                     }
                 }
                 else {
@@ -134,21 +134,12 @@ public enum ChanceCards {
                 p.putInJail(board);
                 break;
             case ten: // "Make general repairs on all your property – for each house pay $25 –
-                //  for each hotel $100"
-                // If the payment will bankrupt the Player, do x.
-                // TODO: Haven't tested this yet, to make sure I get correct values out of parseInt().
-                // TODO: Once this is working, make sure to use playerPayBank() rather than manually
-                //       including if (p.willBankrupt()), etc.
+                      //  for each hotel $100"
                 int payment = (p.getNumHouses() * 25) + (p.getNumHotels() * 100);
-
-                if ( p.willBankrupt(payment) )
-                    p.bankruptPlayer(board);
-                else {
-                    //TODO: Remove cash here.
-                }
+                p.makePayment(payment, board);
                 break;
             case eleven: // "Pay poor tax of $15"
-                p.payBank(15, board);
+                p.makePayment(15, board);
                 break;
             case twelve: // "Take a trip to Reading Railroad – if you pass Go, collect $200"
                 // If the player's position is on or after Oriental avenue, give em $200.
@@ -169,7 +160,7 @@ public enum ChanceCards {
                         player.setCash(CASH_TYPES.fifties, player.getCash(CASH_TYPES.fifties) + 1);
                 }
                 // TODO: This won't be 150 when one or more other players are bankrupt.
-                p.payBank(150, board);
+                p.makePayment(150, board);
                 break;
             case fifteen: // "Your building loan matures – collect $150"
                 p.setCash(CASH_TYPES.hundreds, p.getCash(CASH_TYPES.hundreds) + 1);
