@@ -17,31 +17,14 @@ public class BoardPosition extends JLabel {
     /** The x/y coordinates of this BoardPosition in the GUI. */
     private final Point coordinates;
 
-    // TODO Why do I have a separate image field, rather than using JLabel's built-in support?
-    private Icon image;
-
     /** Create this object with the given x and y coordinates. */
     public BoardPosition(Point coordinates) {
         this.coordinates = coordinates;
-        image     = new ImageIcon("res/images/noPlayerPresent.jpg");
-        this.setIcon(image);
+        setIcon(new ImageIcon("res/images/noPlayerPresent.jpg"));
     }
 
     /** Get the coordinates belonging to this BoardPosition. */
     public Point getCoordinates() {
         return coordinates;
-    }
-
-    /** Get the image associated with this position. */
-    public Icon getImage() {
-        return image;
-    }
-
-    /** Set the image associated with this position to
-     *  the indicated image i. */
-    public void setImage(Icon i) {
-        // TODO: This is a bit confusing.
-        image = i;
-        this.setIcon(i);
     }
 }

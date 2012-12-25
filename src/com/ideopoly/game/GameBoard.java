@@ -19,6 +19,8 @@ import java.awt.event.*;
  *
  *  @author Daniel Neel */
 public class GameBoard {
+    // TODO Review and look for places where I can make more use of generics.
+
     // TODO: Make some of these arrays, etc., final/static when they're constant. Also see
     // if it's possible to get rid of some of them.
     /** Number to represent if the game has been won. Once the game's won,

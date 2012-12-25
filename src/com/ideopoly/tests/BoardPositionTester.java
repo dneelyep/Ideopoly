@@ -15,13 +15,9 @@ public class BoardPositionTester extends TestCase {
     // TODO: More tests needed? Looks skimpy.
     @Test
     public void testBoardPosition() {
-	BoardPosition testBoardPosition = new BoardPosition(new Point(0, 0));
-	assertEquals(testBoardPosition.getCoordinates().x, 0);
-	assertEquals(testBoardPosition.getCoordinates().y, 0);
-	//	assertEquals(testBoardPosition.getImage(), ); <-- TODO
-
-	Icon testImage = new ImageIcon("images/p1Present.jpg");
-	testBoardPosition.setImage(testImage);
-	assertEquals(testBoardPosition.getImage(), testImage);
+        BoardPosition testBoardPosition = new BoardPosition(new Point(0, 0));
+        assertEquals(testBoardPosition.getCoordinates().x, 0);
+        assertEquals(testBoardPosition.getCoordinates().y, 0);
+        //	assertEquals(testBoardPosition.getImage(), ); <-- TODO
     }
 }
