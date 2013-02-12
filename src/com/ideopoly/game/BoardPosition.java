@@ -10,7 +10,10 @@ import java.awt.*;
  *  a collection of these and say collection[x].changeimage(), etc.
  *
  *  @author Daniel Neel */
-public class BoardPosition extends JLabel {
+public class BoardPosition {
+    // TODO Get rid of this class altogether, I don't need it. I can just use get/putClientProperty to store x/y coords,
+    //      and store the images in a JLabel.
+
     // v--- This gets rid of some compiler errors.
     private static final long serialVersionUID = 42L;
 
