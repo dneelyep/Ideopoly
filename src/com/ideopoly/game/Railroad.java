@@ -3,11 +3,12 @@ package com.ideopoly.game;
 // TODO: Is this class even needed?
 // TODO: Also, should these be made schools rather than railroads?
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-/** Represents any of the four railroads. Is a sub-class of BoardCell.
+/** Represents any of the four railroads.
  *
  *  @author Daniel Neel */
 public class Railroad extends BoardCell implements Ownable {
@@ -25,13 +26,12 @@ public class Railroad extends BoardCell implements Ownable {
 
     /** Create a new Railroad with a given name, image, and no owner. */
     public Railroad(String newName, String imagePath, Point coordinates, final GameBoard board) {
-        super(newName, imagePath, coordinates); // Use the BoardCell class' constructor.
+        super(newName, new ImageIcon("res/images/" + imagePath), coordinates, Color.BLACK, board);
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 if (board.getFocusedCell() == null) {
-                    board.setGUIColor(Color.BLACK);
-                    board.setGUICost("$" + getCost());
+                    board.setGUIColor(Railroad.this.getColor());
                     // TODO: Change the gui text to 1RR/2RRs/etc. maybe
                     //       where houses would be displayed.
                     board.setGUIRent("$" + getRent());
@@ -41,8 +41,6 @@ public class Railroad extends BoardCell implements Ownable {
                     board.setGUI3HouseLabel("-");
                     board.setGUI4HouseLabel("-");
                     board.setGUIHotel("-");
-                    board.setGUIMortgage("$" + getMortgageValue());
-                    board.setGUIName(getName());
                 }
             }
         });
@@ -73,7 +71,7 @@ public class Railroad extends BoardCell implements Ownable {
 
     /** Returns the value this Railroad can be
      *  mortgaged for. */
-    public int getMortgageValue() {
+    public int getMortgage() {
         return MORTGAGEVALUE;
     }
 }

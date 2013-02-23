@@ -6,6 +6,7 @@ package com.ideopoly.game;
  *
  * @author Daniel Neel */
 public interface Ownable {
+    // TODO Don't Ownables also have mortgage values?
     // TODO: Tests? Possible for an interface?
     /** Get the amount of rent charged to a Player
      *  landing on this property. */
@@ -13,6 +14,9 @@ public interface Ownable {
 
     /** Get the amount of money required to buy this Ownable property. */
     public int getCost();
+
+    /** Get the amount of money the Player can sell this Ownable for. */
+    public int getMortgage();
 
     /** Return true if this property is owned, false otherwise. */
     public boolean isOwned();

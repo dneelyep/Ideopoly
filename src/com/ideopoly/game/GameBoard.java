@@ -29,7 +29,7 @@ public class GameBoard {
     private int gameWon = 0;
 
     // TODO: Can I make this private?
-    private final ArrayList<String> cashValues = new ArrayList<>(
+    protected final ArrayList<String> cashValues = new ArrayList<>(
             Arrays.asList("ones", "fives", "tens", "twenties", "fifties", "hundreds", "fiveHundreds", "total"));
 
     // TODO: Come up with a better solution than making this public.
@@ -154,6 +154,7 @@ public class GameBoard {
     public GameBoard(String playerCharacter) { // TODO: Split up the functions logically.
         // Create the gui.
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         // TODO: Use multiple instances of GridBagConstraints?
         frame.setLayout(new GridBagLayout());
@@ -253,7 +254,8 @@ public class GameBoard {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (Ownable.class.isInstance(player1.getCell())) {
-                    player1.buyProperty((Ownable) player1.getCell(), GameBoard.this);
+                    // TODO This should not be commented out.
+                    //player1.buyProperty((Ownable) player1.getCell(), GameBoard.this);
                     buyProperty.setEnabled(false);
                     updateDisplay();
                 }
@@ -521,7 +523,8 @@ public class GameBoard {
                         if (   p.getCash(CASH_TYPES.total) >= 500     // player has enough money to buy the property
                             && Ownable.class.isInstance(p.getCell())  // property is ownable
                             && !((Ownable) p.getCell()).isOwned()) {  // property is not owned
-                                p.buyProperty((Ownable) p.getCell(), this);
+                            // TODO This should not be commented out.
+                            //p.buyProperty((Ownable) p.getCell(), this);
                         }
                     }
                 }
@@ -587,7 +590,7 @@ public class GameBoard {
         // TODO: This functionality seems so generic that it should be in a library somewhere...
         if (total <= 0) {
             printStatusAndLog("Can't break up 0 or negative dollars!");
-
+	    
             // Since we can't break up this amount of money, the amount of each bill to pay is 0.
             for (int amount : paymentAmounts)
                 amount = 0;
@@ -643,6 +646,7 @@ public class GameBoard {
         //    private FileWriter fout;
     }
 
+    // TODO Replace these with a more generic method that applies to multiple gui properties.
     // TODO: Better, more descriptive names for these methods, 
     // and the corresponding variables.
     /** Set the background color for detailed property info. */

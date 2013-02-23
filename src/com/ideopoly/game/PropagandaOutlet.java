@@ -15,13 +15,9 @@ import java.util.Map;
 public class PropagandaOutlet extends BoardCell implements Ownable {
     // TODO: Should these be more than just numbers, so that we can specify who owns each? Maybe number of player 1/2/3/4 houses/hotels? Nevermind, since ya have to own all the color group, and since ownedBy determines who owns the property, we can use those to detrmine who owns the houses.
 
-    /** The Color associated with this PropagandaOutlet. Purple for 
-     *  Mediterranean/Baltic, Blue for Boardwalk, etc. */
-    private Color color;
-
     // TODO: Make these items constants, so they can't be screwed with accidentally?
     /** Price for the player to buy this property unimproved. */
-    private int cost;
+    private final int COST;
 
     // TODO: Make houses/hotels Becks/Fox News's?
     /** Number of houses currently on this property. */
@@ -63,10 +59,11 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
     // TODO: camelCase variable names here.
     public PropagandaOutlet(String newName, String imagePath, int newCost, int newInitialRent, int newRent1House, int newRent2House, int newRent3House, int newRent4House, int newRent1Hotel, int newHouseOrHotelCost, Point coordinates, final GameBoard board, Color color) {
         // TODO: Better, less ambiguous variable names here.
-        super(newName, imagePath, coordinates); // Use the BoardCell class' constructor.
+        // TODO Use an ImageIcon for an argument rather than a String - cleaner. Do this for all relevant classes.
+        super(newName, new ImageIcon("res/images/" + imagePath), coordinates, color, board);
         numHouses	    = 0;
         numHotels	    = 0;
-        cost            = newCost;
+        COST            = newCost;
         mortgageValue	= newCost / 2; // Mortgage prices are half the price to buy the property.
         owned           = false;
 
@@ -77,23 +74,18 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
         houseRentValues.put(4, newRent4House);
         rent1Hotel	     = newRent1Hotel;
         houseOrHotelCost = newHouseOrHotelCost;
-        this.color       = color;
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 if (board.getFocusedCell() == null) {
-                    board.setGUIColor(getColor());
-                    // TODO: Find a way to prepend the $ automatically.
-                    board.setGUICost("$" + Integer.toString(getCost()));
+                    board.setGUIColor(PropagandaOutlet.this.getColor());
                     board.setGUIHouseHotelCost("$" + Integer.toString(getHouseOrHotelCost()));
                     board.setGUIRent("$" + Integer.toString(getInitialRent()));
-                    board.setGUI1HouseLabel("$" + Integer.toString(getHouseRentValues().get(1)));
-                    board.setGUI2HouseLabel("$" + Integer.toString(getHouseRentValues().get(2)));
-                    board.setGUI3HouseLabel("$" + Integer.toString(getHouseRentValues().get(3)));
-                    board.setGUI4HouseLabel("$" + Integer.toString(getHouseRentValues().get(4)));
+                    board.setGUI1HouseLabel("$" + Integer.toString(houseRentValues.get(1)));
+                    board.setGUI2HouseLabel("$" + Integer.toString(houseRentValues.get(2)));
+                    board.setGUI3HouseLabel("$" + Integer.toString(houseRentValues.get(3)));
+                    board.setGUI4HouseLabel("$" + Integer.toString(houseRentValues.get(4)));
                     board.setGUIHotel("$" + Integer.toString(getRent1Hotel()));
-                    board.setGUIMortgage("$" + Integer.toString(getMortgageValue()));
-                    board.setGUIName(getName());
                 }
             }
 
@@ -154,22 +146,16 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
      *  property, unimproved. */
     @Override
     public int getCost() {
-        return cost;
+        return COST;
     }
 
     // TODO: Javadocs for these.
-    public int getMortgageValue() {
+    public int getMortgage() {
         return mortgageValue;
     }
 
     public int getInitialRent() {
         return initialRent;
-    }
-
-    // TODO: Remove this? It's kind of covered by getRent().
-    /** Get a Map of house numbers to rent values for this PropagandaOutlet. */
-    public Map<Integer, Integer> getHouseRentValues() {
-        return houseRentValues;
     }
 
     public int getRent1Hotel() {
@@ -179,51 +165,4 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
     public int getHouseOrHotelCost() {
         return houseOrHotelCost;
     }
-
-    /** Return the Color associated with this PropagandaOutlet. */
-    public Color getColor() {
-        return color;
-    }
 }
-
-/*
-* Propaganda outlet // A normal board place
-** Fields
-*** Number of Beck's [houses]
-*** TODO Implement the house rules here about buying evenly.
-When you own all the properties in a color-group you may buy houses from the Bank and erect
-them on those properties. If you buy one house, you may put it on any one of those properties.
-The next house you buy must be erected on one of the unimproved properties of this or any
-other complete color-group you may own.
-The price you must pay the Bank for each house is shown on your Title Deed card for the
-property on which you erect the house. The owner still collects double rent from an opponent
-who lands on the unimproved properties of his/her complete color-group. Following the above
-rules, you may buy and erect at any time as many houses as your judgment and financial
-standing will allow. But you must build evenly, i.e., you cannot erect more than one house on
-any one property of any color-group until you have built one house on every property of that
-group. You may then begin on the second row of houses, and so on, up to a limit of four houses
-to a property. For example, you cannot build three houses on one property if you have only one
-house on another property of that group.
-As you build evenly, you must also break down evenly if you sell houses back to the Bank (see
-SELLING PROPERTY).
-*** Number of Fox News's [hotels]
-*** Mortgage value.  // The amount the player can mortgage the property for. Should be a special value for properties the player can't own.
-*** Regular_rent     // How much to pay if this property is un-impr
-*** Rent_per_house   // How much to pay if a house is on this object.
-*** Rent_per_hotel   // How much to pay if a hotel is on this object.
-** Methods
-*** onLand() // One thing: If this outlet is owned by a player, charge rent. Else, allow the player to buy, auction, etc.
-*** onLand [?] // a function that's called when this cell is landed on. Effect will differ depending upon the cell (IE: different for go, properties, utilities, etc) TODO: So if its effect always differs, why would I have it in the parent class?
-***** If it's a property, if noone owns it, onLand should have the effect of allowing the current player to bid on it. If they don't want it, allow other players to buy it at auction.
-Which implies... TODO Implement an auction system where, for example auction() allows every player to bid on the property. Highest bidder gets it, no minimum bid.
-***** After that bidding process, if someone buys it, ownership should transfer accordingly.
-***** Or, if somebody does own it
-****** Transfer money.
-******* If the lot's unimproved:
-******** Are all cards in the group owned by one player?
-********* Yes
-********** Transfer the list price on the card * 2 to the owner
-********* No
-********** Transfer the list price on the card to the owner
-******* Else: (is improved)
-******** Transfer the corresponding amount between players */

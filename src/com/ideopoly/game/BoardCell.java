@@ -2,16 +2,18 @@ package com.ideopoly.game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.*;
 import org.apache.batik.transcoder.image.JPEGTranscoder;
 
 /** A BoardCell represents any of the cells running along the 
- *  outside edge of the game board. Since there are different types
+ *  outside edge of the GameBoard. Since there are different types
  *  of cells running along the outside of the board, we use inheritance
- *  to create classes derived from BoardCells.
+ *  to create a few specific types of BoardCells.
  *
- *  @author Daniel Neel */ // TODO: Improve that crap comment.
+ *  @author Daniel Neel */
 
 // TODO: Need to implement the whole idea of an onLand() method. Should simplify
 //  things considerably.
@@ -34,20 +36,25 @@ public abstract class BoardCell extends JPanel {
     /** The coordinates of this BoardCell in the GUI. */
     private final Point coordinates;
 
+    /** A Color used in the GUI to visually distinguish this BoardCell from others. Purple for
+     * Mediterranean/Baltic, Blue for Boardwalk, etc.*/
+    private final Color color;
+
     /** A set of four positions that players stand on, that refer to this BoardCell. */
     private BoardPosition p1Pos;
     private BoardPosition p2Pos;
     private BoardPosition p3Pos;
     private BoardPosition p4Pos;
 
-    /** Creates a BoardCell object, with the specified name, image path, coordinates, and 
-     *  player standing positions. Does not have an owner. There are no players standing 
-     *  on this object. */
-    public BoardCell(String newName, String imagePath, Point coordinates) {
-        name    = newName;
-        ownedBy = null;
-        image   = new ImageIcon("res/images/" + imagePath);
+    /** Creates a BoardCell object, with the specified name, image, coordinates, color,
+     *  and player standing positions. Does not have an owner. There are no players standing
+     *  on this BoardCell. */
+    public BoardCell(String name, ImageIcon image, Point coordinates, Color color, final GameBoard board) {
+        this.name  = name;
+        ownedBy    = null;
+        this.image = image;
         this.coordinates = coordinates;
+        this.color = color;
 
         if (coordinates.x >= 1 && coordinates.x <= 41 && coordinates.y == 1) {       // Top row.
             p1Pos = new BoardPosition(new Point(coordinates.x + 3, 0));
@@ -75,6 +82,23 @@ public abstract class BoardCell extends JPanel {
         }
 
         add(new JLabel(image));
+
+        // Display information about this BoardCell in the GUI whenever it is moused over.
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                board.setGUIName(BoardCell.this.name);
+
+                if (BoardCell.this instanceof Ownable) {
+                    board.setGUICost("$" + Integer.toString(((Ownable) BoardCell.this).getCost()));
+                    board.setGUIMortgage("$" + Integer.toString(((Ownable) BoardCell.this).getMortgage()));
+                }
+                else {
+                    board.setGUICost("-");
+                    board.setGUIMortgage("-");
+                }
+            }
+        });
     }
 
     // TODO Make this abstract, and have all sub-classes implement it?
@@ -175,12 +199,17 @@ public abstract class BoardCell extends JPanel {
             // And lastly, delete the file.
             File f = new File("temp.svg");
 
-            if (f.delete() == false) {
+            if (!f.delete()) {
                 System.out.println("Error: SVG file does not exist.");
             }
         } catch (Exception e) {
             System.out.println("Exception: " + e);
         }
+    }
+
+    /** Get the Color associated with this BoardCell. */
+    public Color getColor() {
+        return color;
     }
 
     // TODO: Make creative alternatives to jail/free parking

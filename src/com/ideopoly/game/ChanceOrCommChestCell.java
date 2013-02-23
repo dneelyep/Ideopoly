@@ -1,26 +1,28 @@
 package com.ideopoly.game;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /** Represents a Chance or Community Chest
- *  cell on the game board. */
+ *  cell on the game board.
+ *
+ *  @author Daniel Neel */
 // TODO: More concise name for this class.
 public class ChanceOrCommChestCell extends BoardCell {
     // TODO: Add a test class and tests.
     /** Create a new ChanceOrCommChestCell with a given
      *  name, image, and x/y coordinates on the board.*/
     public ChanceOrCommChestCell(String newName, String imagePath, Point coordinates, final GameBoard board) {
-        super(newName, imagePath, coordinates); // Use the BoardCell class' constructor.
+        super(newName, new ImageIcon("res/images/" + imagePath), coordinates, Color.WHITE, board);
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 // TODO Make this a unique color rather than sharing the same color with free parking/etc.
                 // TODO: Remove the labels when we mouse over an un-ownable property?
                 if (board.getFocusedCell() == null) {
-                    board.setGUIColor(Color.WHITE);
-                    board.setGUICost("-");
+                    board.setGUIColor(ChanceOrCommChestCell.this.getColor());
                     board.setGUIHouseHotelCost("-");
                     board.setGUIRent("-");
                     board.setGUI1HouseLabel("-");
@@ -28,8 +30,6 @@ public class ChanceOrCommChestCell extends BoardCell {
                     board.setGUI3HouseLabel("-");
                     board.setGUI4HouseLabel("-");
                     board.setGUIHotel("-");
-                    board.setGUIMortgage("-");
-                    board.setGUIName(getName());
                 }
             }
         });
