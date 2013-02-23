@@ -18,29 +18,12 @@ public class UtilityCell extends BoardCell implements Ownable {
     private final int MORTGAGE = 75;
 
     /** Status of this UtilityCell's ownership. If true, a Player owns the property. */
-    private boolean owned;
+    private boolean owned = false;
 
     /** Create a new UtilityCell with a given name,
      *  image, and x/y coordinates on the board.*/
     public UtilityCell(String newName, String imagePath, Point coordinates, final GameBoard board) {
         super(newName, new ImageIcon("res/images/" + imagePath), coordinates, Color.GRAY, board); // Use the BoardCell class' constructor.
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                if (board.getFocusedCell() == null) {
-                    board.setGUIColor(UtilityCell.this.getColor());
-                    // TODO: Fill in these things.
-                    // board.setGUIHouseHotelCost.setText("$" + Integer.toString(u.getHouseOrHotelCost()));
-                    // board.setGUIRent("$" + Integer.toString(u.getInitialRent()));
-                    // board.setGUI1House.setText("$" + Integer.toString(u.getRent1House()));
-                    // board.setGUI2House.setText("$" + Integer.toString(u.getRent2House()));
-                    // board.setGUI3House.setText("$" + Integer.toString(u.getRent3House()));
-                    // board.setGUI4House.setText("$" + Integer.toString(u.getRent4House()));
-                    // board.setGUIHotel.setText ("$" + Integer.toString(u.getRent1Hotel()));
-                }
-            }
-        });
-        owned = false;
     }
 
     /** Returns the cost for a Player to buy this 

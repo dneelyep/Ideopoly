@@ -88,14 +88,38 @@ public abstract class BoardCell extends JPanel {
             @Override
             public void mouseEntered(MouseEvent e) {
                 board.setGUIName(BoardCell.this.name);
+                board.setGUIColor(BoardCell.this.color);
 
+                // TODO: For railroads, change the gui text to 1RR/2RRs/etc.
+                //       where houses would be displayed.
+                // TODO: Remove the labels when we mouse over an un-ownable property?
                 if (BoardCell.this instanceof Ownable) {
                     board.setGUICost("$" + Integer.toString(((Ownable) BoardCell.this).getCost()));
                     board.setGUIMortgage("$" + Integer.toString(((Ownable) BoardCell.this).getMortgage()));
+                    board.setGUIRent("$" + Integer.toString(((Ownable) BoardCell.this).getRent()));
                 }
                 else {
                     board.setGUICost("-");
                     board.setGUIMortgage("-");
+                    board.setGUIRent("-");
+                }
+
+                // TODO Fold this into above conditional.
+                if (BoardCell.this instanceof PropagandaOutlet) {
+                    board.setGUI1HouseLabel("$" + Integer.toString(((PropagandaOutlet) BoardCell.this).getHouseRentValues().get(1)));
+                    board.setGUI2HouseLabel("$" + Integer.toString(((PropagandaOutlet) BoardCell.this).getHouseRentValues().get(2)));
+                    board.setGUI3HouseLabel("$" + Integer.toString(((PropagandaOutlet) BoardCell.this).getHouseRentValues().get(3)));
+                    board.setGUI4HouseLabel("$" + Integer.toString(((PropagandaOutlet) BoardCell.this).getHouseRentValues().get(4)));
+                    board.setGUIHouseHotelCost("$" + Integer.toString(((PropagandaOutlet) BoardCell.this).getHouseOrHotelCost()));
+                    board.setGUIHotel("$" + Integer.toString(((PropagandaOutlet) BoardCell.this).getRent1Hotel()));
+                }
+                else {
+                    board.setGUI1HouseLabel("-");
+                    board.setGUI2HouseLabel("-");
+                    board.setGUI3HouseLabel("-");
+                    board.setGUI4HouseLabel("-");
+                    board.setGUIHouseHotelCost("-");
+                    board.setGUIHotel("-");
                 }
             }
         });

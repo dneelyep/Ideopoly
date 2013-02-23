@@ -22,29 +22,11 @@ public class Railroad extends BoardCell implements Ownable {
     private static final int MORTGAGEVALUE = 100;
 
     /** Status of this Railroad's ownership. If true, a Player owns the property. */
-    private boolean owned;
+    private boolean owned = false;
 
     /** Create a new Railroad with a given name, image, and no owner. */
     public Railroad(String newName, String imagePath, Point coordinates, final GameBoard board) {
         super(newName, new ImageIcon("res/images/" + imagePath), coordinates, Color.BLACK, board);
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                if (board.getFocusedCell() == null) {
-                    board.setGUIColor(Railroad.this.getColor());
-                    // TODO: Change the gui text to 1RR/2RRs/etc. maybe
-                    //       where houses would be displayed.
-                    board.setGUIRent("$" + getRent());
-                    // TODO: Combine the unownable/can't buy parts? Reduce a bit of duplication.
-                    board.setGUI1HouseLabel("-");
-                    board.setGUI2HouseLabel("-");
-                    board.setGUI3HouseLabel("-");
-                    board.setGUI4HouseLabel("-");
-                    board.setGUIHotel("-");
-                }
-            }
-        });
-        owned = false;
     }
 
     /** Returns the cost for a Player to buy this 

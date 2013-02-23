@@ -36,7 +36,8 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
     // TODO: Is there a formula that can calculate rent per house/hotel?
     /** A map of house numbers to the rent value. For example, the rent for this PropagandaOutlet
      * might be $x with 2 houses present. */
-    private Map<Integer, Integer> houseRentValues = new LinkedHashMap<>(4);
+    // TODO Also include Hotel costs in this map? And make it a map from strings or an enum to integer.
+     private Map<Integer, Integer> houseRentValues = new LinkedHashMap<>(4);
 
     /** How much rent costs with a hotel present on this property. */
     private int rent1Hotel;
@@ -46,7 +47,7 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
     private int houseOrHotelCost;
 
     /** Status of this PropagandaOutlet's ownership. If true, a Player owns the property. */
-    private boolean owned;
+    private boolean owned = false;
 
     /** Create a new propaganda outlet with a given name, image, no owner,
      *  no houses/hotels and the given rent per no house, 1/2/3/4 houses/hotels,
@@ -65,7 +66,6 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
         numHotels	    = 0;
         COST            = newCost;
         mortgageValue	= newCost / 2; // Mortgage prices are half the price to buy the property.
-        owned           = false;
 
         initialRent	     = newInitialRent;
         houseRentValues.put(1, newRent1House);
@@ -75,20 +75,6 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
         rent1Hotel	     = newRent1Hotel;
         houseOrHotelCost = newHouseOrHotelCost;
         addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                if (board.getFocusedCell() == null) {
-                    board.setGUIColor(PropagandaOutlet.this.getColor());
-                    board.setGUIHouseHotelCost("$" + Integer.toString(getHouseOrHotelCost()));
-                    board.setGUIRent("$" + Integer.toString(getInitialRent()));
-                    board.setGUI1HouseLabel("$" + Integer.toString(houseRentValues.get(1)));
-                    board.setGUI2HouseLabel("$" + Integer.toString(houseRentValues.get(2)));
-                    board.setGUI3HouseLabel("$" + Integer.toString(houseRentValues.get(3)));
-                    board.setGUI4HouseLabel("$" + Integer.toString(houseRentValues.get(4)));
-                    board.setGUIHotel("$" + Integer.toString(getRent1Hotel()));
-                }
-            }
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (board.getFocusedCell() == null) {
@@ -133,6 +119,10 @@ public class PropagandaOutlet extends BoardCell implements Ownable {
 
         else // Error state.
             return -1;
+    }
+
+    public Map<Integer, Integer> getHouseRentValues() {
+        return houseRentValues;
     }
 
     /** Return whether or not this UtilityCell is 
