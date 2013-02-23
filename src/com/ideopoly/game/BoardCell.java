@@ -105,6 +105,7 @@ public abstract class BoardCell extends JPanel {
                 }
 
                 // TODO Fold this into above conditional.
+                // TODO Add a propertyComponents data structure to GameBoard that I can iterate over.
                 if (BoardCell.this instanceof PropagandaOutlet) {
                     board.setGUI1HouseLabel("$" + Integer.toString(((PropagandaOutlet) BoardCell.this).getHouseRentValues().get(1)));
                     board.setGUI2HouseLabel("$" + Integer.toString(((PropagandaOutlet) BoardCell.this).getHouseRentValues().get(2)));
@@ -147,12 +148,6 @@ public abstract class BoardCell extends JPanel {
     public Point getCoordinates() {
         return coordinates;
     }
-
-    // TODO: Look into abstract methods and classes for this part. It looks like those techniques
-    // might help me solve this problem.
-    // See this: http://www.cafeaulait.org/javafaq.html#xtocid2672631t
-    /** Get the amount of rent charged for landing on this cell. */
-    public abstract int getRent();
 
     // TODO: So on abstract methods, the basic idea is that the superclass provides
     // a method but no implementation, and all sub-classes provide the implementations.

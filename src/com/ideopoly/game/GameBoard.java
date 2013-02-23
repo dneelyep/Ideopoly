@@ -498,6 +498,7 @@ public class GameBoard {
             // Regular move. Here the Player should have not overshot Go or landed on any
             // position-changing cells (Go to Jail, Chance, etc.). The Player has landed on
             // an ownable BoardCell.
+            // TODO Add checks to see if the property is ownable or not.
             else {
                 p.setCell(boardProperties.get(landingSpot));
 
@@ -531,14 +532,14 @@ public class GameBoard {
 
                 // A player owns the property.
                 else {
-                    printStatusAndLog(p.getName() + " pays " + p.getCell().getOwner().getName() + "$" + Integer.toString(p.getCell().getRent()));
+                    printStatusAndLog(p.getName() + " pays " + p.getCell().getOwner().getName() + "$" + Integer.toString(((Ownable) p.getCell()).getRent()));
 
                     // Disable button when the human player lands on an owned property.
                     if (p == player1)
                         buyProperty.setEnabled(false);
 
                     // Charge the player appropriately.
-                    p.makePayment(p.getCell().getOwner(), p.getCell().getRent(), this);
+                    p.makePayment(p.getCell().getOwner(), ((Ownable) p.getCell()).getRent(), this);
                 }
             }
 

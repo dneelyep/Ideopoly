@@ -5,8 +5,6 @@ package com.ideopoly.game;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 /** Represents any of the four railroads.
  *

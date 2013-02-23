@@ -22,8 +22,8 @@ public class SpecialCell extends BoardCell {
     /** Get the amount of rent charged for landing on this cell.
      *  Since the Player is not charged for landing on any SpecialCells,
      *  we return 0 for the amount. */
-    @Override
-    public int getRent() {
-        return 0;
-    }
+    //@Override
+//    public int getRent() {
+//        return 0;
+//    }
 }
